@@ -1,0 +1,970 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='web开发模式  DAO层 对数据库的增删改查 web层 界面（jsp）加控制器（servlrt） service层 执行多个或一个dao层操作，并将其组合成一个完整的业务逻辑 控制层 使用servlet进行控制 数据访问层 使用DAO、Hibernate、JDBC等技术实现对数据库的增删改查 javaBean 用于封装数据  MVC M模型（model） 模型就是 包括 dao，bean
+V 视图（view） 视图jsp，用于向用户展示模型中的数据
+C 控制（controller） 控制器负责将 模型 中的 数据 显示在不同的 显示层 之中
+早期MVC模式（mode1） 模式一：将显示层、控制层、数据层的操作同意交给jsp或者JavaBean来处理
+前端用户请求 -&amp;gt; jsp -&amp;gt; javaBean -&amp;gt; 数据库jsp和html、java类（javaBean）高度耦合。
+早期MVC模式（mode2） 模式二：以servlet为主展开，由servlet接收客户端的请求，根据请求调用对应的JavaBean或其他程序，最后将要现实的结果交给jsp完成。
+前端用户请求 -&amp;gt; jsp -&amp;gt; servlet -&amp;gt; javaBean -&amp;gt; 数据库SpringMVC 用户请求 -&amp;gt; Spring控制器 -&amp;gt; 夹带事务的模型（业务层，数据访问层）-&amp;gt;数据库传统模型层被拆分为（业务层和数据访问层）
+ 需要的jar包 spring-web-*.jar spring-webmvc-*.jar    修改web.xml中的
+&amp;lt;servlet&amp;gt; &amp;lt;servlet-name&amp;gt;dispatcher&amp;lt;/servlet-name&amp;gt; &amp;lt;servlet-class&amp;gt;org.springframework.web.servlet.DispatcherServlet&amp;lt;/servlet-class&amp;gt; &amp;lt;/servlet&amp;gt; &amp;lt;servlet-mapping&amp;gt; &amp;lt;servlet-name&amp;gt;dispatcher&amp;lt;/servlet-name&amp;gt; &amp;lt;url-pattern&amp;gt;/&amp;lt;/url-pattern&amp;gt; &amp;lt;/servlet-mapping&amp;gt;   将拦截地址改为/拦截所有请求，并交给SpringMVC的后台控制器来完成'><title>SpringMvc替换传统MVC</title>
+
+<link rel='canonical' href='https://example.com/p/springmvc%E6%9B%BF%E6%8D%A2%E4%BC%A0%E7%BB%9Fmvc/'>
+
+<link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content='SpringMvc替换传统MVC'>
+<meta property='og:description' content='web开发模式  DAO层 对数据库的增删改查 web层 界面（jsp）加控制器（servlrt） service层 执行多个或一个dao层操作，并将其组合成一个完整的业务逻辑 控制层 使用servlet进行控制 数据访问层 使用DAO、Hibernate、JDBC等技术实现对数据库的增删改查 javaBean 用于封装数据  MVC M模型（model） 模型就是 包括 dao，bean
+V 视图（view） 视图jsp，用于向用户展示模型中的数据
+C 控制（controller） 控制器负责将 模型 中的 数据 显示在不同的 显示层 之中
+早期MVC模式（mode1） 模式一：将显示层、控制层、数据层的操作同意交给jsp或者JavaBean来处理
+前端用户请求 -&amp;gt; jsp -&amp;gt; javaBean -&amp;gt; 数据库jsp和html、java类（javaBean）高度耦合。
+早期MVC模式（mode2） 模式二：以servlet为主展开，由servlet接收客户端的请求，根据请求调用对应的JavaBean或其他程序，最后将要现实的结果交给jsp完成。
+前端用户请求 -&amp;gt; jsp -&amp;gt; servlet -&amp;gt; javaBean -&amp;gt; 数据库SpringMVC 用户请求 -&amp;gt; Spring控制器 -&amp;gt; 夹带事务的模型（业务层，数据访问层）-&amp;gt;数据库传统模型层被拆分为（业务层和数据访问层）
+ 需要的jar包 spring-web-*.jar spring-webmvc-*.jar    修改web.xml中的
+&amp;lt;servlet&amp;gt; &amp;lt;servlet-name&amp;gt;dispatcher&amp;lt;/servlet-name&amp;gt; &amp;lt;servlet-class&amp;gt;org.springframework.web.servlet.DispatcherServlet&amp;lt;/servlet-class&amp;gt; &amp;lt;/servlet&amp;gt; &amp;lt;servlet-mapping&amp;gt; &amp;lt;servlet-name&amp;gt;dispatcher&amp;lt;/servlet-name&amp;gt; &amp;lt;url-pattern&amp;gt;/&amp;lt;/url-pattern&amp;gt; &amp;lt;/servlet-mapping&amp;gt;   将拦截地址改为/拦截所有请求，并交给SpringMVC的后台控制器来完成'>
+<meta property='og:url' content='https://example.com/p/springmvc%E6%9B%BF%E6%8D%A2%E4%BC%A0%E7%BB%9Fmvc/'>
+<meta property='og:site_name' content='ybakiame的个人博客'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='JavaWeb' /><meta property='article:tag' content='Spring' /><meta property='article:published_time' content='2021-05-11T15:29:19&#43;08:00'/><meta property='article:modified_time' content='2021-05-11T15:29:19&#43;08:00'/>
+<meta name="twitter:title" content="SpringMvc替换传统MVC">
+<meta name="twitter:description" content="web开发模式  DAO层 对数据库的增删改查 web层 界面（jsp）加控制器（servlrt） service层 执行多个或一个dao层操作，并将其组合成一个完整的业务逻辑 控制层 使用servlet进行控制 数据访问层 使用DAO、Hibernate、JDBC等技术实现对数据库的增删改查 javaBean 用于封装数据  MVC M模型（model） 模型就是 包括 dao，bean
+V 视图（view） 视图jsp，用于向用户展示模型中的数据
+C 控制（controller） 控制器负责将 模型 中的 数据 显示在不同的 显示层 之中
+早期MVC模式（mode1） 模式一：将显示层、控制层、数据层的操作同意交给jsp或者JavaBean来处理
+前端用户请求 -&amp;gt; jsp -&amp;gt; javaBean -&amp;gt; 数据库jsp和html、java类（javaBean）高度耦合。
+早期MVC模式（mode2） 模式二：以servlet为主展开，由servlet接收客户端的请求，根据请求调用对应的JavaBean或其他程序，最后将要现实的结果交给jsp完成。
+前端用户请求 -&amp;gt; jsp -&amp;gt; servlet -&amp;gt; javaBean -&amp;gt; 数据库SpringMVC 用户请求 -&amp;gt; Spring控制器 -&amp;gt; 夹带事务的模型（业务层，数据访问层）-&amp;gt;数据库传统模型层被拆分为（业务层和数据访问层）
+ 需要的jar包 spring-web-*.jar spring-webmvc-*.jar    修改web.xml中的
+&amp;lt;servlet&amp;gt; &amp;lt;servlet-name&amp;gt;dispatcher&amp;lt;/servlet-name&amp;gt; &amp;lt;servlet-class&amp;gt;org.springframework.web.servlet.DispatcherServlet&amp;lt;/servlet-class&amp;gt; &amp;lt;/servlet&amp;gt; &amp;lt;servlet-mapping&amp;gt; &amp;lt;servlet-name&amp;gt;dispatcher&amp;lt;/servlet-name&amp;gt; &amp;lt;url-pattern&amp;gt;/&amp;lt;/url-pattern&amp;gt; &amp;lt;/servlet-mapping&amp;gt;   将拦截地址改为/拦截所有请求，并交给SpringMVC的后台控制器来完成">
+    </head>
+    <body class="
+    article-page has-toc
+">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex 
+    
+        extended
+    
+">
+    
+        <div id="article-toolbar">
+            <a href="https://example.com" class="back-home">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="15 6 9 12 15 18" />
+</svg>
+
+
+
+                <span>返回</span>
+            </a>
+        </div>
+    
+<main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/%E5%AD%A6%E4%B9%A0/" >
+                学习
+            </a>
+        
+    </header>
+    
+
+    <h2 class="article-title">
+        <a href="/p/springmvc%E6%9B%BF%E6%8D%A2%E4%BC%A0%E7%BB%9Fmvc/">SpringMvc替换传统MVC</a>
+    </h2>
+
+    <footer class="article-time">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+        <time class="article-time--published">May 11, 2021</time>
+    </footer></div>
+</header>
+
+    <section class="article-content">
+    <h2 id="web开发模式">web开发模式</h2>
+<ul>
+<li>DAO层 对数据库的增删改查</li>
+<li>web层 界面（jsp）加控制器（servlrt）</li>
+<li>service层 执行多个或一个dao层操作，并将其组合成一个完整的业务逻辑</li>
+<li>控制层 使用servlet进行控制</li>
+<li>数据访问层 使用DAO、Hibernate、JDBC等技术实现对数据库的增删改查</li>
+<li>javaBean 用于封装数据</li>
+</ul>
+<h3 id="mvc">MVC</h3>
+<h4 id="m模型model">M模型（model）</h4>
+<p>模型就是 包括 dao，bean</p>
+<h4 id="v-视图view">V 视图（view）</h4>
+<p>视图<code>jsp</code>，用于向用户展示模型中的数据</p>
+<h4 id="c-控制controller">C 控制（controller）</h4>
+<p>控制器负责将 模型 中的 数据 显示在不同的 显示层 之中</p>
+<h3 id="早期mvc模式mode1">早期MVC模式（mode1）</h3>
+<p>模式一：将显示层、控制层、数据层的操作同意交给<code>jsp</code>或者JavaBean来处理</p>
+<p><!-- raw HTML omitted -->前端用户请求 -&gt;  jsp  -&gt;  javaBean -&gt; 数据库<!-- raw HTML omitted --></p>
+<p>jsp和html、java类（javaBean）高度耦合。</p>
+<h3 id="早期mvc模式mode2">早期MVC模式（mode2）</h3>
+<p>模式二：以servlet为主展开，由servlet接收客户端的请求，根据请求调用对应的JavaBean或其他程序，最后将要现实的结果交给jsp完成。</p>
+<p><!-- raw HTML omitted -->前端用户请求 -&gt; jsp -&gt; servlet -&gt; javaBean -&gt; 数据库<!-- raw HTML omitted --></p>
+<h3 id="springmvc">SpringMVC</h3>
+<p><!-- raw HTML omitted -->用户请求 -&gt; Spring控制器 -&gt; 夹带事务的模型（业务层，数据访问层）-&gt;数据库<!-- raw HTML omitted --></p>
+<p>传统模型层被拆分为（业务层和数据访问层）</p>
+<ul>
+<li>需要的jar包</li>
+<li><code>spring-web-*.jar spring-webmvc-*.jar</code></li>
+</ul>
+<ol>
+<li>
+<p>修改<code>web.xml</code>中的</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="nt">&lt;servlet&gt;</span>
+    <span class="nt">&lt;servlet-name&gt;</span>dispatcher<span class="nt">&lt;/servlet-name&gt;</span>
+    <span class="nt">&lt;servlet-class&gt;</span>org.springframework.web.servlet.DispatcherServlet<span class="nt">&lt;/servlet-class&gt;</span>
+<span class="nt">&lt;/servlet&gt;</span>
+
+<span class="nt">&lt;servlet-mapping&gt;</span>
+    <span class="nt">&lt;servlet-name&gt;</span>dispatcher<span class="nt">&lt;/servlet-name&gt;</span>
+    <span class="nt">&lt;url-pattern&gt;</span>/<span class="nt">&lt;/url-pattern&gt;</span>
+<span class="nt">&lt;/servlet-mapping&gt;</span>
+</code></pre></div></li>
+<li>
+<p>将拦截地址改为<code>/</code>拦截所有请求，并交给SpringMVC的后台控制器来完成</p>
+</li>
+<li>
+<p>编辑springMVC映射文件<code>dispatcher-sevlet.xml</code>(位于WEB-INF目录下)，</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="cp">&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;</span>
+<span class="nt">&lt;beans</span> <span class="na">xmlns=</span><span class="s">&#34;http://www.springframework.org/schema/beans&#34;</span>
+       <span class="na">xmlns:xsi=</span><span class="s">&#34;http://www.w3.org/2001/XMLSchema-instance&#34;</span>
+       <span class="na">xsi:schemaLocation=</span><span class="s">&#34;http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd&#34;</span><span class="nt">&gt;</span>
+
+    <span class="nt">&lt;bean</span> <span class="na">id=</span><span class="s">&#34;simpleUrlHandlerMapping&#34;</span>
+          <span class="na">class=</span><span class="s">&#34;org.springframework.web.servlet.handler.SimpleUrlHandlerMapping&#34;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&#34;mappings&#34;</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;props&gt;</span>
+                <span class="c">&lt;!-- /hello 路径的请求交给 id 为 helloController 的控制器处理--&gt;</span>
+                <span class="nt">&lt;prop</span> <span class="na">key=</span><span class="s">&#34;/hello&#34;</span><span class="nt">&gt;</span>helloController<span class="nt">&lt;/prop&gt;</span>
+            <span class="nt">&lt;/props&gt;</span>
+        <span class="nt">&lt;/property&gt;</span>
+    <span class="nt">&lt;/bean&gt;</span>
+    <span class="nt">&lt;bean</span> <span class="na">id=</span><span class="s">&#34;helloController&#34;</span> <span class="na">class=</span><span class="s">&#34;controller.HelloController&#34;</span><span class="nt">&gt;&lt;/bean&gt;</span>
+<span class="nt">&lt;/beans&gt;</span>
+</code></pre></div></li>
+<li>
+<p>修改<code>&lt;prop key=&quot;请求路径&quot;&gt;控制器名&lt;/prop&gt;</code> //将请求路径的请求发送给对应的控制器处理</p>
+</li>
+<li>
+<p>编写控制器（放在<code>controller</code>包下）需要实现Controller(org.springfamework.web.servlet.mvc.Controller)接口</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">controller</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">org.springframework.web.servlet.ModelAndView</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.web.servlet.mvc.Controller</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">HelloController</span> <span class="kd">implements</span> <span class="n">Controller</span> <span class="o">{</span>
+
+    <span class="kd">public</span> <span class="n">ModelAndView</span> <span class="nf">handleRequest</span><span class="o">(</span><span class="n">javax</span><span class="o">.</span><span class="na">servlet</span><span class="o">.</span><span class="na">http</span><span class="o">.</span><span class="na">HttpServletRequest</span> <span class="n">httpServletRequest</span><span class="o">,</span> <span class="n">javax</span><span class="o">.</span><span class="na">servlet</span><span class="o">.</span><span class="na">http</span><span class="o">.</span><span class="na">HttpServletResponse</span> <span class="n">httpServletResponse</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+        <span class="n">ModelAndView</span> <span class="n">mav</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ModelAndView</span><span class="o">(</span><span class="s">&#34;index.jsp&#34;</span><span class="o">);</span>
+        <span class="n">mav</span><span class="o">.</span><span class="na">addObject</span><span class="o">(</span><span class="s">&#34;message&#34;</span><span class="o">,</span> <span class="s">&#34;Hello Spring MVC&#34;</span><span class="o">);</span>
+        <span class="k">return</span> <span class="n">mav</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><ol start="2">
+<li>SpringMvc使用ModeAndView将模型和视图结合在一起。视图是（index.jsp）数据模型是message，内容是 Hello SpringMvc</li>
+</ol>
+</li>
+</ol>
+<h2 id="跟踪-spring-mvc-的请求">跟踪 Spring MVC 的请求</h2>
+<p>每当用户在 Web 浏览器中点击链接或者提交表单的时候，请求就开始工作了，像是邮递员一样，从离开浏览器开始到获取响应返回，它会经历很多站点，在每一个站点都会留下一些信息同时也会带上其他信息，下图为 Spring MVC 的请求流程：</p>
+<p><img src="https:////upload-images.jianshu.io/upload_images/7896890-65ef874ad7da59a2.png?imageMogr2/auto-orient/strip%7cimageView2/2/w/784/format/webp" alt="img"  /></p>
+<h4 id="第一站dispatcherservlet">第一站：DispatcherServlet</h4>
+<p>从请求离开浏览器以后，第一站到达的就是 DispatcherServlet，看名字这是一个 Servlet，通过 J2EE 的学习，我们知道 Servlet 可以拦截并处理 HTTP 请求，DispatcherServlet 会拦截所有的请求，并且将这些请求发送给 Spring MVC 控制器。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="nt">&lt;servlet&gt;</span>
+    <span class="nt">&lt;servlet-name&gt;</span>dispatcher<span class="nt">&lt;/servlet-name&gt;</span>
+    <span class="nt">&lt;servlet-class&gt;</span>org.springframework.web.servlet.DispatcherServlet<span class="nt">&lt;/servlet-class&gt;</span>
+    <span class="nt">&lt;load-on-startup&gt;</span>1<span class="nt">&lt;/load-on-startup&gt;</span>
+<span class="nt">&lt;/servlet&gt;</span>
+<span class="nt">&lt;servlet-mapping&gt;</span>
+    <span class="nt">&lt;servlet-name&gt;</span>dispatcher<span class="nt">&lt;/servlet-name&gt;</span>
+    <span class="c">&lt;!-- 拦截所有的请求 --&gt;</span>
+    <span class="nt">&lt;url-pattern&gt;</span>/<span class="nt">&lt;/url-pattern&gt;</span>
+<span class="nt">&lt;/servlet-mapping&gt;</span>
+</code></pre></div><ul>
+<li><strong>DispatcherServlet 的任务就是拦截请求发送给 Spring MVC 控制器。</strong></li>
+</ul>
+<h4 id="第二站处理器映射handlermapping">第二站：处理器映射（HandlerMapping）</h4>
+<ul>
+<li><strong>问题：</strong> 典型的应用程序中可能会有多个控制器，这些请求到底应该发给哪一个控制器呢？</li>
+</ul>
+<p>所以 DispatcherServlet 会查询一个或多个处理器映射来确定请求的下一站在哪里，处理器映射会<strong>根据请求所携带的 URL 信息来进行决策</strong>，例如上面的例子中，我们通过配置 simpleUrlHandlerMapping 来将 /hello 地址交给 helloController 处理：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-jsx" data-lang="jsx"><span class="p">&lt;</span><span class="nt">bean</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;simpleUrlHandlerMapping&#34;</span>
+      <span class="na">class</span><span class="o">=</span><span class="s">&#34;org.springframework.web.servlet.handler.SimpleUrlHandlerMapping&#34;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">property</span> <span class="na">name</span><span class="o">=</span><span class="s">&#34;mappings&#34;</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">props</span><span class="p">&gt;</span>
+            <span class="c">&lt;!--</span> <span class="o">/</span><span class="nx">hello</span> <span class="nx">路径的请求交给</span> <span class="nx">id</span> <span class="nx">为</span> <span class="nx">helloController</span> <span class="nx">的控制器处理</span><span class="o">--&gt;</span>
+            <span class="p">&lt;</span><span class="nt">prop</span> <span class="na">key</span><span class="o">=</span><span class="s">&#34;/hello&#34;</span><span class="p">&gt;</span><span class="nx">helloController</span><span class="p">&lt;/</span><span class="nt">prop</span><span class="p">&gt;</span>
+        <span class="p">&lt;/</span><span class="nt">props</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">property</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">bean</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">bean</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;helloController&#34;</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;controller.HelloController&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">bean</span><span class="p">&gt;</span>
+</code></pre></div><h4 id="第三站控制器">第三站：控制器</h4>
+<p>一旦选择了合适的控制器， DispatcherServlet 会将请求发送给选中的控制器，到了控制器，请求会卸下其负载（用户提交的请求）等待控制器处理完这些信息：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="n">ModelAndView</span> <span class="nf">handleRequest</span><span class="o">(</span><span class="n">javax</span><span class="o">.</span><span class="na">servlet</span><span class="o">.</span><span class="na">http</span><span class="o">.</span><span class="na">HttpServletRequest</span> <span class="n">httpServletRequest</span><span class="o">,</span> <span class="n">javax</span><span class="o">.</span><span class="na">servlet</span><span class="o">.</span><span class="na">http</span><span class="o">.</span><span class="na">HttpServletResponse</span> <span class="n">httpServletResponse</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+    <span class="c1">// 处理逻辑
+</span><span class="c1"></span>    <span class="o">....</span>
+<span class="o">}</span>
+</code></pre></div><h4 id="第四站返回-dispatcherservlet">第四站：返回 DispatcherServlet</h4>
+<p>当控制器在完成逻辑处理后，通常会产生一些信息，这些信息就是需要返回给用户并在浏览器上显示的信息，它们被称为<strong>模型（Model）</strong>。仅仅返回原始的信息时不够的——这些信息需要以用户友好的方式进行格式化，一般会是 HTML，所以，信息需要发送给一个<strong>视图（view）</strong>，通常会是 JSP。</p>
+<p>控制器所做的最后一件事就是将模型数据打包，并且表示出用于渲染输出的视图名**（逻辑视图名）。它接下来会将请求连同模型和视图名发送回 DispatcherServlet。**</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="n">ModelAndView</span> <span class="nf">handleRequest</span><span class="o">(</span><span class="n">javax</span><span class="o">.</span><span class="na">servlet</span><span class="o">.</span><span class="na">http</span><span class="o">.</span><span class="na">HttpServletRequest</span> <span class="n">httpServletRequest</span><span class="o">,</span> <span class="n">javax</span><span class="o">.</span><span class="na">servlet</span><span class="o">.</span><span class="na">http</span><span class="o">.</span><span class="na">HttpServletResponse</span> <span class="n">httpServletResponse</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+    <span class="c1">// 处理逻辑
+</span><span class="c1"></span>    <span class="o">....</span>
+    <span class="c1">// 返回给 DispatcherServlet
+</span><span class="c1"></span>    <span class="k">return</span> <span class="n">mav</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div><h4 id="第五站视图解析器">第五站：视图解析器</h4>
+<p>这样以来，控制器就不会和特定的视图相耦合，传递给 DispatcherServlet 的视图名并不直接表示某个特定的 JSP。（实际上，它甚至不能确定视图就是 JSP）相反，<strong>它传递的仅仅是一个逻辑名称，这个名称将会用来查找产生结果的真正视图。</strong></p>
+<p>DispatcherServlet 将会使用视图解析器（view resolver）来将逻辑视图名匹配为一个特定的视图实现，它可能是也可能不是 JSP</p>
+<blockquote>
+<p>上面的例子是直接绑定到了 index.jsp 视图</p>
+</blockquote>
+<h4 id="第六站视图">第六站：视图</h4>
+<p>既然 DispatcherServlet 已经知道由哪个视图渲染结果了，那请求的任务基本上也就完成了。</p>
+<p>它的最后一站是视图的实现，在这里它交付模型数据，请求的任务也就完成了。视图使用模型数据渲染出结果，这个输出结果会通过响应对象传递给客户端。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="err">&lt;</span>%@ page language=&#34;java&#34; contentType=&#34;text/html; charset=UTF-8&#34;
+         pageEncoding=&#34;UTF-8&#34; isELIgnored=&#34;false&#34;%&gt;
+
+<span class="nt">&lt;h1&gt;</span>${message}<span class="nt">&lt;/h1&gt;</span>
+</code></pre></div><hr>
+<h2 id="使用注解配置-spring-mvc">使用注解配置 Spring MVC</h2>
+<p>上面我们已经对 Spring MVC 有了一定的了解，并且通过 XML 配置的方式创建了第一个 Spring MVC 程序，我们来看看基于注解应该怎么完成上述程序的配置：</p>
+<h4 id="第一步为-hellocontroller-添加注解">第一步：为 HelloController 添加注解</h4>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">controller</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">org.springframework.web.bind.annotation.RequestMapping</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.web.servlet.ModelAndView</span><span class="o">;</span>
+
+<span class="nd">@Controller</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">HelloController</span><span class="o">{</span>
+
+    <span class="nd">@RequestMapping</span><span class="o">(</span><span class="s">&#34;/hello&#34;</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="n">ModelAndView</span> <span class="nf">handleRequest</span><span class="o">(</span><span class="n">javax</span><span class="o">.</span><span class="na">servlet</span><span class="o">.</span><span class="na">http</span><span class="o">.</span><span class="na">HttpServletRequest</span> <span class="n">httpServletRequest</span><span class="o">,</span> <span class="n">javax</span><span class="o">.</span><span class="na">servlet</span><span class="o">.</span><span class="na">http</span><span class="o">.</span><span class="na">HttpServletResponse</span> <span class="n">httpServletResponse</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+        <span class="n">ModelAndView</span> <span class="n">mav</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ModelAndView</span><span class="o">(</span><span class="s">&#34;index.jsp&#34;</span><span class="o">);</span>
+        <span class="n">mav</span><span class="o">.</span><span class="na">addObject</span><span class="o">(</span><span class="s">&#34;message&#34;</span><span class="o">,</span> <span class="s">&#34;Hello Spring MVC&#34;</span><span class="o">);</span>
+        <span class="k">return</span> <span class="n">mav</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p>把实现的接口也给去掉。</p>
+<ul>
+<li><strong>简单解释一下：</strong></li>
+<li><code>@Controller</code> 注解：
+很明显，这个注解是用来声明控制器的，但实际上这个注解对 Spring MVC 本身的影响并不大。（Spring 实战说它仅仅是辅助实现组件扫描，可以用 <code>@Component</code> 注解代替，但我自己尝试了一下并不行，因为上述例子没有配置 JSP 视图解析器我还自己配了一个仍没有成功&hellip;）</li>
+<li><code>@RequestMapping</code> 注解：
+很显然，这就表示路径 <code>/hello</code> 会映射到该方法上</li>
+</ul>
+<h4 id="第二步取消之前的-xml-注释">第二步：取消之前的 XML 注释</h4>
+<p>在 dispatcher-servlet.xml 文件中，注释掉之前的配置，然后增加一句组件扫描：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="cp">&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;</span>
+<span class="nt">&lt;beans</span> <span class="na">xmlns=</span><span class="s">&#34;http://www.springframework.org/schema/beans&#34;</span>
+       <span class="na">xmlns:xsi=</span><span class="s">&#34;http://www.w3.org/2001/XMLSchema-instance&#34;</span>
+       <span class="na">xmlns:context=</span><span class="s">&#34;http://www.springframework.org/schema/context&#34;</span>
+       <span class="na">xsi:schemaLocation=</span><span class="s">&#34;http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd&#34;</span><span class="nt">&gt;</span>
+
+    <span class="c">&lt;!--&lt;bean id=&#34;simpleUrlHandlerMapping&#34;--&gt;</span>
+                                        <span class="c">&lt;!--class=&#34;org.springframework.web.servlet.handler.SimpleUrlHandlerMapping&#34;&gt;--&gt;</span>
+    <span class="c">&lt;!--&lt;property name=&#34;mappings&#34;&gt;--&gt;</span>
+            <span class="c">&lt;!--&lt;props&gt;--&gt;</span>
+                <span class="c">&lt;!--&amp;lt;!&amp;ndash; /hello 路径的请求交给 id 为 helloController 的控制器处理&amp;ndash;&amp;gt;--&gt;</span>
+                <span class="c">&lt;!--&lt;prop key=&#34;/hello&#34;&gt;helloController&lt;/prop&gt;--&gt;</span>
+            <span class="c">&lt;!--&lt;/props&gt;--&gt;</span>
+        <span class="c">&lt;!--&lt;/property&gt;--&gt;</span>
+    <span class="c">&lt;!--&lt;/bean&gt;--&gt;</span>
+    <span class="c">&lt;!--&lt;bean id=&#34;helloController&#34; class=&#34;controller.HelloController&#34;&gt;&lt;/bean&gt;--&gt;</span>
+
+    <span class="c">&lt;!-- 扫描controller下的组件 --&gt;</span>
+    <span class="nt">&lt;context:component-scan</span> <span class="na">base-package=</span><span class="s">&#34;controller&#34;</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;/beans&gt;</span>
+</code></pre></div><h4 id="requestmapping-注解细节">@RequestMapping 注解细节</h4>
+<p>如果 <code>@RequestMapping</code> 作用在类上，那么就相当于是给该类所有配置的映射地址前加上了一个地址，例如：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="nd">@Controller</span>
+<span class="nd">@RequestMapping</span><span class="o">(</span><span class="s">&#34;/wmyskxz&#34;</span><span class="o">)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">HelloController</span> <span class="o">{</span>
+    <span class="nd">@RequestMapping</span><span class="o">(</span><span class="s">&#34;/hello&#34;</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="n">ModelAndView</span> <span class="nf">handleRequest</span><span class="o">(....)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+        <span class="o">....</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><ul>
+<li>则访问地址： <code>localhost/wmyskxz/hello</code></li>
+</ul>
+<hr>
+<h2 id="配置视图解析器">配置视图解析器</h2>
+<p>还记得我们 Spring MVC 的请求流程吗，视图解析器负责定位视图，它接受一个由 DispaterServlet 传递过来的逻辑视图名来匹配一个特定的视图。</p>
+<ul>
+<li><strong>需求：</strong> 有一些页面我们不希望用户用户直接访问到，例如有重要数据的页面，例如有模型数据支撑的页面。</li>
+<li><strong>造成的问题：</strong>
+我们可以在【web】根目录下放置一个【test.jsp】模拟一个重要数据的页面，我们什么都不用做，重新启动服务器，网页中输入 <code>localhost/test.jsp</code> 就能够直接访问到了，这会造成<strong>数据泄露</strong>&hellip;
+另外我们可以直接输入 <code>localhost/index.jsp</code> 试试，根据我们上面的程序，这会是一个空白的页面，因为并没有获取到 <code>${message}</code> 参数就直接访问了，这会<strong>影响用户体验</strong></li>
+</ul>
+<h4 id="解决方案">解决方案</h4>
+<p>我们将我们的 JSP 文件配置在【WEB-INF】文件夹中的【page】文件夹下，【WEB-INF】是 Java Web 中默认的安全目录，是不允许用户直接访问的*（也就是你说你通过 <code>localhost/WEB-INF/</code> 这样的方式是永远访问不到的）*</p>
+<p>但是我们需要将这告诉给视图解析器，我们在 dispatcher-servlet.xml 文件中做如下配置：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-jsx" data-lang="jsx"><span class="p">&lt;</span><span class="nt">bean</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;viewResolver&#34;</span>
+      <span class="na">class</span><span class="o">=</span><span class="s">&#34;org.springframework.web.servlet.view.InternalResourceViewResolver&#34;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">property</span> <span class="na">name</span><span class="o">=</span><span class="s">&#34;prefix&#34;</span> <span class="na">value</span><span class="o">=</span><span class="s">&#34;/WEB-INF/page/&#34;</span> <span class="p">/&gt;</span>
+    <span class="p">&lt;</span><span class="nt">property</span> <span class="na">name</span><span class="o">=</span><span class="s">&#34;suffix&#34;</span> <span class="na">value</span><span class="o">=</span><span class="s">&#34;.jsp&#34;</span> <span class="p">/&gt;</span>
+<span class="p">&lt;/</span><span class="nt">bean</span><span class="p">&gt;</span>
+</code></pre></div><p>这里配置了一个 Spring MVC 内置的一个视图解析器，该解析器是遵循着一种约定：会**在视图名上添加前缀和后缀，进而确定一个 Web 应用中视图资源的物理路径的。**让我们实际来看看效果：</p>
+<h4 id="第一步修改-hellocontroller">第一步：修改 HelloController</h4>
+<p>我们将代码修改一下：</p>
+<p><img src="https:////upload-images.jianshu.io/upload_images/7896890-2ce49e171bd6d547.png?imageMogr2/auto-orient/strip%7cimageView2/2/w/765/format/webp" alt="img"  /></p>
+<h4 id="第二步配置视图解析器">第二步：配置视图解析器：</h4>
+<p>按照上述的配置，完成：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="cp">&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;</span>
+<span class="nt">&lt;beans</span> <span class="na">xmlns=</span><span class="s">&#34;http://www.springframework.org/schema/beans&#34;</span>
+       <span class="na">xmlns:xsi=</span><span class="s">&#34;http://www.w3.org/2001/XMLSchema-instance&#34;</span>
+       <span class="na">xmlns:context=</span><span class="s">&#34;http://www.springframework.org/schema/context&#34;</span>
+       <span class="na">xsi:schemaLocation=</span><span class="s">&#34;http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd&#34;</span><span class="nt">&gt;</span>
+
+    <span class="c">&lt;!--&lt;bean id=&#34;simpleUrlHandlerMapping&#34;--&gt;</span>
+                                        <span class="c">&lt;!--class=&#34;org.springframework.web.servlet.handler.SimpleUrlHandlerMapping&#34;&gt;--&gt;</span>
+    <span class="c">&lt;!--&lt;property name=&#34;mappings&#34;&gt;--&gt;</span>
+            <span class="c">&lt;!--&lt;props&gt;--&gt;</span>
+                <span class="c">&lt;!--&amp;lt;!&amp;ndash; /hello 路径的请求交给 id 为 helloController 的控制器处理&amp;ndash;&amp;gt;--&gt;</span>
+                <span class="c">&lt;!--&lt;prop key=&#34;/hello&#34;&gt;helloController&lt;/prop&gt;--&gt;</span>
+            <span class="c">&lt;!--&lt;/props&gt;--&gt;</span>
+        <span class="c">&lt;!--&lt;/property&gt;--&gt;</span>
+    <span class="c">&lt;!--&lt;/bean&gt;--&gt;</span>
+    <span class="c">&lt;!--&lt;bean id=&#34;helloController&#34; class=&#34;controller.HelloController&#34;&gt;&lt;/bean&gt;--&gt;</span>
+
+    <span class="c">&lt;!-- 扫描controller下的组件 --&gt;</span>
+    <span class="nt">&lt;context:component-scan</span> <span class="na">base-package=</span><span class="s">&#34;controller&#34;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;bean</span> <span class="na">id=</span><span class="s">&#34;viewResolver&#34;</span>
+          <span class="na">class=</span><span class="s">&#34;org.springframework.web.servlet.view.InternalResourceViewResolver&#34;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&#34;prefix&#34;</span> <span class="na">value=</span><span class="s">&#34;/WEB-INF/page/&#34;</span> <span class="nt">/&gt;</span>
+        <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&#34;suffix&#34;</span> <span class="na">value=</span><span class="s">&#34;.jsp&#34;</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;/bean&gt;</span>
+<span class="nt">&lt;/beans&gt;</span>
+</code></pre></div><h4 id="第三步剪贴-indexjsp-文件">第三步：剪贴 index.jsp 文件</h4>
+<p>在【WEB-INF】文件夹下新建一个【page】文件夹，并将【index.jsp】文件剪贴到里面：</p>
+<ul>
+<li><strong>原理：</strong></li>
+</ul>
+<p><img src="https:////upload-images.jianshu.io/upload_images/7896890-a716a3ac8f7e541d.png?imageMogr2/auto-orient/strip%7cimageView2/2/w/468/format/webp" alt="img"  /></p>
+<p>我们传入的逻辑视图名为 index ，再加上 “<code>/WEB-INF/page/</code>” 前缀和 “<code>.jsp</code>” 后缀，就能确定物理视图的路径了，这样我们以后就可以将所有的视图放入【page】文件夹下了！</p>
+<ul>
+<li>**注意：**此时的配置仅是 dispatcher-servlet.xml 下的</li>
+</ul>
+<hr>
+<h2 id="控制器接收请求数据">控制器接收请求数据</h2>
+<p>使用控制器接收参数往往是 Spring MVC 开发业务逻辑的第一步，为探索 Spring MVC 的传参方式，为此我们先来创建一个简单的表单用于提交数据：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="err">&lt;</span>%@ page language=&#34;java&#34; contentType=&#34;text/html; charset=UTF-8&#34;
+         pageEncoding=&#34;UTF-8&#34; import=&#34;java.util.*&#34; isELIgnored=&#34;false&#34;%&gt;
+<span class="nt">&lt;html&gt;</span>
+<span class="nt">&lt;head&gt;</span>
+    <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">&#34;utf-8&#34;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;title&gt;</span>Spring MVC 传参方式<span class="nt">&lt;/title&gt;</span>
+<span class="nt">&lt;/head&gt;</span>
+<span class="nt">&lt;body&gt;</span>
+<span class="nt">&lt;form</span> <span class="na">action=</span><span class="s">&#34;/param&#34;</span> <span class="na">role=</span><span class="s">&#34;form&#34;</span><span class="nt">&gt;</span>
+    用户名：<span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&#34;text&#34;</span> <span class="na">name=</span><span class="s">&#34;userName&#34;</span><span class="nt">&gt;&lt;br/&gt;</span>
+    密码：<span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&#34;text&#34;</span> <span class="na">name=</span><span class="s">&#34;password&#34;</span><span class="nt">&gt;&lt;br/&gt;</span>
+    <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&#34;submit&#34;</span> <span class="na">value=</span><span class="s">&#34;提  交&#34;</span><span class="nt">&gt;</span>
+<span class="nt">&lt;/form&gt;</span>
+<span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</code></pre></div><p>丑就丑点儿吧，我们就是来测试一下：</p>
+<h4 id="使用-servlet-原生-api-实现">使用 Servlet 原生 API 实现：</h4>
+<p>我们很容易知道，表单会提交到 <code>/param</code> 这个目录，我们先来使用 Servlet 原生的 API 来看看能不能获取到数据：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-kotlin" data-lang="kotlin"><span class="nd">@RequestMapping</span><span class="p">(</span><span class="s2">&#34;/param&#34;</span><span class="p">)</span>
+<span class="k">public</span> <span class="n">ModelAndView</span> <span class="n">getParam</span><span class="p">(</span><span class="n">HttpServletRequest</span> <span class="n">request</span><span class="p">,</span>
+                         <span class="n">HttpServletResponse</span> <span class="n">response</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">String</span> <span class="n">userName</span> <span class="p">=</span> <span class="n">request</span><span class="p">.</span><span class="n">getParameter</span><span class="p">(</span><span class="s2">&#34;userName&#34;</span><span class="p">);</span>
+    <span class="n">String</span> <span class="n">password</span> <span class="p">=</span> <span class="n">request</span><span class="p">.</span><span class="n">getParameter</span><span class="p">(</span><span class="s2">&#34;password&#34;</span><span class="p">);</span>
+
+    <span class="n">System</span><span class="p">.</span><span class="k">out</span><span class="p">.</span><span class="n">println</span><span class="p">(</span><span class="n">userName</span><span class="p">);</span>
+    <span class="n">System</span><span class="p">.</span><span class="k">out</span><span class="p">.</span><span class="n">println</span><span class="p">(</span><span class="n">password</span><span class="p">);</span>
+    <span class="k">return</span> <span class="k">null</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div><p>测试成功：</p>
+<p><img src="https:////upload-images.jianshu.io/upload_images/7896890-df21058b7ef71924.png?imageMogr2/auto-orient/strip%7cimageView2/2/w/706/format/webp" alt="img"  /></p>
+<h4 id="使用同名匹配规则">使用同名匹配规则</h4>
+<p>我们可以把方法定义的形参名字设置成和前台传入参数名一样的方法，来获取到数据（同名匹配规则）：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="nd">@RequestMapping</span><span class="o">(</span><span class="s">&#34;/param&#34;</span><span class="o">)</span>
+<span class="kd">public</span> <span class="n">ModelAndView</span> <span class="nf">getParam</span><span class="o">(</span><span class="n">String</span> <span class="n">userName</span><span class="o">,</span>
+                             <span class="n">String</span> <span class="n">password</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">userName</span><span class="o">);</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">password</span><span class="o">);</span>
+    <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div><p>测试成功：</p>
+<p><img src="https:////upload-images.jianshu.io/upload_images/7896890-55a1c296c778e506.png?imageMogr2/auto-orient/strip%7cimageView2/2/w/595/format/webp" alt="img"  /></p>
+<ul>
+<li><strong>问题：</strong> 这样又会和前台产生很强的耦合，这是我们不希望的</li>
+<li><strong>解决：</strong> 使用 <code>@RequestParam(&quot;前台参数名&quot;)</code> 来注入：</li>
+</ul>
+<p><img src="https:////upload-images.jianshu.io/upload_images/7896890-a649ad50866a01c5.png?imageMogr2/auto-orient/strip%7cimageView2/2/w/760/format/webp" alt="img"  /></p>
+<ul>
+<li><strong><code>@RequestParam</code> 注解细节：</strong>
+该注解有三个变量：<code>value</code>、<code>required</code>、<code>defaultvalue</code></li>
+<li><code>value</code> ：指定 <code>name</code> 属性的名称是什么，<code>value</code> 属性都可以默认不写</li>
+<li><code>required</code> ：是否必须要有该参数，可以设置为【true】或者【false】</li>
+<li><code>defaultvalue</code> ：设置默认值</li>
+</ul>
+<h4 id="使用模型传参">使用模型传参</h4>
+<ul>
+<li><strong>要求： 前台参数名字必须和模型中的字段名一样</strong></li>
+</ul>
+<p>让我们先来为我们的表单创建一个 User 模型：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">pojo</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">User</span> <span class="o">{</span>
+    
+    <span class="n">String</span> <span class="n">userName</span><span class="o">;</span>
+    <span class="n">String</span> <span class="n">password</span><span class="o">;</span>
+
+    <span class="cm">/* getter and setter */</span>
+<span class="o">}</span>
+</code></pre></div><p>然后测试仍然成功：</p>
+<p><img src="https:////upload-images.jianshu.io/upload_images/7896890-471d26bcb335aee6.png?imageMogr2/auto-orient/strip%7cimageView2/2/w/438/format/webp" alt="img"  /></p>
+<h4 id="中文乱码问题">中文乱码问题</h4>
+<ul>
+<li><strong>注意：</strong> 跟 Servlet 中的一样，该方法只对 POST 方法有效（因为是直接处理的 request）</li>
+</ul>
+<p>我们可以通过配置 Spring MVC 字符编码过滤器来完成，在 web.xml 中添加：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="nt">&lt;filter&gt;</span>
+    <span class="nt">&lt;filter-name&gt;</span>CharacterEncodingFilter<span class="nt">&lt;/filter-name&gt;</span>
+    <span class="nt">&lt;filter-class&gt;</span>org.springframework.web.filter.CharacterEncodingFilter<span class="nt">&lt;/filter-class&gt;</span>
+    <span class="nt">&lt;init-param&gt;</span>
+        <span class="nt">&lt;param-name&gt;</span>encoding<span class="nt">&lt;/param-name&gt;</span>
+        <span class="c">&lt;!-- 设置编码格式 --&gt;</span>
+        <span class="nt">&lt;param-value&gt;</span>utf-8<span class="nt">&lt;/param-value&gt;</span>
+    <span class="nt">&lt;/init-param&gt;</span>
+<span class="nt">&lt;/filter&gt;</span>
+<span class="nt">&lt;filter-mapping&gt;</span>
+    <span class="nt">&lt;filter-name&gt;</span>CharacterEncodingFilter<span class="nt">&lt;/filter-name&gt;</span>
+    <span class="nt">&lt;url-pattern&gt;</span>/*<span class="nt">&lt;/url-pattern&gt;</span>
+<span class="nt">&lt;/filter-mapping&gt;</span>
+</code></pre></div><hr>
+<h2 id="控制器回显数据">控制器回显数据</h2>
+<p>通过上面，我们知道了怎么接受请求数据，并能解决 POST 乱码的问题，那么我们怎么回显数据呢？为此我们在【page】下创建一个【test2.jsp】：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="err">&lt;</span>%@ page language=&#34;java&#34; contentType=&#34;text/html; charset=UTF-8&#34;
+         pageEncoding=&#34;UTF-8&#34; import=&#34;java.util.*&#34; isELIgnored=&#34;false&#34; %&gt;
+<span class="nt">&lt;html&gt;</span>
+<span class="nt">&lt;head&gt;</span>
+    <span class="nt">&lt;title&gt;</span>Spring MVC 数据回显<span class="nt">&lt;/title&gt;</span>
+<span class="nt">&lt;/head&gt;</span>
+<span class="nt">&lt;body&gt;</span>
+<span class="nt">&lt;h1&gt;</span>回显数据：${message}<span class="nt">&lt;/h1&gt;</span>
+<span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</code></pre></div><h4 id="使用-servlet-原生-api-来实现">使用 Servlet 原生 API 来实现</h4>
+<p>我们先来测试一下 Servlet 原生的 API 是否能完成这个任务：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="nd">@RequestMapping</span><span class="o">(</span><span class="s">&#34;/value&#34;</span><span class="o">)</span>
+<span class="kd">public</span> <span class="n">ModelAndView</span> <span class="nf">handleRequest</span><span class="o">(</span><span class="n">HttpServletRequest</span> <span class="n">request</span><span class="o">,</span>
+                                  <span class="n">HttpServletResponse</span> <span class="n">response</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">request</span><span class="o">.</span><span class="na">setAttribute</span><span class="o">(</span><span class="s">&#34;message&#34;</span><span class="o">,</span><span class="s">&#34;成功！&#34;</span><span class="o">);</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="n">ModelAndView</span><span class="o">(</span><span class="s">&#34;test1&#34;</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div><p>在浏览器地址栏中输入：<code>localhost/value</code> 测试</p>
+<p><img src="https:////upload-images.jianshu.io/upload_images/7896890-66d2f24a876306e6.png?imageMogr2/auto-orient/strip%7cimageView2/2/w/562/format/webp" alt="img"  /></p>
+<h4 id="使用-spring-mvc-所提供的-modelandview-对象">使用 Spring MVC 所提供的 ModelAndView 对象</h4>
+<p><img src="https:////upload-images.jianshu.io/upload_images/7896890-360ce67947be817d.png?imageMogr2/auto-orient/strip%7cimageView2/2/w/703/format/webp" alt="img"  /></p>
+<h4 id="使用-model-对象">使用 Model 对象</h4>
+<p>在 Spring MVC 中，我们通常都是使用这样的方式来绑定数据，</p>
+<p><img src="https:////upload-images.jianshu.io/upload_images/7896890-685dd384904ad28f.png?imageMogr2/auto-orient/strip%7cimageView2/2/w/536/format/webp" alt="img"  /></p>
+<ul>
+<li><strong>使用 <code>@ModelAttribute</code> 注解：</strong></li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="nd">@ModelAttribute</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">model</span><span class="o">(</span><span class="n">Model</span> <span class="n">model</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">model</span><span class="o">.</span><span class="na">addAttribute</span><span class="o">(</span><span class="s">&#34;message&#34;</span><span class="o">,</span> <span class="s">&#34;注解成功&#34;</span><span class="o">);</span>
+<span class="o">}</span>
+
+<span class="nd">@RequestMapping</span><span class="o">(</span><span class="s">&#34;/value&#34;</span><span class="o">)</span>
+<span class="kd">public</span> <span class="n">String</span> <span class="nf">handleRequest</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="s">&#34;test1&#34;</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div><p>这样写就会在访问控制器方法 handleRequest() 时，会首先调用 model() 方法将 <code>message</code> 添加进页面参数中去，在视图中可以直接调用，但是这样写会导致该控制器所有的方法都会首先调用 model() 方法，但同样的也很方便，因为可以加入各种各样的数据。</p>
+<hr>
+<h2 id="客户端跳转">客户端跳转</h2>
+<p>前面不管是地址 <code>/hello</code> 跳转到 index.jsp 还是 <code>/test</code> 跳转到 test.jsp，这些都是服务端的跳转，也就是 <code>request.getRequestDispatcher(&quot;地址&quot;).forward(request, response);</code></p>
+<p>那我们如何进行客户端跳转呢？我们继续在 HelloController 中编写：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="nd">@RequestMapping</span><span class="o">(</span><span class="s">&#34;/hello&#34;</span><span class="o">)</span>
+<span class="kd">public</span> <span class="n">ModelAndView</span> <span class="nf">handleRequest</span><span class="o">(</span><span class="n">javax</span><span class="o">.</span><span class="na">servlet</span><span class="o">.</span><span class="na">http</span><span class="o">.</span><span class="na">HttpServletRequest</span> <span class="n">httpServletRequest</span><span class="o">,</span> <span class="n">javax</span><span class="o">.</span><span class="na">servlet</span><span class="o">.</span><span class="na">http</span><span class="o">.</span><span class="na">HttpServletResponse</span> <span class="n">httpServletResponse</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+    <span class="n">ModelAndView</span> <span class="n">mav</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ModelAndView</span><span class="o">(</span><span class="s">&#34;index&#34;</span><span class="o">);</span>
+    <span class="n">mav</span><span class="o">.</span><span class="na">addObject</span><span class="o">(</span><span class="s">&#34;message&#34;</span><span class="o">,</span> <span class="s">&#34;Hello Spring MVC&#34;</span><span class="o">);</span>
+    <span class="k">return</span> <span class="n">mav</span><span class="o">;</span>
+<span class="o">}</span>
+
+<span class="nd">@RequestMapping</span><span class="o">(</span><span class="s">&#34;/jump&#34;</span><span class="o">)</span>
+<span class="kd">public</span> <span class="n">ModelAndView</span> <span class="nf">jump</span><span class="o">()</span> <span class="o">{</span>
+    <span class="n">ModelAndView</span> <span class="n">mav</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ModelAndView</span><span class="o">(</span><span class="s">&#34;redirect:/hello&#34;</span><span class="o">);</span>
+    <span class="k">return</span> <span class="n">mav</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div><p>我们使用 <code>redirect:/hello</code> 就表示我们要跳转到 <code>/hello</code> 这个路径，我们重启服务器，在地址栏中输入：<code>localhost/jump</code> ，会自动跳转到 <code>/hello</code> 路径下：</p>
+<p><img src="https:////upload-images.jianshu.io/upload_images/7896890-390fb571e9f6ff03.png?imageMogr2/auto-orient/strip%7cimageView2/2/w/947/format/webp" alt="img"  /></p>
+<p>也可以这样用：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="nd">@RequestMapping</span><span class="o">(</span><span class="s">&#34;/jump&#34;</span><span class="o">)</span>
+<span class="kd">public</span> <span class="n">String</span> <span class="nf">jump</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="s">&#34;redirect: ./hello&#34;</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div><hr>
+<h2 id="文件上传">文件上传</h2>
+<p>我们先来回顾一下传统的文件上传和下载：<a class="link" href="https://www.jianshu.com/p/e7837435bf4c"  target="_blank" rel="noopener"
+    >这里</a></p>
+<p>我们再来看一下在 Spring MVC 中如何实现文件的上传和下载</p>
+<ul>
+<li><strong>注意：</strong> 需要先导入 <code>commons-io-1.3.2.jar</code> 和 <code>commons-fileupload-1.2.1.jar</code> 两个包</li>
+</ul>
+<h4 id="第一步配置上传解析器">第一步：配置上传解析器</h4>
+<p>在 dispatcher-servlet.xml 中新增一句：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-csharp" data-lang="csharp"><span class="p">&lt;</span><span class="n">bean</span> <span class="n">id</span><span class="p">=</span><span class="s">&#34;multipartResolver&#34;</span> <span class="n">class</span><span class="p">=</span><span class="s">&#34;org.springframework.web.multipart.commons.CommonsMultipartResolver&#34;</span><span class="p">/&gt;</span>
+</code></pre></div><p>开启对上传功能的支持</p>
+<h4 id="第二步编写-jsp">第二步：编写 JSP</h4>
+<p>文件名为 upload.jsp，仍创建在【page】下：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="err">&lt;</span>%@ page contentType=&#34;text/html;charset=UTF-8&#34; language=&#34;java&#34; %&gt;
+<span class="nt">&lt;html&gt;</span>
+<span class="nt">&lt;head&gt;</span>
+    <span class="nt">&lt;title&gt;</span>测试文件上传<span class="nt">&lt;/title&gt;</span>
+<span class="nt">&lt;/head&gt;</span>
+<span class="nt">&lt;body&gt;</span>
+<span class="nt">&lt;form</span> <span class="na">action=</span><span class="s">&#34;/upload&#34;</span> <span class="na">method=</span><span class="s">&#34;post&#34;</span> <span class="na">enctype=</span><span class="s">&#34;multipart/form-data&#34;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&#34;file&#34;</span> <span class="na">name=</span><span class="s">&#34;picture&#34;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&#34;submit&#34;</span> <span class="na">value=</span><span class="s">&#34;上 传&#34;</span><span class="nt">&gt;</span>
+<span class="nt">&lt;/form&gt;</span>
+<span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</code></pre></div><h4 id="第三步编写控制器">第三步：编写控制器</h4>
+<p>在 Package【controller】下新建【UploadController】类：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">controller</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">org.springframework.stereotype.Controller</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.web.bind.annotation.RequestMapping</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.web.bind.annotation.RequestParam</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.web.multipart.MultipartFile</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.web.servlet.ModelAndView</span><span class="o">;</span>
+
+<span class="nd">@Controller</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">UploadController</span> <span class="o">{</span>
+
+    <span class="nd">@RequestMapping</span><span class="o">(</span><span class="s">&#34;/upload&#34;</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">upload</span><span class="o">(</span><span class="nd">@RequestParam</span><span class="o">(</span><span class="s">&#34;picture&#34;</span><span class="o">)</span> <span class="n">MultipartFile</span> <span class="n">picture</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">picture</span><span class="o">.</span><span class="na">getOriginalFilename</span><span class="o">());</span>
+    <span class="o">}</span>
+
+    <span class="nd">@RequestMapping</span><span class="o">(</span><span class="s">&#34;/test2&#34;</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="n">ModelAndView</span> <span class="nf">upload</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="n">ModelAndView</span><span class="o">(</span><span class="s">&#34;upload&#34;</span><span class="o">);</span>
+    <span class="o">}</span>
+
+<span class="o">}</span>
+</code></pre></div><p>最后测试</p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/javaweb/">JavaWeb</a>
+        
+            <a href="/tags/spring/">Spring</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+    
+</article>
+
+    <aside class="related-contents--wrapper">
+    
+    
+        <h2 class="section-title">相关文章</h2>
+        <div class="related-contents">
+            <div class="flex article-list--tile">
+                
+                    
+<article class="">
+    <a href="/p/spring07-aop%E4%BD%BF%E7%94%A8/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Spring07 AOP使用</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
+    <a href="/p/spring06-%E5%8A%A8/%E9%9D%99%E6%80%81%E4%BB%A3%E7%90%86/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Spring06 动/静态代理</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
+    <a href="/p/spring05-%E4%BD%BF%E7%94%A8%E6%B3%A8%E8%A7%A3%E5%BC%80%E5%8F%91/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Spring05 使用注解开发</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
+    <a href="/p/spring04-%E8%87%AA%E5%8A%A8%E8%A3%85%E9%85%8D/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Spring04 自动装配</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
+    <a href="/p/spring03-%E4%BE%9D%E8%B5%96%E6%B3%A8%E5%85%A5di/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Spring03 依赖注入(DI)</h2>
+        </div>
+    </a>
+</article>
+                
+            </div>
+        </div>
+    
+</aside>
+
+     
+     
+        
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "hugo-theme-stack" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (DISQUS) {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2020 - 
+        
+        2021 ybakiame的个人博客
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="2.4.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css"integrity="sha256-c0uckgykQ9v5k&#43;IqViZOZKc47Jn7KQil4/MP3ySA3F8="crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css"integrity="sha256-SBLU4vv6CA6lHsZ1XyTdhyjJxCjPif/TRkjnsyGAGnE="crossorigin="anonymous"
+            >
+
+            </main>
+    
+        <aside class="sidebar right-sidebar sticky">
+            <section class="widget archives">
+                <div class="widget-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+                </div>
+                <h2 class="widget-title section-title">目录</h2>
+                
+                <div class="widget--toc">
+                    <nav id="TableOfContents">
+  <ol>
+    <li><a href="#web开发模式">web开发模式</a>
+      <ol>
+        <li><a href="#mvc">MVC</a>
+          <ol>
+            <li><a href="#m模型model">M模型（model）</a></li>
+            <li><a href="#v-视图view">V 视图（view）</a></li>
+            <li><a href="#c-控制controller">C 控制（controller）</a></li>
+          </ol>
+        </li>
+        <li><a href="#早期mvc模式mode1">早期MVC模式（mode1）</a></li>
+        <li><a href="#早期mvc模式mode2">早期MVC模式（mode2）</a></li>
+        <li><a href="#springmvc">SpringMVC</a></li>
+      </ol>
+    </li>
+    <li><a href="#跟踪-spring-mvc-的请求">跟踪 Spring MVC 的请求</a>
+      <ol>
+        <li>
+          <ol>
+            <li><a href="#第一站dispatcherservlet">第一站：DispatcherServlet</a></li>
+            <li><a href="#第二站处理器映射handlermapping">第二站：处理器映射（HandlerMapping）</a></li>
+            <li><a href="#第三站控制器">第三站：控制器</a></li>
+            <li><a href="#第四站返回-dispatcherservlet">第四站：返回 DispatcherServlet</a></li>
+            <li><a href="#第五站视图解析器">第五站：视图解析器</a></li>
+            <li><a href="#第六站视图">第六站：视图</a></li>
+          </ol>
+        </li>
+      </ol>
+    </li>
+    <li><a href="#使用注解配置-spring-mvc">使用注解配置 Spring MVC</a>
+      <ol>
+        <li>
+          <ol>
+            <li><a href="#第一步为-hellocontroller-添加注解">第一步：为 HelloController 添加注解</a></li>
+            <li><a href="#第二步取消之前的-xml-注释">第二步：取消之前的 XML 注释</a></li>
+            <li><a href="#requestmapping-注解细节">@RequestMapping 注解细节</a></li>
+          </ol>
+        </li>
+      </ol>
+    </li>
+    <li><a href="#配置视图解析器">配置视图解析器</a>
+      <ol>
+        <li>
+          <ol>
+            <li><a href="#解决方案">解决方案</a></li>
+            <li><a href="#第一步修改-hellocontroller">第一步：修改 HelloController</a></li>
+            <li><a href="#第二步配置视图解析器">第二步：配置视图解析器：</a></li>
+            <li><a href="#第三步剪贴-indexjsp-文件">第三步：剪贴 index.jsp 文件</a></li>
+          </ol>
+        </li>
+      </ol>
+    </li>
+    <li><a href="#控制器接收请求数据">控制器接收请求数据</a>
+      <ol>
+        <li>
+          <ol>
+            <li><a href="#使用-servlet-原生-api-实现">使用 Servlet 原生 API 实现：</a></li>
+            <li><a href="#使用同名匹配规则">使用同名匹配规则</a></li>
+            <li><a href="#使用模型传参">使用模型传参</a></li>
+            <li><a href="#中文乱码问题">中文乱码问题</a></li>
+          </ol>
+        </li>
+      </ol>
+    </li>
+    <li><a href="#控制器回显数据">控制器回显数据</a>
+      <ol>
+        <li>
+          <ol>
+            <li><a href="#使用-servlet-原生-api-来实现">使用 Servlet 原生 API 来实现</a></li>
+            <li><a href="#使用-spring-mvc-所提供的-modelandview-对象">使用 Spring MVC 所提供的 ModelAndView 对象</a></li>
+            <li><a href="#使用-model-对象">使用 Model 对象</a></li>
+          </ol>
+        </li>
+      </ol>
+    </li>
+    <li><a href="#客户端跳转">客户端跳转</a></li>
+    <li><a href="#文件上传">文件上传</a>
+      <ol>
+        <li>
+          <ol>
+            <li><a href="#第一步配置上传解析器">第一步：配置上传解析器</a></li>
+            <li><a href="#第二步编写-jsp">第二步：编写 JSP</a></li>
+            <li><a href="#第三步编写控制器">第三步：编写控制器</a></li>
+          </ol>
+        </li>
+      </ol>
+    </li>
+  </ol>
+</nav>
+                </div>
+            </section>
+        </aside>
+    
+
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js"integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g="crossorigin="anonymous"
+                defer="false"
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

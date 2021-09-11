@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='代理模式 为什么要学习代理模式，因为AOP的底层机制就是动态代理！
+代理模式：
+ 静态代理 动态代理   静态代理  静态代理角色分析
+  抽象角色 : 一般使用接口或者抽象类来实现
+  真实角色 : 被代理的角色
+  代理角色 : 代理真实角色 ; 代理真实角色后 , 一般会做一些附属的操作 .
+  客户 : 使用代理角色来进行一些操作 .
+  代码实现
+Rent . java 即抽象角色
+//抽象角色：租房 public interface Rent { public void rent(); } Host . java 即真实角色
+//真实角色: 房东，房东要出租房子 public class Host implements Rent{ public void rent() { System.out.println(&amp;#34;房屋出租&amp;#34;); } } Proxy .'><title>Spring06 动/静态代理</title>
+
+<link rel='canonical' href='https://example.com/p/spring06-%E5%8A%A8/%E9%9D%99%E6%80%81%E4%BB%A3%E7%90%86/'>
+
+<link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content='Spring06 动/静态代理'>
+<meta property='og:description' content='代理模式 为什么要学习代理模式，因为AOP的底层机制就是动态代理！
+代理模式：
+ 静态代理 动态代理   静态代理  静态代理角色分析
+  抽象角色 : 一般使用接口或者抽象类来实现
+  真实角色 : 被代理的角色
+  代理角色 : 代理真实角色 ; 代理真实角色后 , 一般会做一些附属的操作 .
+  客户 : 使用代理角色来进行一些操作 .
+  代码实现
+Rent . java 即抽象角色
+//抽象角色：租房 public interface Rent { public void rent(); } Host . java 即真实角色
+//真实角色: 房东，房东要出租房子 public class Host implements Rent{ public void rent() { System.out.println(&amp;#34;房屋出租&amp;#34;); } } Proxy .'>
+<meta property='og:url' content='https://example.com/p/spring06-%E5%8A%A8/%E9%9D%99%E6%80%81%E4%BB%A3%E7%90%86/'>
+<meta property='og:site_name' content='ybakiame的个人博客'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Spring' /><meta property='article:published_time' content='2021-09-11T17:48:54&#43;08:00'/><meta property='article:modified_time' content='2021-09-11T17:48:54&#43;08:00'/>
+<meta name="twitter:title" content="Spring06 动/静态代理">
+<meta name="twitter:description" content="代理模式 为什么要学习代理模式，因为AOP的底层机制就是动态代理！
+代理模式：
+ 静态代理 动态代理   静态代理  静态代理角色分析
+  抽象角色 : 一般使用接口或者抽象类来实现
+  真实角色 : 被代理的角色
+  代理角色 : 代理真实角色 ; 代理真实角色后 , 一般会做一些附属的操作 .
+  客户 : 使用代理角色来进行一些操作 .
+  代码实现
+Rent . java 即抽象角色
+//抽象角色：租房 public interface Rent { public void rent(); } Host . java 即真实角色
+//真实角色: 房东，房东要出租房子 public class Host implements Rent{ public void rent() { System.out.println(&amp;#34;房屋出租&amp;#34;); } } Proxy .">
+    </head>
+    <body class="
+    article-page has-toc
+">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex 
+    
+        extended
+    
+">
+    
+        <div id="article-toolbar">
+            <a href="https://example.com" class="back-home">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="15 6 9 12 15 18" />
+</svg>
+
+
+
+                <span>返回</span>
+            </a>
+        </div>
+    
+<main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/spring/" >
+                Spring
+            </a>
+        
+            <a href="/categories/%E5%AD%A6%E4%B9%A0/" >
+                学习
+            </a>
+        
+    </header>
+    
+
+    <h2 class="article-title">
+        <a href="/p/spring06-%E5%8A%A8/%E9%9D%99%E6%80%81%E4%BB%A3%E7%90%86/">Spring06 动/静态代理</a>
+    </h2>
+
+    <footer class="article-time">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+        <time class="article-time--published">Sep 11, 2021</time>
+    </footer></div>
+</header>
+
+    <section class="article-content">
+    <h2 id="代理模式">代理模式</h2>
+<p>为什么要学习代理模式，因为AOP的底层机制就是动态代理！</p>
+<p>代理模式：</p>
+<ul>
+<li>静态代理</li>
+<li>动态代理</li>
+</ul>
+<blockquote>
+<h3 id="静态代理">静态代理</h3>
+</blockquote>
+<p><strong>静态代理角色分析</strong></p>
+<ul>
+<li>
+<p>抽象角色 : 一般使用接口或者抽象类来实现</p>
+</li>
+<li>
+<p>真实角色 : 被代理的角色</p>
+</li>
+<li>
+<p>代理角色 : 代理真实角色 ; 代理真实角色后 , 一般会做一些附属的操作 .</p>
+</li>
+<li>
+<p>客户  :  使用代理角色来进行一些操作 .</p>
+</li>
+</ul>
+<p><strong>代码实现</strong></p>
+<p>Rent . java 即抽象角色</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="c1">//抽象角色：租房
+</span><span class="c1"></span><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">Rent</span> <span class="o">{</span>
+   <span class="kd">public</span> <span class="kt">void</span> <span class="nf">rent</span><span class="o">();</span>
+<span class="o">}</span>
+</code></pre></div><p>Host . java 即真实角色</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="c1">//真实角色: 房东，房东要出租房子
+</span><span class="c1"></span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Host</span> <span class="kd">implements</span> <span class="n">Rent</span><span class="o">{</span>
+   <span class="kd">public</span> <span class="kt">void</span> <span class="nf">rent</span><span class="o">()</span> <span class="o">{</span>
+       <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;房屋出租&#34;</span><span class="o">);</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p>Proxy . java 即代理角色</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="c1">//代理角色：中介
+</span><span class="c1"></span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Proxy</span> <span class="kd">implements</span> <span class="n">Rent</span> <span class="o">{</span>
+
+   <span class="kd">private</span> <span class="n">Host</span> <span class="n">host</span><span class="o">;</span>
+   <span class="kd">public</span> <span class="nf">Proxy</span><span class="o">()</span> <span class="o">{</span> <span class="o">}</span>
+   <span class="kd">public</span> <span class="nf">Proxy</span><span class="o">(</span><span class="n">Host</span> <span class="n">host</span><span class="o">)</span> <span class="o">{</span>
+       <span class="k">this</span><span class="o">.</span><span class="na">host</span> <span class="o">=</span> <span class="n">host</span><span class="o">;</span>
+  <span class="o">}</span>
+
+   <span class="c1">//租房
+</span><span class="c1"></span>   <span class="kd">public</span> <span class="kt">void</span> <span class="nf">rent</span><span class="o">(){</span>
+       <span class="n">seeHouse</span><span class="o">();</span>
+       <span class="n">host</span><span class="o">.</span><span class="na">rent</span><span class="o">();</span>
+       <span class="n">fare</span><span class="o">();</span>
+  <span class="o">}</span>
+   <span class="c1">//看房
+</span><span class="c1"></span>   <span class="kd">public</span> <span class="kt">void</span> <span class="nf">seeHouse</span><span class="o">(){</span>
+       <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;带房客看房&#34;</span><span class="o">);</span>
+  <span class="o">}</span>
+   <span class="c1">//收中介费
+</span><span class="c1"></span>   <span class="kd">public</span> <span class="kt">void</span> <span class="nf">fare</span><span class="o">(){</span>
+       <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;收中介费&#34;</span><span class="o">);</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p>Client . java 即客户</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="c1">//客户类，一般客户都会去找代理！
+</span><span class="c1"></span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Client</span> <span class="o">{</span>
+   <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+       <span class="c1">//房东要租房
+</span><span class="c1"></span>       <span class="n">Host</span> <span class="n">host</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Host</span><span class="o">();</span>
+       <span class="c1">//中介帮助房东
+</span><span class="c1"></span>       <span class="n">Proxy</span> <span class="n">proxy</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Proxy</span><span class="o">(</span><span class="n">host</span><span class="o">);</span>
+
+       <span class="c1">//你去找中介！
+</span><span class="c1"></span>       <span class="n">proxy</span><span class="o">.</span><span class="na">rent</span><span class="o">();</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p>分析：在这个过程中，你直接接触的就是中介，就如同现实生活中的样子，你看不到房东，但是你依旧租到了房东的房子通过代理，这就是所谓的代理模式，程序源自于生活，所以学编程的人，一般能够更加抽象的看待生活中发生的事情。</p>
+<p><strong>静态代理的好处:</strong></p>
+<ul>
+<li>可以使得我们的真实角色更加纯粹 . 不再去关注一些公共的事情 .</li>
+<li>公共的业务由代理来完成 . 实现了业务的分工 ,</li>
+<li>公共业务发生扩展时变得更加集中和方便 .</li>
+</ul>
+<p>缺点 :</p>
+<ul>
+<li>类多了 , 多了代理类 , 工作量变大了 . 开发效率降低 .</li>
+</ul>
+<p>我们想要静态代理的好处，又不想要静态代理的缺点，所以 , 就有了动态代理 !</p>
+<blockquote>
+<h3 id="静态代理再理解">静态代理再理解</h3>
+</blockquote>
+<p>同学们练习完毕后，我们再来举一个例子，巩固大家的学习！</p>
+<p>练习步骤：</p>
+<p>1、创建一个抽象角色，比如咋们平时做的用户业务，抽象起来就是增删改查！</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="c1">//抽象角色：增删改查业务
+</span><span class="c1"></span><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">UserService</span> <span class="o">{</span>
+   <span class="kt">void</span> <span class="nf">add</span><span class="o">();</span>
+   <span class="kt">void</span> <span class="nf">delete</span><span class="o">();</span>
+   <span class="kt">void</span> <span class="nf">update</span><span class="o">();</span>
+   <span class="kt">void</span> <span class="nf">query</span><span class="o">();</span>
+<span class="o">}</span>
+</code></pre></div><p>2、我们需要一个真实对象来完成这些增删改查操作</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="c1">//真实对象，完成增删改查操作的人
+</span><span class="c1"></span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">UserServiceImpl</span> <span class="kd">implements</span> <span class="n">UserService</span> <span class="o">{</span>
+
+   <span class="kd">public</span> <span class="kt">void</span> <span class="nf">add</span><span class="o">()</span> <span class="o">{</span>
+       <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;增加了一个用户&#34;</span><span class="o">);</span>
+  <span class="o">}</span>
+
+   <span class="kd">public</span> <span class="kt">void</span> <span class="nf">delete</span><span class="o">()</span> <span class="o">{</span>
+       <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;删除了一个用户&#34;</span><span class="o">);</span>
+  <span class="o">}</span>
+
+   <span class="kd">public</span> <span class="kt">void</span> <span class="nf">update</span><span class="o">()</span> <span class="o">{</span>
+       <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;更新了一个用户&#34;</span><span class="o">);</span>
+  <span class="o">}</span>
+
+   <span class="kd">public</span> <span class="kt">void</span> <span class="nf">query</span><span class="o">()</span> <span class="o">{</span>
+       <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;查询了一个用户&#34;</span><span class="o">);</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p>3、需求来了，现在我们需要增加一个日志功能，怎么实现！</p>
+<ul>
+<li>思路1 ：在实现类上增加代码 【麻烦！】</li>
+<li>思路2：使用代理来做，能够不改变原来的业务情况下，实现此功能就是最好的了！</li>
+</ul>
+<p>4、设置一个代理类来处理日志！代理角色</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="c1">//代理角色，在这里面增加日志的实现
+</span><span class="c1"></span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">UserServiceProxy</span> <span class="kd">implements</span> <span class="n">UserService</span> <span class="o">{</span>
+   <span class="kd">private</span> <span class="n">UserServiceImpl</span> <span class="n">userService</span><span class="o">;</span>
+
+   <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setUserService</span><span class="o">(</span><span class="n">UserServiceImpl</span> <span class="n">userService</span><span class="o">)</span> <span class="o">{</span>
+       <span class="k">this</span><span class="o">.</span><span class="na">userService</span> <span class="o">=</span> <span class="n">userService</span><span class="o">;</span>
+  <span class="o">}</span>
+
+   <span class="kd">public</span> <span class="kt">void</span> <span class="nf">add</span><span class="o">()</span> <span class="o">{</span>
+       <span class="n">log</span><span class="o">(</span><span class="s">&#34;add&#34;</span><span class="o">);</span>
+       <span class="n">userService</span><span class="o">.</span><span class="na">add</span><span class="o">();</span>
+  <span class="o">}</span>
+
+   <span class="kd">public</span> <span class="kt">void</span> <span class="nf">delete</span><span class="o">()</span> <span class="o">{</span>
+       <span class="n">log</span><span class="o">(</span><span class="s">&#34;delete&#34;</span><span class="o">);</span>
+       <span class="n">userService</span><span class="o">.</span><span class="na">delete</span><span class="o">();</span>
+  <span class="o">}</span>
+
+   <span class="kd">public</span> <span class="kt">void</span> <span class="nf">update</span><span class="o">()</span> <span class="o">{</span>
+       <span class="n">log</span><span class="o">(</span><span class="s">&#34;update&#34;</span><span class="o">);</span>
+       <span class="n">userService</span><span class="o">.</span><span class="na">update</span><span class="o">();</span>
+  <span class="o">}</span>
+
+   <span class="kd">public</span> <span class="kt">void</span> <span class="nf">query</span><span class="o">()</span> <span class="o">{</span>
+       <span class="n">log</span><span class="o">(</span><span class="s">&#34;query&#34;</span><span class="o">);</span>
+       <span class="n">userService</span><span class="o">.</span><span class="na">query</span><span class="o">();</span>
+  <span class="o">}</span>
+
+   <span class="kd">public</span> <span class="kt">void</span> <span class="nf">log</span><span class="o">(</span><span class="n">String</span> <span class="n">msg</span><span class="o">){</span>
+       <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;执行了&#34;</span><span class="o">+</span><span class="n">msg</span><span class="o">+</span><span class="s">&#34;方法&#34;</span><span class="o">);</span>
+  <span class="o">}</span>
+
+<span class="o">}</span>
+</code></pre></div><p>5、测试访问类：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Client</span> <span class="o">{</span>
+   <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+       <span class="c1">//真实业务
+</span><span class="c1"></span>       <span class="n">UserServiceImpl</span> <span class="n">userService</span> <span class="o">=</span> <span class="k">new</span> <span class="n">UserServiceImpl</span><span class="o">();</span>
+       <span class="c1">//代理类
+</span><span class="c1"></span>       <span class="n">UserServiceProxy</span> <span class="n">proxy</span> <span class="o">=</span> <span class="k">new</span> <span class="n">UserServiceProxy</span><span class="o">();</span>
+       <span class="c1">//使用代理类实现日志功能！
+</span><span class="c1"></span>       <span class="n">proxy</span><span class="o">.</span><span class="na">setUserService</span><span class="o">(</span><span class="n">userService</span><span class="o">);</span>
+
+       <span class="n">proxy</span><span class="o">.</span><span class="na">add</span><span class="o">();</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p>OK，到了现在代理模式大家应该都没有什么问题了，重点大家需要理解其中的思想；</p>
+<p>我们在不改变原来的代码的情况下，实现了对原有功能的增强，这是AOP中最核心的思想.</p>
+<blockquote>
+<h3 id="动态代理">动态代理</h3>
+</blockquote>
+<ul>
+<li>
+<p>动态代理的角色和静态代理的一样 .</p>
+</li>
+<li>
+<p>动态代理的代理类是动态生成的 . 静态代理的代理类是我们提前写好的</p>
+</li>
+<li>
+<p>动态代理分为两类 : 一类是基于接口动态代理 , 一类是基于类的动态代理</p>
+</li>
+<li>
+<ul>
+<li>基于接口的动态代理&mdash;-JDK动态代理</li>
+<li>基于类的动态代理&ndash;cglib</li>
+<li>现在用的比较多的是 javasist 来生成动态代理 . 百度一下javasist</li>
+<li>我们这里使用JDK的原生代码来实现，其余的道理都是一样的！、</li>
+</ul>
+</li>
+</ul>
+<p><strong>JDK的动态代理需要了解两个类</strong></p>
+<p>核心 : InvocationHandler   和   Proxy  ， 打开JDK帮助文档看看</p>
+<p>【InvocationHandler：调用处理程序】是由代理实例去调用处理程序的接口，每个代理实例都有一个关联的抵用处理程序</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="n">Object</span> <span class="nf">invoke</span><span class="o">(</span><span class="n">Object</span> <span class="n">proxy</span><span class="o">,</span> <span class="n">方法</span> <span class="n">method</span><span class="o">,</span> <span class="n">Object</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span><span class="err">；</span>
+<span class="c1">//参数
+</span><span class="c1">//proxy - 调用该方法的代理实例
+</span><span class="c1">//method -所述方法对应于调用代理实例上的接口方法的实例。方法对象的声明类将是该方法声明的接口，它可以是代理类继承该方法的代理接口的超级接口。
+</span><span class="c1">//args -包含的方法调用传递代理实例的参数值的对象的阵列，或null如果接口方法没有参数。原始类型的参数包含在适当的原始包装器类的实例中，例如java.lang.Integer或java.lang.Boolean 。
+</span></code></pre></div><p>【Proxy  : 代理】提供了创建动态代理和实例的静态方法，他也就是由这些方法创建的所有动态代理程序的超类，每个代理实例程序都有一个关联的调用处理程序对象，他实现了<code>InvocationHandler</code>接口</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="c1">//生成代理类
+</span><span class="c1">// 参数1 - Loader 类加载器定义的代理类
+</span><span class="c1">// 参数2 - nterfaces 代理类实现的接口列表
+</span><span class="c1">// 参数3 - h 调度方法调用的调用处理函数
+</span><span class="c1"></span><span class="kd">public</span> <span class="n">Object</span> <span class="nf">getProxy</span><span class="o">(){</span>
+   <span class="k">return</span> <span class="n">Proxy</span><span class="o">.</span><span class="na">newProxyInstance</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="na">getClass</span><span class="o">().</span><span class="na">getClassLoader</span><span class="o">(),</span><span class="n">rent</span><span class="o">.</span><span class="na">getClass</span><span class="o">().</span><span class="na">getInterfaces</span><span class="o">(),</span><span class="k">this</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div><p><strong>代码实现</strong></p>
+<p>抽象角色和真实角色和之前的一样！</p>
+<p>Rent . java 即抽象角色</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="c1">//抽象角色：租房
+</span><span class="c1"></span><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">Rent</span> <span class="o">{</span>
+   <span class="kd">public</span> <span class="kt">void</span> <span class="nf">rent</span><span class="o">();</span>
+<span class="o">}</span>
+</code></pre></div><p>Host . java 即真实角色</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="c1">//真实角色: 房东，房东要出租房子
+</span><span class="c1"></span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Host</span> <span class="kd">implements</span> <span class="n">Rent</span><span class="o">{</span>
+   <span class="kd">public</span> <span class="kt">void</span> <span class="nf">rent</span><span class="o">()</span> <span class="o">{</span>
+       <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;房屋出租&#34;</span><span class="o">);</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p>ProxyInvocationHandler. java 即代理角色</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">ProxyInvocationHandler</span> <span class="kd">implements</span> <span class="n">InvocationHandler</span> <span class="o">{</span>
+   <span class="kd">private</span> <span class="n">Rent</span> <span class="n">rent</span><span class="o">;</span>
+
+   <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setRent</span><span class="o">(</span><span class="n">Rent</span> <span class="n">rent</span><span class="o">)</span> <span class="o">{</span>
+       <span class="k">this</span><span class="o">.</span><span class="na">rent</span> <span class="o">=</span> <span class="n">rent</span><span class="o">;</span>
+  <span class="o">}</span>
+
+   <span class="c1">//生成代理类，重点是第二个参数，获取要代理的抽象角色！之前都是一个角色，现在可以代理一类角色
+</span><span class="c1"></span>   <span class="kd">public</span> <span class="n">Object</span> <span class="nf">getProxy</span><span class="o">(){</span>
+       <span class="k">return</span> <span class="n">Proxy</span><span class="o">.</span><span class="na">newProxyInstance</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="na">getClass</span><span class="o">().</span><span class="na">getClassLoader</span><span class="o">(),</span>
+               <span class="n">rent</span><span class="o">.</span><span class="na">getClass</span><span class="o">().</span><span class="na">getInterfaces</span><span class="o">(),</span><span class="k">this</span><span class="o">);</span>
+  <span class="o">}</span>
+
+   <span class="c1">// proxy : 代理类 method : 代理类的调用处理程序的方法对象.
+</span><span class="c1"></span>   <span class="c1">// 处理代理实例上的方法调用并返回结果
+</span><span class="c1"></span>   <span class="nd">@Override</span>
+   <span class="kd">public</span> <span class="n">Object</span> <span class="nf">invoke</span><span class="o">(</span><span class="n">Object</span> <span class="n">proxy</span><span class="o">,</span> <span class="n">Method</span> <span class="n">method</span><span class="o">,</span> <span class="n">Object</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Throwable</span> <span class="o">{</span>
+       <span class="n">seeHouse</span><span class="o">();</span>
+       <span class="c1">//核心：本质利用反射实现！
+</span><span class="c1"></span>       <span class="n">Object</span> <span class="n">result</span> <span class="o">=</span> <span class="n">method</span><span class="o">.</span><span class="na">invoke</span><span class="o">(</span><span class="n">rent</span><span class="o">,</span> <span class="n">args</span><span class="o">);</span>
+       <span class="n">fare</span><span class="o">();</span>
+       <span class="k">return</span> <span class="n">result</span><span class="o">;</span>
+  <span class="o">}</span>
+
+   <span class="c1">//看房
+</span><span class="c1"></span>   <span class="kd">public</span> <span class="kt">void</span> <span class="nf">seeHouse</span><span class="o">(){</span>
+       <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;带房客看房&#34;</span><span class="o">);</span>
+  <span class="o">}</span>
+   <span class="c1">//收中介费
+</span><span class="c1"></span>   <span class="kd">public</span> <span class="kt">void</span> <span class="nf">fare</span><span class="o">(){</span>
+       <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;收中介费&#34;</span><span class="o">);</span>
+  <span class="o">}</span>
+
+<span class="o">}</span>
+</code></pre></div><p>Client . java</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="c1">//租客
+</span><span class="c1"></span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Client</span> <span class="o">{</span>
+
+   <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+       <span class="c1">//真实角色
+</span><span class="c1"></span>       <span class="n">Host</span> <span class="n">host</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Host</span><span class="o">();</span>
+       <span class="c1">//代理实例的调用处理程序
+</span><span class="c1"></span>       <span class="n">ProxyInvocationHandler</span> <span class="n">pih</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ProxyInvocationHandler</span><span class="o">();</span>
+       <span class="n">pih</span><span class="o">.</span><span class="na">setRent</span><span class="o">(</span><span class="n">host</span><span class="o">);</span> <span class="c1">//将真实角色放置进去！
+</span><span class="c1"></span>       <span class="n">Rent</span> <span class="n">proxy</span> <span class="o">=</span> <span class="o">(</span><span class="n">Rent</span><span class="o">)</span><span class="n">pih</span><span class="o">.</span><span class="na">getProxy</span><span class="o">();</span> <span class="c1">//动态生成对应的代理类！
+</span><span class="c1"></span>       <span class="n">proxy</span><span class="o">.</span><span class="na">rent</span><span class="o">();</span>
+  <span class="o">}</span>
+
+<span class="o">}</span>
+</code></pre></div><p>核心：<strong>一个动态代理 , 一般代理某一类业务 , 一个动态代理可以代理多个类，代理的是接口！、</strong></p>
+<blockquote>
+<h3 id="深化理解">深化理解</h3>
+</blockquote>
+<p>我们来使用动态代理实现代理我们后面写的UserService！</p>
+<p>我们也可以编写一个通用的动态代理实现的类！所有的代理对象设置为Object即可！</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">ProxyInvocationHandler</span> <span class="kd">implements</span> <span class="n">InvocationHandler</span> <span class="o">{</span>
+   <span class="kd">private</span> <span class="n">Object</span> <span class="n">target</span><span class="o">;</span>
+
+   <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setTarget</span><span class="o">(</span><span class="n">Object</span> <span class="n">target</span><span class="o">)</span> <span class="o">{</span>
+       <span class="k">this</span><span class="o">.</span><span class="na">target</span> <span class="o">=</span> <span class="n">target</span><span class="o">;</span>
+  <span class="o">}</span>
+
+   <span class="c1">//生成代理类
+</span><span class="c1"></span>   <span class="kd">public</span> <span class="n">Object</span> <span class="nf">getProxy</span><span class="o">(){</span>
+       <span class="k">return</span> <span class="n">Proxy</span><span class="o">.</span><span class="na">newProxyInstance</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="na">getClass</span><span class="o">().</span><span class="na">getClassLoader</span><span class="o">(),</span>
+               <span class="n">target</span><span class="o">.</span><span class="na">getClass</span><span class="o">().</span><span class="na">getInterfaces</span><span class="o">(),</span><span class="k">this</span><span class="o">);</span>
+  <span class="o">}</span>
+
+   <span class="c1">// proxy : 代理类
+</span><span class="c1"></span>   <span class="c1">// method : 代理类的调用处理程序的方法对象.
+</span><span class="c1"></span>   <span class="kd">public</span> <span class="n">Object</span> <span class="nf">invoke</span><span class="o">(</span><span class="n">Object</span> <span class="n">proxy</span><span class="o">,</span> <span class="n">Method</span> <span class="n">method</span><span class="o">,</span> <span class="n">Object</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Throwable</span> <span class="o">{</span>
+       <span class="n">log</span><span class="o">(</span><span class="n">method</span><span class="o">.</span><span class="na">getName</span><span class="o">());</span>
+       <span class="n">Object</span> <span class="n">result</span> <span class="o">=</span> <span class="n">method</span><span class="o">.</span><span class="na">invoke</span><span class="o">(</span><span class="n">target</span><span class="o">,</span> <span class="n">args</span><span class="o">);</span>
+       <span class="k">return</span> <span class="n">result</span><span class="o">;</span>
+  <span class="o">}</span>
+
+   <span class="kd">public</span> <span class="kt">void</span> <span class="nf">log</span><span class="o">(</span><span class="n">String</span> <span class="n">methodName</span><span class="o">){</span>
+       <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;执行了&#34;</span><span class="o">+</span><span class="n">methodName</span><span class="o">+</span><span class="s">&#34;方法&#34;</span><span class="o">);</span>
+  <span class="o">}</span>
+
+<span class="o">}</span>
+</code></pre></div><p>测试！</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Test</span> <span class="o">{</span>
+   <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+       <span class="c1">//真实对象
+</span><span class="c1"></span>       <span class="n">UserServiceImpl</span> <span class="n">userService</span> <span class="o">=</span> <span class="k">new</span> <span class="n">UserServiceImpl</span><span class="o">();</span>
+       <span class="c1">//代理对象的调用处理程序
+</span><span class="c1"></span>       <span class="n">ProxyInvocationHandler</span> <span class="n">pih</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ProxyInvocationHandler</span><span class="o">();</span>
+       <span class="n">pih</span><span class="o">.</span><span class="na">setTarget</span><span class="o">(</span><span class="n">userService</span><span class="o">);</span> <span class="c1">//设置要代理的对象
+</span><span class="c1"></span>       <span class="n">UserService</span> <span class="n">proxy</span> <span class="o">=</span> <span class="o">(</span><span class="n">UserService</span><span class="o">)</span><span class="n">pih</span><span class="o">.</span><span class="na">getProxy</span><span class="o">();</span> <span class="c1">//动态生成代理类！
+</span><span class="c1"></span>       <span class="n">proxy</span><span class="o">.</span><span class="na">delete</span><span class="o">();</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p>测试，增删改查，查看结果！</p>
+<blockquote>
+<h4 id="动态代理的好处">动态代理的好处</h4>
+</blockquote>
+<p>静态代理有的它都有，静态代理没有的，它也有！</p>
+<ul>
+<li>可以使得我们的真实角色更加纯粹 . 不再去关注一些公共的事情 .</li>
+<li>公共的业务由代理来完成 . 实现了业务的分工 ,</li>
+<li>公共业务发生扩展时变得更加集中和方便 .</li>
+<li>一个动态代理 , 一般代理某一类业务</li>
+<li>一个动态代理可以代理多个类，代理的是接口！</li>
+</ul>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/spring/">Spring</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+    
+</article>
+
+    <aside class="related-contents--wrapper">
+    
+    
+        <h2 class="section-title">相关文章</h2>
+        <div class="related-contents">
+            <div class="flex article-list--tile">
+                
+                    
+<article class="">
+    <a href="/p/spring07-aop%E4%BD%BF%E7%94%A8/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Spring07 AOP使用</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
+    <a href="/p/spring05-%E4%BD%BF%E7%94%A8%E6%B3%A8%E8%A7%A3%E5%BC%80%E5%8F%91/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Spring05 使用注解开发</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
+    <a href="/p/spring04-%E8%87%AA%E5%8A%A8%E8%A3%85%E9%85%8D/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Spring04 自动装配</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
+    <a href="/p/spring03-%E4%BE%9D%E8%B5%96%E6%B3%A8%E5%85%A5di/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Spring03 依赖注入(DI)</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
+    <a href="/p/spring02-%E5%BF%AB%E9%80%9F%E4%B8%8A%E6%89%8B/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Spring02 快速上手</h2>
+        </div>
+    </a>
+</article>
+                
+            </div>
+        </div>
+    
+</aside>
+
+     
+     
+        
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "hugo-theme-stack" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (DISQUS) {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2020 - 
+        
+        2021 ybakiame的个人博客
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="2.4.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css"integrity="sha256-c0uckgykQ9v5k&#43;IqViZOZKc47Jn7KQil4/MP3ySA3F8="crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css"integrity="sha256-SBLU4vv6CA6lHsZ1XyTdhyjJxCjPif/TRkjnsyGAGnE="crossorigin="anonymous"
+            >
+
+            </main>
+    
+        <aside class="sidebar right-sidebar sticky">
+            <section class="widget archives">
+                <div class="widget-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+                </div>
+                <h2 class="widget-title section-title">目录</h2>
+                
+                <div class="widget--toc">
+                    <nav id="TableOfContents">
+  <ol>
+    <li><a href="#代理模式">代理模式</a>
+      <ol>
+        <li><a href="#静态代理">静态代理</a></li>
+        <li><a href="#静态代理再理解">静态代理再理解</a></li>
+        <li><a href="#动态代理">动态代理</a></li>
+        <li><a href="#深化理解">深化理解</a>
+          <ol>
+            <li><a href="#动态代理的好处">动态代理的好处</a></li>
+          </ol>
+        </li>
+      </ol>
+    </li>
+  </ol>
+</nav>
+                </div>
+            </section>
+        </aside>
+    
+
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js"integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g="crossorigin="anonymous"
+                defer="false"
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

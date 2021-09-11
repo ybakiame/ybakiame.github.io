@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>数据库 on ybakiame的个人博客</title>
+    <link>https://example.com/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/</link>
+    <description>Recent content in 数据库 on ybakiame的个人博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 11 May 2021 15:29:19 +0800</lastBuildDate><atom:link href="https://example.com/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>MySQL中的数据类型</title>
+      <link>https://example.com/p/mysql%E4%B8%AD%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/</link>
+      <pubDate>Tue, 11 May 2021 15:29:19 +0800</pubDate>
+      
+      <guid>https://example.com/p/mysql%E4%B8%AD%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/</guid>
+      <description>MySQL中的数据类型 MySQL支持多种数据类型，主要有数值类型、日期/时间类型和字符串类型。
+数值类型 数值类型包括：
+  整数类型：TINYINT、SMALLINT、MEDIUMINT、INT、BIGINT
+  浮点数类型有FLOAT和DOUBLE
+  定点小数类型DECIMAL
+  日期/时间类型：包括YEAR、TIME、DATE、DATATIME和TIMESTAMP。
+  字符串类型：CHAR、VARCHAR、BINARY、VARBINARY、BLOB、TEXT、ENUM和SET等。字符串类型又分为文本字符串和二进制字符串。
+  整数类型 数值型数据类型主要用来存储数字，不同的数据类型提供不同的取值范围，可以存储的值的范围越大，其所需要的存储空间也会越大。整数类型的字段可以添加AUTO_INCREMENT自增约束条件。
+   类型名称 存储需求（B）     TINYINT tinyint 1   SMALLINT smallint 2   MEDIUMINT mediumint 3   INT 4   BIGINT 8    需要注意的是，在设计数据库的时候，在实体类中long型的变量对应BIGINT,INT对应int类型的成员变量。
+例：
+CREATE TABLE tb_emp1( id INT(11), name VARCHAR(25). deptId INT(11), salary FLOAT ); id字段的数据类型为INT（11），“11”表示该数据类型指定的显示宽度，指定能显示的数值中数字的个数。</description>
+    </item>
+    
+  </channel>
+</rss>

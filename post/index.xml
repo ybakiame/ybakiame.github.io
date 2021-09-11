@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on ybakiame的个人博客</title>
+    <link>https://example.com/post/</link>
+    <description>Recent content in Posts on ybakiame的个人博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 11 Sep 2021 17:48:58 +0800</lastBuildDate><atom:link href="https://example.com/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Spring07 AOP使用</title>
+      <link>https://example.com/p/spring07-aop%E4%BD%BF%E7%94%A8/</link>
+      <pubDate>Sat, 11 Sep 2021 17:48:58 +0800</pubDate>
+      
+      <guid>https://example.com/p/spring07-aop%E4%BD%BF%E7%94%A8/</guid>
+      <description>AOP  什么是AOP  AOP（Aspect Oriented Programming）意为：面向切面编程，通过预编译方式和运行期动态代理实现程序功能的统一维护的一种技术。AOP是OOP的延续，是软件开发中的一个热点，也是Spring框架中的一个重要内容，是函数式编程的一种衍生范型。利用AOP可以对业务逻辑的各个部分进行隔离，从而使得业务逻辑各部分之间的耦合度降低，提高程序的可重用性，同时提高了开发的效率。
+ Aop在Spring中的作用  提供声明式事务；允许用户自定义切面
+以下名词需要了解下：
+ 横切关注点：跨越应用程序多个模块的方法或功能。即是，与我们业务逻辑无关的，但是我们需要关注的部分，就是横切关注点。如日志 , 安全 , 缓存 , 事务等等 &amp;hellip;. 切面（ASPECT）：横切关注点 被模块化 的特殊对象。即，它是一个类。 通知（Advice）：切面必须要完成的工作。即，它是类中的一个方法。 目标（Target）：被通知对象。 代理（Proxy）：向目标对象应用通知之后创建的对象。 切入点（PointCut）：切面通知 执行的 “地点”的定义。 连接点（JointPoint）：与切入点匹配的执行点。  SpringAOP中，通过Advice定义横切逻辑，Spring中支持5种类型的Advice:
+ 前置增强 BeforeAdvice 代表前置增强，因为spring只支持方法级的增强，所以MethodBeforeAdvice 是目前可用前置增强，表示在目标方法执行前实施增强。 后置增强 AfterAdvice 代表后增强，表示目标方法在执行后实施增强 环绕增强 MethodInterceptor 代表环绕增强，表示目标方法执行前后实施增强 异常抛出增强 ThrowsAdvice 代表抛出异常增强，表示目标方法抛出异常后实施增强 引介增强 IntroductionInterceptor 代表引介增强，表示在目标类中添加一些新的方法和属性  即 Aop 在 不改变原有代码的情况下 , 去增加新的功能 .
+ 使用Spring实现Aop  【重点】使用AOP织入，需要导入一个依赖包！
+&amp;lt;!-- https://mvnrepository.com/artifact/org.aspectj/aspectjweaver --&amp;gt; &amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;org.aspectj&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;aspectjweaver&amp;lt;/artifactId&amp;gt; &amp;lt;version&amp;gt;1.9.4&amp;lt;/version&amp;gt; &amp;lt;/dependency&amp;gt; 第一种方式</description>
+    </item>
+    
+    <item>
+      <title>Spring06 动/静态代理</title>
+      <link>https://example.com/p/spring06-%E5%8A%A8/%E9%9D%99%E6%80%81%E4%BB%A3%E7%90%86/</link>
+      <pubDate>Sat, 11 Sep 2021 17:48:54 +0800</pubDate>
+      
+      <guid>https://example.com/p/spring06-%E5%8A%A8/%E9%9D%99%E6%80%81%E4%BB%A3%E7%90%86/</guid>
+      <description>代理模式 为什么要学习代理模式，因为AOP的底层机制就是动态代理！
+代理模式：
+ 静态代理 动态代理   静态代理  静态代理角色分析
+  抽象角色 : 一般使用接口或者抽象类来实现
+  真实角色 : 被代理的角色
+  代理角色 : 代理真实角色 ; 代理真实角色后 , 一般会做一些附属的操作 .
+  客户 : 使用代理角色来进行一些操作 .
+  代码实现
+Rent . java 即抽象角色
+//抽象角色：租房 public interface Rent { public void rent(); } Host . java 即真实角色
+//真实角色: 房东，房东要出租房子 public class Host implements Rent{ public void rent() { System.out.println(&amp;#34;房屋出租&amp;#34;); } } Proxy .</description>
+    </item>
+    
+    <item>
+      <title>Spring05 使用注解开发</title>
+      <link>https://example.com/p/spring05-%E4%BD%BF%E7%94%A8%E6%B3%A8%E8%A7%A3%E5%BC%80%E5%8F%91/</link>
+      <pubDate>Sat, 11 Sep 2021 17:48:51 +0800</pubDate>
+      
+      <guid>https://example.com/p/spring05-%E4%BD%BF%E7%94%A8%E6%B3%A8%E8%A7%A3%E5%BC%80%E5%8F%91/</guid>
+      <description>使用注解开发  说明  在spring4之后，想要使用注解形式，必须得要引入aop的包
+`spring-aop
+在配置文件当中，还得要引入一个context约束
+&amp;lt;?xml version=&amp;#34;1.0&amp;#34; encoding=&amp;#34;UTF-8&amp;#34;?&amp;gt; &amp;lt;beans xmlns=&amp;#34;http://www.springframework.org/schema/beans&amp;#34; xmlns:xsi=&amp;#34;http://www.w3.org/2001/XMLSchema-instance&amp;#34; xmlns:context=&amp;#34;http://www.springframework.org/schema/context&amp;#34; xsi:schemaLocation=&amp;#34;http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd&amp;#34;&amp;gt; &amp;lt;/beans&amp;gt;  Bean的实现  我们之前都是使用 bean 的标签进行bean注入，但是实际开发中，我们一般都会使用注解！
+1、配置扫描哪些包下的注解
+&amp;lt;!--指定注解扫描包--&amp;gt; &amp;lt;context:component-scan base-package=&amp;#34;com.kuang.pojo&amp;#34;/&amp;gt; 2、在指定包下编写类，增加注解
+@Component(&amp;#34;user&amp;#34;) // 相当于配置文件中 &amp;lt;bean id=&amp;#34;user&amp;#34; class=&amp;#34;当前注解的类&amp;#34;/&amp;gt; public class User { public String name = &amp;#34;秦疆&amp;#34;; } 3、测试
+@Test public void test(){ ApplicationContext applicationContext = new ClassPathXmlApplicationContext(&amp;#34;beans.xml&amp;#34;); User user = (User) applicationContext.getBean(&amp;#34;user&amp;#34;); System.out.println(user.name); }  属性注入  使用注解注入属性
+1、可以不用提供set方法，直接在直接名上添加@value(&amp;ldquo;值&amp;rdquo;)
+@Component(&amp;#34;user&amp;#34;) // 相当于配置文件中 &amp;lt;bean id=&amp;#34;user&amp;#34; class=&amp;#34;当前注解的类&amp;#34;/&amp;gt; public class User { @Value(&amp;#34;秦疆&amp;#34;) // 相当于配置文件中 &amp;lt;property name=&amp;#34;name&amp;#34; value=&amp;#34;秦疆&amp;#34;/&amp;gt;  public String name; } 2、如果提供了set方法，在set方法上添加@value(&amp;ldquo;值&amp;rdquo;);</description>
+    </item>
+    
+    <item>
+      <title>Spring04 自动装配</title>
+      <link>https://example.com/p/spring04-%E8%87%AA%E5%8A%A8%E8%A3%85%E9%85%8D/</link>
+      <pubDate>Sat, 11 Sep 2021 17:48:33 +0800</pubDate>
+      
+      <guid>https://example.com/p/spring04-%E8%87%AA%E5%8A%A8%E8%A3%85%E9%85%8D/</guid>
+      <description>Bean的自动装配  自动装配说明   自动装配是使用spring满足bean依赖的一种方法 spring会在应用上下文中为某个bean寻找其依赖的bean。  Spring中bean有三种装配机制，分别是：
+ 在xml中显式配置； 在java中显式配置； 隐式的bean发现机制和自动装配。  这里我们主要讲第三种：自动化的装配bean。
+Spring的自动装配需要从两个角度来实现，或者说是两个操作：
+ 组件扫描(component scanning)：spring会自动发现应用上下文中所创建的bean； 自动装配(autowiring)：spring自动满足bean之间的依赖，也就是我们说的IoC/DI；  组件扫描和自动装配组合发挥巨大威力，使得显示的配置降低到最少。
+**不推荐使用xml配置 , 而使用注解 **
+ 测试环境搭建  1、新建一个项目
+2、新建两个实体类，Cat Dog 都有一个叫的方法
+public class Cat { public void shout() { System.out.println(&amp;#34;miao~&amp;#34;); } } public class Dog { public void shout() { System.out.println(&amp;#34;wang~&amp;#34;); } } 3、新建一个用户类 User
+public class User { private Cat cat; private Dog dog; private String str; } 4、编写Spring配置文件</description>
+    </item>
+    
+    <item>
+      <title>Spring03 依赖注入(DI)</title>
+      <link>https://example.com/p/spring03-%E4%BE%9D%E8%B5%96%E6%B3%A8%E5%85%A5di/</link>
+      <pubDate>Sat, 11 Sep 2021 17:41:44 +0800</pubDate>
+      
+      <guid>https://example.com/p/spring03-%E4%BE%9D%E8%B5%96%E6%B3%A8%E5%85%A5di/</guid>
+      <description>Dependency Injection  概念   依赖注入（Dependency Injection,DI）。 依赖 : 指Bean对象的创建依赖于容器 . Bean对象的依赖资源 . 注入 : 指Bean对象所依赖的资源 , 由容器来设置和装配 .   构造器注入  我们在之前的案例已经讲过了
+ Set 注入 （重点）  要求被注入的属性 , 必须有set方法 , set方法的方法名由set + 属性首字母大写 , 如果属性是boolean类型 , 没有set方法 , 是 is .
+测试pojo类 :
+Address.java
+public class Address { private String address; public String getAddress() { return address; } public void setAddress(String address) { this.address = address; } } Student.</description>
+    </item>
+    
+    <item>
+      <title>Spring02 快速上手</title>
+      <link>https://example.com/p/spring02-%E5%BF%AB%E9%80%9F%E4%B8%8A%E6%89%8B/</link>
+      <pubDate>Sat, 11 Sep 2021 17:23:33 +0800</pubDate>
+      
+      <guid>https://example.com/p/spring02-%E5%BF%AB%E9%80%9F%E4%B8%8A%E6%89%8B/</guid>
+      <description>HelloSpring  导入Jar包  注 : spring 需要导入commons-logging进行日志记录 . 我们利用maven , 他会自动下载对应的依赖项 .
+&amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;org.springframework&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;spring-webmvc&amp;lt;/artifactId&amp;gt; &amp;lt;version&amp;gt;5.1.10.RELEASE&amp;lt;/version&amp;gt; &amp;lt;/dependency&amp;gt;  编写代码  1、编写一个Hello实体类
+public class Hello { private String name; public String getName() { return name; } public void setName(String name) { this.name = name; } public void show(){ System.out.println(&amp;#34;Hello,&amp;#34;+ name ); } } 2、编写我们的spring文件 , 这里我们命名为beans.xml
+&amp;lt;?xml version=&amp;#34;1.0&amp;#34; encoding=&amp;#34;UTF-8&amp;#34;?&amp;gt; &amp;lt;beans xmlns=&amp;#34;http://www.springframework.org/schema/beans&amp;#34; xmlns:xsi=&amp;#34;http://www.w3.org/2001/XMLSchema-instance&amp;#34; xsi:schemaLocation=&amp;#34;http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd&amp;#34;&amp;gt; &amp;lt;!--bean就是java对象 , 由Spring创建和管理--&amp;gt; &amp;lt;bean id=&amp;#34;hello&amp;#34; class=&amp;#34;com.kuang.pojo.Hello&amp;#34;&amp;gt; &amp;lt;property name=&amp;#34;name&amp;#34; value=&amp;#34;Spring&amp;#34;/&amp;gt; &amp;lt;/bean&amp;gt; &amp;lt;/beans&amp;gt; 3、我们可以去进行测试了 .</description>
+    </item>
+    
+    <item>
+      <title>记一次 Hugo 安装</title>
+      <link>https://example.com/p/%E8%AE%B0%E4%B8%80%E6%AC%A1-hugo-%E5%AE%89%E8%A3%85/</link>
+      <pubDate>Fri, 10 Sep 2021 13:37:10 +0800</pubDate>
+      
+      <guid>https://example.com/p/%E8%AE%B0%E4%B8%80%E6%AC%A1-hugo-%E5%AE%89%E8%A3%85/</guid>
+      <description>Hugo 简介 Hugo是由Steve Francis基于Go语言开发的静态网站构建工具。
+为什么选择Hexo  编译文章生成速度快 Hugo的官方文档写的非常好，部署简洁。 前两者部署时需要安装很多依赖，而hugo可以直接提供二进制文件运行，甚至不需要root权限。 颜值相对较高  安装 官方安装教程(推荐)
+Mac安装   安装 brew
+ruby -e &amp;#34;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&amp;#34;   运行brew命令进行安装hugo
+brew install hugo 如果 Homebrew 工作正常，您应该会看到类似于以下内容的内容：
+==&amp;gt; Downloading https://homebrew.bintray.com/bottles/hugo-0.21.sierra.bottle.tar.gz ######################################################################### 100.0% ==&amp;gt; Pouring hugo-0.21.sierra.bottle.tar.gz 🍺 /usr/local/Cellar/hugo/0.21: 32 files, 17.4MB   创建新站点 hugo new site quickstart 添加主题 有关要考虑的主题列表，请参阅themes.gohugo.io。本快速入门使用漂亮的Ananke 主题。
+首先，从 GitHub 下载主题并将其添加到您网站的themes目录中：
+cd quickstart git init git submodule add https://github.com/theNewDynamic/gohugo-theme-ananke.git themes/ananke 然后，将主题添加到站点配置中：
+echo theme = \&amp;#34;ananke\&amp;#34; &amp;gt;&amp;gt; config.</description>
+    </item>
+    
+    <item>
+      <title>Filter和Listener</title>
+      <link>https://example.com/p/filter%E5%92%8Clistener/</link>
+      <pubDate>Tue, 11 May 2021 15:29:19 +0800</pubDate>
+      
+      <guid>https://example.com/p/filter%E5%92%8Clistener/</guid>
+      <description>Filter和Listener FIlter 指过滤器  概念   生活中的过滤器:空气过滤器 净水器 web中的过滤器:当访问服务器的资源时，过滤器可以将请求拦截下来，完成一些特殊的功能 过滤器的一些功能: 一般用于完整通用的操作：  比如登录验证 统一编码设置 敏感字符过滤     快速入门:
+  步骤:
+ 定义一个类 实现Filter接口， 复写方法 配置拦截资源: 注解配置 @WebFilter(&amp;quot;/*&amp;quot;) web.xml配置    @WebFilter(&amp;#34;/*&amp;#34;) public class FilterDemo implements Filter { @Override public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException { System.out.println(&amp;#34;执行了filter&amp;#34;); chain.doFilter(request, response); } }     过滤器细节
+  web.xml
+  &amp;lt;filter&amp;gt; &amp;lt;filter-name&amp;gt;demo1&amp;lt;/filter-name&amp;gt; &amp;lt;filter-class&amp;gt;com.</description>
+    </item>
+    
+    <item>
+      <title>MySQL中的数据类型</title>
+      <link>https://example.com/p/mysql%E4%B8%AD%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/</link>
+      <pubDate>Tue, 11 May 2021 15:29:19 +0800</pubDate>
+      
+      <guid>https://example.com/p/mysql%E4%B8%AD%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/</guid>
+      <description>MySQL中的数据类型 MySQL支持多种数据类型，主要有数值类型、日期/时间类型和字符串类型。
+数值类型 数值类型包括：
+  整数类型：TINYINT、SMALLINT、MEDIUMINT、INT、BIGINT
+  浮点数类型有FLOAT和DOUBLE
+  定点小数类型DECIMAL
+  日期/时间类型：包括YEAR、TIME、DATE、DATATIME和TIMESTAMP。
+  字符串类型：CHAR、VARCHAR、BINARY、VARBINARY、BLOB、TEXT、ENUM和SET等。字符串类型又分为文本字符串和二进制字符串。
+  整数类型 数值型数据类型主要用来存储数字，不同的数据类型提供不同的取值范围，可以存储的值的范围越大，其所需要的存储空间也会越大。整数类型的字段可以添加AUTO_INCREMENT自增约束条件。
+   类型名称 存储需求（B）     TINYINT tinyint 1   SMALLINT smallint 2   MEDIUMINT mediumint 3   INT 4   BIGINT 8    需要注意的是，在设计数据库的时候，在实体类中long型的变量对应BIGINT,INT对应int类型的成员变量。
+例：
+CREATE TABLE tb_emp1( id INT(11), name VARCHAR(25). deptId INT(11), salary FLOAT ); id字段的数据类型为INT（11），“11”表示该数据类型指定的显示宽度，指定能显示的数值中数字的个数。</description>
+    </item>
+    
+    <item>
+      <title>Spring01 概述及IOC理论推导</title>
+      <link>https://example.com/p/spring01-%E6%A6%82%E8%BF%B0%E5%8F%8Aioc%E7%90%86%E8%AE%BA%E6%8E%A8%E5%AF%BC/</link>
+      <pubDate>Tue, 11 May 2021 15:29:19 +0800</pubDate>
+      
+      <guid>https://example.com/p/spring01-%E6%A6%82%E8%BF%B0%E5%8F%8Aioc%E7%90%86%E8%AE%BA%E6%8E%A8%E5%AF%BC/</guid>
+      <description>Spring介绍  简介  Spring : 春天 &amp;mdash;&amp;gt;给软件行业带来了春天
+2002年，Rod Jahnson首次推出了Spring框架雏形interface21框架。
+2004年3月24日，Spring框架以interface21框架为基础，经过重新设计，发布了1.0正式版。
+很难想象Rod Johnson的学历 , 他是悉尼大学的博士，然而他的专业不是计算机，而是音乐学。
+Spring理念 : 使现有技术更加实用 . 本身就是一个大杂烩 , 整合现有的框架技术
+官网 : http://spring.io/
+官方下载地址 : https://repo.spring.io/libs-release-local/org/springframework/spring/
+GitHub : https://github.com/spring-projects
+ 优点    Spring是一个开源免费的框架 , 容器 .
+  Spring是一个轻量级的框架 , 非侵入式的 .
+  控制反转 IoC , 面向切面 Aop
+  对事物的支持 , 对框架的支持
+  一句话概括：
+Spring是一个轻量级的控制反转(IoC)和面向切面(AOP)的容器（框架）。
+ 组成  Spring 框架是一个分层架构，由 7 个定义良好的模块组成。Spring 模块构建在核心容器之上，核心容器定义了创建、配置和管理 bean 的方式 .</description>
+    </item>
+    
+    <item>
+      <title>SpringMvc替换传统MVC</title>
+      <link>https://example.com/p/springmvc%E6%9B%BF%E6%8D%A2%E4%BC%A0%E7%BB%9Fmvc/</link>
+      <pubDate>Tue, 11 May 2021 15:29:19 +0800</pubDate>
+      
+      <guid>https://example.com/p/springmvc%E6%9B%BF%E6%8D%A2%E4%BC%A0%E7%BB%9Fmvc/</guid>
+      <description>web开发模式  DAO层 对数据库的增删改查 web层 界面（jsp）加控制器（servlrt） service层 执行多个或一个dao层操作，并将其组合成一个完整的业务逻辑 控制层 使用servlet进行控制 数据访问层 使用DAO、Hibernate、JDBC等技术实现对数据库的增删改查 javaBean 用于封装数据  MVC M模型（model） 模型就是 包括 dao，bean
+V 视图（view） 视图jsp，用于向用户展示模型中的数据
+C 控制（controller） 控制器负责将 模型 中的 数据 显示在不同的 显示层 之中
+早期MVC模式（mode1） 模式一：将显示层、控制层、数据层的操作同意交给jsp或者JavaBean来处理
+前端用户请求 -&amp;gt; jsp -&amp;gt; javaBean -&amp;gt; 数据库jsp和html、java类（javaBean）高度耦合。
+早期MVC模式（mode2） 模式二：以servlet为主展开，由servlet接收客户端的请求，根据请求调用对应的JavaBean或其他程序，最后将要现实的结果交给jsp完成。
+前端用户请求 -&amp;gt; jsp -&amp;gt; servlet -&amp;gt; javaBean -&amp;gt; 数据库SpringMVC 用户请求 -&amp;gt; Spring控制器 -&amp;gt; 夹带事务的模型（业务层，数据访问层）-&amp;gt;数据库传统模型层被拆分为（业务层和数据访问层）
+ 需要的jar包 spring-web-*.jar spring-webmvc-*.jar    修改web.xml中的
+&amp;lt;servlet&amp;gt; &amp;lt;servlet-name&amp;gt;dispatcher&amp;lt;/servlet-name&amp;gt; &amp;lt;servlet-class&amp;gt;org.springframework.web.servlet.DispatcherServlet&amp;lt;/servlet-class&amp;gt; &amp;lt;/servlet&amp;gt; &amp;lt;servlet-mapping&amp;gt; &amp;lt;servlet-name&amp;gt;dispatcher&amp;lt;/servlet-name&amp;gt; &amp;lt;url-pattern&amp;gt;/&amp;lt;/url-pattern&amp;gt; &amp;lt;/servlet-mapping&amp;gt;   将拦截地址改为/拦截所有请求，并交给SpringMVC的后台控制器来完成</description>
+    </item>
+    
+    <item>
+      <title>使用EL表达式</title>
+      <link>https://example.com/p/%E4%BD%BF%E7%94%A8el%E8%A1%A8%E8%BE%BE%E5%BC%8F/</link>
+      <pubDate>Tue, 11 May 2021 15:29:19 +0800</pubDate>
+      
+      <guid>https://example.com/p/%E4%BD%BF%E7%94%A8el%E8%A1%A8%E8%BE%BE%E5%BC%8F/</guid>
+      <description>EL（Expression Language） JSP表达式语言（EL）使得访问存储在JavaBean中的数据变得非常简单。JSP EL既可以用来创建算术表达式也可以用来创建逻辑表达式。在JSP EL表达式内可以使用整型数，浮点数，字符串，常量true、false，还有null。
+一个简单的语法 ${expr} {expr} 其中，expr指的是表达式。在JSP EL中通用的操作符是 . 和 {} 。这两个操作符允许您通过内嵌的JSP对象访问各种各样的JavaBean属性。
+&amp;lt;jsp:setProperty name=&amp;quot;box&amp;quot; property=&amp;quot;perimeter&amp;quot; name=&amp;quot;box&amp;quot; property=&amp;quot;perimeter&amp;quot; value=&amp;quot;${2*box.width+2*box.height}&amp;quot;/&amp;gt;value=&amp;quot;${2*box.width+2*box.height}&amp;quot;/&amp;gt; 当JSP编译器在属性中见到&amp;quot;${}&amp;ldquo;格式后，它会产生代码来计算这个表达式，并且产生一个替代品来代替表达式的值。
+您也可以在标签的模板文本中使用表达式语言。比如jsp:text标签简单地将其主体中的文本插入到JSP输出中：
+&amp;lt;jsp:text&amp;gt; &amp;lt;h1&amp;gt;Hello JSP!&amp;lt;/h1&amp;gt;&amp;lt;h1&amp;gt;Hello JSP!&amp;lt;/h1&amp;gt; &amp;lt;/jsp:text&amp;gt;&amp;lt;/jsp:text&amp;gt; 现在，在jsp:text标签主体中使用表达式，就像这样：
+&amp;lt;jsp:text&amp;gt; Box Perimeter is: ${2*box.width + 2*box.height} &amp;lt;/jsp:text&amp;gt;&amp;lt;/jsp:text&amp;gt; 在EL表达式中可以使用圆括号来组织子表达式。比如${(1 + 2) * 3}等于9，但是${1 + (2 * 3)} 等于7。
+想要停用对EL表达式的评估的话，需要使用page指令将isELIgnored属性值设为true：
+&amp;lt;%@ page isELIgnored =&amp;quot;true|false&amp;quot; %&amp;gt; 这样，EL表达式就会被忽略。若设为false，则容器将会计算EL表达式。
+ EL中的基础操作符 EL表达式支持大部分Java所提供的算术和逻辑操作符：
+   操作符 描述     . 访问一个Bean属性或者一个映射条目   [] 访问一个数组或者链表的元素   ( ) 组织一个子表达式以改变优先级   + 加   - 减或负   * 乘   / or div 除   % or mod 取模   == or eq 测试是否相等   !</description>
+    </item>
+    
+    <item>
+      <title>数据库数据分页</title>
+      <link>https://example.com/p/%E6%95%B0%E6%8D%AE%E5%BA%93%E6%95%B0%E6%8D%AE%E5%88%86%E9%A1%B5/</link>
+      <pubDate>Tue, 11 May 2021 15:29:19 +0800</pubDate>
+      
+      <guid>https://example.com/p/%E6%95%B0%E6%8D%AE%E5%BA%93%E6%95%B0%E6%8D%AE%E5%88%86%E9%A1%B5/</guid>
+      <description>数据库分页   在DAO中提供方法
+  public List&amp;lt;Hero&amp;gt; list(int start, int count) start表示开始的个数，count表示取多少条 比如 list(0, 5) ， 即表示第一页，每页有5条数据 比如 list(5, 5) ， 即表示第二页，每页有5条数据   修改HeroListServlet
+  int start = 0; int count = 5; List&amp;lt;Hero&amp;gt; heros = new HeroDAO().list(start, count);   下一页
+HeroListServlet : 通过参数获取start，如果浏览器没有传递参数，就设置为0。 根据start，计算next. next的值就是start+count. 然后把next传递给listHero.jsp
+listHero.jsp 在最后面增加一个超链
+&amp;lt;a href=&amp;quot;?start=${next}&amp;quot;&amp;gt;[下一页]&amp;lt;/a&amp;gt;
+start=${next} 从服务器传递过来的next值
+  上一页
+HeroListServlet: 根据start，计算pre. pre的值就是start-count. 然后把pre传递给listHero.jsp
+listHero.jsp 在下一页前增加一个超链
+&amp;lt;a href=&amp;quot;?start=${pre}&amp;quot;&amp;gt;[上一页]&amp;lt;/a&amp;gt;
+start=${pre} 从服务器传递过来的pre值</description>
+    </item>
+    
+  </channel>
+</rss>

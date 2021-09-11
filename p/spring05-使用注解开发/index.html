@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='使用注解开发  说明  在spring4之后，想要使用注解形式，必须得要引入aop的包
+`spring-aop
+在配置文件当中，还得要引入一个context约束
+&amp;lt;?xml version=&amp;#34;1.0&amp;#34; encoding=&amp;#34;UTF-8&amp;#34;?&amp;gt; &amp;lt;beans xmlns=&amp;#34;http://www.springframework.org/schema/beans&amp;#34; xmlns:xsi=&amp;#34;http://www.w3.org/2001/XMLSchema-instance&amp;#34; xmlns:context=&amp;#34;http://www.springframework.org/schema/context&amp;#34; xsi:schemaLocation=&amp;#34;http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd&amp;#34;&amp;gt; &amp;lt;/beans&amp;gt;  Bean的实现  我们之前都是使用 bean 的标签进行bean注入，但是实际开发中，我们一般都会使用注解！
+1、配置扫描哪些包下的注解
+&amp;lt;!--指定注解扫描包--&amp;gt; &amp;lt;context:component-scan base-package=&amp;#34;com.kuang.pojo&amp;#34;/&amp;gt; 2、在指定包下编写类，增加注解
+@Component(&amp;#34;user&amp;#34;) // 相当于配置文件中 &amp;lt;bean id=&amp;#34;user&amp;#34; class=&amp;#34;当前注解的类&amp;#34;/&amp;gt; public class User { public String name = &amp;#34;秦疆&amp;#34;; } 3、测试
+@Test public void test(){ ApplicationContext applicationContext = new ClassPathXmlApplicationContext(&amp;#34;beans.xml&amp;#34;); User user = (User) applicationContext.getBean(&amp;#34;user&amp;#34;); System.out.println(user.name); }  属性注入  使用注解注入属性
+1、可以不用提供set方法，直接在直接名上添加@value(&amp;ldquo;值&amp;rdquo;)
+@Component(&amp;#34;user&amp;#34;) // 相当于配置文件中 &amp;lt;bean id=&amp;#34;user&amp;#34; class=&amp;#34;当前注解的类&amp;#34;/&amp;gt; public class User { @Value(&amp;#34;秦疆&amp;#34;) // 相当于配置文件中 &amp;lt;property name=&amp;#34;name&amp;#34; value=&amp;#34;秦疆&amp;#34;/&amp;gt;  public String name; } 2、如果提供了set方法，在set方法上添加@value(&amp;ldquo;值&amp;rdquo;);'><title>Spring05 使用注解开发</title>
+
+<link rel='canonical' href='https://example.com/p/spring05-%E4%BD%BF%E7%94%A8%E6%B3%A8%E8%A7%A3%E5%BC%80%E5%8F%91/'>
+
+<link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content='Spring05 使用注解开发'>
+<meta property='og:description' content='使用注解开发  说明  在spring4之后，想要使用注解形式，必须得要引入aop的包
+`spring-aop
+在配置文件当中，还得要引入一个context约束
+&amp;lt;?xml version=&amp;#34;1.0&amp;#34; encoding=&amp;#34;UTF-8&amp;#34;?&amp;gt; &amp;lt;beans xmlns=&amp;#34;http://www.springframework.org/schema/beans&amp;#34; xmlns:xsi=&amp;#34;http://www.w3.org/2001/XMLSchema-instance&amp;#34; xmlns:context=&amp;#34;http://www.springframework.org/schema/context&amp;#34; xsi:schemaLocation=&amp;#34;http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd&amp;#34;&amp;gt; &amp;lt;/beans&amp;gt;  Bean的实现  我们之前都是使用 bean 的标签进行bean注入，但是实际开发中，我们一般都会使用注解！
+1、配置扫描哪些包下的注解
+&amp;lt;!--指定注解扫描包--&amp;gt; &amp;lt;context:component-scan base-package=&amp;#34;com.kuang.pojo&amp;#34;/&amp;gt; 2、在指定包下编写类，增加注解
+@Component(&amp;#34;user&amp;#34;) // 相当于配置文件中 &amp;lt;bean id=&amp;#34;user&amp;#34; class=&amp;#34;当前注解的类&amp;#34;/&amp;gt; public class User { public String name = &amp;#34;秦疆&amp;#34;; } 3、测试
+@Test public void test(){ ApplicationContext applicationContext = new ClassPathXmlApplicationContext(&amp;#34;beans.xml&amp;#34;); User user = (User) applicationContext.getBean(&amp;#34;user&amp;#34;); System.out.println(user.name); }  属性注入  使用注解注入属性
+1、可以不用提供set方法，直接在直接名上添加@value(&amp;ldquo;值&amp;rdquo;)
+@Component(&amp;#34;user&amp;#34;) // 相当于配置文件中 &amp;lt;bean id=&amp;#34;user&amp;#34; class=&amp;#34;当前注解的类&amp;#34;/&amp;gt; public class User { @Value(&amp;#34;秦疆&amp;#34;) // 相当于配置文件中 &amp;lt;property name=&amp;#34;name&amp;#34; value=&amp;#34;秦疆&amp;#34;/&amp;gt;  public String name; } 2、如果提供了set方法，在set方法上添加@value(&amp;ldquo;值&amp;rdquo;);'>
+<meta property='og:url' content='https://example.com/p/spring05-%E4%BD%BF%E7%94%A8%E6%B3%A8%E8%A7%A3%E5%BC%80%E5%8F%91/'>
+<meta property='og:site_name' content='ybakiame的个人博客'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Spring' /><meta property='article:published_time' content='2021-09-11T17:48:51&#43;08:00'/><meta property='article:modified_time' content='2021-09-11T17:48:51&#43;08:00'/>
+<meta name="twitter:title" content="Spring05 使用注解开发">
+<meta name="twitter:description" content="使用注解开发  说明  在spring4之后，想要使用注解形式，必须得要引入aop的包
+`spring-aop
+在配置文件当中，还得要引入一个context约束
+&amp;lt;?xml version=&amp;#34;1.0&amp;#34; encoding=&amp;#34;UTF-8&amp;#34;?&amp;gt; &amp;lt;beans xmlns=&amp;#34;http://www.springframework.org/schema/beans&amp;#34; xmlns:xsi=&amp;#34;http://www.w3.org/2001/XMLSchema-instance&amp;#34; xmlns:context=&amp;#34;http://www.springframework.org/schema/context&amp;#34; xsi:schemaLocation=&amp;#34;http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd&amp;#34;&amp;gt; &amp;lt;/beans&amp;gt;  Bean的实现  我们之前都是使用 bean 的标签进行bean注入，但是实际开发中，我们一般都会使用注解！
+1、配置扫描哪些包下的注解
+&amp;lt;!--指定注解扫描包--&amp;gt; &amp;lt;context:component-scan base-package=&amp;#34;com.kuang.pojo&amp;#34;/&amp;gt; 2、在指定包下编写类，增加注解
+@Component(&amp;#34;user&amp;#34;) // 相当于配置文件中 &amp;lt;bean id=&amp;#34;user&amp;#34; class=&amp;#34;当前注解的类&amp;#34;/&amp;gt; public class User { public String name = &amp;#34;秦疆&amp;#34;; } 3、测试
+@Test public void test(){ ApplicationContext applicationContext = new ClassPathXmlApplicationContext(&amp;#34;beans.xml&amp;#34;); User user = (User) applicationContext.getBean(&amp;#34;user&amp;#34;); System.out.println(user.name); }  属性注入  使用注解注入属性
+1、可以不用提供set方法，直接在直接名上添加@value(&amp;ldquo;值&amp;rdquo;)
+@Component(&amp;#34;user&amp;#34;) // 相当于配置文件中 &amp;lt;bean id=&amp;#34;user&amp;#34; class=&amp;#34;当前注解的类&amp;#34;/&amp;gt; public class User { @Value(&amp;#34;秦疆&amp;#34;) // 相当于配置文件中 &amp;lt;property name=&amp;#34;name&amp;#34; value=&amp;#34;秦疆&amp;#34;/&amp;gt;  public String name; } 2、如果提供了set方法，在set方法上添加@value(&amp;ldquo;值&amp;rdquo;);">
+    </head>
+    <body class="
+    article-page has-toc
+">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex 
+    
+        extended
+    
+">
+    
+        <div id="article-toolbar">
+            <a href="https://example.com" class="back-home">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="15 6 9 12 15 18" />
+</svg>
+
+
+
+                <span>返回</span>
+            </a>
+        </div>
+    
+<main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/spring/" >
+                Spring
+            </a>
+        
+            <a href="/categories/%E5%AD%A6%E4%B9%A0/" >
+                学习
+            </a>
+        
+    </header>
+    
+
+    <h2 class="article-title">
+        <a href="/p/spring05-%E4%BD%BF%E7%94%A8%E6%B3%A8%E8%A7%A3%E5%BC%80%E5%8F%91/">Spring05 使用注解开发</a>
+    </h2>
+
+    <footer class="article-time">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+        <time class="article-time--published">Sep 11, 2021</time>
+    </footer></div>
+</header>
+
+    <section class="article-content">
+    <h2 id="使用注解开发">使用注解开发</h2>
+<blockquote>
+<h3 id="说明">说明</h3>
+</blockquote>
+<p>在spring4之后，想要使用注解形式，必须得要引入aop的包</p>
+<p>`spring-aop</p>
+<p>在配置文件当中，还得要引入一个context约束</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="cp">&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;</span>
+<span class="nt">&lt;beans</span> <span class="na">xmlns=</span><span class="s">&#34;http://www.springframework.org/schema/beans&#34;</span>
+      <span class="na">xmlns:xsi=</span><span class="s">&#34;http://www.w3.org/2001/XMLSchema-instance&#34;</span>
+      <span class="na">xmlns:context=</span><span class="s">&#34;http://www.springframework.org/schema/context&#34;</span>
+      <span class="na">xsi:schemaLocation=</span><span class="s">&#34;http://www.springframework.org/schema/beans
+</span><span class="s">       http://www.springframework.org/schema/beans/spring-beans.xsd
+</span><span class="s">       http://www.springframework.org/schema/context
+</span><span class="s">       http://www.springframework.org/schema/context/spring-context.xsd&#34;</span><span class="nt">&gt;</span>
+
+<span class="nt">&lt;/beans&gt;</span>
+</code></pre></div><blockquote>
+<h3 id="bean的实现">Bean的实现</h3>
+</blockquote>
+<p>我们之前都是使用 bean 的标签进行bean注入，但是实际开发中，我们一般都会使用注解！</p>
+<p>1、配置扫描哪些包下的注解</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="c">&lt;!--指定注解扫描包--&gt;</span>
+<span class="nt">&lt;context:component-scan</span> <span class="na">base-package=</span><span class="s">&#34;com.kuang.pojo&#34;</span><span class="nt">/&gt;</span>
+</code></pre></div><p>2、在指定包下编写类，增加注解</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="nd">@Component</span><span class="o">(</span><span class="s">&#34;user&#34;</span><span class="o">)</span>
+<span class="c1">// 相当于配置文件中 &lt;bean id=&#34;user&#34; class=&#34;当前注解的类&#34;/&gt;
+</span><span class="c1"></span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">User</span> <span class="o">{</span>
+   <span class="kd">public</span> <span class="n">String</span> <span class="n">name</span> <span class="o">=</span> <span class="s">&#34;秦疆&#34;</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div><p>3、测试</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="nd">@Test</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">test</span><span class="o">(){</span>
+   <span class="n">ApplicationContext</span> <span class="n">applicationContext</span> <span class="o">=</span>
+       <span class="k">new</span> <span class="n">ClassPathXmlApplicationContext</span><span class="o">(</span><span class="s">&#34;beans.xml&#34;</span><span class="o">);</span>
+   <span class="n">User</span> <span class="n">user</span> <span class="o">=</span> <span class="o">(</span><span class="n">User</span><span class="o">)</span> <span class="n">applicationContext</span><span class="o">.</span><span class="na">getBean</span><span class="o">(</span><span class="s">&#34;user&#34;</span><span class="o">);</span>
+   <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">user</span><span class="o">.</span><span class="na">name</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div><blockquote>
+<h3 id="属性注入">属性注入</h3>
+</blockquote>
+<p>使用注解注入属性</p>
+<p>1、可以不用提供set方法，直接在直接名上添加@value(&ldquo;值&rdquo;)</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="nd">@Component</span><span class="o">(</span><span class="s">&#34;user&#34;</span><span class="o">)</span>
+<span class="c1">// 相当于配置文件中 &lt;bean id=&#34;user&#34; class=&#34;当前注解的类&#34;/&gt;
+</span><span class="c1"></span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">User</span> <span class="o">{</span>
+   <span class="nd">@Value</span><span class="o">(</span><span class="s">&#34;秦疆&#34;</span><span class="o">)</span>
+   <span class="c1">// 相当于配置文件中 &lt;property name=&#34;name&#34; value=&#34;秦疆&#34;/&gt;
+</span><span class="c1"></span>   <span class="kd">public</span> <span class="n">String</span> <span class="n">name</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div><p>2、如果提供了set方法，在set方法上添加@value(&ldquo;值&rdquo;);</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="nd">@Component</span><span class="o">(</span><span class="s">&#34;user&#34;</span><span class="o">)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">User</span> <span class="o">{</span>
+
+   <span class="kd">public</span> <span class="n">String</span> <span class="n">name</span><span class="o">;</span>
+
+   <span class="nd">@Value</span><span class="o">(</span><span class="s">&#34;秦疆&#34;</span><span class="o">)</span>
+   <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setName</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">)</span> <span class="o">{</span>
+       <span class="k">this</span><span class="o">.</span><span class="na">name</span> <span class="o">=</span> <span class="n">name</span><span class="o">;</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><blockquote>
+<h3 id="衍生注解">衍生注解</h3>
+</blockquote>
+<p>我们这些注解，就是替代了在配置文件当中配置步骤而已！更加的方便快捷！</p>
+<p><strong>@Component三个衍生注解</strong></p>
+<p>为了更好的进行分层，Spring可以使用其它三个注解，功能一样，目前使用哪一个功能都一样。</p>
+<ul>
+<li>@Controller：web层</li>
+<li>@Service：service层</li>
+<li>@Repository：dao层</li>
+</ul>
+<p>写上这些注解，就相当于将这个类交给Spring管理装配了！</p>
+<blockquote>
+<h3 id="自动装配注解">自动装配注解</h3>
+</blockquote>
+<p>在Bean的自动装配已经讲过了，可以回顾！</p>
+<blockquote>
+<h3 id="作用域">作用域</h3>
+</blockquote>
+<p>@scope</p>
+<ul>
+<li>singleton：默认的，Spring会采用单例模式创建这个对象。关闭工厂 ，所有的对象都会销毁。</li>
+<li>prototype：多例模式。关闭工厂 ，所有的对象不会销毁。内部的垃圾回收机制会回收</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="nd">@Controller</span><span class="o">(</span><span class="s">&#34;user&#34;</span><span class="o">)</span>
+<span class="nd">@Scope</span><span class="o">(</span><span class="s">&#34;prototype&#34;</span><span class="o">)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">User</span> <span class="o">{</span>
+   <span class="nd">@Value</span><span class="o">(</span><span class="s">&#34;秦疆&#34;</span><span class="o">)</span>
+   <span class="kd">public</span> <span class="n">String</span> <span class="n">name</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div><blockquote>
+<h3 id="小结">小结</h3>
+</blockquote>
+<p><strong>XML与注解比较</strong></p>
+<ul>
+<li>XML可以适用任何场景 ，结构清晰，维护方便</li>
+<li>注解不是自己提供的类使用不了，开发简单方便</li>
+</ul>
+<p><strong>xml与注解整合开发</strong> ：推荐最佳实践</p>
+<ul>
+<li>xml管理Bean</li>
+<li>注解完成属性注入</li>
+<li>使用过程中， 可以不用扫描，扫描是为了类上的注解</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="nt">&lt;context:annotation-config/&gt;</span>  
+</code></pre></div><p>作用：</p>
+<ul>
+<li>
+<p>进行注解驱动注册，从而使注解生效</p>
+</li>
+<li>
+<p>用于激活那些已经在spring容器里注册过的bean上面的注解，也就是显示的向Spring注册</p>
+</li>
+<li>
+<p>如果不扫描包，就需要手动配置bean</p>
+</li>
+<li>
+<p>如果不加注解驱动，则注入的值为null！</p>
+</li>
+</ul>
+<blockquote>
+<h4 id="基于java类进行配置">基于Java类进行配置</h4>
+</blockquote>
+<p>JavaConfig 原来是 Spring 的一个子项目，它通过 Java 类的方式提供 Bean 的定义信息，在 Spring4 的版本， JavaConfig 已正式成为 Spring4 的核心功能 。</p>
+<p>测试：</p>
+<p>1、编写一个实体类，Dog</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="nd">@Component</span>  <span class="c1">//将这个类标注为Spring的一个组件，放到容器中！
+</span><span class="c1"></span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Dog</span> <span class="o">{</span>
+   <span class="kd">public</span> <span class="n">String</span> <span class="n">name</span> <span class="o">=</span> <span class="s">&#34;dog&#34;</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div><p>2、新建一个config配置包，编写一个MyConfig配置类</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="nd">@Configuration</span>  <span class="c1">//代表这是一个配置类
+</span><span class="c1"></span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MyConfig</span> <span class="o">{</span>
+
+   <span class="nd">@Bean</span> <span class="c1">//通过方法注册一个bean，这里的返回值就Bean的类型，方法名就是bean的id！
+</span><span class="c1"></span>   <span class="kd">public</span> <span class="n">Dog</span> <span class="nf">dog</span><span class="o">(){</span>
+       <span class="k">return</span> <span class="k">new</span> <span class="n">Dog</span><span class="o">();</span>
+  <span class="o">}</span>
+
+<span class="o">}</span>
+</code></pre></div><p>3、测试</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="nd">@Test</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">test2</span><span class="o">(){</span>
+   <span class="n">ApplicationContext</span> <span class="n">applicationContext</span> <span class="o">=</span>
+           <span class="k">new</span> <span class="n">AnnotationConfigApplicationContext</span><span class="o">(</span><span class="n">MyConfig</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+   <span class="n">Dog</span> <span class="n">dog</span> <span class="o">=</span> <span class="o">(</span><span class="n">Dog</span><span class="o">)</span> <span class="n">applicationContext</span><span class="o">.</span><span class="na">getBean</span><span class="o">(</span><span class="s">&#34;dog&#34;</span><span class="o">);</span>
+   <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">dog</span><span class="o">.</span><span class="na">name</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div><p>4、成功输出结果！</p>
+<p><strong>导入其他配置如何做呢？</strong></p>
+<p>1、我们再编写一个配置类！</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="nd">@Configuration</span>  <span class="c1">//代表这是一个配置类
+</span><span class="c1"></span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MyConfig2</span> <span class="o">{</span>
+<span class="o">}</span>
+</code></pre></div><p>2、在之前的配置类中我们来选择导入这个配置类</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="nd">@Configuration</span>
+<span class="nd">@Import</span><span class="o">(</span><span class="n">MyConfig2</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>  <span class="c1">//导入合并其他配置类，类似于配置文件中的 inculde 标签
+</span><span class="c1"></span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MyConfig</span> <span class="o">{</span>
+
+   <span class="nd">@Bean</span>
+   <span class="kd">public</span> <span class="n">Dog</span> <span class="nf">dog</span><span class="o">(){</span>
+       <span class="k">return</span> <span class="k">new</span> <span class="n">Dog</span><span class="o">();</span>
+  <span class="o">}</span>
+
+<span class="o">}</span>
+</code></pre></div><p>关于这种Java类的配置方式，我们在之后的SpringBoot 和 SpringCloud中还会大量看到，我们需要知道这些注解的作用即可！</p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/spring/">Spring</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+    
+</article>
+
+    <aside class="related-contents--wrapper">
+    
+    
+        <h2 class="section-title">相关文章</h2>
+        <div class="related-contents">
+            <div class="flex article-list--tile">
+                
+                    
+<article class="">
+    <a href="/p/spring07-aop%E4%BD%BF%E7%94%A8/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Spring07 AOP使用</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
+    <a href="/p/spring06-%E5%8A%A8/%E9%9D%99%E6%80%81%E4%BB%A3%E7%90%86/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Spring06 动/静态代理</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
+    <a href="/p/spring04-%E8%87%AA%E5%8A%A8%E8%A3%85%E9%85%8D/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Spring04 自动装配</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
+    <a href="/p/spring03-%E4%BE%9D%E8%B5%96%E6%B3%A8%E5%85%A5di/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Spring03 依赖注入(DI)</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
+    <a href="/p/spring02-%E5%BF%AB%E9%80%9F%E4%B8%8A%E6%89%8B/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Spring02 快速上手</h2>
+        </div>
+    </a>
+</article>
+                
+            </div>
+        </div>
+    
+</aside>
+
+     
+     
+        
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "hugo-theme-stack" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (DISQUS) {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2020 - 
+        
+        2021 ybakiame的个人博客
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="2.4.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css"integrity="sha256-c0uckgykQ9v5k&#43;IqViZOZKc47Jn7KQil4/MP3ySA3F8="crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css"integrity="sha256-SBLU4vv6CA6lHsZ1XyTdhyjJxCjPif/TRkjnsyGAGnE="crossorigin="anonymous"
+            >
+
+            </main>
+    
+        <aside class="sidebar right-sidebar sticky">
+            <section class="widget archives">
+                <div class="widget-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+                </div>
+                <h2 class="widget-title section-title">目录</h2>
+                
+                <div class="widget--toc">
+                    <nav id="TableOfContents">
+  <ol>
+    <li><a href="#使用注解开发">使用注解开发</a>
+      <ol>
+        <li><a href="#说明">说明</a></li>
+        <li><a href="#bean的实现">Bean的实现</a></li>
+        <li><a href="#属性注入">属性注入</a></li>
+        <li><a href="#衍生注解">衍生注解</a></li>
+        <li><a href="#自动装配注解">自动装配注解</a></li>
+        <li><a href="#作用域">作用域</a></li>
+        <li><a href="#小结">小结</a>
+          <ol>
+            <li><a href="#基于java类进行配置">基于Java类进行配置</a></li>
+          </ol>
+        </li>
+      </ol>
+    </li>
+  </ol>
+</nav>
+                </div>
+            </section>
+        </aside>
+    
+
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js"integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g="crossorigin="anonymous"
+                defer="false"
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

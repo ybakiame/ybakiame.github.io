@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>静态网站搭建 on ybakiame的个人博客</title>
+    <link>https://example.com/categories/%E9%9D%99%E6%80%81%E7%BD%91%E7%AB%99%E6%90%AD%E5%BB%BA/</link>
+    <description>Recent content in 静态网站搭建 on ybakiame的个人博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 10 Sep 2021 13:37:10 +0800</lastBuildDate><atom:link href="https://example.com/categories/%E9%9D%99%E6%80%81%E7%BD%91%E7%AB%99%E6%90%AD%E5%BB%BA/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>记一次 Hugo 安装</title>
+      <link>https://example.com/p/%E8%AE%B0%E4%B8%80%E6%AC%A1-hugo-%E5%AE%89%E8%A3%85/</link>
+      <pubDate>Fri, 10 Sep 2021 13:37:10 +0800</pubDate>
+      
+      <guid>https://example.com/p/%E8%AE%B0%E4%B8%80%E6%AC%A1-hugo-%E5%AE%89%E8%A3%85/</guid>
+      <description>Hugo 简介 Hugo是由Steve Francis基于Go语言开发的静态网站构建工具。
+为什么选择Hexo  编译文章生成速度快 Hugo的官方文档写的非常好，部署简洁。 前两者部署时需要安装很多依赖，而hugo可以直接提供二进制文件运行，甚至不需要root权限。 颜值相对较高  安装 官方安装教程(推荐)
+Mac安装   安装 brew
+ruby -e &amp;#34;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&amp;#34;   运行brew命令进行安装hugo
+brew install hugo 如果 Homebrew 工作正常，您应该会看到类似于以下内容的内容：
+==&amp;gt; Downloading https://homebrew.bintray.com/bottles/hugo-0.21.sierra.bottle.tar.gz ######################################################################### 100.0% ==&amp;gt; Pouring hugo-0.21.sierra.bottle.tar.gz 🍺 /usr/local/Cellar/hugo/0.21: 32 files, 17.4MB   创建新站点 hugo new site quickstart 添加主题 有关要考虑的主题列表，请参阅themes.gohugo.io。本快速入门使用漂亮的Ananke 主题。
+首先，从 GitHub 下载主题并将其添加到您网站的themes目录中：
+cd quickstart git init git submodule add https://github.com/theNewDynamic/gohugo-theme-ananke.git themes/ananke 然后，将主题添加到站点配置中：
+echo theme = \&amp;#34;ananke\&amp;#34; &amp;gt;&amp;gt; config.</description>
+    </item>
+    
+  </channel>
+</rss>

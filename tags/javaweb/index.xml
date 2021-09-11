@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>JavaWeb on ybakiame的个人博客</title>
+    <link>https://example.com/tags/javaweb/</link>
+    <description>Recent content in JavaWeb on ybakiame的个人博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 11 May 2021 15:29:19 +0800</lastBuildDate><atom:link href="https://example.com/tags/javaweb/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Filter和Listener</title>
+      <link>https://example.com/p/filter%E5%92%8Clistener/</link>
+      <pubDate>Tue, 11 May 2021 15:29:19 +0800</pubDate>
+      
+      <guid>https://example.com/p/filter%E5%92%8Clistener/</guid>
+      <description>Filter和Listener FIlter 指过滤器  概念   生活中的过滤器:空气过滤器 净水器 web中的过滤器:当访问服务器的资源时，过滤器可以将请求拦截下来，完成一些特殊的功能 过滤器的一些功能: 一般用于完整通用的操作：  比如登录验证 统一编码设置 敏感字符过滤     快速入门:
+  步骤:
+ 定义一个类 实现Filter接口， 复写方法 配置拦截资源: 注解配置 @WebFilter(&amp;quot;/*&amp;quot;) web.xml配置    @WebFilter(&amp;#34;/*&amp;#34;) public class FilterDemo implements Filter { @Override public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException { System.out.println(&amp;#34;执行了filter&amp;#34;); chain.doFilter(request, response); } }     过滤器细节
+  web.xml
+  &amp;lt;filter&amp;gt; &amp;lt;filter-name&amp;gt;demo1&amp;lt;/filter-name&amp;gt; &amp;lt;filter-class&amp;gt;com.</description>
+    </item>
+    
+    <item>
+      <title>SpringMvc替换传统MVC</title>
+      <link>https://example.com/p/springmvc%E6%9B%BF%E6%8D%A2%E4%BC%A0%E7%BB%9Fmvc/</link>
+      <pubDate>Tue, 11 May 2021 15:29:19 +0800</pubDate>
+      
+      <guid>https://example.com/p/springmvc%E6%9B%BF%E6%8D%A2%E4%BC%A0%E7%BB%9Fmvc/</guid>
+      <description>web开发模式  DAO层 对数据库的增删改查 web层 界面（jsp）加控制器（servlrt） service层 执行多个或一个dao层操作，并将其组合成一个完整的业务逻辑 控制层 使用servlet进行控制 数据访问层 使用DAO、Hibernate、JDBC等技术实现对数据库的增删改查 javaBean 用于封装数据  MVC M模型（model） 模型就是 包括 dao，bean
+V 视图（view） 视图jsp，用于向用户展示模型中的数据
+C 控制（controller） 控制器负责将 模型 中的 数据 显示在不同的 显示层 之中
+早期MVC模式（mode1） 模式一：将显示层、控制层、数据层的操作同意交给jsp或者JavaBean来处理
+前端用户请求 -&amp;gt; jsp -&amp;gt; javaBean -&amp;gt; 数据库jsp和html、java类（javaBean）高度耦合。
+早期MVC模式（mode2） 模式二：以servlet为主展开，由servlet接收客户端的请求，根据请求调用对应的JavaBean或其他程序，最后将要现实的结果交给jsp完成。
+前端用户请求 -&amp;gt; jsp -&amp;gt; servlet -&amp;gt; javaBean -&amp;gt; 数据库SpringMVC 用户请求 -&amp;gt; Spring控制器 -&amp;gt; 夹带事务的模型（业务层，数据访问层）-&amp;gt;数据库传统模型层被拆分为（业务层和数据访问层）
+ 需要的jar包 spring-web-*.jar spring-webmvc-*.jar    修改web.xml中的
+&amp;lt;servlet&amp;gt; &amp;lt;servlet-name&amp;gt;dispatcher&amp;lt;/servlet-name&amp;gt; &amp;lt;servlet-class&amp;gt;org.springframework.web.servlet.DispatcherServlet&amp;lt;/servlet-class&amp;gt; &amp;lt;/servlet&amp;gt; &amp;lt;servlet-mapping&amp;gt; &amp;lt;servlet-name&amp;gt;dispatcher&amp;lt;/servlet-name&amp;gt; &amp;lt;url-pattern&amp;gt;/&amp;lt;/url-pattern&amp;gt; &amp;lt;/servlet-mapping&amp;gt;   将拦截地址改为/拦截所有请求，并交给SpringMVC的后台控制器来完成</description>
+    </item>
+    
+    <item>
+      <title>使用EL表达式</title>
+      <link>https://example.com/p/%E4%BD%BF%E7%94%A8el%E8%A1%A8%E8%BE%BE%E5%BC%8F/</link>
+      <pubDate>Tue, 11 May 2021 15:29:19 +0800</pubDate>
+      
+      <guid>https://example.com/p/%E4%BD%BF%E7%94%A8el%E8%A1%A8%E8%BE%BE%E5%BC%8F/</guid>
+      <description>EL（Expression Language） JSP表达式语言（EL）使得访问存储在JavaBean中的数据变得非常简单。JSP EL既可以用来创建算术表达式也可以用来创建逻辑表达式。在JSP EL表达式内可以使用整型数，浮点数，字符串，常量true、false，还有null。
+一个简单的语法 ${expr} {expr} 其中，expr指的是表达式。在JSP EL中通用的操作符是 . 和 {} 。这两个操作符允许您通过内嵌的JSP对象访问各种各样的JavaBean属性。
+&amp;lt;jsp:setProperty name=&amp;quot;box&amp;quot; property=&amp;quot;perimeter&amp;quot; name=&amp;quot;box&amp;quot; property=&amp;quot;perimeter&amp;quot; value=&amp;quot;${2*box.width+2*box.height}&amp;quot;/&amp;gt;value=&amp;quot;${2*box.width+2*box.height}&amp;quot;/&amp;gt; 当JSP编译器在属性中见到&amp;quot;${}&amp;ldquo;格式后，它会产生代码来计算这个表达式，并且产生一个替代品来代替表达式的值。
+您也可以在标签的模板文本中使用表达式语言。比如jsp:text标签简单地将其主体中的文本插入到JSP输出中：
+&amp;lt;jsp:text&amp;gt; &amp;lt;h1&amp;gt;Hello JSP!&amp;lt;/h1&amp;gt;&amp;lt;h1&amp;gt;Hello JSP!&amp;lt;/h1&amp;gt; &amp;lt;/jsp:text&amp;gt;&amp;lt;/jsp:text&amp;gt; 现在，在jsp:text标签主体中使用表达式，就像这样：
+&amp;lt;jsp:text&amp;gt; Box Perimeter is: ${2*box.width + 2*box.height} &amp;lt;/jsp:text&amp;gt;&amp;lt;/jsp:text&amp;gt; 在EL表达式中可以使用圆括号来组织子表达式。比如${(1 + 2) * 3}等于9，但是${1 + (2 * 3)} 等于7。
+想要停用对EL表达式的评估的话，需要使用page指令将isELIgnored属性值设为true：
+&amp;lt;%@ page isELIgnored =&amp;quot;true|false&amp;quot; %&amp;gt; 这样，EL表达式就会被忽略。若设为false，则容器将会计算EL表达式。
+ EL中的基础操作符 EL表达式支持大部分Java所提供的算术和逻辑操作符：
+   操作符 描述     . 访问一个Bean属性或者一个映射条目   [] 访问一个数组或者链表的元素   ( ) 组织一个子表达式以改变优先级   + 加   - 减或负   * 乘   / or div 除   % or mod 取模   == or eq 测试是否相等   !</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>分页 on ybakiame的个人博客</title>
+    <link>https://example.com/tags/%E5%88%86%E9%A1%B5/</link>
+    <description>Recent content in 分页 on ybakiame的个人博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 11 May 2021 15:29:19 +0800</lastBuildDate><atom:link href="https://example.com/tags/%E5%88%86%E9%A1%B5/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>数据库数据分页</title>
+      <link>https://example.com/p/%E6%95%B0%E6%8D%AE%E5%BA%93%E6%95%B0%E6%8D%AE%E5%88%86%E9%A1%B5/</link>
+      <pubDate>Tue, 11 May 2021 15:29:19 +0800</pubDate>
+      
+      <guid>https://example.com/p/%E6%95%B0%E6%8D%AE%E5%BA%93%E6%95%B0%E6%8D%AE%E5%88%86%E9%A1%B5/</guid>
+      <description>数据库分页   在DAO中提供方法
+  public List&amp;lt;Hero&amp;gt; list(int start, int count) start表示开始的个数，count表示取多少条 比如 list(0, 5) ， 即表示第一页，每页有5条数据 比如 list(5, 5) ， 即表示第二页，每页有5条数据   修改HeroListServlet
+  int start = 0; int count = 5; List&amp;lt;Hero&amp;gt; heros = new HeroDAO().list(start, count);   下一页
+HeroListServlet : 通过参数获取start，如果浏览器没有传递参数，就设置为0。 根据start，计算next. next的值就是start+count. 然后把next传递给listHero.jsp
+listHero.jsp 在最后面增加一个超链
+&amp;lt;a href=&amp;quot;?start=${next}&amp;quot;&amp;gt;[下一页]&amp;lt;/a&amp;gt;
+start=${next} 从服务器传递过来的next值
+  上一页
+HeroListServlet: 根据start，计算pre. pre的值就是start-count. 然后把pre传递给listHero.jsp
+listHero.jsp 在下一页前增加一个超链
+&amp;lt;a href=&amp;quot;?start=${pre}&amp;quot;&amp;gt;[上一页]&amp;lt;/a&amp;gt;
+start=${pre} 从服务器传递过来的pre值</description>
+    </item>
+    
+  </channel>
+</rss>
