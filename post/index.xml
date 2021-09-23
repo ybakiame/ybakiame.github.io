@@ -6,7 +6,18 @@
     <description>Recent content in Posts on ybakiame的个人博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 11 Sep 2021 17:48:58 +0800</lastBuildDate><atom:link href="https://example.com/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 23 Sep 2021 13:31:02 +0800</lastBuildDate><atom:link href="https://example.com/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Mysql触发器</title>
+      <link>https://example.com/p/mysql%E8%A7%A6%E5%8F%91%E5%99%A8/</link>
+      <pubDate>Thu, 23 Sep 2021 13:31:02 +0800</pubDate>
+      
+      <guid>https://example.com/p/mysql%E8%A7%A6%E5%8F%91%E5%99%A8/</guid>
+      <description>触发器的概念：
+​	触发器是一种特殊的存储过程，不同于存储过程，触发器是通过事件触发执行，而不是手动调用执行的。 什么事触发事件？ 触发器（trigger），是指表中内容发生改变（增、删、改）时，系统会自动触发并执行的事件。 作用： 1、可以在触发时，校验或转换数据，保证数据安全。 2、触发器发生错误时，前面用户执行成功的操作会被回滚。 &amp;hellip;
+表结构 CREATEDATABASEdemo;USE`demo`;CREATETABLE`user`(`u_id`BIGINT(18)NOTNULLAUTO_INCREMENTCOMMENT&amp;#39;用户id&amp;#39;,`u_name`VARCHAR(15)NOTNULLCOMMENT&amp;#39;用户名&amp;#39;,`u_sex`CHAR(1)NOTNULLDEFAULT&amp;#39;男&amp;#39;COMMENT&amp;#39;性别&amp;#39;,`u_createtime`DATETIMENOTNULLCOMMENT&amp;#39;创建时间&amp;#39;,`u_eff`INT(1)NOTNULLDEFAULT&amp;#39;1&amp;#39;COMMENT&amp;#39;有效&amp;#39;,PRIMARYKEY(`u_id`))CREATETABLE`flowers`(`f_id`BIGINT(18)NOTNULLAUTO_INCREMENTCOMMENT&amp;#39;花呗表id&amp;#39;,`f_credit_points`INT(4)NOTNULLCOMMENT&amp;#39;信用积分&amp;#39;,`f_quota`INT(5)NOTNULLCOMMENT&amp;#39;花呗额度&amp;#39;,`f_mapping_user`BIGINT(18)NOTNULLCOMMENT&amp;#39;用户id&amp;#39;,PRIMARYKEY(`f_id`))创建触发器 DELIMITER$$/*自定义结束符号*//*创建*/CREATE/*TRIGGER 触发器*//*库名+触发器名*//*BEFORE/AFTER 在sql之前执行还是之后执行*//*INSERT/UPDATE/DELETE触发条件*/TRIGGER`demo`.`userflowers`AFTERINSERT/*作用于哪个表*/ON`demo`.`user`/*每行都受影响，都执行，行级触发器*/FOREACHROWBEGIN/*触发执行的语句*/INSERTINTO`flowers`(`f_credit_points`,`f_quota`,`f_mapping_user`)VALUE(100,1000,new.u_id);END$$DELIMITER;执行语句 INSERTINTO`user`(`u_name`,`u_sex`,`u_createtime`)VALUE(&amp;#34;张三&amp;#34;,&amp;#34;女&amp;#34;,&amp;#34;2021-09-23 09:34:00&amp;#34;);1.   new和old的使用       INSERT 没有old只有new new表示将要插入或者已经插入的数据   UPDATE 既有old也有new old表示更新之前的数据 new表示更新之后的数据   DELETE 没有new只有old old表示删除前或已经被删除的数据    触发器条件使用if elseif else DELIMITER$$CREATETRIGGER`demo`.`userupdate`AFTERUPDATEON`demo`.`user`FOREACHROWBEGIN/*判断是否有效字段变为0*/IFnew.`u_eff`=0THEN/*删除花呗*/DELETEFROM`flowers`WHERE`f_mapping_user`=new.u_id;ELSEIFnew.`u_eff`=1THEN/*添加花呗*/INSERTINTO`flowers`(`f_credit_points`,`f_quota`,`f_mapping_user`)VALUE(100,1000,new.u_id);ELSE/*其它情况*/ENDIF;END$$DELIMITER;变量的使用 DELIMITER$$USE`demo`$$DROPTRIGGER/*!50032 IF EXISTS */`userflowers`$$CREATE/*!50017 DEFINER = &amp;#39;root&amp;#39;@&amp;#39;localhost&amp;#39; */TRIGGER`userflowers`AFTERINSERTON`user`FOREACHROWBEGIN/*触发执行的语句*/INSERTINTO`flowers`(`f_credit_points`,`f_quota`,`f_mapping_user`)VALUE(100,1000,new.u_id);/* 用户变量：以@开始，形式为 @变量名 用户变量只针对当前客户端生效 全局变量：定义方式 set GLOBAL 变量名，或者 set @@global.变量名 对所有客户端生效，但是具有super权限才可以设置全局变量 */SELECTCOUNT(*)FROMUSERINTO@num;UPDATE`statistics`SET`users`=@numWHEREs_id=1;END;$$DELIMITER;</description>
+    </item>
+    
     <item>
       <title>Spring07 AOP使用</title>
       <link>https://example.com/p/spring07-aop%E4%BD%BF%E7%94%A8/</link>

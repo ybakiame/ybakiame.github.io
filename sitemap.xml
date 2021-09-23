@@ -3,10 +3,25 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://example.com/categories/</loc>
-    <lastmod>2021-09-11T17:48:58+08:00</lastmod>
+    <lastmod>2021-09-23T13:31:02+08:00</lastmod>
+  </url><url>
+    <loc>https://example.com/tags/mysql/</loc>
+    <lastmod>2021-09-23T13:31:02+08:00</lastmod>
+  </url><url>
+    <loc>https://example.com/categories/mysql/</loc>
+    <lastmod>2021-09-23T13:31:02+08:00</lastmod>
+  </url><url>
+    <loc>https://example.com/p/mysql%E8%A7%A6%E5%8F%91%E5%99%A8/</loc>
+    <lastmod>2021-09-23T13:31:02+08:00</lastmod>
   </url><url>
     <loc>https://example.com/post/</loc>
-    <lastmod>2021-09-11T17:48:58+08:00</lastmod>
+    <lastmod>2021-09-23T13:31:02+08:00</lastmod>
+  </url><url>
+    <loc>https://example.com/tags/</loc>
+    <lastmod>2021-09-23T13:31:02+08:00</lastmod>
+  </url><url>
+    <loc>https://example.com/</loc>
+    <lastmod>2021-09-23T13:31:02+08:00</lastmod>
   </url><url>
     <loc>https://example.com/tags/spring/</loc>
     <lastmod>2021-09-11T17:48:58+08:00</lastmod>
@@ -15,12 +30,6 @@
     <lastmod>2021-09-11T17:48:58+08:00</lastmod>
   </url><url>
     <loc>https://example.com/p/spring07-aop%E4%BD%BF%E7%94%A8/</loc>
-    <lastmod>2021-09-11T17:48:58+08:00</lastmod>
-  </url><url>
-    <loc>https://example.com/tags/</loc>
-    <lastmod>2021-09-11T17:48:58+08:00</lastmod>
-  </url><url>
-    <loc>https://example.com/</loc>
     <lastmod>2021-09-11T17:48:58+08:00</lastmod>
   </url><url>
     <loc>https://example.com/categories/%E5%AD%A6%E4%B9%A0/</loc>
@@ -60,9 +69,6 @@
     <lastmod>2021-05-11T15:29:19+08:00</lastmod>
   </url><url>
     <loc>https://example.com/tags/jsp/</loc>
-    <lastmod>2021-05-11T15:29:19+08:00</lastmod>
-  </url><url>
-    <loc>https://example.com/tags/mysql/</loc>
     <lastmod>2021-05-11T15:29:19+08:00</lastmod>
   </url><url>
     <loc>https://example.com/p/mysql%E4%B8%AD%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/</loc>

@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='触发器的概念：
+​	触发器是一种特殊的存储过程，不同于存储过程，触发器是通过事件触发执行，而不是手动调用执行的。 什么事触发事件？ 触发器（trigger），是指表中内容发生改变（增、删、改）时，系统会自动触发并执行的事件。 作用： 1、可以在触发时，校验或转换数据，保证数据安全。 2、触发器发生错误时，前面用户执行成功的操作会被回滚。 &amp;hellip;
+表结构 CREATEDATABASEdemo;USE`demo`;CREATETABLE`user`(`u_id`BIGINT(18)NOTNULLAUTO_INCREMENTCOMMENT&amp;#39;用户id&amp;#39;,`u_name`VARCHAR(15)NOTNULLCOMMENT&amp;#39;用户名&amp;#39;,`u_sex`CHAR(1)NOTNULLDEFAULT&amp;#39;男&amp;#39;COMMENT&amp;#39;性别&amp;#39;,`u_createtime`DATETIMENOTNULLCOMMENT&amp;#39;创建时间&amp;#39;,`u_eff`INT(1)NOTNULLDEFAULT&amp;#39;1&amp;#39;COMMENT&amp;#39;有效&amp;#39;,PRIMARYKEY(`u_id`))CREATETABLE`flowers`(`f_id`BIGINT(18)NOTNULLAUTO_INCREMENTCOMMENT&amp;#39;花呗表id&amp;#39;,`f_credit_points`INT(4)NOTNULLCOMMENT&amp;#39;信用积分&amp;#39;,`f_quota`INT(5)NOTNULLCOMMENT&amp;#39;花呗额度&amp;#39;,`f_mapping_user`BIGINT(18)NOTNULLCOMMENT&amp;#39;用户id&amp;#39;,PRIMARYKEY(`f_id`))创建触发器 DELIMITER$$/*自定义结束符号*//*创建*/CREATE/*TRIGGER 触发器*//*库名&#43;触发器名*//*BEFORE/AFTER 在sql之前执行还是之后执行*//*INSERT/UPDATE/DELETE触发条件*/TRIGGER`demo`.`userflowers`AFTERINSERT/*作用于哪个表*/ON`demo`.`user`/*每行都受影响，都执行，行级触发器*/FOREACHROWBEGIN/*触发执行的语句*/INSERTINTO`flowers`(`f_credit_points`,`f_quota`,`f_mapping_user`)VALUE(100,1000,new.u_id);END$$DELIMITER;执行语句 INSERTINTO`user`(`u_name`,`u_sex`,`u_createtime`)VALUE(&amp;#34;张三&amp;#34;,&amp;#34;女&amp;#34;,&amp;#34;2021-09-23 09:34:00&amp;#34;);1.   new和old的使用       INSERT 没有old只有new new表示将要插入或者已经插入的数据   UPDATE 既有old也有new old表示更新之前的数据 new表示更新之后的数据   DELETE 没有new只有old old表示删除前或已经被删除的数据    触发器条件使用if elseif else DELIMITER$$CREATETRIGGER`demo`.`userupdate`AFTERUPDATEON`demo`.`user`FOREACHROWBEGIN/*判断是否有效字段变为0*/IFnew.`u_eff`=0THEN/*删除花呗*/DELETEFROM`flowers`WHERE`f_mapping_user`=new.u_id;ELSEIFnew.`u_eff`=1THEN/*添加花呗*/INSERTINTO`flowers`(`f_credit_points`,`f_quota`,`f_mapping_user`)VALUE(100,1000,new.u_id);ELSE/*其它情况*/ENDIF;END$$DELIMITER;变量的使用 DELIMITER$$USE`demo`$$DROPTRIGGER/*!50032 IF EXISTS */`userflowers`$$CREATE/*!50017 DEFINER = &amp;#39;root&amp;#39;@&amp;#39;localhost&amp;#39; */TRIGGER`userflowers`AFTERINSERTON`user`FOREACHROWBEGIN/*触发执行的语句*/INSERTINTO`flowers`(`f_credit_points`,`f_quota`,`f_mapping_user`)VALUE(100,1000,new.u_id);/* 用户变量：以@开始，形式为 @变量名 用户变量只针对当前客户端生效 全局变量：定义方式 set GLOBAL 变量名，或者 set @@global.变量名 对所有客户端生效，但是具有super权限才可以设置全局变量 */SELECTCOUNT(*)FROMUSERINTO@num;UPDATE`statistics`SET`users`=@numWHEREs_id=1;END;$$DELIMITER;'><title>Mysql触发器</title>
+
+<link rel='canonical' href='https://example.com/p/mysql%E8%A7%A6%E5%8F%91%E5%99%A8/'>
+
+<link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content='Mysql触发器'>
+<meta property='og:description' content='触发器的概念：
+​	触发器是一种特殊的存储过程，不同于存储过程，触发器是通过事件触发执行，而不是手动调用执行的。 什么事触发事件？ 触发器（trigger），是指表中内容发生改变（增、删、改）时，系统会自动触发并执行的事件。 作用： 1、可以在触发时，校验或转换数据，保证数据安全。 2、触发器发生错误时，前面用户执行成功的操作会被回滚。 &amp;hellip;
+表结构 CREATEDATABASEdemo;USE`demo`;CREATETABLE`user`(`u_id`BIGINT(18)NOTNULLAUTO_INCREMENTCOMMENT&amp;#39;用户id&amp;#39;,`u_name`VARCHAR(15)NOTNULLCOMMENT&amp;#39;用户名&amp;#39;,`u_sex`CHAR(1)NOTNULLDEFAULT&amp;#39;男&amp;#39;COMMENT&amp;#39;性别&amp;#39;,`u_createtime`DATETIMENOTNULLCOMMENT&amp;#39;创建时间&amp;#39;,`u_eff`INT(1)NOTNULLDEFAULT&amp;#39;1&amp;#39;COMMENT&amp;#39;有效&amp;#39;,PRIMARYKEY(`u_id`))CREATETABLE`flowers`(`f_id`BIGINT(18)NOTNULLAUTO_INCREMENTCOMMENT&amp;#39;花呗表id&amp;#39;,`f_credit_points`INT(4)NOTNULLCOMMENT&amp;#39;信用积分&amp;#39;,`f_quota`INT(5)NOTNULLCOMMENT&amp;#39;花呗额度&amp;#39;,`f_mapping_user`BIGINT(18)NOTNULLCOMMENT&amp;#39;用户id&amp;#39;,PRIMARYKEY(`f_id`))创建触发器 DELIMITER$$/*自定义结束符号*//*创建*/CREATE/*TRIGGER 触发器*//*库名&#43;触发器名*//*BEFORE/AFTER 在sql之前执行还是之后执行*//*INSERT/UPDATE/DELETE触发条件*/TRIGGER`demo`.`userflowers`AFTERINSERT/*作用于哪个表*/ON`demo`.`user`/*每行都受影响，都执行，行级触发器*/FOREACHROWBEGIN/*触发执行的语句*/INSERTINTO`flowers`(`f_credit_points`,`f_quota`,`f_mapping_user`)VALUE(100,1000,new.u_id);END$$DELIMITER;执行语句 INSERTINTO`user`(`u_name`,`u_sex`,`u_createtime`)VALUE(&amp;#34;张三&amp;#34;,&amp;#34;女&amp;#34;,&amp;#34;2021-09-23 09:34:00&amp;#34;);1.   new和old的使用       INSERT 没有old只有new new表示将要插入或者已经插入的数据   UPDATE 既有old也有new old表示更新之前的数据 new表示更新之后的数据   DELETE 没有new只有old old表示删除前或已经被删除的数据    触发器条件使用if elseif else DELIMITER$$CREATETRIGGER`demo`.`userupdate`AFTERUPDATEON`demo`.`user`FOREACHROWBEGIN/*判断是否有效字段变为0*/IFnew.`u_eff`=0THEN/*删除花呗*/DELETEFROM`flowers`WHERE`f_mapping_user`=new.u_id;ELSEIFnew.`u_eff`=1THEN/*添加花呗*/INSERTINTO`flowers`(`f_credit_points`,`f_quota`,`f_mapping_user`)VALUE(100,1000,new.u_id);ELSE/*其它情况*/ENDIF;END$$DELIMITER;变量的使用 DELIMITER$$USE`demo`$$DROPTRIGGER/*!50032 IF EXISTS */`userflowers`$$CREATE/*!50017 DEFINER = &amp;#39;root&amp;#39;@&amp;#39;localhost&amp;#39; */TRIGGER`userflowers`AFTERINSERTON`user`FOREACHROWBEGIN/*触发执行的语句*/INSERTINTO`flowers`(`f_credit_points`,`f_quota`,`f_mapping_user`)VALUE(100,1000,new.u_id);/* 用户变量：以@开始，形式为 @变量名 用户变量只针对当前客户端生效 全局变量：定义方式 set GLOBAL 变量名，或者 set @@global.变量名 对所有客户端生效，但是具有super权限才可以设置全局变量 */SELECTCOUNT(*)FROMUSERINTO@num;UPDATE`statistics`SET`users`=@numWHEREs_id=1;END;$$DELIMITER;'>
+<meta property='og:url' content='https://example.com/p/mysql%E8%A7%A6%E5%8F%91%E5%99%A8/'>
+<meta property='og:site_name' content='ybakiame的个人博客'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Mysql' /><meta property='article:published_time' content='2021-09-23T13:31:02&#43;08:00'/><meta property='article:modified_time' content='2021-09-23T13:31:02&#43;08:00'/>
+<meta name="twitter:title" content="Mysql触发器">
+<meta name="twitter:description" content="触发器的概念：
+​	触发器是一种特殊的存储过程，不同于存储过程，触发器是通过事件触发执行，而不是手动调用执行的。 什么事触发事件？ 触发器（trigger），是指表中内容发生改变（增、删、改）时，系统会自动触发并执行的事件。 作用： 1、可以在触发时，校验或转换数据，保证数据安全。 2、触发器发生错误时，前面用户执行成功的操作会被回滚。 &amp;hellip;
+表结构 CREATEDATABASEdemo;USE`demo`;CREATETABLE`user`(`u_id`BIGINT(18)NOTNULLAUTO_INCREMENTCOMMENT&amp;#39;用户id&amp;#39;,`u_name`VARCHAR(15)NOTNULLCOMMENT&amp;#39;用户名&amp;#39;,`u_sex`CHAR(1)NOTNULLDEFAULT&amp;#39;男&amp;#39;COMMENT&amp;#39;性别&amp;#39;,`u_createtime`DATETIMENOTNULLCOMMENT&amp;#39;创建时间&amp;#39;,`u_eff`INT(1)NOTNULLDEFAULT&amp;#39;1&amp;#39;COMMENT&amp;#39;有效&amp;#39;,PRIMARYKEY(`u_id`))CREATETABLE`flowers`(`f_id`BIGINT(18)NOTNULLAUTO_INCREMENTCOMMENT&amp;#39;花呗表id&amp;#39;,`f_credit_points`INT(4)NOTNULLCOMMENT&amp;#39;信用积分&amp;#39;,`f_quota`INT(5)NOTNULLCOMMENT&amp;#39;花呗额度&amp;#39;,`f_mapping_user`BIGINT(18)NOTNULLCOMMENT&amp;#39;用户id&amp;#39;,PRIMARYKEY(`f_id`))创建触发器 DELIMITER$$/*自定义结束符号*//*创建*/CREATE/*TRIGGER 触发器*//*库名&#43;触发器名*//*BEFORE/AFTER 在sql之前执行还是之后执行*//*INSERT/UPDATE/DELETE触发条件*/TRIGGER`demo`.`userflowers`AFTERINSERT/*作用于哪个表*/ON`demo`.`user`/*每行都受影响，都执行，行级触发器*/FOREACHROWBEGIN/*触发执行的语句*/INSERTINTO`flowers`(`f_credit_points`,`f_quota`,`f_mapping_user`)VALUE(100,1000,new.u_id);END$$DELIMITER;执行语句 INSERTINTO`user`(`u_name`,`u_sex`,`u_createtime`)VALUE(&amp;#34;张三&amp;#34;,&amp;#34;女&amp;#34;,&amp;#34;2021-09-23 09:34:00&amp;#34;);1.   new和old的使用       INSERT 没有old只有new new表示将要插入或者已经插入的数据   UPDATE 既有old也有new old表示更新之前的数据 new表示更新之后的数据   DELETE 没有new只有old old表示删除前或已经被删除的数据    触发器条件使用if elseif else DELIMITER$$CREATETRIGGER`demo`.`userupdate`AFTERUPDATEON`demo`.`user`FOREACHROWBEGIN/*判断是否有效字段变为0*/IFnew.`u_eff`=0THEN/*删除花呗*/DELETEFROM`flowers`WHERE`f_mapping_user`=new.u_id;ELSEIFnew.`u_eff`=1THEN/*添加花呗*/INSERTINTO`flowers`(`f_credit_points`,`f_quota`,`f_mapping_user`)VALUE(100,1000,new.u_id);ELSE/*其它情况*/ENDIF;END$$DELIMITER;变量的使用 DELIMITER$$USE`demo`$$DROPTRIGGER/*!50032 IF EXISTS */`userflowers`$$CREATE/*!50017 DEFINER = &amp;#39;root&amp;#39;@&amp;#39;localhost&amp;#39; */TRIGGER`userflowers`AFTERINSERTON`user`FOREACHROWBEGIN/*触发执行的语句*/INSERTINTO`flowers`(`f_credit_points`,`f_quota`,`f_mapping_user`)VALUE(100,1000,new.u_id);/* 用户变量：以@开始，形式为 @变量名 用户变量只针对当前客户端生效 全局变量：定义方式 set GLOBAL 变量名，或者 set @@global.变量名 对所有客户端生效，但是具有super权限才可以设置全局变量 */SELECTCOUNT(*)FROMUSERINTO@num;UPDATE`statistics`SET`users`=@numWHEREs_id=1;END;$$DELIMITER;">
+    </head>
+    <body class="
+    article-page has-toc
+">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex 
+    
+        extended
+    
+">
+    
+        <div id="article-toolbar">
+            <a href="https://example.com" class="back-home">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="15 6 9 12 15 18" />
+</svg>
+
+
+
+                <span>返回</span>
+            </a>
+        </div>
+    
+<main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/mysql/" >
+                Mysql
+            </a>
+        
+    </header>
+    
+
+    <h2 class="article-title">
+        <a href="/p/mysql%E8%A7%A6%E5%8F%91%E5%99%A8/">Mysql触发器</a>
+    </h2>
+
+    <footer class="article-time">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+        <time class="article-time--published">Sep 23, 2021</time>
+    </footer></div>
+</header>
+
+    <section class="article-content">
+    <p>触发器的概念：</p>
+<p>​	触发器是一种特殊的存储过程，不同于存储过程，触发器是通过事件触发执行，而不是手动调用执行的。
+什么事触发事件？
+触发器（trigger），是指表中内容发生改变（增、删、改）时，系统会自动触发并执行的事件。
+作用：
+1、可以在触发时，校验或转换数据，保证数据安全。
+2、触发器发生错误时，前面用户执行成功的操作会被回滚。
+&hellip;</p>
+<h2 id="表结构">表结构</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="k">CREATE</span><span class="w"> </span><span class="k">DATABASE</span><span class="w"> </span><span class="n">demo</span><span class="p">;</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="n">USE</span><span class="w"> </span><span class="o">`</span><span class="n">demo</span><span class="o">`</span><span class="p">;</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="o">`</span><span class="k">user</span><span class="o">`</span><span class="w"> </span><span class="p">(</span><span class="w">
+</span><span class="w">  </span><span class="o">`</span><span class="n">u_id</span><span class="o">`</span><span class="w"> </span><span class="nb">BIGINT</span><span class="p">(</span><span class="mi">18</span><span class="p">)</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="n">AUTO_INCREMENT</span><span class="w"> </span><span class="k">COMMENT</span><span class="w"> </span><span class="s1">&#39;用户id&#39;</span><span class="p">,</span><span class="w">
+</span><span class="w">  </span><span class="o">`</span><span class="n">u_name</span><span class="o">`</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">15</span><span class="p">)</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">COMMENT</span><span class="w"> </span><span class="s1">&#39;用户名&#39;</span><span class="p">,</span><span class="w">
+</span><span class="w">  </span><span class="o">`</span><span class="n">u_sex</span><span class="o">`</span><span class="w"> </span><span class="nb">CHAR</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="s1">&#39;男&#39;</span><span class="w"> </span><span class="k">COMMENT</span><span class="w"> </span><span class="s1">&#39;性别&#39;</span><span class="p">,</span><span class="w">
+</span><span class="w">  </span><span class="o">`</span><span class="n">u_createtime</span><span class="o">`</span><span class="w"> </span><span class="n">DATETIME</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">COMMENT</span><span class="w"> </span><span class="s1">&#39;创建时间&#39;</span><span class="p">,</span><span class="w">
+</span><span class="w">  </span><span class="o">`</span><span class="n">u_eff</span><span class="o">`</span><span class="w"> </span><span class="nb">INT</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="s1">&#39;1&#39;</span><span class="w"> </span><span class="k">COMMENT</span><span class="w"> </span><span class="s1">&#39;有效&#39;</span><span class="p">,</span><span class="w">
+</span><span class="w">  </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="p">(</span><span class="o">`</span><span class="n">u_id</span><span class="o">`</span><span class="p">)</span><span class="w">
+</span><span class="w"></span><span class="p">)</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="o">`</span><span class="n">flowers</span><span class="o">`</span><span class="w"> </span><span class="p">(</span><span class="w">
+</span><span class="w">  </span><span class="o">`</span><span class="n">f_id</span><span class="o">`</span><span class="w"> </span><span class="nb">BIGINT</span><span class="p">(</span><span class="mi">18</span><span class="p">)</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="n">AUTO_INCREMENT</span><span class="w"> </span><span class="k">COMMENT</span><span class="w"> </span><span class="s1">&#39;花呗表id&#39;</span><span class="p">,</span><span class="w">
+</span><span class="w">  </span><span class="o">`</span><span class="n">f_credit_points</span><span class="o">`</span><span class="w"> </span><span class="nb">INT</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">COMMENT</span><span class="w"> </span><span class="s1">&#39;信用积分&#39;</span><span class="p">,</span><span class="w">
+</span><span class="w">  </span><span class="o">`</span><span class="n">f_quota</span><span class="o">`</span><span class="w"> </span><span class="nb">INT</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">COMMENT</span><span class="w"> </span><span class="s1">&#39;花呗额度&#39;</span><span class="p">,</span><span class="w">
+</span><span class="w">  </span><span class="o">`</span><span class="n">f_mapping_user</span><span class="o">`</span><span class="w"> </span><span class="nb">BIGINT</span><span class="p">(</span><span class="mi">18</span><span class="p">)</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">COMMENT</span><span class="w"> </span><span class="s1">&#39;用户id&#39;</span><span class="p">,</span><span class="w">
+</span><span class="w">  </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="p">(</span><span class="o">`</span><span class="n">f_id</span><span class="o">`</span><span class="p">)</span><span class="w">
+</span><span class="w"></span><span class="p">)</span><span class="w">
+</span></code></pre></div><h2 id="创建触发器">创建触发器</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="k">DELIMITER</span><span class="w"> </span><span class="err">$$</span><span class="w">
+</span><span class="w"></span><span class="cm">/*自定义结束符号*/</span><span class="w">
+</span><span class="w"></span><span class="cm">/*创建*/</span><span class="w">
+</span><span class="w"></span><span class="k">CREATE</span><span class="w">
+</span><span class="w">    </span><span class="cm">/*TRIGGER 触发器*/</span><span class="w">
+</span><span class="w">    </span><span class="cm">/*库名+触发器名*/</span><span class="w">
+</span><span class="w">    </span><span class="cm">/*BEFORE/AFTER 在sql之前执行还是之后执行*/</span><span class="w">
+</span><span class="w">    </span><span class="cm">/*INSERT/UPDATE/DELETE触发条件*/</span><span class="w">
+</span><span class="w">    </span><span class="k">TRIGGER</span><span class="w"> </span><span class="o">`</span><span class="n">demo</span><span class="o">`</span><span class="p">.</span><span class="o">`</span><span class="n">userflowers</span><span class="o">`</span><span class="w"> </span><span class="k">AFTER</span><span class="w"> </span><span class="k">INSERT</span><span class="w">
+</span><span class="w">    </span><span class="cm">/*作用于哪个表*/</span><span class="w">
+</span><span class="w">    </span><span class="k">ON</span><span class="w"> </span><span class="o">`</span><span class="n">demo</span><span class="o">`</span><span class="p">.</span><span class="o">`</span><span class="k">user</span><span class="o">`</span><span class="w">
+</span><span class="w">    </span><span class="cm">/*每行都受影响，都执行，行级触发器*/</span><span class="w">
+</span><span class="w">    </span><span class="k">FOR</span><span class="w"> </span><span class="k">EACH</span><span class="w"> </span><span class="k">ROW</span><span class="w"> </span><span class="k">BEGIN</span><span class="w">
+</span><span class="w">	</span><span class="cm">/*触发执行的语句*/</span><span class="w">
+</span><span class="w">	</span><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="o">`</span><span class="n">flowers</span><span class="o">`</span><span class="p">(</span><span class="o">`</span><span class="n">f_credit_points</span><span class="o">`</span><span class="p">,</span><span class="o">`</span><span class="n">f_quota</span><span class="o">`</span><span class="p">,</span><span class="o">`</span><span class="n">f_mapping_user</span><span class="o">`</span><span class="p">)</span><span class="w">
+</span><span class="w">	</span><span class="n">VALUE</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span><span class="mi">1000</span><span class="p">,</span><span class="k">new</span><span class="p">.</span><span class="n">u_id</span><span class="p">);</span><span class="w">
+</span><span class="w">	
+</span><span class="w">    </span><span class="k">END</span><span class="err">$$</span><span class="w">
+</span><span class="w"></span><span class="k">DELIMITER</span><span class="w"> </span><span class="p">;</span><span class="w">
+</span></code></pre></div><h2 id="执行语句">执行语句</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="o">`</span><span class="k">user</span><span class="o">`</span><span class="p">(</span><span class="o">`</span><span class="n">u_name</span><span class="o">`</span><span class="p">,</span><span class="o">`</span><span class="n">u_sex</span><span class="o">`</span><span class="p">,</span><span class="o">`</span><span class="n">u_createtime</span><span class="o">`</span><span class="p">)</span><span class="w"> </span><span class="n">VALUE</span><span class="p">(</span><span class="s2">&#34;张三&#34;</span><span class="p">,</span><span class="s2">&#34;女&#34;</span><span class="p">,</span><span class="s2">&#34;2021-09-23 09:34:00&#34;</span><span class="p">);</span><span class="mi">1</span><span class="p">.</span><span class="w">
+</span></code></pre></div><table>
+<thead>
+<tr>
+<th><strong>new和old的使用</strong></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>INSERT</td>
+<td>没有old只有new</td>
+<td>new表示将要插入或者已经插入的数据</td>
+</tr>
+<tr>
+<td>UPDATE</td>
+<td>既有old也有new</td>
+<td>old表示更新之前的数据 new表示更新之后的数据</td>
+</tr>
+<tr>
+<td>DELETE</td>
+<td>没有new只有old</td>
+<td>old表示删除前或已经被删除的数据</td>
+</tr>
+</tbody>
+</table>
+<h2 id="触发器条件使用if-elseif-else">触发器条件使用if elseif else</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="k">DELIMITER</span><span class="w"> </span><span class="err">$$</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="k">CREATE</span><span class="w">
+</span><span class="w">    </span><span class="k">TRIGGER</span><span class="w"> </span><span class="o">`</span><span class="n">demo</span><span class="o">`</span><span class="p">.</span><span class="o">`</span><span class="n">userupdate</span><span class="o">`</span><span class="w"> </span><span class="k">AFTER</span><span class="w"> </span><span class="k">UPDATE</span><span class="w">
+</span><span class="w">    </span><span class="k">ON</span><span class="w"> </span><span class="o">`</span><span class="n">demo</span><span class="o">`</span><span class="p">.</span><span class="o">`</span><span class="k">user</span><span class="o">`</span><span class="w">
+</span><span class="w">    </span><span class="k">FOR</span><span class="w"> </span><span class="k">EACH</span><span class="w"> </span><span class="k">ROW</span><span class="w"> </span><span class="k">BEGIN</span><span class="w">
+</span><span class="w">	</span><span class="cm">/*判断是否有效字段变为0*/</span><span class="w">
+</span><span class="w">	</span><span class="k">IF</span><span class="w"> </span><span class="k">new</span><span class="p">.</span><span class="o">`</span><span class="n">u_eff</span><span class="o">`</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="k">THEN</span><span class="w">
+</span><span class="w">		</span><span class="cm">/*删除花呗*/</span><span class="w">
+</span><span class="w">		</span><span class="k">DELETE</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="o">`</span><span class="n">flowers</span><span class="o">`</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="o">`</span><span class="n">f_mapping_user</span><span class="o">`</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="p">.</span><span class="n">u_id</span><span class="p">;</span><span class="w">
+</span><span class="w">	</span><span class="n">ELSEIF</span><span class="w">  </span><span class="k">new</span><span class="p">.</span><span class="o">`</span><span class="n">u_eff</span><span class="o">`</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="k">THEN</span><span class="w">
+</span><span class="w">		</span><span class="cm">/*添加花呗*/</span><span class="w">
+</span><span class="w">		</span><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="o">`</span><span class="n">flowers</span><span class="o">`</span><span class="p">(</span><span class="o">`</span><span class="n">f_credit_points</span><span class="o">`</span><span class="p">,</span><span class="o">`</span><span class="n">f_quota</span><span class="o">`</span><span class="p">,</span><span class="o">`</span><span class="n">f_mapping_user</span><span class="o">`</span><span class="p">)</span><span class="w">
+</span><span class="w">		</span><span class="n">VALUE</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span><span class="mi">1000</span><span class="p">,</span><span class="k">new</span><span class="p">.</span><span class="n">u_id</span><span class="p">);</span><span class="w">
+</span><span class="w">	</span><span class="k">ELSE</span><span class="w"> 
+</span><span class="w">		</span><span class="cm">/*其它情况*/</span><span class="w">
+</span><span class="w">	</span><span class="k">END</span><span class="w"> </span><span class="k">IF</span><span class="p">;</span><span class="w">
+</span><span class="w">    </span><span class="k">END</span><span class="err">$$</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="k">DELIMITER</span><span class="w"> </span><span class="p">;</span><span class="w">
+</span></code></pre></div><h2 id="变量的使用">变量的使用</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="k">DELIMITER</span><span class="w"> </span><span class="err">$$</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="n">USE</span><span class="w"> </span><span class="o">`</span><span class="n">demo</span><span class="o">`</span><span class="err">$$</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="k">DROP</span><span class="w"> </span><span class="k">TRIGGER</span><span class="w"> </span><span class="cm">/*!50032 IF EXISTS */</span><span class="w"> </span><span class="o">`</span><span class="n">userflowers</span><span class="o">`</span><span class="err">$$</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="k">CREATE</span><span class="w">
+</span><span class="w">    </span><span class="cm">/*!50017 DEFINER = &#39;root&#39;@&#39;localhost&#39; */</span><span class="w">
+</span><span class="w">    </span><span class="k">TRIGGER</span><span class="w"> </span><span class="o">`</span><span class="n">userflowers</span><span class="o">`</span><span class="w"> </span><span class="k">AFTER</span><span class="w"> </span><span class="k">INSERT</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="o">`</span><span class="k">user</span><span class="o">`</span><span class="w"> 
+</span><span class="w">    </span><span class="k">FOR</span><span class="w"> </span><span class="k">EACH</span><span class="w"> </span><span class="k">ROW</span><span class="w"> </span><span class="k">BEGIN</span><span class="w">
+</span><span class="w">	</span><span class="cm">/*触发执行的语句*/</span><span class="w">
+</span><span class="w">	</span><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="o">`</span><span class="n">flowers</span><span class="o">`</span><span class="p">(</span><span class="o">`</span><span class="n">f_credit_points</span><span class="o">`</span><span class="p">,</span><span class="o">`</span><span class="n">f_quota</span><span class="o">`</span><span class="p">,</span><span class="o">`</span><span class="n">f_mapping_user</span><span class="o">`</span><span class="p">)</span><span class="w">
+</span><span class="w">	</span><span class="n">VALUE</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span><span class="mi">1000</span><span class="p">,</span><span class="k">new</span><span class="p">.</span><span class="n">u_id</span><span class="p">);</span><span class="w">
+</span><span class="w">	</span><span class="cm">/*
+</span><span class="cm">		用户变量：以@开始，形式为 @变量名 用户变量只针对当前客户端生效
+</span><span class="cm">		
+</span><span class="cm">		全局变量：定义方式 set GLOBAL 变量名，或者 set @@global.变量名
+</span><span class="cm">		对所有客户端生效，但是具有super权限才可以设置全局变量
+</span><span class="cm">	*/</span><span class="w">
+</span><span class="w">	</span><span class="k">SELECT</span><span class="w"> </span><span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="o">@</span><span class="n">num</span><span class="p">;</span><span class="w">
+</span><span class="w">	
+</span><span class="w">	</span><span class="k">UPDATE</span><span class="w"> </span><span class="o">`</span><span class="k">statistics</span><span class="o">`</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="o">`</span><span class="n">users</span><span class="o">`</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">@</span><span class="n">num</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">s_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w">
+</span><span class="w">	
+</span><span class="w">    </span><span class="k">END</span><span class="p">;</span><span class="w">
+</span><span class="w"></span><span class="err">$$</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="k">DELIMITER</span><span class="w"> </span><span class="p">;</span><span class="w">
+</span></code></pre></div>
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/mysql/">Mysql</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+    
+</article>
+
+    <aside class="related-contents--wrapper">
+    
+    
+</aside>
+
+     
+     
+        
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "hugo-theme-stack" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (DISQUS) {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2020 - 
+        
+        2021 ybakiame的个人博客
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="2.4.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css"integrity="sha256-c0uckgykQ9v5k&#43;IqViZOZKc47Jn7KQil4/MP3ySA3F8="crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css"integrity="sha256-SBLU4vv6CA6lHsZ1XyTdhyjJxCjPif/TRkjnsyGAGnE="crossorigin="anonymous"
+            >
+
+            </main>
+    
+        <aside class="sidebar right-sidebar sticky">
+            <section class="widget archives">
+                <div class="widget-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+                </div>
+                <h2 class="widget-title section-title">目录</h2>
+                
+                <div class="widget--toc">
+                    <nav id="TableOfContents">
+  <ol>
+    <li><a href="#表结构">表结构</a></li>
+    <li><a href="#创建触发器">创建触发器</a></li>
+    <li><a href="#执行语句">执行语句</a></li>
+    <li><a href="#触发器条件使用if-elseif-else">触发器条件使用if elseif else</a></li>
+    <li><a href="#变量的使用">变量的使用</a></li>
+  </ol>
+</nav>
+                </div>
+            </section>
+        </aside>
+    
+
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js"integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g="crossorigin="anonymous"
+                defer="false"
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>
