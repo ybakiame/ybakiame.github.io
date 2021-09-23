@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='事务
+  是什么是事务？ 事务就是一个完整的业务逻辑。
+ 举例： 假如张三向李四转账100元。
+​	1）张三账户扣100元
+​	2）李四的账户加100元
+以上操作就是一个最小工作单元，要么同时成功要么同时失败，不可拆分。
+   事务支持
+ 只有 INSERT DELETE UPDATE 以上三种语句和事务有关系。
+   事务是如何实现同时成功或同时失败？
+   &amp;gt; InnoDB存储引擎；提供一组用来记录事务性活动日志文件。 &amp;gt; &amp;gt; 提交事务： &amp;gt; &amp;gt; ​	清空事务性活动日志文件，并彻底把数据持久化到表中。 &amp;gt; &amp;gt; 回滚事务： &amp;gt; &amp;gt; ​	按文件进行回滚操作，并清空事务性活动日志文件。   如何提交事务，回滚事务？
+ 提交事务： COMMIT 语句
+回滚事务： ROLLBACK 语句
+关闭默认提交： START TRANSACTION
+   事务包括4个特性
+ A：原子性
+​	说明事务是最小工作单元，不可再分。
+C：一致性
+​	所有任务要求，在同一事务当中，所有操作必须同时成功，同时失败。'><title>Mysql事务</title>
+
+<link rel='canonical' href='https://example.com/p/mysql%E4%BA%8B%E5%8A%A1/'>
+
+<link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content='Mysql事务'>
+<meta property='og:description' content='事务
+  是什么是事务？ 事务就是一个完整的业务逻辑。
+ 举例： 假如张三向李四转账100元。
+​	1）张三账户扣100元
+​	2）李四的账户加100元
+以上操作就是一个最小工作单元，要么同时成功要么同时失败，不可拆分。
+   事务支持
+ 只有 INSERT DELETE UPDATE 以上三种语句和事务有关系。
+   事务是如何实现同时成功或同时失败？
+   &amp;gt; InnoDB存储引擎；提供一组用来记录事务性活动日志文件。 &amp;gt; &amp;gt; 提交事务： &amp;gt; &amp;gt; ​	清空事务性活动日志文件，并彻底把数据持久化到表中。 &amp;gt; &amp;gt; 回滚事务： &amp;gt; &amp;gt; ​	按文件进行回滚操作，并清空事务性活动日志文件。   如何提交事务，回滚事务？
+ 提交事务： COMMIT 语句
+回滚事务： ROLLBACK 语句
+关闭默认提交： START TRANSACTION
+   事务包括4个特性
+ A：原子性
+​	说明事务是最小工作单元，不可再分。
+C：一致性
+​	所有任务要求，在同一事务当中，所有操作必须同时成功，同时失败。'>
+<meta property='og:url' content='https://example.com/p/mysql%E4%BA%8B%E5%8A%A1/'>
+<meta property='og:site_name' content='ybakiame的个人博客'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Mysql' /><meta property='article:published_time' content='2021-09-23T14:04:12&#43;08:00'/><meta property='article:modified_time' content='2021-09-23T14:04:12&#43;08:00'/>
+<meta name="twitter:title" content="Mysql事务">
+<meta name="twitter:description" content="事务
+  是什么是事务？ 事务就是一个完整的业务逻辑。
+ 举例： 假如张三向李四转账100元。
+​	1）张三账户扣100元
+​	2）李四的账户加100元
+以上操作就是一个最小工作单元，要么同时成功要么同时失败，不可拆分。
+   事务支持
+ 只有 INSERT DELETE UPDATE 以上三种语句和事务有关系。
+   事务是如何实现同时成功或同时失败？
+   &amp;gt; InnoDB存储引擎；提供一组用来记录事务性活动日志文件。 &amp;gt; &amp;gt; 提交事务： &amp;gt; &amp;gt; ​	清空事务性活动日志文件，并彻底把数据持久化到表中。 &amp;gt; &amp;gt; 回滚事务： &amp;gt; &amp;gt; ​	按文件进行回滚操作，并清空事务性活动日志文件。   如何提交事务，回滚事务？
+ 提交事务： COMMIT 语句
+回滚事务： ROLLBACK 语句
+关闭默认提交： START TRANSACTION
+   事务包括4个特性
+ A：原子性
+​	说明事务是最小工作单元，不可再分。
+C：一致性
+​	所有任务要求，在同一事务当中，所有操作必须同时成功，同时失败。">
+    </head>
+    <body class="
+    article-page 
+">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex 
+    
+        on-phone--column extended
+    
+">
+    
+        <aside class="sidebar left-sidebar sticky">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header class="site-info">
+        
+            <figure class="site-avatar">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/inory_hucdba656cebe4b1ba982ee9ba6b6db78f_6765_300x0_resize_box_3.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+
+                
+                    <span class="emoji">🍥</span>
+                
+            </figure>
+        
+        <h1 class="site-name"><a href="https://example.com">ybakiame的个人博客</a></h1>
+        <h2 class="site-description">重度宅，轻微社恐，魂系游戏爱好者</h2>
+    </header>
+
+    <ol class="menu" id="main-menu">
+        
+        
+        
+
+        <li >
+            <a href='/'>
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/about/'>
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>About</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/archives/'>
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/search/'>
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+
+        
+            <li id="dark-mode-toggle">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                <span>暗色模式</span>
+            </li>
+        
+    </ol>
+</aside>
+
+    
+<main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/mysql/" >
+                Mysql
+            </a>
+        
+    </header>
+    
+
+    <h2 class="article-title">
+        <a href="/p/mysql%E4%BA%8B%E5%8A%A1/">Mysql事务</a>
+    </h2>
+
+    <footer class="article-time">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+        <time class="article-time--published">Sep 23, 2021</time>
+    </footer></div>
+</header>
+
+    <section class="article-content">
+    <p>事务</p>
+<ol>
+<li>
+<p>是什么是事务？ 事务就是一个完整的业务逻辑。</p>
+<blockquote>
+<p>举例： 假如张三向李四转账100元。</p>
+<p>​	1）张三账户扣100元</p>
+<p>​	 2）李四的账户加100元</p>
+<p>以上操作就是一个最小工作单元，<strong>要么同时成功要么同时失败，不可拆分</strong>。</p>
+</blockquote>
+</li>
+<li>
+<p>事务支持</p>
+<blockquote>
+<p>只有 <code>INSERT</code> <code>DELETE</code> <code>UPDATE</code> 以上三种语句和事务有关系。</p>
+</blockquote>
+</li>
+<li>
+<p>事务是如何实现同时成功或同时失败？</p>
+</li>
+</ol>
+<pre><code> &gt;   InnoDB存储引擎；提供一组用来记录事务性活动日志文件。 
+ &gt;
+ &gt;   提交事务：
+ &gt;
+ &gt;   ​	清空事务性活动日志文件，并彻底把数据持久化到表中。 
+ &gt;
+ &gt;   回滚事务：
+ &gt;
+ &gt;   ​	按文件进行回滚操作，并清空事务性活动日志文件。 
+</code></pre>
+<ol start="4">
+<li>
+<p>如何提交事务，回滚事务？</p>
+<blockquote>
+<p>提交事务： <code>COMMIT</code> 语句</p>
+<p>回滚事务： <code>ROLLBACK</code> 语句</p>
+<p>关闭默认提交： <code>START TRANSACTION</code></p>
+</blockquote>
+</li>
+<li>
+<p>事务包括4个特性</p>
+<blockquote>
+<p>A：原子性</p>
+<p>​		说明事务是最小工作单元，不可再分。</p>
+<p>C：一致性</p>
+<p>​		所有任务要求，在同一事务当中，所有操作必须同时成功，同时失败。</p>
+<p>I：隔离性</p>
+<p>​		A事务和B事务之间有一定的隔离。</p>
+<p>D：</p>
+<p>​		持久性 事务结束的一个保障。</p>
+</blockquote>
+</li>
+<li>
+<p>重点研究事务的隔离性</p>
+<blockquote>
+<p>A和B事务之间有一道墙，墙可以很厚也可以很薄，墙越厚代表隔离级别越高。</p>
+<p>查询当前事务隔离级别</p>
+<p><code>SELECT @@tx_isolation</code></p>
+<p>设置全局事务隔离级别</p>
+<p><code>SET GLOBAL TRANSACTION ISOLATION LEVEL + 事务隔离级别</code></p>
+</blockquote>
+</li>
+<li>
+<p>事务的隔离级别：</p>
+<blockquote>
+<ol>
+<li>
+<p>读未提交：``read uncommitted`。（最低隔离级别）</p>
+<p>什么叫读未提交： 	事务A可以读取到事务B未提交的数据。</p>
+<p>问题： 	脏读现象</p>
+</li>
+<li>
+<p>读已提交 <code>READ COMMITTED</code> （只能读到提交之后的数据）</p>
+<p>解决的问题： 	解决了脏读现象</p>
+<p>存在的问题： 	第一次查询数据是三条，第二次查询数据可能是四条。</p>
+<p>不能重复读。 每一次读取的数据都是绝对真实的数据。 oracle数据库的默认隔离级别<code>READ COMMITTED</code></p>
+</li>
+<li>
+<p>可重复读 <code>REPEATABLE READ</code>  什么是可重复读？</p>
+<p>提交之后也读不到，永远读取的都是开启事务之前的数据。 mysql的默认事务级别 <code>REPEATABLE READ</code>   事务A开启之后，不管多久，每一次在数据A中读取的数据都是一致的。 即使事务B已经将数据修改，事务A读到的数据还是没有改变，这就叫 可重复读。</p>
+<p>问题：</p>
+<p>​	出现幻影 	读取到的数据都是幻象，不够真实。</p>
+</li>
+<li>
+<p>序列化/串行化：``serializable` 这种是最高隔离级别，效率低，但是解决了所有问题。 这种隔离级别表示，事务排队，不能并发。</p>
+<p>优点：每一次读取到的都真实数据。</p>
+<p>缺点：效率太低。</p>
+</li>
+</ol>
+</blockquote>
+</li>
+</ol>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/mysql/">Mysql</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+    
+</article>
+
+    <aside class="related-contents--wrapper">
+    
+    
+        <h2 class="section-title">相关文章</h2>
+        <div class="related-contents">
+            <div class="flex article-list--tile">
+                
+                    
+<article class="">
+    <a href="/p/mysql%E8%A7%A6%E5%8F%91%E5%99%A8/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Mysql触发器</h2>
+        </div>
+    </a>
+</article>
+                
+            </div>
+        </div>
+    
+</aside>
+
+     
+     
+        
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "hugo-theme-stack" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (DISQUS) {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2020 - 
+        
+        2021 ybakiame的个人博客
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="2.4.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css"integrity="sha256-c0uckgykQ9v5k&#43;IqViZOZKc47Jn7KQil4/MP3ySA3F8="crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css"integrity="sha256-SBLU4vv6CA6lHsZ1XyTdhyjJxCjPif/TRkjnsyGAGnE="crossorigin="anonymous"
+            >
+
+            </main>
+    
+
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js"integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g="crossorigin="anonymous"
+                defer="false"
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>
