@@ -6,7 +6,38 @@
     <description>Recent content in Mysql on ybakiame的个人博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 23 Sep 2021 14:04:12 +0800</lastBuildDate><atom:link href="https://example.com/tags/mysql/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 26 Sep 2021 21:02:53 +0800</lastBuildDate><atom:link href="https://example.com/tags/mysql/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Mysql主从数据库配置</title>
+      <link>https://example.com/p/mysql%E4%B8%BB%E4%BB%8E%E6%95%B0%E6%8D%AE%E5%BA%93%E9%85%8D%E7%BD%AE/</link>
+      <pubDate>Sun, 26 Sep 2021 21:02:53 +0800</pubDate>
+      
+      <guid>https://example.com/p/mysql%E4%B8%BB%E4%BB%8E%E6%95%B0%E6%8D%AE%E5%BA%93%E9%85%8D%E7%BD%AE/</guid>
+      <description>说明： 在项目部署到生产环境时，会有很多不可抗力的因素，数据库会出现崩溃停止运行数据丢失，数据对不上的问题，这个时候就需要两个数据库同步运行，来确保一个数据库崩溃另一个能马上顶上。
+部署步骤： 在windows下部署: 配置文件位于mysql的安装目录下
+在linux下部署: 配置文件位于/etc/my.cnf (不同linux发行版可能会有所不同)
+配置主库    停止主库的mysql进程
+net stop mysql1
+  配置my.ini文件
+#主数据库端ID号 server_id=1#开启二进制日志 log-bin=mysql-bin#需要复制的数据库名，如果复制多个数据库，重复设置这个选项即可(或者多个库用逗号隔开) #binlog-do-db = db #不需要复制的库，和上项同理 #binlog-ignore-db=mysql #将从服务器从主服务器收到的更新记入到从服务器自己的二进制日志文件中 #log-slave-updates #控制binlog的写入频率。每执行多少次事务写入一次(这个参数性能消耗很大，但可减小MySQL崩溃造成的损失) #sync_binlog = 1 #这个参数一般用在主主同步中，用来错开自增值, 防止键值冲突 #auto_increment_offset = 1 #这个参数一般用在主主同步中，用来错开自增值, 防止键值冲突 #auto_increment_increment = 1 #二进制日志自动删除的天数，默认值为0,表示“没有自动删除”，启动时和二进制日志循环时可能删除 #expire_logs_days = 7 #将函数复制到slave #log_bin_trust_function_creators = 1   保存修改后的配置，重启mysql服务
+net start mysql
+  登陆到主机的数据库，并建立一个用户给从库连接使用
+允许所有ip连接GRANTREPLICATIONSLAVEON*.*TO&amp;#39;myslave&amp;#39;@&amp;#39;%&amp;#39;IDENTIFIEDBY&amp;#39;123456&amp;#39;;指定ip的做法GRANTREPLICATIONSLAVEON*.*TOmyslave@&amp;#39;192.168.41.0/255.255.255.0&amp;#39;IDENTIFIEDBY&amp;#39;123456&amp;#39;;  myslave是用户名
+  123456密码是用户对应的密码
+  192.168.41.0是ip地址
+    更新数据库权限</description>
+    </item>
+    
+    <item>
+      <title>Mysql视图</title>
+      <link>https://example.com/p/mysql%E8%A7%86%E5%9B%BE/</link>
+      <pubDate>Sun, 26 Sep 2021 20:56:53 +0800</pubDate>
+      
+      <guid>https://example.com/p/mysql%E8%A7%86%E5%9B%BE/</guid>
+      <description>什么是视图？ mysql的视图的5.0.1版本之后开始提供的。 视图（View）是一种虚拟存在的表，并不在数据库中实际存在，视图中的数据会在使用视图时动态生成。
+/*创建视图*/CREATE/*视图算法*//*[ALGORITHM = {UNDEFINED | MERGE | TEMPTABLE}] 视图定义者 [DEFINER = { user | CURRENT_USER }] sql的安全性 [SQL SECURITY { DEFINER | INVOKER }]*//*数据库+视图名字*/VIEW`demo`.`statisticsview`AS/*要使用哪些数据生成视图*/(SELECTCOUNT(*)ASusers,SUM(`f_quota`)ASflowersFROM`user`,`flowers`WHERE`f_mapping_user`=`u_id`);查询视图 和普通的表查询一样，使用SELECT 即可</description>
+    </item>
+    
     <item>
       <title>Mysql事务</title>
       <link>https://example.com/p/mysql%E4%BA%8B%E5%8A%A1/</link>
