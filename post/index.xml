@@ -6,7 +6,17 @@
     <description>Recent content in Posts on ybakiame的个人博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 28 Sep 2021 23:11:13 +0800</lastBuildDate><atom:link href="https://example.com/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 29 Sep 2021 17:06:44 +0800</lastBuildDate><atom:link href="https://example.com/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Mysql存储过程</title>
+      <link>https://example.com/p/mysql%E5%AD%98%E5%82%A8%E8%BF%87%E7%A8%8B/</link>
+      <pubDate>Wed, 29 Sep 2021 17:06:44 +0800</pubDate>
+      
+      <guid>https://example.com/p/mysql%E5%AD%98%E5%82%A8%E8%BF%87%E7%A8%8B/</guid>
+      <description>什么是存储过程 是一种在数据库中存储复杂程序，以便外部调用的一种数据库对象 存储过程思想上很简单，就是数据库SQL语言层面的代码封装与重用。
+优点  可封装，并隐藏复杂的商业逻辑。 并可以接受参数，可以有返回值。 存储过程无法使用 SELECT 指令来运行，因为它是子程序，与查看表，数据表或用户定义函数不同。 存储过程可以用在数据检验，强制实行商业逻辑等。  缺点  存储过程，往往定制化于特定的数据库上，因为支持的编程语言不同。当切换到其他厂商的数据库系统时，需要重写原有的存储过程。 存储过程的性能调校与撰写，受限于各种数据库系统。  声明一个存储过程 DELIMITER$$CREATE-- 声明一个储存过程 PROCEDURE 库名.函数名(参数) -- in：这个参数是一个传入值 -- out：这个参数是个返回值 -- outin：表示这个参数既是输入值，也是返回值（使用时需要传入的是变量，而不是一个确切的数值） PROCEDURE`demo`.</description>
+    </item>
+    
     <item>
       <title>Mysql函数</title>
       <link>https://example.com/p/mysql%E5%87%BD%E6%95%B0/</link>
@@ -14,7 +24,7 @@
       
       <guid>https://example.com/p/mysql%E5%87%BD%E6%95%B0/</guid>
       <description>什么是函数？ 函数类似于Java方法，可以传值，也有返回值，配合查询做一些复杂计算。
-创建一个自定义函数 DELIMITER$$CREATE/*函数 库+函数名(参数名 类型)*/FUNCTION`demo`.`usermoney`(numberINT)/*返回值类型(varchar类型需要指定长度)*/RETURNSINT/*开始*/BEGIN/*返回 要执行的sql语句*/RETURN(number*100);/*结束*/END$$DELIMITER;函数的使用 select之后接函数名，mysql内置函数使用方法一致
+创建一个自定义函数 DELIMITER$$CREATE/*函数 库+函数名(参数名 类型)*/FUNCTION`demo`.`usermoney`(numberINT)/*返回值类型(varchar类型需要指定长度)*/RETURNSINT/*开始*/BEGIN/*返回 要执行的sql语句*/RETURN(number*100);/*结束*/END$$DELIMITER;函数的使用 select之后接函数名(参数)，与mysql内置函数使用方法一致
 SELECTusermoney(`u_money`)FROM`users`在函数中创建变量 变量的声明需要放在要执行的sql语句的头部
 /*创建一个变量 使用 DECLARE 关键字*/DECLAREnewmenberVARCHAR(30)DEFAULT&amp;#34;普通用户&amp;#34;;mysql内置常用函数 MySQL 数值型函数    函数名称 作 用     ABS 求绝对值   SQRT 求二次方根   MOD 求余数   CEIL 和 CEILING 两个函数功能相同，都是返回不小于参数的最小整数，即向上取整   FLOOR 向下取整，返回值转化为一个BIGINT   RAND 生成一个0~1之间的随机数，传入整数参数是，用来产生重复序列   ROUND 对所传参数进行四舍五入   SIGN 返回参数的符号   POW 和 POWER 两个函数的功能相同，都是所传参数的次方的结果值   SIN 求正弦值   ASIN 求反正弦值，与函数 SIN 互为反函数   COS 求余弦值   ACOS 求反余弦值，与函数 COS 互为反函数   TAN 求正切值   ATAN 求反正切值，与函数 TAN 互为反函数   COT 求余切值    MySQL 字符串函数    函数名称 作 用     LENGTH 计算字符串长度函数，返回字符串的字节长度   CONCAT 合并字符串函数，返回结果为连接参数产生的字符串，参数可以使一个或多个   INSERT 替换字符串函数   LOWER 将字符串中的字母转换为小写   UPPER 将字符串中的字母转换为大写   LEFT 从左侧字截取符串，返回字符串左边的若干个字符   RIGHT 从右侧字截取符串，返回字符串右边的若干个字符   TRIM 删除字符串左右两侧的空格   REPLACE 字符串替换函数，返回替换后的新字符串   SUBSTRING 截取字符串，返回从指定位置开始的指定长度的字符换   REVERSE 字符串反转（逆序）函数，返回与原始字符串顺序相反的字符串    MySQL 日期和时间函数    函数名称 作 用     CURDATE 和 CURRENT_DATE 两个函数作用相同，返回当前系统的日期值   CURTIME 和 CURRENT_TIME 两个函数作用相同，返回当前系统的时间值   NOW 和 SYSDATE 两个函数作用相同，返回当前系统的日期和时间值   UNIX_TIMESTAMP 获取UNIX时间戳函数，返回一个以 UNIX 时间戳为基础的无符号整数   FROM_UNIXTIME 将 UNIX 时间戳转换为时间格式，与UNIX_TIMESTAMP互为反函数   MONTH 获取指定日期中的月份   MONTHNAME 获取指定日期中的月份英文名称   DAYNAME 获取指定曰期对应的星期几的英文名称   DAYOFWEEK 获取指定日期对应的一周的索引位置值   WEEK 获取指定日期是一年中的第几周，返回值的范围是否为 0〜52 或 1〜53   DAYOFYEAR 获取指定曰期是一年中的第几天，返回值范围是1~366   DAYOFMONTH 获取指定日期是一个月中是第几天，返回值范围是1~31   YEAR 获取年份，返回值范围是 1970〜2069   TIME_TO_SEC 将时间参数转换为秒数   SEC_TO_TIME 将秒数转换为时间，与TIME_TO_SEC 互为反函数   DATE_ADD 和 ADDDATE 两个函数功能相同，都是向日期添加指定的时间间隔   DATE_SUB 和 SUBDATE 两个函数功能相同，都是向日期减去指定的时间间隔   ADDTIME 时间加法运算，在原始时间上添加指定的时间   SUBTIME 时间减法运算，在原始时间上减去指定的时间   DATEDIFF 获取两个日期之间间隔，返回参数 1 减去参数 2 的值   DATE_FORMAT 格式化指定的日期，根据参数返回指定格式的值   WEEKDAY 获取指定日期在一周内的对应的工作日索引    MySQL 聚合函数    函数名称 作用     MAX 查询指定列的最大值   MIN 查询指定列的最小值   COUNT 统计查询结果的行数   SUM 求和，返回指定列的总和   AVG 求平均值，返回指定列数据的平均值    MySQL 流程控制函数    函数名称 作用     IF 判断，流程控制   IFNULL 判断是否为空   CASE 搜索语句    </description>
     </item>
