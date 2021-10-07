@@ -30,11 +30,11 @@ SELECTusermoney(`u_money`)FROM`users`在函数中创建变量 变量的声明需
     </item>
     
     <item>
-      <title>Mysql事务</title>
-      <link>https://example.com/p/mysql%E4%BA%8B%E5%8A%A1/</link>
+      <title>Mysql事件</title>
+      <link>https://example.com/p/mysql%E4%BA%8B%E4%BB%B6/</link>
       <pubDate>Mon, 27 Sep 2021 20:01:36 +0800</pubDate>
       
-      <guid>https://example.com/p/mysql%E4%BA%8B%E5%8A%A1/</guid>
+      <guid>https://example.com/p/mysql%E4%BA%8B%E4%BB%B6/</guid>
       <description>什么是事件？ 是MySQL5.1新增的事件也叫做定时任务，事件调度器,是一组SQL集，用来执行定时任务，跟触发器很像，都是被动执行的，事件由时间触发执行，而触发器是由事件（增删改）触发执行；
 查看事件是否开启  SHOW VARIABLES LIKE &#39;event_scheduler&#39;;
 开启事件:SET GLOBAL event_scheduler = ON/1; SET @@global.event_scheduler = ON/1;
