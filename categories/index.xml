@@ -6,7 +6,43 @@
     <description>Recent content in Categories on ybakiame的个人博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 02 Oct 2021 11:39:05 +0800</lastBuildDate><atom:link href="https://example.com/categories/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 21 Oct 2021 21:51:22 +0800</lastBuildDate><atom:link href="https://example.com/categories/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>springMvc</title>
+      <link>https://example.com/categories/springmvc/</link>
+      <pubDate>Thu, 21 Oct 2021 21:51:22 +0800</pubDate>
+      
+      <guid>https://example.com/categories/springmvc/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Java</title>
+      <link>https://example.com/categories/java/</link>
+      <pubDate>Tue, 19 Oct 2021 21:16:55 +0800</pubDate>
+      
+      <guid>https://example.com/categories/java/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Mybatis</title>
+      <link>https://example.com/categories/mybatis/</link>
+      <pubDate>Tue, 19 Oct 2021 19:43:35 +0800</pubDate>
+      
+      <guid>https://example.com/categories/mybatis/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Jackson</title>
+      <link>https://example.com/categories/jackson/</link>
+      <pubDate>Tue, 19 Oct 2021 14:48:39 +0800</pubDate>
+      
+      <guid>https://example.com/categories/jackson/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>数据库</title>
       <link>https://example.com/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/</link>
@@ -49,15 +85,6 @@
       <pubDate>Fri, 10 Sep 2021 13:37:10 +0800</pubDate>
       
       <guid>https://example.com/categories/%E9%9D%99%E6%80%81%E7%BD%91%E7%AB%99%E6%90%AD%E5%BB%BA/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Java</title>
-      <link>https://example.com/categories/java/</link>
-      <pubDate>Tue, 11 May 2021 15:29:19 +0800</pubDate>
-      
-      <guid>https://example.com/categories/java/</guid>
       <description></description>
     </item>
     

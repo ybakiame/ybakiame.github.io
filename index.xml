@@ -6,7 +6,563 @@
         <description>Recent content on ybakiame的个人博客</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
-        <lastBuildDate>Sat, 02 Oct 2021 11:39:05 +0800</lastBuildDate><atom:link href="https://example.com/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Thu, 21 Oct 2021 21:51:22 +0800</lastBuildDate><atom:link href="https://example.com/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>springMVC实现restful风格</title>
+        <link>https://example.com/p/springmvc%E5%AE%9E%E7%8E%B0restful%E9%A3%8E%E6%A0%BC/</link>
+        <pubDate>Thu, 21 Oct 2021 21:51:22 +0800</pubDate>
+        
+        <guid>https://example.com/p/springmvc%E5%AE%9E%E7%8E%B0restful%E9%A3%8E%E6%A0%BC/</guid>
+        <description>&lt;h2 id=&#34;1rest的概念&#34;&gt;1、REST的概念&lt;/h2&gt;
+&lt;p&gt;REST为“Representational State Transfer”的缩写，中文释义为“表现层状态转换”，REST不是一种标准，而是一种设计风格。是目前最流行的一种互联网软件架构风格。它倡导结构清晰、符合标准、易于理解、扩展方便的Web架构体系，主张严格按照HTTP协议中定义的规范设计结构严谨的Web应用架构体系。由于REST所倡导的理念让Web应用更易于开发和维护，更加优雅简洁，所以正得到越来越多网站的采用。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;资源&lt;/strong&gt;（Resources）：网络上的一个实体，或者说是网络上的一个具体信息。它可以是一段文本、一张图片、一首歌曲、一种服务，总之就是一个具体的存在。可以用一个URI（统一资源定位符）指向它，每种资源对应一个特定的 URI 。要获取这个资源，访问它的URI就可以，因此 URI 即为每一个资源的独一无二的识别符。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;表现层&lt;/strong&gt;（Representation）：把资源具体呈现出来的形式，叫做它的表现层（Representation）。比如，文本可以用txt格式表现，也可以用HTML格式、XML格式、JSON格式表现，甚至可以采用二进制格式。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;状态转化&lt;/p&gt;
+&lt;p&gt;（State Transfer）：每发出一个请求，就代表了客户端和服务器的一次交互过程。HTTP协议，是一个无状态协议，即所有的状态都保存在服务器端。因此，如果客户端想要操作服务器，必须通过某种手段，让服务器端发生“状态转化”（State Transfer）。而这种转化是建立在表现层之上的，所以就是 “表现层状态转化”。&lt;/p&gt;
+&lt;p&gt;具体说，就是 HTTP 协议里面，四个表示操作方式的动词：GET、POST、PUT、DELETE。它们分别对应四种基本操作：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;GET 用来获取资源&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;POST 用来新建资源&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;PUT 用来更新资源&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;DELETE 用来删除资源&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;HTTP方法名&lt;/th&gt;
+&lt;th&gt;使用场景&lt;/th&gt;
+&lt;th&gt;资源操作&lt;/th&gt;
+&lt;th&gt;&lt;strong&gt;是否幂等&lt;/strong&gt;&lt;/th&gt;
+&lt;th&gt;&lt;strong&gt;是否安全&lt;/strong&gt;&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;GET&lt;/td&gt;
+&lt;td&gt;从服务器取出资源（一项或多项）&lt;/td&gt;
+&lt;td&gt;SELECT&lt;/td&gt;
+&lt;td&gt;是&lt;/td&gt;
+&lt;td&gt;是&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;POST&lt;/td&gt;
+&lt;td&gt;在服务器新建一个资源&lt;/td&gt;
+&lt;td&gt;INSERT&lt;/td&gt;
+&lt;td&gt;否&lt;/td&gt;
+&lt;td&gt;否&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;PUT&lt;/td&gt;
+&lt;td&gt;在服务器更新资源（客户端提供完整资源数据）&lt;/td&gt;
+&lt;td&gt;UPDATE&lt;/td&gt;
+&lt;td&gt;是&lt;/td&gt;
+&lt;td&gt;否&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;DELETE&lt;/td&gt;
+&lt;td&gt;从服务器删除资源&lt;/td&gt;
+&lt;td&gt;DELETE&lt;/td&gt;
+&lt;td&gt;是&lt;/td&gt;
+&lt;td&gt;否&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;幂等性&lt;/strong&gt;：对同一REST接口的多次访问，得到的资源状态是相同的。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;安全性&lt;/strong&gt;：对该REST接口访问，不会使服务器端资源的状态发生改变。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;RESTful&lt;/strong&gt;：就是符合REST原则的架构方式即可称为RESTful。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;2rest-风格的-url-请求&#34;&gt;2、REST 风格的 URL 请求&lt;/h2&gt;
+&lt;p&gt;一般在非RESTful风格设计的应用中基本上只使用POST、GET类型的HTTP动作方法，而在RESTful风格设计的应用中充分利用了HTTP协议的另外动作方法，统一了数据操作的接口，使得URL请求变得简洁化、透明化。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;get/user  查询整个列表&lt;/li&gt;
+&lt;li&gt;get/user/user_id  查询一条记录&lt;/li&gt;
+&lt;li&gt;post/user 添加数据&lt;/li&gt;
+&lt;li&gt;put/user/user_id  更新全部数据&lt;/li&gt;
+&lt;li&gt;patch/user/user_id  更新部分数据&lt;/li&gt;
+&lt;li&gt;delete/user/user_id  删除一条数据&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;3rest风格url的好处&#34;&gt;3、REST风格URL的好处&lt;/h2&gt;
+&lt;p&gt;①、含蓄，安全：使用问号键值对的方式给服务器传递数据太明显，容易被人利用来对系统进行破坏。使用REST风格携带数据不再需要明显的暴露数据的名称。&lt;/p&gt;
+&lt;p&gt;②、风格统一：URL地址整体格式统一，从前到后始终都使用斜杠划分各个内容部分，用简单一致的格式表达语义。&lt;/p&gt;
+&lt;p&gt;③、无状态：在调用一个接口（访问、操作资源）的时候，可以不用考虑上下文，不用考虑当前状态，极大的降低了系统设计的复杂度。&lt;/p&gt;
+&lt;p&gt;④、严谨，规范：严格按照HTTP1.1协议中定义的请求方式本身的语义进行操作。&lt;/p&gt;
+&lt;p&gt;⑤、简洁，优雅：过去做增删改查操作需要设计4个不同的URL，现在一个就够了。&lt;/p&gt;
+&lt;p&gt;⑥、丰富的语义：通过URL地址就可以知道资源之间的关系，如下所示：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;http://localhost:8080/shop
+http://localhost:8080/shop/product
+http://localhost:8080/shop/product/cellPhone
+http://localhost:8080/shop/product/cellPhone/iPhone&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;4springmvc对四种请求方式的支持&#34;&gt;4、SpringMVC对四种请求方式的支持&lt;/h2&gt;
+&lt;p&gt;在@RequestMapping注解中，我们可以使用method熟悉来设置对四种请求的支持：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;@RequestMapping(value = &amp;ldquo;/get&amp;rdquo;,method = RequestMethod.GET)&lt;/li&gt;
+&lt;li&gt;@RequestMapping(value = &amp;ldquo;/post&amp;rdquo;,method = RequestMethod.POST)&lt;/li&gt;
+&lt;li&gt;@RequestMapping(value = &amp;ldquo;/put&amp;rdquo;,method = RequestMethod.PUT)&lt;/li&gt;
+&lt;li&gt;@RequestMapping(value = &amp;ldquo;/delete&amp;rdquo;,method = RequestMethod.DELETE)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;但是可以发现上面的注解中大体都是相似了，所以SpringMVC给我们提供了简化的版本：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;@GetMapping(value = &amp;ldquo;/get&amp;rdquo;)：对应GET请求&lt;/li&gt;
+&lt;li&gt;@PostMapping(value = &amp;ldquo;/post&amp;rdquo;)：对应POST请求&lt;/li&gt;
+&lt;li&gt;@PutMapping(value = &amp;ldquo;/put&amp;rdquo;)：对应PUT请求&lt;/li&gt;
+&lt;li&gt;@DeleteMapping(value = &amp;ldquo;/delete&amp;rdquo;)：对应DELETE请求&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;注：在SpringMVC中对RESTful支持，主要通过注解来实现，所以下面再介绍三个相关注解：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;@ResponseBody：响应内容转换为JSON格式&lt;/li&gt;
+&lt;li&gt;@RequestBody：请求内容转换为JSON格式&lt;/li&gt;
+&lt;li&gt;@RestContrller：等同@Controller+@ResponsrBody 标识这个类的所有方法只返回数据，而不进行视图跳转&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;code&gt;@RequestMapping&lt;/code&gt;请求映射地址，它存在几个子注解对于实现 &lt;code&gt;REST&lt;/code&gt;风格来说更加具有语义性&lt;/p&gt;
+&lt;h3 id=&#34;41-返回-http状态码&#34;&gt;4.1 返回 &lt;code&gt;HTTP&lt;/code&gt;状态码&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;&lt;code&gt;REST&lt;/code&gt;风格 &lt;code&gt;API&lt;/code&gt;一个最鲜明的特点通过返回对应的 &lt;code&gt;HTTPStatus&lt;/code&gt;来判断客户端的操作是否完成&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;下面是spring中关于 &lt;code&gt;Http&lt;/code&gt;状态码描述的枚举类，一些常见的状态码&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span class=&#34;kr&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kr&#34;&gt;enum&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;HttpStatus&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+    &lt;span class=&#34;nx&#34;&gt;OK&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;200&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;OK&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;),&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;//用于服务器有实体响应    
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;    &lt;span class=&#34;nx&#34;&gt;CREATED&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;201&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;Created&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;),&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;//创建了新实体，响应该实体
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;    &lt;span class=&#34;nx&#34;&gt;NO_CONTENT&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;204&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;No Content&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;),&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;//服务器正常响应，但无实体响应
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;    &lt;span class=&#34;nx&#34;&gt;BAD_REQUEST&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;400&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;Bad Request&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;),&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;//客户端请求语法错误
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;    &lt;span class=&#34;nx&#34;&gt;NOT_FOUND&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;404&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;Not Found&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;),&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;//目标资源不存在
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;    &lt;span class=&#34;nx&#34;&gt;INTERNAL_SERVER_ERROR&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;500&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;Internal Server Error&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;),&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;//服务器内部错误
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;    &lt;span class=&#34;nx&#34;&gt;NOT_IMPLEMENTED&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;501&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;Not Implemented&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;),&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;//服务器不支持当前请求
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Spring返回状态码是通过 &lt;code&gt;@ResponseStatus&lt;/code&gt;注解或者 &lt;code&gt;ResponseEntity&amp;lt;?&amp;gt;&lt;/code&gt;类实现的。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;@ResponseStatus&lt;/code&gt;方式&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span class=&#34;err&#34;&gt;@&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;GetMapping&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;path&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;/user/{id}&amp;#34;&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;produces&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;application/json;charset=utf-8&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;span class=&#34;err&#34;&gt;@&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;ResponseStatus&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;HttpStatus&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;OK&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;span class=&#34;kr&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;User&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;findUserById&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;@&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;PathVariable&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;id&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Integer&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;id&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;){&lt;/span&gt;
+    &lt;span class=&#34;nx&#34;&gt;User&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;user&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;userService&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;findUserById&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;id&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+    &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;user&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;code&gt;ResponseEntity&amp;lt;?&amp;gt;&lt;/code&gt;方式&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span class=&#34;err&#34;&gt;@&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;GetMapping&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;produces&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;application/json;charset=utf-8&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;span class=&#34;kr&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;ResponseEntity&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;List&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;User&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;findAll&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(){&lt;/span&gt;
+    &lt;span class=&#34;nx&#34;&gt;List&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;User&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;users&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;userService&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;findAll&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;();&lt;/span&gt;
+    &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;ResponseEntity&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;List&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;User&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&amp;gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;users&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;HttpStatus&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;OK&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;浏览器对REST的支持：&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;由于浏览器表单只支持 GET 和 POST 请求，所以为了让浏览器实现 DELETE 和 PUT 请求，Spring 为我们提供了一个过滤器：org.springframework.web.filter.HiddenHttpMethodFilter，可以为我们将 GET 和 POST 请求通过过滤器转化成 PUT 或 DELETE 等其他形式。&lt;/p&gt;
+&lt;p&gt;下面是HiddenHttpMethodFilter的使用方法：&lt;/p&gt;
+&lt;p&gt;①在web.xml中进行配置，拦截所有资源，注意：它必须作用于解决乱码过滤器CharacterEncodingFilter的后面，否则处理乱码的过滤器就会失效。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-xml&#34; data-lang=&#34;xml&#34;&gt;&lt;span class=&#34;c&#34;&gt;&amp;lt;!-- 配置 org.springframework.web.filter.HiddenHttpMethodFilter 过滤器 --&amp;gt;&lt;/span&gt;
+&lt;span class=&#34;nt&#34;&gt;&amp;lt;filter&amp;gt;&lt;/span&gt;
+    &lt;span class=&#34;nt&#34;&gt;&amp;lt;filter-name&amp;gt;&lt;/span&gt;hiddenHttpMethodFilter&lt;span class=&#34;nt&#34;&gt;&amp;lt;/filter-name&amp;gt;&lt;/span&gt;
+    &lt;span class=&#34;nt&#34;&gt;&amp;lt;filter-class&amp;gt;&lt;/span&gt;org.springframework.web.filter.HiddenHttpMethodFilter&lt;span class=&#34;nt&#34;&gt;&amp;lt;/filter-class&amp;gt;&lt;/span&gt;
+&lt;span class=&#34;nt&#34;&gt;&amp;lt;/filter&amp;gt;&lt;/span&gt;    
+&lt;span class=&#34;nt&#34;&gt;&amp;lt;filter-mapping&amp;gt;&lt;/span&gt;
+    &lt;span class=&#34;nt&#34;&gt;&amp;lt;filter-name&amp;gt;&lt;/span&gt;hiddenHttpMethodFilter&lt;span class=&#34;nt&#34;&gt;&amp;lt;/filter-name&amp;gt;&lt;/span&gt;
+    &lt;span class=&#34;c&#34;&gt;&amp;lt;!-- 拦截所有请求 --&amp;gt;&lt;/span&gt;
+    &lt;span class=&#34;nt&#34;&gt;&amp;lt;url-pattern&amp;gt;&lt;/span&gt;/*&lt;span class=&#34;nt&#34;&gt;&amp;lt;/url-pattern&amp;gt;&lt;/span&gt;
+&lt;span class=&#34;nt&#34;&gt;&amp;lt;/filter-mapping&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;[1]、转PUT请求：&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;POST请求转为PUT请求非常简单，只需在表单隐藏域中通过&lt;code&gt;_method&lt;/code&gt;请求参数附带请求方式名称即可。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;&lt;span class=&#34;c&#34;&gt;&amp;lt;!-- 将POST请求转为PUT请求 --&amp;gt;&lt;/span&gt;
+&lt;span class=&#34;c&#34;&gt;&amp;lt;!-- 表单需要按照HiddenHttpMethodFilter的要求来写 --&amp;gt;&lt;/span&gt;
+&lt;span class=&#34;c&#34;&gt;&amp;lt;!-- 要求1：请求本身是必须是POST --&amp;gt;&lt;/span&gt;
+&lt;span class=&#34;c&#34;&gt;&amp;lt;!-- 要求2：指定新请求方式的请求参数名称必须是_method --&amp;gt;&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;form&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;action&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;${pageContext.request.contextPath}/update/emp&amp;#34;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;method&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;post&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;input&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;type&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;hidden&amp;#34;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;name&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;_method&amp;#34;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;value&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;PUT&amp;#34;&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;/&amp;gt;&lt;/span&gt;
+    .......
+&lt;span class=&#34;p&#34;&gt;&amp;lt;/&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;form&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;[2]、转DELETE请求：&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;通过点击超链接执行删除操作。这是一个难点，超链接中没有表单隐藏域，所以需要将超链接转换为表单进行提交，这就需要借助于JavaScript。&lt;/p&gt;
+&lt;p&gt;①、在页面上创建一个action属性为空的form表单&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;&lt;span class=&#34;c&#34;&gt;&amp;lt;!-- 将超链接的GET请求转换为DELETE请求 --&amp;gt;&lt;/span&gt;
+&lt;span class=&#34;c&#34;&gt;&amp;lt;!-- 1、提供一个通用的表单，用来将GET请求先转换为POST，然后再发送_method请求参数 --&amp;gt;&lt;/span&gt;
+&lt;span class=&#34;c&#34;&gt;&amp;lt;!-- action属性不能写死，将来点击哪一个超链接，目标地址就和那个超链接一致 --&amp;gt;&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;form&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;id&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;commonForm&amp;#34;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;action&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;method&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;post&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;input&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;type&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;hidden&amp;#34;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;name&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;_method&amp;#34;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;value&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;delete&amp;#34;&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;/&amp;gt;&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;&amp;lt;/&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;form&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;②、给所有超链接绑定单击响应函数&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;script&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;type&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;text/javascript&amp;#34;&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;src&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;${pageContext.request.contextPath}/script/jquery-1.7.2.js&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;/script&amp;gt;&lt;/span&gt;
+&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;script&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;type&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;text/javascript&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;
+	&lt;span class=&#34;nx&#34;&gt;$&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;function&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+		&lt;span class=&#34;nx&#34;&gt;$&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;.removeEmp&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;).&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;click&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;function&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+
+			&lt;span class=&#34;c1&#34;&gt;// 在单击响应函数中获取当前点击的超链接的URL地址
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;			&lt;span class=&#34;kd&#34;&gt;var&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;targetUrl&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;this&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;href&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+			&lt;span class=&#34;nx&#34;&gt;console&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;log&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;targetUrl&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+
+			&lt;span class=&#34;c1&#34;&gt;// 通过id获取到表单的jQuery对象，然后设置action属性值，再提交表单
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;			&lt;span class=&#34;nx&#34;&gt;$&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;#commonForm&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;).&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;attr&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;action&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;targetUrl&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;).&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;submit&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;();&lt;/span&gt;
+
+			&lt;span class=&#34;c1&#34;&gt;// 取消控件的默认行为
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;			&lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;false&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+		&lt;span class=&#34;p&#34;&gt;});&lt;/span&gt;
+	&lt;span class=&#34;p&#34;&gt;});&lt;/span&gt;
+&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;/script&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;③、超链接&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;&lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;a&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;class&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;removeEmp&amp;#34;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;href&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;${pageContext.request.contextPath}/remove/emp/1&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;模拟删除&lt;span class=&#34;p&#34;&gt;&amp;lt;/&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;a&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;br&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;/&amp;gt;&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;a&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;class&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;removeEmp&amp;#34;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;href&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;${pageContext.request.contextPath}/remove/emp/2&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;模拟删除&lt;span class=&#34;p&#34;&gt;&amp;lt;/&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;a&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;br&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;/&amp;gt;&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;a&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;class&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;removeEmp&amp;#34;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;href&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;${pageContext.request.contextPath}/remove/emp/3&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;模拟删除&lt;span class=&#34;p&#34;&gt;&amp;lt;/&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;a&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;br&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;/&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;5pathvariable注解&#34;&gt;5、@PathVariable注解&lt;/h2&gt;
+&lt;p&gt;@PathVariable作用：通过URL地址携带的数据需要通过@PathVariable注解来获取。它的用法如下：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;&lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;a&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;href&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;${pageContext.request.contextPath}/emp/2&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;一个参数情况&lt;span class=&#34;p&#34;&gt;&amp;lt;/&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;a&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;br&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;/&amp;gt;&lt;/span&gt;
+//请求路径为：/emp/2
+@RequestMapping(&amp;#34;/emp/{empId}&amp;#34;)
+public String testPathVariable(@PathVariable(&amp;#34;empId&amp;#34;) Integer empId) {
+    System.out.println(&amp;#34;empId=&amp;#34;+empId);
+    return &amp;#34;result&amp;#34;;
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;对于请求路径中有多个数据，@PathVariable注解也是支持的。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;&lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;a&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;href&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;${pageContext.request.contextPath}/send/message/tom/tell/jerry&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;多个参数情况&lt;span class=&#34;p&#34;&gt;&amp;lt;/&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;a&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;br&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;/&amp;gt;&lt;/span&gt;
+复制//请求路径为：/send/message/tom/tell/jerry
+@RequestMapping(&amp;#34;/send/message/{foo}/tell/{bar}&amp;#34;)
+public String sendMessage(@PathVariable(&amp;#34;foo&amp;#34;) String foo,
+                          @PathVariable(&amp;#34;bar&amp;#34;) String bar) {
+    System.out.println(&amp;#34;foo = &amp;#34; + foo);
+    System.out.println(&amp;#34;bar = &amp;#34; + bar);
+    return &amp;#34;target&amp;#34;;
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;restful-api设计&#34;&gt;Restful API设计&lt;/h2&gt;
+&lt;h3 id=&#34;restful-api-对于url的约定&#34;&gt;Restful API 对于URL的约定&lt;/h3&gt;
+&lt;p&gt;在Restful 架构中，每个网址代表一种资源（resource），所以网址中不能有动词，只能有名词，而且所用的名词往往与数据库的表名相对应。一般来说，数据库中的表都是同种记录的“集合”（collection）,所以API中的名词也可以使用复数。&lt;/p&gt;
+&lt;p&gt;URL的设计规则如下：&lt;/p&gt;
+&lt;p&gt;/模块/资源/{标识}/集合1/….&lt;/p&gt;
+&lt;p&gt;比如：&lt;/p&gt;
+&lt;p&gt;/user/{uid}/friends          -&amp;gt; 好友列表&lt;/p&gt;
+&lt;p&gt;/user/{uid}/followers      -&amp;gt; 关注者列表&lt;/p&gt;
+&lt;p&gt;再举个栗子：&lt;/p&gt;
+&lt;p&gt;与秒杀相关的操作的接口：&lt;/p&gt;
+&lt;p&gt;GET /seckill/list       秒杀列表&lt;/p&gt;
+&lt;p&gt;GET /seckill/{id}/detail    详情页&lt;/p&gt;
+&lt;p&gt;GET /seckill/time/now    系统时间&lt;/p&gt;
+&lt;p&gt;POST /seckill/{id}/exposer      暴露秒杀&lt;/p&gt;
+&lt;p&gt;POST /seckill/{id}/{md5}/execution       执行秒杀&lt;/p&gt;
+&lt;p&gt;不友好的设计如下：&lt;/p&gt;
+&lt;p&gt;POST /seckill/execute/{seckillId}    (不友好，execute是动词)&lt;/p&gt;
+&lt;p&gt;GET /seckill/delete/{id}   (不友好，应该用DELETE提交,可改为如下：)&lt;/p&gt;
+&lt;p&gt;DELETE /seckill/{id}/delete     (友好)&lt;/p&gt;
+&lt;h3 id=&#34;restful-api-在spring-mvc中的实现&#34;&gt;Restful API 在Spring MVC中的实现&lt;/h3&gt;
+&lt;p&gt;Spring中的@RequestMapping注解，分析如下：&lt;/p&gt;
+&lt;p&gt;@RequestMapping注解的特点如下：&lt;/p&gt;
+&lt;p&gt;（1）支持标准的URL&lt;/p&gt;
+&lt;p&gt;（2）Ant风格URL（即？和**等字符）&lt;/p&gt;
+&lt;p&gt;（3）带{×××}占位符的URL&lt;/p&gt;
+&lt;p&gt;例如：&lt;/p&gt;
+&lt;p&gt;/user/*/creation&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;    匹配： /user/aaa/creation、/user/bbb/creation等URL。
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;/user/**/creation&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;    匹配： /user/creation、/user/aaa/bbb/creation等URL。
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;/user/{userId}&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;    匹配： /user/123、/user/abc等URL。
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;/company/{campanyId}/user/{userId}/detail&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;    匹配：/company/123/user/323/detail等的URL&lt;/code&gt;&lt;/pre&gt;
+</description>
+        </item>
+        <item>
+        <title>SpringMvc静态资源过滤</title>
+        <link>https://example.com/p/springmvc%E9%9D%99%E6%80%81%E8%B5%84%E6%BA%90%E8%BF%87%E6%BB%A4/</link>
+        <pubDate>Thu, 21 Oct 2021 20:07:06 +0800</pubDate>
+        
+        <guid>https://example.com/p/springmvc%E9%9D%99%E6%80%81%E8%B5%84%E6%BA%90%E8%BF%87%E6%BB%A4/</guid>
+        <description>&lt;h2 id=&#34;配置dispatcherservlet&#34;&gt;配置&lt;code&gt;DispatcherServlet&lt;/code&gt;&lt;/h2&gt;
+&lt;p&gt;在进行Spring MVC的配置时，通常会配置一个&lt;code&gt;dispatcher-servlet.xml&lt;/code&gt;用于处理对应的URL。&lt;code&gt;web.xml&lt;/code&gt;中配置如下：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-xml&#34; data-lang=&#34;xml&#34;&gt;&lt;span class=&#34;c&#34;&gt;&amp;lt;!--springmvc默认拦截器拦截请求--&amp;gt;&lt;/span&gt;
+&lt;span class=&#34;nt&#34;&gt;&amp;lt;servlet&amp;gt;&lt;/span&gt;
+	&lt;span class=&#34;nt&#34;&gt;&amp;lt;servlet-name&amp;gt;&lt;/span&gt;SpringMVC&lt;span class=&#34;nt&#34;&gt;&amp;lt;/servlet-name&amp;gt;&lt;/span&gt;
+	&lt;span class=&#34;nt&#34;&gt;&amp;lt;servlet-class&amp;gt;&lt;/span&gt;org.springframework.web.servlet.DispatcherServlet&lt;span class=&#34;nt&#34;&gt;&amp;lt;/servlet-class&amp;gt;&lt;/span&gt;
+		&lt;span class=&#34;nt&#34;&gt;&amp;lt;init-param&amp;gt;&lt;/span&gt;
+            &lt;span class=&#34;nt&#34;&gt;&amp;lt;param-name&amp;gt;&lt;/span&gt;contextConfigLocation&lt;span class=&#34;nt&#34;&gt;&amp;lt;/param-name&amp;gt;&lt;/span&gt;
+            &lt;span class=&#34;nt&#34;&gt;&amp;lt;param-value&amp;gt;&lt;/span&gt;classpath:dispatcher-servlet.xml&lt;span class=&#34;nt&#34;&gt;&amp;lt;/param-value&amp;gt;&lt;/span&gt;
+        &lt;span class=&#34;nt&#34;&gt;&amp;lt;/init-param&amp;gt;&lt;/span&gt;
+    	&lt;span class=&#34;c&#34;&gt;&amp;lt;!--tomcat启动时立即初始化拦截器--&amp;gt;&lt;/span&gt;
+        &lt;span class=&#34;nt&#34;&gt;&amp;lt;load-on-startup&amp;gt;&lt;/span&gt;1&lt;span class=&#34;nt&#34;&gt;&amp;lt;/load-on-startup&amp;gt;&lt;/span&gt;
+&lt;span class=&#34;nt&#34;&gt;&amp;lt;/servlet&amp;gt;&lt;/span&gt;
+&lt;span class=&#34;nt&#34;&gt;&amp;lt;servlet-mapping&amp;gt;&lt;/span&gt;
+&lt;span class=&#34;c&#34;&gt;&amp;lt;!--
+&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;	url-pattern拦截地址的区别
+&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;	/  会匹配url请求/index等 ,也会匹配静态资源*.js,*.html等, 不会匹配*.jsp文件。
+&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;	/* 会匹配url请求/index等 ,也会匹配静态资源*.js,*.html等,  会匹配*.jsp文件。
+&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;	在实际开发中可能遇到 *.do、*.cation 等拦截代后缀的请求
+&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;--&amp;gt;&lt;/span&gt;
+	&lt;span class=&#34;nt&#34;&gt;&amp;lt;servlet-name&amp;gt;&lt;/span&gt;SpringMVC&lt;span class=&#34;nt&#34;&gt;&amp;lt;/servlet-name&amp;gt;&lt;/span&gt;
+	&lt;span class=&#34;nt&#34;&gt;&amp;lt;url-pattern&amp;gt;&lt;/span&gt;/&lt;span class=&#34;nt&#34;&gt;&amp;lt;/url-pattern&amp;gt;&lt;/span&gt;
+&lt;span class=&#34;c&#34;&gt;&amp;lt;!--
+&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;    只拦截.do请求
+&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;    &amp;lt;url-pattern&amp;gt;*.do&amp;lt;/url-pattern&amp;gt;
+&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;--&amp;gt;&lt;/span&gt;
+&lt;span class=&#34;nt&#34;&gt;&amp;lt;/servlet-mapping&amp;gt;&lt;/span&gt;        
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;优雅 REST 风格的 URL 不希望带 .html 或 .do 等后缀，而如果将 DispatcherServlet 请求映射配置为&amp;quot;/&amp;quot;，则Spring MVC将捕获Web容器所有的请求，静态资源的请求找不到对应处理器将导致错误。&lt;/p&gt;
+&lt;h2 id=&#34;springmvc过滤静态资源文件&#34;&gt;springMvc过滤静态资源文件&lt;/h2&gt;
+&lt;h3 id=&#34;1使用tomcat的defaultservlet来处理静态文件&#34;&gt;1、使用Tomcat的defaultServlet来处理静态文件&lt;/h3&gt;
+&lt;p&gt;web.xml里添加如下的配置&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-xml&#34; data-lang=&#34;xml&#34;&gt;&lt;span class=&#34;c&#34;&gt;&amp;lt;!--在springmvc拦截所有请求之前放行所有静态资源文件--&amp;gt;&lt;/span&gt;
+&lt;span class=&#34;c&#34;&gt;&amp;lt;!--每一个&amp;lt;url-pattern&amp;gt;代表一种静态资源文件--&amp;gt;&lt;/span&gt;
+&lt;span class=&#34;nt&#34;&gt;&amp;lt;servlet-mapping&amp;gt;&lt;/span&gt;
+	&lt;span class=&#34;nt&#34;&gt;&amp;lt;servlet-name&amp;gt;&lt;/span&gt;default&lt;span class=&#34;nt&#34;&gt;&amp;lt;/servlet-name&amp;gt;&lt;/span&gt;
+    &lt;span class=&#34;nt&#34;&gt;&amp;lt;url-pattern&amp;gt;&lt;/span&gt;*.html&lt;span class=&#34;nt&#34;&gt;&amp;lt;/url-pattern&amp;gt;&lt;/span&gt;
+    &lt;span class=&#34;nt&#34;&gt;&amp;lt;url-pattern&amp;gt;&lt;/span&gt;*.css&lt;span class=&#34;nt&#34;&gt;&amp;lt;/url-pattern&amp;gt;&lt;/span&gt;
+    &lt;span class=&#34;nt&#34;&gt;&amp;lt;url-pattern&amp;gt;&lt;/span&gt;*.js&lt;span class=&#34;nt&#34;&gt;&amp;lt;/url-pattern&amp;gt;&lt;/span&gt;
+    &lt;span class=&#34;nt&#34;&gt;&amp;lt;url-pattern&amp;gt;&lt;/span&gt;*.ico&lt;span class=&#34;nt&#34;&gt;&amp;lt;/url-pattern&amp;gt;&lt;/span&gt;
+    &lt;span class=&#34;nt&#34;&gt;&amp;lt;url-pattern&amp;gt;&lt;/span&gt;*.jpg&lt;span class=&#34;nt&#34;&gt;&amp;lt;/url-pattern&amp;gt;&lt;/span&gt;
+    &lt;span class=&#34;nt&#34;&gt;&amp;lt;url-pattern&amp;gt;&lt;/span&gt;*.png&lt;span class=&#34;nt&#34;&gt;&amp;lt;/url-pattern&amp;gt;&lt;/span&gt;
+    &lt;span class=&#34;nt&#34;&gt;&amp;lt;url-pattern&amp;gt;&lt;/span&gt;*.gif&lt;span class=&#34;nt&#34;&gt;&amp;lt;/url-pattern&amp;gt;&lt;/span&gt;
+&lt;span class=&#34;nt&#34;&gt;&amp;lt;/servlet-mapping&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;blockquote&gt;
+&lt;p&gt;要写在DispatcherServlet的前面， 让defaultServlet先拦截，这个就不会进入Spring了，我想性能是最好的吧。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Tomcat, Jetty, JBoss, and GlassFish 默认 Servlet的名字 &amp;ndash; &amp;ldquo;default&amp;rdquo;&lt;/li&gt;
+&lt;li&gt;Google App Engine 默认 Servlet的名字 &amp;ndash; &amp;ldquo;_ah_default&amp;rdquo;&lt;/li&gt;
+&lt;li&gt;Resin 默认 Servlet的名字 &amp;ndash; &amp;ldquo;resin-file&amp;rdquo;&lt;/li&gt;
+&lt;li&gt;WebLogic 默认 Servlet的名字 &amp;ndash; &amp;ldquo;FileServlet&amp;rdquo;&lt;/li&gt;
+&lt;li&gt;WebSphere 默认 Servlet的名字 &amp;ndash; &amp;ldquo;SimpleFileServlet&amp;rdquo;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;h3 id=&#34;2使用mvcresources标签&#34;&gt;2、使用&lt;code&gt;&amp;lt;mvc:resources&amp;gt;&lt;/code&gt;标签&lt;/h3&gt;
+&lt;p&gt;在&lt;code&gt;dispatcher-servlet.xml&lt;/code&gt;中插入以下配置：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-xml&#34; data-lang=&#34;xml&#34;&gt;&lt;span class=&#34;c&#34;&gt;&amp;lt;!--    放行静态资源文件--&amp;gt;&lt;/span&gt;
+&lt;span class=&#34;nt&#34;&gt;&amp;lt;mvc:annotation-driven&lt;/span&gt; &lt;span class=&#34;nt&#34;&gt;/&amp;gt;&lt;/span&gt;
+&lt;span class=&#34;nt&#34;&gt;&amp;lt;mvc:resources&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;location=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;/resources/&amp;#34;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;mapping=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;/resources/**&amp;#34;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;/&amp;gt;&lt;/span&gt;
+&lt;span class=&#34;nt&#34;&gt;&amp;lt;mvc:resources&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;location=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;/classpath:/META-INF/publicResources/&amp;#34;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;mapping=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;/resources/**&amp;#34;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;/&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;mapping ：映射路径。&lt;/li&gt;
+&lt;li&gt;location ：本地资源路径。&lt;/li&gt;
+&lt;li&gt;** ：它表示映射resources/下所有的URL，包括子路径（即接多个/）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;配置将Web根路径 &amp;ldquo;/&amp;rdquo; 及类路径下 /META-INF/publicResources/ 的目录映射为 /resources 路径。假设Web根路径下拥有 images、js 这两个资源目录,在 images下面有 bg.gif 图片，在 js下面有 test.js 文件，则可以通过 /resources/images/bg.gif 和 /resources/js/test.js 访问这二个静态资源。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;另外需要注意的一点是,不要对 SimpleUrlHandlerMapping 设置 defaultHandler. 因为对 static uri 的 defaultHandler 就是ResourceHttpRequestHandler,否则无法处理static resources request.&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3 id=&#34;3使用mvcdefault-servlet-handler-标签&#34;&gt;3、使用&lt;code&gt;&amp;lt;mvc:default-servlet-handler /&amp;gt;&lt;/code&gt;标签&lt;/h3&gt;
+&lt;p&gt;在&lt;code&gt;dispatcher-servlet.xml&lt;/code&gt;中插入以下配置：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-xml&#34; data-lang=&#34;xml&#34;&gt;&lt;span class=&#34;nt&#34;&gt;&amp;lt;mvc:default-servlet-handler&lt;/span&gt; &lt;span class=&#34;nt&#34;&gt;/&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;blockquote&gt;
+&lt;p&gt;在xml文件中配置&lt;a class=&#34;link&#34; href=&#34;mvc:default-servlet-handler/&#34; &gt;mvc:default-servlet-handler/&lt;/a&gt;，Spring MVC上下文中定义一个org.springframework.web.servlet.resource.DefaultServletHttpRequestHandler，对进入 DispatcherServlet 的 URL 进行筛查，静态资源由 Web 服务器默认的Servlet 处理，非静态资源的请求，由 DispatcherServlet 处理&lt;/p&gt;
+&lt;/blockquote&gt;
+</description>
+        </item>
+        <item>
+        <title>Java中的Date和Mysql中的datetime</title>
+        <link>https://example.com/p/java%E4%B8%AD%E7%9A%84date%E5%92%8Cmysql%E4%B8%AD%E7%9A%84datetime/</link>
+        <pubDate>Tue, 19 Oct 2021 21:16:55 +0800</pubDate>
+        
+        <guid>https://example.com/p/java%E4%B8%AD%E7%9A%84date%E5%92%8Cmysql%E4%B8%AD%E7%9A%84datetime/</guid>
+        <description>&lt;h2 id=&#34;java中的date&#34;&gt;java中的date&lt;/h2&gt;
+&lt;h3 id=&#34;1javasqldate&#34;&gt;1、&lt;code&gt;java.sql.date&lt;/code&gt;&lt;/h3&gt;
+&lt;blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;格式为``2016-02-01`&lt;/li&gt;
+&lt;li&gt;是针对SQL语句使用的，它只包含日期而没有时间部分&lt;/li&gt;
+&lt;li&gt;一般是在数据库的时间字段&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;h3 id=&#34;2javautildate&#34;&gt;2、&lt;code&gt;java.util.date&lt;/code&gt;&lt;/h3&gt;
+&lt;blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;格式为 &lt;code&gt;Wed Oct 20 15:02:35 CST 2021&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;在除SQL语句外的情况下面使用&lt;/li&gt;
+&lt;li&gt;一般是日常日期字段&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;sqldate和utildate&#34;&gt;sqlDate和UtilDate&lt;/h2&gt;
+&lt;h3 id=&#34;1javautildate-是-javasqldate-的父类&#34;&gt;1、&lt;code&gt;java.util.Date&lt;/code&gt; 是 &lt;code&gt;java.sql.Date&lt;/code&gt; 的父类&lt;/h3&gt;
+&lt;h3 id=&#34;2相互转化&#34;&gt;2、相互转化&lt;/h3&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;n&#34;&gt;java&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;sql&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;Date&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;sqlDate&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Java&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;sql&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;Date&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
+&lt;span class=&#34;n&#34;&gt;java&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;util&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;Date&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;utilDate&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;java&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;util&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;Date&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;sqlDate&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getTime&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;());&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;3继承关系&#34;&gt;3、继承关系&lt;/h3&gt;
+&lt;blockquote&gt;
+&lt;p&gt;java.lang.Object -&amp;gt; java.util.Date -&amp;gt; java.sql.Date&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3 id=&#34;4-使用环境&#34;&gt;4、 使用环境&lt;/h3&gt;
+&lt;blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;java.sql.Date主要是用于sql中！&lt;/li&gt;
+&lt;li&gt;java.util.Date一般的环境下都可以使用！&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;hr&gt;
+&lt;h3 id=&#34;5转化&#34;&gt;5、转化&lt;/h3&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;n&#34;&gt;SimpleDateFormat&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;bartDateFormat&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;  &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;SimpleDateFormat&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;yyyy-MM-dd&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;  
+       	&lt;span class=&#34;n&#34;&gt;String&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;dateStringToParse&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#34;2007-7-12&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+		&lt;span class=&#34;c1&#34;&gt;//utilDate to sqlDate
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;       	&lt;span class=&#34;k&#34;&gt;try&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt; 
+            &lt;span class=&#34;c1&#34;&gt;//使用符合格式的字符串构建一个utilDate
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;        	&lt;span class=&#34;n&#34;&gt;java&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;util&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;Date&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;utilDate&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;bartDateFormat&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;parse&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;dateStringToParse&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt; 
+            &lt;span class=&#34;c1&#34;&gt;//utilDate.getTime()获取时间戳并构建一个sqlDate
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;        	&lt;span class=&#34;n&#34;&gt;java&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;sql&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;Date&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;sqlDate&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;java&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;sql&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;Date&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;date&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getTime&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;());&lt;/span&gt;
+        	&lt;span class=&#34;n&#34;&gt;System&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;out&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;println&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;sqlDate&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getTime&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;());&lt;/span&gt;  
+       	&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;catch&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Exception&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ex&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;  
+        	&lt;span class=&#34;n&#34;&gt;System&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;out&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;println&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ex&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getMessage&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;());&lt;/span&gt;  
+       	&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+&lt;span class=&#34;c1&#34;&gt;//反之依然
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;ps：所有时间日期都可以被SimpleDateFormat格式化format()&lt;/p&gt;
+&lt;h2 id=&#34;其他时间类格式&#34;&gt;其他时间类格式&lt;/h2&gt;
+&lt;blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;java.util.Date 是 年-月-日 時:分:秒.毫秒&lt;/li&gt;
+&lt;li&gt;java.sql.Date 是 年-月-日&lt;/li&gt;
+&lt;li&gt;java.sql.Time 是 時:分:秒&lt;/li&gt;
+&lt;li&gt;java.sql.Timestamp 是 年-月-日 時:分:秒&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+</description>
+        </item>
+        <item>
+        <title>Mybatis报错解决合集</title>
+        <link>https://example.com/p/mybatis%E6%8A%A5%E9%94%99%E8%A7%A3%E5%86%B3%E5%90%88%E9%9B%86/</link>
+        <pubDate>Tue, 19 Oct 2021 19:43:35 +0800</pubDate>
+        
+        <guid>https://example.com/p/mybatis%E6%8A%A5%E9%94%99%E8%A7%A3%E5%86%B3%E5%90%88%E9%9B%86/</guid>
+        <description>&lt;h2 id=&#34;根报错-cause-commysqljdbcexceptionsjdbc4communicationsexception-communications-link-failure&#34;&gt;根报错 &lt;code&gt;Cause: com.mysql.jdbc.exceptions.jdbc4.CommunicationsException: Communications link failure&lt;/code&gt;&lt;/h2&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;org.apache.ibatis.exceptions.PersistenceException: 
+### Error querying database.  Cause: com.mysql.jdbc.exceptions.jdbc4.CommunicationsException: Communications link failure
+
+The last packet successfully received from the server was 128 milliseconds ago.  The last packet sent successfully to the server was 125 milliseconds ago.
+### The error may exist in com/xxgc/mybatis/mapper/MoneyMapper.java (best guess)
+### The error may involve com.xxgc.mybatis.mapper.MoneyMapper.selectMoneyAndUser_COUNT
+### The error occurred while executing a query
+### Cause: com.mysql.jdbc.exceptions.jdbc4.CommunicationsException: Communications link failure
+
+The last packet successfully received from the server was 128 milliseconds ago.  The last packet sent successfully to the server was 125 milliseconds ago.
+
+	at org.apache.ibatis.exceptions.ExceptionFactory.wrapException(ExceptionFactory.java:30)
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:153)
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:145)
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:140)
+	at org.apache.ibatis.binding.MapperMethod.executeForMany(MapperMethod.java:147)
+	at org.apache.ibatis.binding.MapperMethod.execute(MapperMethod.java:80)
+	at org.apache.ibatis.binding.MapperProxy$PlainMethodInvoker.invoke(MapperProxy.java:145)
+	at org.apache.ibatis.binding.MapperProxy.invoke(MapperProxy.java:86)
+	at jdk.proxy2/jdk.proxy2.$Proxy21.selectMoneyAndUser(Unknown Source)
+	at com.xxgc.mybatis.test.MyTest.test11(MyTest.java:139)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:50)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:47)
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:325)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:78)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:57)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:290)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:71)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:288)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:58)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:268)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:363)
+	at org.junit.runner.JUnitCore.run(JUnitCore.java:137)
+	at com.intellij.junit4.JUnit4IdeaTestRunner.startRunnerWithArgs(JUnit4IdeaTestRunner.java:69)
+	at com.intellij.rt.junit.IdeaTestRunner$Repeater.startRunnerWithArgs(IdeaTestRunner.java:33)
+	at com.intellij.rt.junit.JUnitStarter.prepareStreamsAndStart(JUnitStarter.java:235)
+	at com.intellij.rt.junit.JUnitStarter.main(JUnitStarter.java:54)
+Caused by: com.mysql.jdbc.exceptions.jdbc4.CommunicationsException: Communications link failure
+
+The last packet successfully received from the server was 128 milliseconds ago.  The last packet sent successfully to the server was 125 milliseconds ago.
+	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:499)
+	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:480)
+	at com.mysql.jdbc.Util.handleNewInstance(Util.java:425)
+	at com.mysql.jdbc.SQLError.createCommunicationsException(SQLError.java:989)
+	at com.mysql.jdbc.ExportControlled.transformSocketToSSLSocket(ExportControlled.java:203)
+	at com.mysql.jdbc.MysqlIO.negotiateSSLConnection(MysqlIO.java:4901)
+	at com.mysql.jdbc.MysqlIO.proceedHandshakeWithPluggableAuthentication(MysqlIO.java:1659)
+	at com.mysql.jdbc.MysqlIO.doHandshake(MysqlIO.java:1226)
+	at com.mysql.jdbc.ConnectionImpl.coreConnect(ConnectionImpl.java:2191)
+	at com.mysql.jdbc.ConnectionImpl.connectOneTryOnly(ConnectionImpl.java:2222)
+	at com.mysql.jdbc.ConnectionImpl.createNewIO(ConnectionImpl.java:2017)
+	at com.mysql.jdbc.ConnectionImpl.&amp;lt;init&amp;gt;(ConnectionImpl.java:779)
+	at com.mysql.jdbc.JDBC4Connection.&amp;lt;init&amp;gt;(JDBC4Connection.java:47)
+	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:499)
+	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:480)
+	at com.mysql.jdbc.Util.handleNewInstance(Util.java:425)
+	at com.mysql.jdbc.ConnectionImpl.getInstance(ConnectionImpl.java:389)
+	at com.mysql.jdbc.NonRegisteringDriver.connect(NonRegisteringDriver.java:330)
+	at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:681)
+	at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:190)
+	at org.apache.ibatis.datasource.unpooled.UnpooledDataSource.doGetConnection(UnpooledDataSource.java:224)
+	at org.apache.ibatis.datasource.unpooled.UnpooledDataSource.doGetConnection(UnpooledDataSource.java:219)
+	at org.apache.ibatis.datasource.unpooled.UnpooledDataSource.getConnection(UnpooledDataSource.java:95)
+	at org.apache.ibatis.datasource.pooled.PooledDataSource.popConnection(PooledDataSource.java:432)
+	at org.apache.ibatis.datasource.pooled.PooledDataSource.getConnection(PooledDataSource.java:89)
+	at org.apache.ibatis.transaction.jdbc.JdbcTransaction.openConnection(JdbcTransaction.java:139)
+	at org.apache.ibatis.transaction.jdbc.JdbcTransaction.getConnection(JdbcTransaction.java:61)
+	at org.apache.ibatis.executor.BaseExecutor.getConnection(BaseExecutor.java:337)
+	at org.apache.ibatis.executor.SimpleExecutor.prepareStatement(SimpleExecutor.java:86)
+	at org.apache.ibatis.executor.SimpleExecutor.doQuery(SimpleExecutor.java:62)
+	at org.apache.ibatis.executor.BaseExecutor.queryFromDatabase(BaseExecutor.java:325)
+	at org.apache.ibatis.executor.BaseExecutor.query(BaseExecutor.java:156)
+	at org.apache.ibatis.executor.CachingExecutor.query(CachingExecutor.java:109)
+	at com.github.pagehelper.util.ExecutorUtil.executeAutoCount(ExecutorUtil.java:169)
+	at com.github.pagehelper.PageInterceptor.count(PageInterceptor.java:178)
+	at com.github.pagehelper.PageInterceptor.intercept(PageInterceptor.java:121)
+	at org.apache.ibatis.plugin.Plugin.invoke(Plugin.java:62)
+	at jdk.proxy2/jdk.proxy2.$Proxy20.query(Unknown Source)
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:151)
+	... 30 more
+Caused by: javax.net.ssl.SSLHandshakeException: No appropriate protocol (protocol is disabled or cipher suites are inappropriate)
+	at java.base/sun.security.ssl.HandshakeContext.&amp;lt;init&amp;gt;(HandshakeContext.java:172)
+	at java.base/sun.security.ssl.ClientHandshakeContext.&amp;lt;init&amp;gt;(ClientHandshakeContext.java:98)
+	at java.base/sun.security.ssl.TransportContext.kickstart(TransportContext.java:240)
+	at java.base/sun.security.ssl.SSLSocketImpl.startHandshake(SSLSocketImpl.java:443)
+	at java.base/sun.security.ssl.SSLSocketImpl.startHandshake(SSLSocketImpl.java:421)
+	at com.mysql.jdbc.ExportControlled.transformSocketToSSLSocket(ExportControlled.java:188)
+	... 67 more
+&lt;/code&gt;&lt;/pre&gt;&lt;blockquote&gt;
+&lt;p&gt;我的MySql版本为5.7，新装的，没有配MySQL SSL，但是连接池链接的时候默认加密了，所以一直连不上。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;解决方案：在配置JDBC链接时把&amp;amp;useSSL=false加上，不使用SSL加密，配置后连接正常，如果安全性较高的数据建议在MySQL端还是把SSL配上。&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+</description>
+        </item>
+        <item>
+        <title>Jackson使用</title>
+        <link>https://example.com/p/jackson%E4%BD%BF%E7%94%A8/</link>
+        <pubDate>Tue, 19 Oct 2021 14:48:39 +0800</pubDate>
+        
+        <guid>https://example.com/p/jackson%E4%BD%BF%E7%94%A8/</guid>
+        <description>&lt;h2 id=&#34;maven引入依赖&#34;&gt;maven引入依赖&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-xml&#34; data-lang=&#34;xml&#34;&gt;&lt;span class=&#34;c&#34;&gt;&amp;lt;!--    
+&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;object to json
+&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;	Gson是Google所维护，功能全。
+&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;	JackSon是Spring的御用工具，和Spring无缝集成，提供灵活的定制化开发的注解。
+&lt;/span&gt;&lt;span class=&#34;c&#34;&gt; --&amp;gt;&lt;/span&gt;
+    &lt;span class=&#34;nt&#34;&gt;&amp;lt;dependency&amp;gt;&lt;/span&gt;
+      &lt;span class=&#34;nt&#34;&gt;&amp;lt;groupId&amp;gt;&lt;/span&gt;com.fasterxml.jackson.core&lt;span class=&#34;nt&#34;&gt;&amp;lt;/groupId&amp;gt;&lt;/span&gt;
+      &lt;span class=&#34;nt&#34;&gt;&amp;lt;artifactId&amp;gt;&lt;/span&gt;jackson-databind&lt;span class=&#34;nt&#34;&gt;&amp;lt;/artifactId&amp;gt;&lt;/span&gt;
+      &lt;span class=&#34;nt&#34;&gt;&amp;lt;version&amp;gt;&lt;/span&gt;2.13.0&lt;span class=&#34;nt&#34;&gt;&amp;lt;/version&amp;gt;&lt;/span&gt;
+    &lt;span class=&#34;nt&#34;&gt;&amp;lt;/dependency&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;jackson-databind 依赖 jackson-core 和 jackson-annotations，可以只显示地添加jackson-databind依赖，jackson-core 和 jackson-annotations 也随之添加到 Java 项目工程中。&lt;/strong&gt;&lt;/p&gt;
+&lt;h2 id=&#34;创建-objectmapper&#34;&gt;创建 &lt;code&gt;ObjectMapper&lt;/code&gt;&lt;/h2&gt;
+&lt;p&gt;Jackson 最常用的 API 就是基于&amp;quot;对象绑定&amp;quot; 的 ObjectMapper：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;ObjectMapper可以从字符串，流或文件中解析JSON，并创建表示已解析的JSON的Java对象。 将JSON解析为Java对象也称为从JSON反序列化Java对象。&lt;/li&gt;
+&lt;li&gt;ObjectMapper也可以从Java对象创建JSON。 从Java对象生成JSON也称为将Java对象序列化为JSON。&lt;/li&gt;
+&lt;li&gt;Object映射器可以将JSON解析为自定义的类的对象，也可以解析置JSON树模型的对象。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;之所以称为ObjectMapper是因为它将JSON映射到Java对象（反序列化），或者将Java对象映射到JSON（序列化）。&lt;/p&gt;
+&lt;h3 id=&#34;将-java-object转化为-json-字符串&#34;&gt;将 &lt;code&gt;java Object&lt;/code&gt;转化为 &lt;code&gt;json&lt;/code&gt; 字符串&lt;/h3&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;n&#34;&gt;ObjectMapper&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;objectMapper&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ObjectMapper&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
+&lt;span class=&#34;n&#34;&gt;String&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;json&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;objectMapper&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;writeValueAsString&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;要转化为json的对象&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+&lt;span class=&#34;n&#34;&gt;System&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;out&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;println&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;json&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;//打印转化后的json对象
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://juejin.cn/post/6844904166809157639&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;参考&lt;/a&gt;&lt;/p&gt;
+</description>
+        </item>
+        <item>
         <title>Mysql索引</title>
         <link>https://example.com/p/mysql%E7%B4%A2%E5%BC%95/</link>
         <pubDate>Sat, 02 Oct 2021 11:39:05 +0800</pubDate>

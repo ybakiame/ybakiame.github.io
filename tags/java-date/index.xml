@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>java Date on ybakiame的个人博客</title>
+    <link>https://example.com/tags/java-date/</link>
+    <description>Recent content in java Date on ybakiame的个人博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 19 Oct 2021 21:16:55 +0800</lastBuildDate><atom:link href="https://example.com/tags/java-date/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Java中的Date和Mysql中的datetime</title>
+      <link>https://example.com/p/java%E4%B8%AD%E7%9A%84date%E5%92%8Cmysql%E4%B8%AD%E7%9A%84datetime/</link>
+      <pubDate>Tue, 19 Oct 2021 21:16:55 +0800</pubDate>
+      
+      <guid>https://example.com/p/java%E4%B8%AD%E7%9A%84date%E5%92%8Cmysql%E4%B8%AD%E7%9A%84datetime/</guid>
+      <description>java中的date 1、java.sql.date   格式为``2016-02-01` 是针对SQL语句使用的，它只包含日期而没有时间部分 一般是在数据库的时间字段   2、java.util.date   格式为 Wed Oct 20 15:02:35 CST 2021 在除SQL语句外的情况下面使用 一般是日常日期字段   sqlDate和UtilDate 1、java.util.Date 是 java.sql.Date 的父类 2、相互转化 java.sql.Date sqlDate=new Java.sql.Date(); java.util.Date utilDate=new java.util.Date (sqlDate.getTime()); 3、继承关系  java.lang.Object -&amp;gt; java.util.Date -&amp;gt; java.sql.Date
+ 4、 使用环境   java.sql.Date主要是用于sql中！ java.util.Date一般的环境下都可以使用！    5、转化 SimpleDateFormat bartDateFormat = new SimpleDateFormat(&amp;#34;yyyy-MM-dd&amp;#34;); String dateStringToParse = &amp;#34;2007-7-12&amp;#34;; //utilDate to sqlDate  try { //使用符合格式的字符串构建一个utilDate  java.</description>
+    </item>
+    
+  </channel>
+</rss>

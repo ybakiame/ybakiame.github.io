@@ -6,7 +6,66 @@
     <description>Recent content in Posts on ybakiame的个人博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 02 Oct 2021 11:39:05 +0800</lastBuildDate><atom:link href="https://example.com/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 21 Oct 2021 21:51:22 +0800</lastBuildDate><atom:link href="https://example.com/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>springMVC实现restful风格</title>
+      <link>https://example.com/p/springmvc%E5%AE%9E%E7%8E%B0restful%E9%A3%8E%E6%A0%BC/</link>
+      <pubDate>Thu, 21 Oct 2021 21:51:22 +0800</pubDate>
+      
+      <guid>https://example.com/p/springmvc%E5%AE%9E%E7%8E%B0restful%E9%A3%8E%E6%A0%BC/</guid>
+      <description>1、REST的概念 REST为“Representational State Transfer”的缩写，中文释义为“表现层状态转换”，REST不是一种标准，而是一种设计风格。是目前最流行的一种互联网软件架构风格。它倡导结构清晰、符合标准、易于理解、扩展方便的Web架构体系，主张严格按照HTTP协议中定义的规范设计结构严谨的Web应用架构体系。由于REST所倡导的理念让Web应用更易于开发和维护，更加优雅简洁，所以正得到越来越多网站的采用。
+  资源（Resources）：网络上的一个实体，或者说是网络上的一个具体信息。它可以是一段文本、一张图片、一首歌曲、一种服务，总之就是一个具体的存在。可以用一个URI（统一资源定位符）指向它，每种资源对应一个特定的 URI 。要获取这个资源，访问它的URI就可以，因此 URI 即为每一个资源的独一无二的识别符。
+  表现层（Representation）：把资源具体呈现出来的形式，叫做它的表现层（Representation）。比如，文本可以用txt格式表现，也可以用HTML格式、XML格式、JSON格式表现，甚至可以采用二进制格式。
+  状态转化
+（State Transfer）：每发出一个请求，就代表了客户端和服务器的一次交互过程。HTTP协议，是一个无状态协议，即所有的状态都保存在服务器端。因此，如果客户端想要操作服务器，必须通过某种手段，让服务器端发生“状态转化”（State Transfer）。而这种转化是建立在表现层之上的，所以就是 “表现层状态转化”。
+具体说，就是 HTTP 协议里面，四个表示操作方式的动词：GET、POST、PUT、DELETE。它们分别对应四种基本操作：
+ GET 用来获取资源 POST 用来新建资源 PUT 用来更新资源 DELETE 用来删除资源       HTTP方法名 使用场景 资源操作 是否幂等 是否安全     GET 从服务器取出资源（一项或多项） SELECT 是 是   POST 在服务器新建一个资源 INSERT 否 否   PUT 在服务器更新资源（客户端提供完整资源数据） UPDATE 是 否   DELETE 从服务器删除资源 DELETE 是 否     幂等性：对同一REST接口的多次访问，得到的资源状态是相同的。 安全性：对该REST接口访问，不会使服务器端资源的状态发生改变。   RESTful：就是符合REST原则的架构方式即可称为RESTful。</description>
+    </item>
+    
+    <item>
+      <title>SpringMvc静态资源过滤</title>
+      <link>https://example.com/p/springmvc%E9%9D%99%E6%80%81%E8%B5%84%E6%BA%90%E8%BF%87%E6%BB%A4/</link>
+      <pubDate>Thu, 21 Oct 2021 20:07:06 +0800</pubDate>
+      
+      <guid>https://example.com/p/springmvc%E9%9D%99%E6%80%81%E8%B5%84%E6%BA%90%E8%BF%87%E6%BB%A4/</guid>
+      <description>配置DispatcherServlet 在进行Spring MVC的配置时，通常会配置一个dispatcher-servlet.xml用于处理对应的URL。web.xml中配置如下：
+&amp;lt;!--springmvc默认拦截器拦截请求--&amp;gt; &amp;lt;servlet&amp;gt; &amp;lt;servlet-name&amp;gt;SpringMVC&amp;lt;/servlet-name&amp;gt; &amp;lt;servlet-class&amp;gt;org.springframework.web.servlet.DispatcherServlet&amp;lt;/servlet-class&amp;gt; &amp;lt;init-param&amp;gt; &amp;lt;param-name&amp;gt;contextConfigLocation&amp;lt;/param-name&amp;gt; &amp;lt;param-value&amp;gt;classpath:dispatcher-servlet.xml&amp;lt;/param-value&amp;gt; &amp;lt;/init-param&amp;gt; &amp;lt;!--tomcat启动时立即初始化拦截器--&amp;gt; &amp;lt;load-on-startup&amp;gt;1&amp;lt;/load-on-startup&amp;gt; &amp;lt;/servlet&amp;gt; &amp;lt;servlet-mapping&amp;gt; &amp;lt;!-- url-pattern拦截地址的区别 / 会匹配url请求/index等 ,也会匹配静态资源*.js,*.html等, 不会匹配*.jsp文件。 /* 会匹配url请求/index等 ,也会匹配静态资源*.js,*.html等, 会匹配*.jsp文件。 在实际开发中可能遇到 *.do、*.cation 等拦截代后缀的请求 --&amp;gt; &amp;lt;servlet-name&amp;gt;SpringMVC&amp;lt;/servlet-name&amp;gt; &amp;lt;url-pattern&amp;gt;/&amp;lt;/url-pattern&amp;gt; &amp;lt;!-- 只拦截.do请求 &amp;lt;url-pattern&amp;gt;*.do&amp;lt;/url-pattern&amp;gt; --&amp;gt; &amp;lt;/servlet-mapping&amp;gt; 优雅 REST 风格的 URL 不希望带 .html 或 .do 等后缀，而如果将 DispatcherServlet 请求映射配置为&amp;quot;/&amp;quot;，则Spring MVC将捕获Web容器所有的请求，静态资源的请求找不到对应处理器将导致错误。
+springMvc过滤静态资源文件 1、使用Tomcat的defaultServlet来处理静态文件 web.xml里添加如下的配置
+&amp;lt;!--在springmvc拦截所有请求之前放行所有静态资源文件--&amp;gt; &amp;lt;!--每一个&amp;lt;url-pattern&amp;gt;代表一种静态资源文件--&amp;gt; &amp;lt;servlet-mapping&amp;gt; &amp;lt;servlet-name&amp;gt;default&amp;lt;/servlet-name&amp;gt; &amp;lt;url-pattern&amp;gt;*.html&amp;lt;/url-pattern&amp;gt; &amp;lt;url-pattern&amp;gt;*.css&amp;lt;/url-pattern&amp;gt; &amp;lt;url-pattern&amp;gt;*.js&amp;lt;/url-pattern&amp;gt; &amp;lt;url-pattern&amp;gt;*.ico&amp;lt;/url-pattern&amp;gt; &amp;lt;url-pattern&amp;gt;*.jpg&amp;lt;/url-pattern&amp;gt; &amp;lt;url-pattern&amp;gt;*.png&amp;lt;/url-pattern&amp;gt; &amp;lt;url-pattern&amp;gt;*.gif&amp;lt;/url-pattern&amp;gt; &amp;lt;/servlet-mapping&amp;gt;  要写在DispatcherServlet的前面， 让defaultServlet先拦截，这个就不会进入Spring了，我想性能是最好的吧。
+ Tomcat, Jetty, JBoss, and GlassFish 默认 Servlet的名字 &amp;ndash; &amp;ldquo;default&amp;rdquo; Google App Engine 默认 Servlet的名字 &amp;ndash; &amp;ldquo;_ah_default&amp;rdquo; Resin 默认 Servlet的名字 &amp;ndash; &amp;ldquo;resin-file&amp;rdquo; WebLogic 默认 Servlet的名字 &amp;ndash; &amp;ldquo;FileServlet&amp;rdquo; WebSphere 默认 Servlet的名字 &amp;ndash; &amp;ldquo;SimpleFileServlet&amp;rdquo;   2、使用&amp;lt;mvc:resources&amp;gt;标签 在dispatcher-servlet.</description>
+    </item>
+    
+    <item>
+      <title>Java中的Date和Mysql中的datetime</title>
+      <link>https://example.com/p/java%E4%B8%AD%E7%9A%84date%E5%92%8Cmysql%E4%B8%AD%E7%9A%84datetime/</link>
+      <pubDate>Tue, 19 Oct 2021 21:16:55 +0800</pubDate>
+      
+      <guid>https://example.com/p/java%E4%B8%AD%E7%9A%84date%E5%92%8Cmysql%E4%B8%AD%E7%9A%84datetime/</guid>
+      <description>java中的date 1、java.sql.date   格式为``2016-02-01` 是针对SQL语句使用的，它只包含日期而没有时间部分 一般是在数据库的时间字段   2、java.util.date   格式为 Wed Oct 20 15:02:35 CST 2021 在除SQL语句外的情况下面使用 一般是日常日期字段   sqlDate和UtilDate 1、java.util.Date 是 java.sql.Date 的父类 2、相互转化 java.sql.Date sqlDate=new Java.sql.Date(); java.util.Date utilDate=new java.util.Date (sqlDate.getTime()); 3、继承关系  java.lang.Object -&amp;gt; java.util.Date -&amp;gt; java.sql.Date
+ 4、 使用环境   java.sql.Date主要是用于sql中！ java.util.Date一般的环境下都可以使用！    5、转化 SimpleDateFormat bartDateFormat = new SimpleDateFormat(&amp;#34;yyyy-MM-dd&amp;#34;); String dateStringToParse = &amp;#34;2007-7-12&amp;#34;; //utilDate to sqlDate  try { //使用符合格式的字符串构建一个utilDate  java.</description>
+    </item>
+    
+    <item>
+      <title>Mybatis报错解决合集</title>
+      <link>https://example.com/p/mybatis%E6%8A%A5%E9%94%99%E8%A7%A3%E5%86%B3%E5%90%88%E9%9B%86/</link>
+      <pubDate>Tue, 19 Oct 2021 19:43:35 +0800</pubDate>
+      
+      <guid>https://example.com/p/mybatis%E6%8A%A5%E9%94%99%E8%A7%A3%E5%86%B3%E5%90%88%E9%9B%86/</guid>
+      <description>根报错 Cause: com.mysql.jdbc.exceptions.jdbc4.CommunicationsException: Communications link failure org.apache.ibatis.exceptions.PersistenceException: ### Error querying database. Cause: com.mysql.jdbc.exceptions.jdbc4.CommunicationsException: Communications link failure The last packet successfully received from the server was 128 milliseconds ago. The last packet sent successfully to the server was 125 milliseconds ago. ### The error may exist in com/xxgc/mybatis/mapper/MoneyMapper.java (best guess) ### The error may involve com.xxgc.mybatis.mapper.MoneyMapper.selectMoneyAndUser_COUNT ### The error occurred while executing a query ### Cause: com.mysql.jdbc.exceptions.jdbc4.CommunicationsException: Communications link failure The last packet successfully received from the server was 128 milliseconds ago.</description>
+    </item>
+    
+    <item>
+      <title>Jackson使用</title>
+      <link>https://example.com/p/jackson%E4%BD%BF%E7%94%A8/</link>
+      <pubDate>Tue, 19 Oct 2021 14:48:39 +0800</pubDate>
+      
+      <guid>https://example.com/p/jackson%E4%BD%BF%E7%94%A8/</guid>
+      <description>maven引入依赖 &amp;lt;!-- object to json Gson是Google所维护，功能全。 JackSon是Spring的御用工具，和Spring无缝集成，提供灵活的定制化开发的注解。 --&amp;gt; &amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;com.fasterxml.jackson.core&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;jackson-databind&amp;lt;/artifactId&amp;gt; &amp;lt;version&amp;gt;2.13.0&amp;lt;/version&amp;gt; &amp;lt;/dependency&amp;gt; jackson-databind 依赖 jackson-core 和 jackson-annotations，可以只显示地添加jackson-databind依赖，jackson-core 和 jackson-annotations 也随之添加到 Java 项目工程中。
+创建 ObjectMapper Jackson 最常用的 API 就是基于&amp;quot;对象绑定&amp;quot; 的 ObjectMapper：
+ ObjectMapper可以从字符串，流或文件中解析JSON，并创建表示已解析的JSON的Java对象。 将JSON解析为Java对象也称为从JSON反序列化Java对象。 ObjectMapper也可以从Java对象创建JSON。 从Java对象生成JSON也称为将Java对象序列化为JSON。 Object映射器可以将JSON解析为自定义的类的对象，也可以解析置JSON树模型的对象。  之所以称为ObjectMapper是因为它将JSON映射到Java对象（反序列化），或者将Java对象映射到JSON（序列化）。
+将 java Object转化为 json 字符串 ObjectMapper objectMapper = new ObjectMapper(); String json = objectMapper.writeValueAsString(要转化为json的对象); System.out.println(json);//打印转化后的json对象 参考</description>
+    </item>
+    
     <item>
       <title>Mysql索引</title>
       <link>https://example.com/p/mysql%E7%B4%A2%E5%BC%95/</link>
