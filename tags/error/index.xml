@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>error on ybakiame的个人博客</title>
+    <link>https://example.com/tags/error/</link>
+    <description>Recent content in error on ybakiame的个人博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 19 Oct 2021 19:43:35 +0800</lastBuildDate><atom:link href="https://example.com/tags/error/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Mybatis报错解决合集</title>
+      <link>https://example.com/p/mybatis%E6%8A%A5%E9%94%99%E8%A7%A3%E5%86%B3%E5%90%88%E9%9B%86/</link>
+      <pubDate>Tue, 19 Oct 2021 19:43:35 +0800</pubDate>
+      
+      <guid>https://example.com/p/mybatis%E6%8A%A5%E9%94%99%E8%A7%A3%E5%86%B3%E5%90%88%E9%9B%86/</guid>
+      <description>根报错 Cause: com.mysql.jdbc.exceptions.jdbc4.CommunicationsException: Communications link failure org.apache.ibatis.exceptions.PersistenceException: ### Error querying database. Cause: com.mysql.jdbc.exceptions.jdbc4.CommunicationsException: Communications link failure The last packet successfully received from the server was 128 milliseconds ago. The last packet sent successfully to the server was 125 milliseconds ago. ### The error may exist in com/xxgc/mybatis/mapper/MoneyMapper.java (best guess) ### The error may involve com.xxgc.mybatis.mapper.MoneyMapper.selectMoneyAndUser_COUNT ### The error occurred while executing a query ### Cause: com.mysql.jdbc.exceptions.jdbc4.CommunicationsException: Communications link failure The last packet successfully received from the server was 128 milliseconds ago.</description>
+    </item>
+    
+  </channel>
+</rss>

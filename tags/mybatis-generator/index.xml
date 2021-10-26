@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>mybatis-generator on ybakiame的个人博客</title>
+    <link>https://example.com/tags/mybatis-generator/</link>
+    <description>Recent content in mybatis-generator on ybakiame的个人博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 26 Oct 2021 19:34:24 +0800</lastBuildDate><atom:link href="https://example.com/tags/mybatis-generator/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Mybatis Generator使用</title>
+      <link>https://example.com/p/mybatis-generator%E4%BD%BF%E7%94%A8/</link>
+      <pubDate>Tue, 26 Oct 2021 19:34:24 +0800</pubDate>
+      
+      <guid>https://example.com/p/mybatis-generator%E4%BD%BF%E7%94%A8/</guid>
+      <description>mybatis-generator 官网：https://mybatis.org/generator/
+github储存库：https://github.com/mybatis/generator
+什么是 mybatis-generator  MyBatis Generator (MBG) 是 MyBatis MyBatis的代码生成器。它将为所有版本的 MyBatis 生成代码。它将内省一个数据库表（或多个表）并生成可用于访问表的工件。这减少了设置对象和配置文件以与数据库表交互的初始麻烦。MBG 试图对大量简单的 CRUD（创建、检索、更新、删除）的数据库操作产生重大影响。您仍然需要为连接查询或存储过程编写 SQL 和对象代码。
+ 功能  MBG 生成不同风格和不同语言的代码，这取决于它的配置方式。例如，MBG 可以生成 Java 或 Kotlin 代码。MBG 可以生成与 MyBatis3 兼容的 XML - 尽管现在被认为是 MBG 的遗留用途。生成代码的较新样式不需要 XML。
+根据它的配置方式，MyBatis Generator 可能会生成：
+  与表结构匹配的 Java 或 Kotlin 类。这可能包括：
+ 匹配表主键的类（如果有主键） 匹配表的非主键字段的类（BLOB 字段除外） 一个包含表的 BLOB 字段的类（如果表有 BLOB 字段） 启用动态选择、更新和删除的类  这些类之间有适当的继承关系。请注意，生成器可以配置为生成不同类型的 POJO 层次结构 - 例如，如果您愿意，您可以选择为每个表生成单个域对象。
+  在某些情况下，MBG 会生成 MyBatis3 Compatible SQL Map XML Files。MBG 为配置中的每个表上的简单 CRUD 函数生成 SQL。生成的 SQL 语句包括：</description>
+    </item>
+    
+  </channel>
+</rss>

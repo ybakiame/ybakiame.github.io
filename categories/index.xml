@@ -6,7 +6,25 @@
     <description>Recent content in Categories on ybakiame的个人博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 21 Oct 2021 21:51:22 +0800</lastBuildDate><atom:link href="https://example.com/categories/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 26 Oct 2021 19:34:24 +0800</lastBuildDate><atom:link href="https://example.com/categories/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>mybatis</title>
+      <link>https://example.com/categories/mybatis/</link>
+      <pubDate>Tue, 26 Oct 2021 19:34:24 +0800</pubDate>
+      
+      <guid>https://example.com/categories/mybatis/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>java基础</title>
+      <link>https://example.com/categories/java%E5%9F%BA%E7%A1%80/</link>
+      <pubDate>Sat, 23 Oct 2021 22:26:26 +0800</pubDate>
+      
+      <guid>https://example.com/categories/java%E5%9F%BA%E7%A1%80/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>springMvc</title>
       <link>https://example.com/categories/springmvc/</link>
@@ -22,15 +40,6 @@
       <pubDate>Tue, 19 Oct 2021 21:16:55 +0800</pubDate>
       
       <guid>https://example.com/categories/java/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Mybatis</title>
-      <link>https://example.com/categories/mybatis/</link>
-      <pubDate>Tue, 19 Oct 2021 19:43:35 +0800</pubDate>
-      
-      <guid>https://example.com/categories/mybatis/</guid>
       <description></description>
     </item>
     

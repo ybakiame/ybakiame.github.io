@@ -6,7 +6,2121 @@
         <description>Recent content on ybakiame的个人博客</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
-        <lastBuildDate>Thu, 21 Oct 2021 21:51:22 +0800</lastBuildDate><atom:link href="https://example.com/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Tue, 26 Oct 2021 19:34:24 +0800</lastBuildDate><atom:link href="https://example.com/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Mybatis Generator使用</title>
+        <link>https://example.com/p/mybatis-generator%E4%BD%BF%E7%94%A8/</link>
+        <pubDate>Tue, 26 Oct 2021 19:34:24 +0800</pubDate>
+        
+        <guid>https://example.com/p/mybatis-generator%E4%BD%BF%E7%94%A8/</guid>
+        <description>&lt;h1 id=&#34;mybatis-generatorhttpsmybatisorggenerator&#34;&gt;&lt;a class=&#34;link&#34; href=&#34;https://mybatis.org/generator/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;mybatis-generator&lt;/a&gt;&lt;/h1&gt;
+&lt;p&gt;官网：&lt;a class=&#34;link&#34; href=&#34;https://mybatis.org/generator/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://mybatis.org/generator/&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;github储存库：&lt;a class=&#34;link&#34; href=&#34;https://github.com/mybatis/generator&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://github.com/mybatis/generator&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;什么是-mybatis-generator&#34;&gt;什么是 mybatis-generator&lt;/h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;MyBatis Generator (MBG) 是 MyBatis &lt;a class=&#34;link&#34; href=&#34;http://mybatis.org/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;MyBatis&lt;/a&gt;的代码生成器。它将为所有版本的 MyBatis 生成代码。它将内省一个数据库表（或多个表）并生成可用于访问表的工件。这减少了设置对象和配置文件以与数据库表交互的初始麻烦。MBG 试图对大量简单的 CRUD（创建、检索、更新、删除）的数据库操作产生重大影响。您仍然需要为连接查询或存储过程编写 SQL 和对象代码。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;功能&#34;&gt;功能&lt;/h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;MBG 生成不同风格和不同语言的代码，这取决于它的配置方式。例如，MBG 可以生成 Java 或 Kotlin 代码。MBG 可以生成与 MyBatis3 兼容的 XML - 尽管现在被认为是 MBG 的遗留用途。生成代码的较新样式不需要 XML。&lt;/p&gt;
+&lt;p&gt;根据它的配置方式，MyBatis Generator 可能会生成：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;与表结构匹配的 Java 或 Kotlin 类。这可能包括：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;匹配表主键的类（如果有主键）&lt;/li&gt;
+&lt;li&gt;匹配表的非主键字段的类（BLOB 字段除外）&lt;/li&gt;
+&lt;li&gt;一个包含表的 BLOB 字段的类（如果表有 BLOB 字段）&lt;/li&gt;
+&lt;li&gt;启用动态选择、更新和删除的类&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;这些类之间有适当的继承关系。请注意，生成器可以配置为生成不同类型的 POJO 层次结构 - 例如，如果您愿意，您可以选择为每个表生成单个域对象。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;在某些情况下，MBG 会生成 MyBatis3 Compatible SQL Map XML Files。MBG 为配置中的每个表上的简单 CRUD 函数生成 SQL。生成的 SQL 语句包括：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;插入&lt;/li&gt;
+&lt;li&gt;按主键更新&lt;/li&gt;
+&lt;li&gt;示例更新（使用动态 where 子句）&lt;/li&gt;
+&lt;li&gt;按主键删除&lt;/li&gt;
+&lt;li&gt;删除示例（使用动态 where 子句）&lt;/li&gt;
+&lt;li&gt;按主键选择&lt;/li&gt;
+&lt;li&gt;按示例选择（使用动态 where 子句）&lt;/li&gt;
+&lt;li&gt;举例数&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;根据表的结构，这些语句有不同的变体（例如，如果表没有主键，则 MBG 不会通过主键函数生成更新）。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;适当使用上述对象的 Java 或 Kotlin 客户端类、接口和 Kotlin 扩展方法。客户端类的生成是可选的。MBG 将生成一个与 MyBatis 3.x 映射器基础设施配合使用的映射器接口&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;MyBatis 生成器旨在在迭代开发环境中良好运行，并且可以作为 Ant 任务或 Maven 插件包含在持续构建环境中。迭代运行 MBG 时需要注意的重要事项包括：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;如果存在与新生成的 XML 文件同名的现有文件，MBG 将自动合并 XML 文件。MBG 不会覆盖您对其生成的 XML 文件所做的任何自定义更改。您可以一遍又一遍地运行它，而不必担心丢失对您的 XML 的自定义更改。MBG 将替换之前运行中生成的任何 XML 元素。&lt;/li&gt;
+&lt;li&gt;MBG&lt;strong&gt;不会&lt;/strong&gt;合并 Java 文件，它可以覆盖现有文件或使用不同的唯一名称保存新生成的文件。如果对生成的 Java 文件进行更改并迭代运行 MBG，则必须手动合并更改。当作为&lt;a class=&#34;link&#34; href=&#34;http://www.eclipse.org/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Eclipse&lt;/a&gt; 插件运行时 ，MBG 可以自动合并 Java 文件。&lt;/li&gt;
+&lt;li&gt;MBG&lt;strong&gt;不会&lt;/strong&gt;合并 Kotlin 文件，它可以覆盖现有文件或使用不同的唯一名称保存新生成的文件。如果您对生成的 Kotlin 文件进行更改并迭代运行 MBG，则必须手动合并更改。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;strong&gt;依赖关系&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;MBG 没有 JRE 之外的依赖项。需要 Java 8 或更高版本。此外，还需要一个实现 DatabaseMetaData 接口的 JDBC 驱动程序，尤其是&lt;code&gt;getColumns&lt;/code&gt;和 &lt;code&gt;getPrimaryKeys&lt;/code&gt;方法。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;mybatis-generator-的使用&#34;&gt;mybatis-generator 的使用&lt;/h2&gt;
+&lt;h3 id=&#34;创建数据库&#34;&gt;创建数据库&lt;/h3&gt;
+&lt;h3 id=&#34;创建-maven-工程&#34;&gt;创建 maven 工程&lt;/h3&gt;
+&lt;h3 id=&#34;在-pomxml-中添加依赖&#34;&gt;在 pom.xml 中添加依赖&lt;/h3&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-xml&#34; data-lang=&#34;xml&#34;&gt;&lt;span class=&#34;cp&#34;&gt;&amp;lt;?xml version=&amp;#34;1.0&amp;#34; encoding=&amp;#34;UTF-8&amp;#34;?&amp;gt;&lt;/span&gt;
+&lt;span class=&#34;nt&#34;&gt;&amp;lt;project&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;xmlns=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;http://maven.apache.org/POM/4.0.0&amp;#34;&lt;/span&gt;
+         &lt;span class=&#34;na&#34;&gt;xmlns:xsi=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;http://www.w3.org/2001/XMLSchema-instance&amp;#34;&lt;/span&gt;
+         &lt;span class=&#34;na&#34;&gt;xsi:schemaLocation=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd&amp;#34;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class=&#34;nt&#34;&gt;&amp;lt;modelVersion&amp;gt;&lt;/span&gt;4.0.0&lt;span class=&#34;nt&#34;&gt;&amp;lt;/modelVersion&amp;gt;&lt;/span&gt;
+
+    &lt;span class=&#34;nt&#34;&gt;&amp;lt;groupId&amp;gt;&lt;/span&gt;org.example&lt;span class=&#34;nt&#34;&gt;&amp;lt;/groupId&amp;gt;&lt;/span&gt;
+    &lt;span class=&#34;nt&#34;&gt;&amp;lt;artifactId&amp;gt;&lt;/span&gt;MyBatis&lt;span class=&#34;nt&#34;&gt;&amp;lt;/artifactId&amp;gt;&lt;/span&gt;
+    &lt;span class=&#34;nt&#34;&gt;&amp;lt;packaging&amp;gt;&lt;/span&gt;pom&lt;span class=&#34;nt&#34;&gt;&amp;lt;/packaging&amp;gt;&lt;/span&gt;
+    &lt;span class=&#34;nt&#34;&gt;&amp;lt;version&amp;gt;&lt;/span&gt;1.0-SNAPSHOT&lt;span class=&#34;nt&#34;&gt;&amp;lt;/version&amp;gt;&lt;/span&gt;
+
+    &lt;span class=&#34;c&#34;&gt;&amp;lt;!--指定maven工程文件编码和要使用的jdk版本--&amp;gt;&lt;/span&gt;
+    &lt;span class=&#34;nt&#34;&gt;&amp;lt;properties&amp;gt;&lt;/span&gt;
+        &lt;span class=&#34;nt&#34;&gt;&amp;lt;project.build.sourceEncoding&amp;gt;&lt;/span&gt;UTF-8&lt;span class=&#34;nt&#34;&gt;&amp;lt;/project.build.sourceEncoding&amp;gt;&lt;/span&gt;
+        &lt;span class=&#34;nt&#34;&gt;&amp;lt;maven.compiler.source&amp;gt;&lt;/span&gt;1.8&lt;span class=&#34;nt&#34;&gt;&amp;lt;/maven.compiler.source&amp;gt;&lt;/span&gt;
+        &lt;span class=&#34;nt&#34;&gt;&amp;lt;maven.compiler.target&amp;gt;&lt;/span&gt;1.8&lt;span class=&#34;nt&#34;&gt;&amp;lt;/maven.compiler.target&amp;gt;&lt;/span&gt;
+    &lt;span class=&#34;nt&#34;&gt;&amp;lt;/properties&amp;gt;&lt;/span&gt;
+    
+    &lt;span class=&#34;nt&#34;&gt;&amp;lt;dependencies&amp;gt;&lt;/span&gt;
+        &lt;span class=&#34;c&#34;&gt;&amp;lt;!--mysql驱动--&amp;gt;&lt;/span&gt;
+        &lt;span class=&#34;nt&#34;&gt;&amp;lt;dependency&amp;gt;&lt;/span&gt;
+            &lt;span class=&#34;nt&#34;&gt;&amp;lt;groupId&amp;gt;&lt;/span&gt;mysql&lt;span class=&#34;nt&#34;&gt;&amp;lt;/groupId&amp;gt;&lt;/span&gt;
+            &lt;span class=&#34;nt&#34;&gt;&amp;lt;artifactId&amp;gt;&lt;/span&gt;mysql-connector-java&lt;span class=&#34;nt&#34;&gt;&amp;lt;/artifactId&amp;gt;&lt;/span&gt;
+            &lt;span class=&#34;nt&#34;&gt;&amp;lt;version&amp;gt;&lt;/span&gt;5.1.44&lt;span class=&#34;nt&#34;&gt;&amp;lt;/version&amp;gt;&lt;/span&gt;
+        &lt;span class=&#34;nt&#34;&gt;&amp;lt;/dependency&amp;gt;&lt;/span&gt;
+        &lt;span class=&#34;c&#34;&gt;&amp;lt;!--mybatis的依赖--&amp;gt;&lt;/span&gt;
+        &lt;span class=&#34;nt&#34;&gt;&amp;lt;dependency&amp;gt;&lt;/span&gt;
+            &lt;span class=&#34;nt&#34;&gt;&amp;lt;groupId&amp;gt;&lt;/span&gt;org.mybatis&lt;span class=&#34;nt&#34;&gt;&amp;lt;/groupId&amp;gt;&lt;/span&gt;
+            &lt;span class=&#34;nt&#34;&gt;&amp;lt;artifactId&amp;gt;&lt;/span&gt;mybatis&lt;span class=&#34;nt&#34;&gt;&amp;lt;/artifactId&amp;gt;&lt;/span&gt;
+            &lt;span class=&#34;nt&#34;&gt;&amp;lt;version&amp;gt;&lt;/span&gt;3.5.7&lt;span class=&#34;nt&#34;&gt;&amp;lt;/version&amp;gt;&lt;/span&gt;
+        &lt;span class=&#34;nt&#34;&gt;&amp;lt;/dependency&amp;gt;&lt;/span&gt;
+        &lt;span class=&#34;c&#34;&gt;&amp;lt;!--mybatis-generator插件--&amp;gt;&lt;/span&gt;
+        &lt;span class=&#34;nt&#34;&gt;&amp;lt;dependency&amp;gt;&lt;/span&gt;
+            &lt;span class=&#34;nt&#34;&gt;&amp;lt;groupId&amp;gt;&lt;/span&gt;org.mybatis.generator&lt;span class=&#34;nt&#34;&gt;&amp;lt;/groupId&amp;gt;&lt;/span&gt;
+            &lt;span class=&#34;nt&#34;&gt;&amp;lt;artifactId&amp;gt;&lt;/span&gt;mybatis-generator-maven-plugin&lt;span class=&#34;nt&#34;&gt;&amp;lt;/artifactId&amp;gt;&lt;/span&gt;
+            &lt;span class=&#34;nt&#34;&gt;&amp;lt;version&amp;gt;&lt;/span&gt;1.3.5&lt;span class=&#34;nt&#34;&gt;&amp;lt;/version&amp;gt;&lt;/span&gt;
+        &lt;span class=&#34;nt&#34;&gt;&amp;lt;/dependency&amp;gt;&lt;/span&gt;
+        &lt;span class=&#34;c&#34;&gt;&amp;lt;!--Lombok插件--&amp;gt;&lt;/span&gt;
+        &lt;span class=&#34;nt&#34;&gt;&amp;lt;dependency&amp;gt;&lt;/span&gt;
+            &lt;span class=&#34;nt&#34;&gt;&amp;lt;groupId&amp;gt;&lt;/span&gt;org.projectlombok&lt;span class=&#34;nt&#34;&gt;&amp;lt;/groupId&amp;gt;&lt;/span&gt;
+            &lt;span class=&#34;nt&#34;&gt;&amp;lt;artifactId&amp;gt;&lt;/span&gt;lombok&lt;span class=&#34;nt&#34;&gt;&amp;lt;/artifactId&amp;gt;&lt;/span&gt;
+            &lt;span class=&#34;nt&#34;&gt;&amp;lt;version&amp;gt;&lt;/span&gt;1.18.12&lt;span class=&#34;nt&#34;&gt;&amp;lt;/version&amp;gt;&lt;/span&gt;
+        &lt;span class=&#34;nt&#34;&gt;&amp;lt;/dependency&amp;gt;&lt;/span&gt;
+    &lt;span class=&#34;nt&#34;&gt;&amp;lt;/dependencies&amp;gt;&lt;/span&gt;
+
+    &lt;span class=&#34;nt&#34;&gt;&amp;lt;build&amp;gt;&lt;/span&gt;
+        &lt;span class=&#34;c&#34;&gt;&amp;lt;!--给出构建过程中用到的插件--&amp;gt;&lt;/span&gt;
+        &lt;span class=&#34;nt&#34;&gt;&amp;lt;plugins&amp;gt;&lt;/span&gt;
+            &lt;span class=&#34;c&#34;&gt;&amp;lt;!-- mybatis-generator自动生成代码插件 --&amp;gt;&lt;/span&gt;
+            &lt;span class=&#34;nt&#34;&gt;&amp;lt;plugin&amp;gt;&lt;/span&gt;
+                &lt;span class=&#34;nt&#34;&gt;&amp;lt;groupId&amp;gt;&lt;/span&gt;org.mybatis.generator&lt;span class=&#34;nt&#34;&gt;&amp;lt;/groupId&amp;gt;&lt;/span&gt;
+                &lt;span class=&#34;nt&#34;&gt;&amp;lt;artifactId&amp;gt;&lt;/span&gt;mybatis-generator-maven-plugin&lt;span class=&#34;nt&#34;&gt;&amp;lt;/artifactId&amp;gt;&lt;/span&gt;
+                &lt;span class=&#34;nt&#34;&gt;&amp;lt;version&amp;gt;&lt;/span&gt;1.3.5&lt;span class=&#34;nt&#34;&gt;&amp;lt;/version&amp;gt;&lt;/span&gt;
+                &lt;span class=&#34;nt&#34;&gt;&amp;lt;configuration&amp;gt;&lt;/span&gt;
+                    &lt;span class=&#34;c&#34;&gt;&amp;lt;!-- 输出详细信息 --&amp;gt;&lt;/span&gt;
+                    &lt;span class=&#34;nt&#34;&gt;&amp;lt;verbose&amp;gt;&lt;/span&gt;true&lt;span class=&#34;nt&#34;&gt;&amp;lt;/verbose&amp;gt;&lt;/span&gt;
+                    &lt;span class=&#34;c&#34;&gt;&amp;lt;!-- 覆盖生成文件 --&amp;gt;&lt;/span&gt;
+                    &lt;span class=&#34;nt&#34;&gt;&amp;lt;overwrite&amp;gt;&lt;/span&gt;true&lt;span class=&#34;nt&#34;&gt;&amp;lt;/overwrite&amp;gt;&lt;/span&gt;
+                    &lt;span class=&#34;c&#34;&gt;&amp;lt;!-- 定义配置文件 --&amp;gt;&lt;/span&gt;
+             		&lt;span class=&#34;nt&#34;&gt;&amp;lt;configurationFile&amp;gt;&lt;/span&gt;src/main/resources/generatorConfig.xml&lt;span class=&#34;nt&#34;&gt;&amp;lt;/configurationFile&amp;gt;&lt;/span&gt;
+                &lt;span class=&#34;nt&#34;&gt;&amp;lt;/configuration&amp;gt;&lt;/span&gt;
+            &lt;span class=&#34;nt&#34;&gt;&amp;lt;/plugin&amp;gt;&lt;/span&gt;
+            &lt;span class=&#34;c&#34;&gt;&amp;lt;!--
+&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;			使用 maven-compiler-plugin 插件可以指定项目源码的 jdk 版本，编译后的 jdk 版本，以及编码（可选）
+&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;			&amp;lt;plugin&amp;gt;
+&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;                &amp;lt;groupId&amp;gt;org.apache.maven.plugins&amp;lt;/groupId&amp;gt;
+&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;                &amp;lt;artifactId&amp;gt;maven-compiler-plugin&amp;lt;/artifactId&amp;gt;
+&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;                &amp;lt;version&amp;gt;3.8.0&amp;lt;/version&amp;gt;
+&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;                &amp;lt;configuration&amp;gt;
+&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;                    &amp;lt;source&amp;gt;1.8&amp;lt;/source&amp;gt;
+&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;                    &amp;lt;target&amp;gt;1.8&amp;lt;/target&amp;gt;
+&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;                &amp;lt;/configuration&amp;gt;
+&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;            &amp;lt;/plugin&amp;gt;
+&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;			--&amp;gt;&lt;/span&gt;
+        &lt;span class=&#34;nt&#34;&gt;&amp;lt;/plugins&amp;gt;&lt;/span&gt;
+    &lt;span class=&#34;nt&#34;&gt;&amp;lt;/build&amp;gt;&lt;/span&gt;
+&lt;span class=&#34;nt&#34;&gt;&amp;lt;/project&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;使用 java 代码运行&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;static&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;main&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;String&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[]&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;args&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;throws&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Exception&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+ &lt;span class=&#34;c1&#34;&gt;// 执行中的异常信息会保存在warnings中 
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;List&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;String&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;warnings&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ArrayList&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;String&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;();&lt;/span&gt;
+        &lt;span class=&#34;c1&#34;&gt;// true:生成的文件覆盖之前的
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;        &lt;span class=&#34;kt&#34;&gt;boolean&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;overwrite&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;true&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+        &lt;span class=&#34;c1&#34;&gt;// 读取配置,构造 Configuration 对象.  
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;        &lt;span class=&#34;c1&#34;&gt;// 如果不想使用配置文件的话,也可以直接来 new Configuration(),然后给相应属性赋值.
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;        &lt;span class=&#34;n&#34;&gt;File&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;configFile&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;File&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;generatorConfig.xml&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;ConfigurationParser&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;cp&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ConfigurationParser&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;warnings&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;Configuration&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;config&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;cp&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;parseConfiguration&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;configFile&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;DefaultShellCallback&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;callback&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;DefaultShellCallback&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;overwrite&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;MyBatisGenerator&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;myBatisGenerator&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;MyBatisGenerator&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;config&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;callback&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;warnings&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;myBatisGenerator&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;generate&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kc&#34;&gt;null&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+    
+    &lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;String&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;warning&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;warnings&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;){&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;System&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;out&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;println&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;warning&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+    &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;或使用maven插件方式&lt;/p&gt;
+&lt;h3 id=&#34;创建-generatorconfigxml-配置文件&#34;&gt;创建 generatorConfig.xml 配置文件&lt;/h3&gt;
+&lt;p&gt;文件位于 &lt;strong&gt;resources&lt;/strong&gt; 文件夹下&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;简易配置&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-xml&#34; data-lang=&#34;xml&#34;&gt;&lt;span class=&#34;cp&#34;&gt;&amp;lt;?xml version=&amp;#34;1.0&amp;#34; encoding=&amp;#34;UTF-8&amp;#34;?&amp;gt;&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;&amp;lt;!DOCTYPE generatorConfiguration
+&lt;/span&gt;&lt;span class=&#34;cp&#34;&gt;        PUBLIC &amp;#34;-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN&amp;#34;
+&lt;/span&gt;&lt;span class=&#34;cp&#34;&gt;        &amp;#34;http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd&amp;#34;&amp;gt;&lt;/span&gt;
+&lt;span class=&#34;c&#34;&gt;&amp;lt;!-- 配置生成器 --&amp;gt;&lt;/span&gt;
+&lt;span class=&#34;nt&#34;&gt;&amp;lt;generatorConfiguration&amp;gt;&lt;/span&gt;
+    &lt;span class=&#34;c&#34;&gt;&amp;lt;!-- 使用配置文件配置数据库连接 --&amp;gt;&lt;/span&gt;
+    &lt;span class=&#34;nt&#34;&gt;&amp;lt;properties&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;resource=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;db.properties&amp;#34;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;/&amp;gt;&lt;/span&gt;
+    
+    &lt;span class=&#34;nt&#34;&gt;&amp;lt;context&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;id=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;mysql&amp;#34;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;defaultModelType=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;flat&amp;#34;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;targetRuntime=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;MyBatis3&amp;#34;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;&amp;gt;&lt;/span&gt;
+        &lt;span class=&#34;nt&#34;&gt;&amp;lt;property&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;name=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;autoDelimitKeywords&amp;#34;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;value=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;false&amp;#34;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;/&amp;gt;&lt;/span&gt;
+        &lt;span class=&#34;c&#34;&gt;&amp;lt;!-- 生成的Java文件的编码 --&amp;gt;&lt;/span&gt;
+        &lt;span class=&#34;nt&#34;&gt;&amp;lt;property&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;name=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;javaFileEncoding&amp;#34;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;value=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;UTF-8&amp;#34;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;/&amp;gt;&lt;/span&gt;
+        &lt;span class=&#34;c&#34;&gt;&amp;lt;!-- 格式化java代码 --&amp;gt;&lt;/span&gt;
+        &lt;span class=&#34;nt&#34;&gt;&amp;lt;property&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;name=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;javaFormatter&amp;#34;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;value=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;org.mybatis.generator.api.dom.DefaultJavaFormatter&amp;#34;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;/&amp;gt;&lt;/span&gt;
+        &lt;span class=&#34;c&#34;&gt;&amp;lt;!-- 格式化XML代码 --&amp;gt;&lt;/span&gt;
+        &lt;span class=&#34;nt&#34;&gt;&amp;lt;property&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;name=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;xmlFormatter&amp;#34;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;value=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;org.mybatis.generator.api.dom.DefaultXmlFormatter&amp;#34;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;/&amp;gt;&lt;/span&gt;
+
+        &lt;span class=&#34;c&#34;&gt;&amp;lt;!-- beginningDelimiter和endingDelimiter：指明数据库的用于标记数据库对象名的符号，比如ORACLE就是双引号，MYSQL默认是`反引号； --&amp;gt;&lt;/span&gt;
+        &lt;span class=&#34;nt&#34;&gt;&amp;lt;property&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;name=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;beginningDelimiter&amp;#34;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;value=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;`&amp;#34;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;/&amp;gt;&lt;/span&gt;
+        &lt;span class=&#34;nt&#34;&gt;&amp;lt;property&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;name=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;endingDelimiter&amp;#34;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;value=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;`&amp;#34;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;/&amp;gt;&lt;/span&gt;
+
+        &lt;span class=&#34;c&#34;&gt;&amp;lt;!-- 生成 JavaBean 对象继承 Serializable 类 --&amp;gt;&lt;/span&gt;
+        &lt;span class=&#34;nt&#34;&gt;&amp;lt;plugin&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;type=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;org.mybatis.generator.plugins.SerializablePlugin&amp;#34;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;/&amp;gt;&lt;/span&gt;
+
+        &lt;span class=&#34;c&#34;&gt;&amp;lt;!--通过type默认为（suppressDate）属性改成自己注解解析器--&amp;gt;&lt;/span&gt;
+&lt;span class=&#34;c&#34;&gt;&amp;lt;!--        &amp;lt;commentGenerator  type=&amp;#34;com.xxgc.mybatis.plugin.commentPlugin&amp;#34;&amp;gt;--&amp;gt;&lt;/span&gt;
+&lt;span class=&#34;c&#34;&gt;&amp;lt;!--            &amp;lt;property name=&amp;#34;suppressDate&amp;#34; value=&amp;#34;true&amp;#34;/&amp;gt;--&amp;gt;&lt;/span&gt;
+&lt;span class=&#34;c&#34;&gt;&amp;lt;!--            是否去除自动生成的注释 true：是 ： false:否 --&amp;gt;&lt;/span&gt;
+&lt;span class=&#34;c&#34;&gt;&amp;lt;!--            &amp;lt;property name=&amp;#34;suppressAllComments&amp;#34; value=&amp;#34;true&amp;#34; /&amp;gt;--&amp;gt;&lt;/span&gt;
+&lt;span class=&#34;c&#34;&gt;&amp;lt;!--            &amp;lt;property name=&amp;#34;addRemarkComments&amp;#34; value=&amp;#34;true&amp;#34; /&amp;gt;--&amp;gt;&lt;/span&gt;
+&lt;span class=&#34;c&#34;&gt;&amp;lt;!--        &amp;lt;/commentGenerator&amp;gt;--&amp;gt;&lt;/span&gt;
+
+		&lt;span class=&#34;c&#34;&gt;&amp;lt;!-- 连接数据库--&amp;gt;&lt;/span&gt;
+        &lt;span class=&#34;nt&#34;&gt;&amp;lt;jdbcConnection&lt;/span&gt;
+                &lt;span class=&#34;na&#34;&gt;driverClass=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;${driver}&amp;#34;&lt;/span&gt;
+                &lt;span class=&#34;na&#34;&gt;connectionURL=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;${url}&amp;#34;&lt;/span&gt;
+                &lt;span class=&#34;na&#34;&gt;userId=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;${username}&amp;#34;&lt;/span&gt;
+                &lt;span class=&#34;na&#34;&gt;password=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;#{password}&amp;#34;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;&amp;gt;&lt;/span&gt;
+        &lt;span class=&#34;nt&#34;&gt;&amp;lt;/jdbcConnection&amp;gt;&lt;/span&gt;
+
+        &lt;span class=&#34;c&#34;&gt;&amp;lt;!-- java类型处理器--&amp;gt;&lt;/span&gt;
+        &lt;span class=&#34;nt&#34;&gt;&amp;lt;javaTypeResolver&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;type=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;org.mybatis.generator.internal.types.JavaTypeResolverDefaultImpl&amp;#34;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;&amp;gt;&lt;/span&gt;
+            &lt;span class=&#34;nt&#34;&gt;&amp;lt;property&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;name=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;forceBigDecimals&amp;#34;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;value=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;false&amp;#34;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;/&amp;gt;&lt;/span&gt;
+        &lt;span class=&#34;nt&#34;&gt;&amp;lt;/javaTypeResolver&amp;gt;&lt;/span&gt;
+
+        &lt;span class=&#34;c&#34;&gt;&amp;lt;!-- 实体类 文件生成位置 --&amp;gt;&lt;/span&gt;
+        &lt;span class=&#34;nt&#34;&gt;&amp;lt;javaModelGenerator&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;targetPackage=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;com.xxgc.mybatis.entity&amp;#34;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;targetProject=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;src/main/java&amp;#34;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;&amp;gt;&lt;/span&gt;
+            &lt;span class=&#34;nt&#34;&gt;&amp;lt;property&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;name=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;constructorBased&amp;#34;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;value=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;false&amp;#34;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;/&amp;gt;&lt;/span&gt;
+            &lt;span class=&#34;nt&#34;&gt;&amp;lt;property&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;name=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;enableSubPackages&amp;#34;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;value=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;true&amp;#34;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;/&amp;gt;&lt;/span&gt;
+            &lt;span class=&#34;nt&#34;&gt;&amp;lt;property&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;name=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;trimStrings&amp;#34;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;value=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;true&amp;#34;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;/&amp;gt;&lt;/span&gt;
+            &lt;span class=&#34;nt&#34;&gt;&amp;lt;property&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;name=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;immutable&amp;#34;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;value=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;false&amp;#34;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;/&amp;gt;&lt;/span&gt;
+            &lt;span class=&#34;nt&#34;&gt;&amp;lt;property&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;name=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;trimStrings&amp;#34;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;value=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;true&amp;#34;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;/&amp;gt;&lt;/span&gt;
+        &lt;span class=&#34;nt&#34;&gt;&amp;lt;/javaModelGenerator&amp;gt;&lt;/span&gt;
+        &lt;span class=&#34;c&#34;&gt;&amp;lt;!--mapping.xml文件生成位置--&amp;gt;&lt;/span&gt;
+        &lt;span class=&#34;nt&#34;&gt;&amp;lt;sqlMapGenerator&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;targetPackage=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;com.xxgc.mybatis.mapper&amp;#34;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;targetProject=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;src/main/resources&amp;#34;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;&amp;gt;&lt;/span&gt;
+            &lt;span class=&#34;nt&#34;&gt;&amp;lt;property&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;name=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;enableSubPackages&amp;#34;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;value=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;true&amp;#34;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;/&amp;gt;&lt;/span&gt;
+        &lt;span class=&#34;nt&#34;&gt;&amp;lt;/sqlMapGenerator&amp;gt;&lt;/span&gt;
+        &lt;span class=&#34;c&#34;&gt;&amp;lt;!--mapping文件生成位置--&amp;gt;&lt;/span&gt;
+        &lt;span class=&#34;nt&#34;&gt;&amp;lt;javaClientGenerator&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;targetPackage=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;com.xxgc.mybatis.mapper&amp;#34;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;type=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;XMLMAPPER&amp;#34;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;targetProject=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;src/main/java&amp;#34;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;&amp;gt;&lt;/span&gt;
+            &lt;span class=&#34;nt&#34;&gt;&amp;lt;property&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;name=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;enableSubPackages&amp;#34;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;value=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;true&amp;#34;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;/&amp;gt;&lt;/span&gt;
+        &lt;span class=&#34;nt&#34;&gt;&amp;lt;/javaClientGenerator&amp;gt;&lt;/span&gt;
+		
+        &lt;span class=&#34;c&#34;&gt;&amp;lt;!-- 要生成的表--&amp;gt;&lt;/span&gt;
+        &lt;span class=&#34;nt&#34;&gt;&amp;lt;table&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;tableName=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;user&amp;#34;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;/&amp;gt;&lt;/span&gt;
+        &lt;span class=&#34;nt&#34;&gt;&amp;lt;table&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;tableName=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;trade&amp;#34;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;/&amp;gt;&lt;/span&gt;
+&lt;span class=&#34;nt&#34;&gt;&amp;lt;/context&amp;gt;&lt;/span&gt;
+
+&lt;span class=&#34;nt&#34;&gt;&amp;lt;/generatorConfiguration&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;配置文件详解&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-xml&#34; data-lang=&#34;xml&#34;&gt;?xml version=&amp;#34;1.0&amp;#34; encoding=&amp;#34;UTF-8&amp;#34;?&amp;gt;
+&lt;span class=&#34;cp&#34;&gt;&amp;lt;!DOCTYPE generatorConfiguration
+&lt;/span&gt;&lt;span class=&#34;cp&#34;&gt;        PUBLIC &amp;#34;-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN&amp;#34;
+&lt;/span&gt;&lt;span class=&#34;cp&#34;&gt;        &amp;#34;http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd&amp;#34;&amp;gt;&lt;/span&gt;
+&lt;span class=&#34;c&#34;&gt;&amp;lt;!-- 配置生成器 --&amp;gt;&lt;/span&gt;
+&lt;span class=&#34;nt&#34;&gt;&amp;lt;generatorConfiguration&amp;gt;&lt;/span&gt;
+
+    &lt;span class=&#34;c&#34;&gt;&amp;lt;!-- 可以用于加载配置项或者配置文件，在整个配置文件中就可以使用${propertyKey}的方式来引用配置项
+&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;        resource：配置资源加载地址，使用resource，MBG从classpath开始找，比如com/myproject/generatorConfig.properties
+&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;        url：配置资源加载地质，使用URL的方式，比如file:///C:/myfolder/generatorConfig.properties.
+&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;        注意，两个属性只能选址一个;
+&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;        另外，如果使用了mybatis-generator-maven-plugins，那么在pom.xml中定义的properties都可以直接在generatorConfig.xml中使用
+&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;        &amp;lt;properties resource=&amp;#34;&amp;#34; url=&amp;#34;&amp;#34; /&amp;gt;
+&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;         --&amp;gt;&lt;/span&gt;
+
+        &lt;span class=&#34;c&#34;&gt;&amp;lt;!-- 在MBG工作的时候，需要额外加载的依赖包
+&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;           location属性指明加载jar/zip包的全路径
+&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;       &amp;lt;classPathEntry location=&amp;#34;/Program Files/IBM/SQLLIB/java/db2java.zip&amp;#34; /&amp;gt;
+&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;         --&amp;gt;&lt;/span&gt;
+
+
+
+    &lt;span class=&#34;c&#34;&gt;&amp;lt;!--
+&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;        context:生成一组对象的环境
+&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;        id:必选，上下文id，用于在生成错误时提示
+&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;        defaultModelType:指定生成对象的样式
+&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;            1，conditional：类似hierarchical；如果某张表只有一个字段，则不会生成改实体
+&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;            2，flat：所有内容（主键，blob）等全部生成在一个对象中；常用
+&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;            3，hierarchical：主键生成一个XXKey对象(key class)，Blob等单独生成一个对象，其他简单属性在一个对象中(record class)
+&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;        targetRuntime:
+&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;            1，MyBatis3：默认的值，生成基于MyBatis3.x以上版本的内容，包括XXXBySample；
+&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;            2，MyBatis3Simple：类似MyBatis3，只是不生成XXXBySmple；
+&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;        introspectedColumnImpl：类全限定名，用于扩展MBG
+&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;    --&amp;gt;&lt;/span&gt;
+    &lt;span class=&#34;nt&#34;&gt;&amp;lt;context&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;id=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;mysql&amp;#34;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;defaultModelType=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;flat&amp;#34;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;targetRuntime=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;MyBatis3&amp;#34;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;&amp;gt;&lt;/span&gt;
+
+
+        &lt;span class=&#34;nt&#34;&gt;&amp;lt;property&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;name=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;autoDelimitKeywords&amp;#34;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;value=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;false&amp;#34;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;/&amp;gt;&lt;/span&gt;
+        &lt;span class=&#34;c&#34;&gt;&amp;lt;!-- 生成的Java文件的编码 --&amp;gt;&lt;/span&gt;
+        &lt;span class=&#34;nt&#34;&gt;&amp;lt;property&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;name=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;javaFileEncoding&amp;#34;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;value=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;UTF-8&amp;#34;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;/&amp;gt;&lt;/span&gt;
+        &lt;span class=&#34;c&#34;&gt;&amp;lt;!-- 格式化java代码 --&amp;gt;&lt;/span&gt;
+        &lt;span class=&#34;nt&#34;&gt;&amp;lt;property&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;name=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;javaFormatter&amp;#34;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;value=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;org.mybatis.generator.api.dom.DefaultJavaFormatter&amp;#34;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;/&amp;gt;&lt;/span&gt;
+        &lt;span class=&#34;c&#34;&gt;&amp;lt;!-- 格式化XML代码 --&amp;gt;&lt;/span&gt;
+        &lt;span class=&#34;nt&#34;&gt;&amp;lt;property&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;name=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;xmlFormatter&amp;#34;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;value=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;org.mybatis.generator.api.dom.DefaultXmlFormatter&amp;#34;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;/&amp;gt;&lt;/span&gt;
+
+        &lt;span class=&#34;c&#34;&gt;&amp;lt;!-- beginningDelimiter和endingDelimiter：指明数据库的用于标记数据库对象名的符号，比如ORACLE就是双引号，MYSQL默认是`反引号； --&amp;gt;&lt;/span&gt;
+        &lt;span class=&#34;nt&#34;&gt;&amp;lt;property&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;name=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;beginningDelimiter&amp;#34;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;value=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;`&amp;#34;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;/&amp;gt;&lt;/span&gt;
+        &lt;span class=&#34;nt&#34;&gt;&amp;lt;property&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;name=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;endingDelimiter&amp;#34;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;value=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;`&amp;#34;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;/&amp;gt;&lt;/span&gt;
+
+        &lt;span class=&#34;c&#34;&gt;&amp;lt;!-- 自定义lombok增强 --&amp;gt;&lt;/span&gt;
+        &lt;span class=&#34;nt&#34;&gt;&amp;lt;plugin&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;type=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;plugins.LombokPlugin&amp;#34;&lt;/span&gt; &lt;span class=&#34;nt&#34;&gt;&amp;gt;&lt;/span&gt;
+            &lt;span class=&#34;nt&#34;&gt;&amp;lt;property&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;name=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;hasLombok&amp;#34;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;value=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;true&amp;#34;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;/&amp;gt;&lt;/span&gt;
+        &lt;span class=&#34;nt&#34;&gt;&amp;lt;/plugin&amp;gt;&lt;/span&gt;
+
+
+        &lt;span class=&#34;c&#34;&gt;&amp;lt;!--通过type属性改成自己注解解析器--&amp;gt;&lt;/span&gt;
+        &lt;span class=&#34;nt&#34;&gt;&amp;lt;commentGenerator&lt;/span&gt;  &lt;span class=&#34;na&#34;&gt;type=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;plugins.MyCommentGenerator&amp;#34;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;&amp;gt;&lt;/span&gt;
+            &lt;span class=&#34;nt&#34;&gt;&amp;lt;property&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;name=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;suppressDate&amp;#34;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;value=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;true&amp;#34;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;/&amp;gt;&lt;/span&gt;
+            &lt;span class=&#34;c&#34;&gt;&amp;lt;!-- 是否去除自动生成的注释 true：是 ： false:否 --&amp;gt;&lt;/span&gt;
+            &lt;span class=&#34;c&#34;&gt;&amp;lt;!--&amp;lt;property name=&amp;#34;suppressAllComments&amp;#34; value=&amp;#34;true&amp;#34; /&amp;gt;--&amp;gt;&lt;/span&gt;
+            &lt;span class=&#34;nt&#34;&gt;&amp;lt;property&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;name=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;addRemarkComments&amp;#34;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;value=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;true&amp;#34;&lt;/span&gt; &lt;span class=&#34;nt&#34;&gt;/&amp;gt;&lt;/span&gt;
+        &lt;span class=&#34;nt&#34;&gt;&amp;lt;/commentGenerator&amp;gt;&lt;/span&gt;
+
+
+
+        &lt;span class=&#34;c&#34;&gt;&amp;lt;!-- 必须要有的，使用这个配置数据库连接的信息：驱动类、连接地址、用户名、密码
+&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;            @TODO:是否可以扩展
+&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;         --&amp;gt;&lt;/span&gt;
+        &lt;span class=&#34;nt&#34;&gt;&amp;lt;jdbcConnection&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;driverClass=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;com.mysql.jdbc.Driver&amp;#34;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;connectionURL=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;jdbc:mysql://127.0.0.1:3306/mybatis?useUnicode=true&amp;amp;amp;characterEncoding=UTF-8&amp;#34;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;userId=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;root&amp;#34;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;password=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;123456&amp;#34;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;&amp;gt;&lt;/span&gt;
+            &lt;span class=&#34;c&#34;&gt;&amp;lt;!-- 这里面可以设置property属性，每一个property属性都设置到配置的Driver上 --&amp;gt;&lt;/span&gt;
+        &lt;span class=&#34;nt&#34;&gt;&amp;lt;/jdbcConnection&amp;gt;&lt;/span&gt;
+
+        &lt;span class=&#34;c&#34;&gt;&amp;lt;!-- java类型处理器
+&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;            用于处理DB中的类型到Java中的类型，默认使用JavaTypeResolverDefaultImpl；
+&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;            注意一点，默认会先尝试使用Integer，Long，Short等来对应DECIMAL和 NUMERIC数据类型；
+&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;        --&amp;gt;&lt;/span&gt;
+        &lt;span class=&#34;nt&#34;&gt;&amp;lt;javaTypeResolver&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;type=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;org.mybatis.generator.internal.types.JavaTypeResolverDefaultImpl&amp;#34;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;&amp;gt;&lt;/span&gt;
+            &lt;span class=&#34;c&#34;&gt;&amp;lt;!--
+&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;                true：使用BigDecimal对应DECIMAL和 NUMERIC数据类型
+&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;                false：默认,
+&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;                    scale&amp;gt;0;length&amp;gt;18：使用BigDecimal;
+&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;                    scale=0;length[10,18]：使用Long；
+&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;                    scale=0;length[5,9]：使用Integer；
+&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;                    scale=0;length&amp;lt;5：使用Short；
+&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;             --&amp;gt;&lt;/span&gt;
+            &lt;span class=&#34;nt&#34;&gt;&amp;lt;property&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;name=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;forceBigDecimals&amp;#34;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;value=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;false&amp;#34;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;/&amp;gt;&lt;/span&gt;
+        &lt;span class=&#34;nt&#34;&gt;&amp;lt;/javaTypeResolver&amp;gt;&lt;/span&gt;
+
+
+        &lt;span class=&#34;c&#34;&gt;&amp;lt;!-- java模型创建器，是必须要的元素
+&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;            负责：1，key类（见context的defaultModelType）；2，java类；3，查询类
+&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;            targetPackage：生成的类要放的包，真实的包受enableSubPackages属性控制；
+&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;            targetProject：目标项目，指定一个存在的目录下，生成的内容会放到指定目录中，如果目录不存在，MBG不会自动建目录
+&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;         --&amp;gt;&lt;/span&gt;
+        &lt;span class=&#34;nt&#34;&gt;&amp;lt;javaModelGenerator&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;targetPackage=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;com.xxgc.mybatis.entity&amp;#34;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;targetProject=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;src/main/java&amp;#34;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;&amp;gt;&lt;/span&gt;
+            &lt;span class=&#34;c&#34;&gt;&amp;lt;!--  for MyBatis3/MyBatis3Simple
+&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;                自动为每一个生成的类创建一个构造方法，构造方法包含了所有的field；而不是使用setter；
+&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;             --&amp;gt;&lt;/span&gt;
+            &lt;span class=&#34;nt&#34;&gt;&amp;lt;property&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;name=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;constructorBased&amp;#34;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;value=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;false&amp;#34;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;/&amp;gt;&lt;/span&gt;
+
+            &lt;span class=&#34;c&#34;&gt;&amp;lt;!-- 在targetPackage的基础上，根据数据库的schema再生成一层package，最终生成的类放在这个package下，默认为false --&amp;gt;&lt;/span&gt;
+            &lt;span class=&#34;c&#34;&gt;&amp;lt;!-- enableSubPackages:是否让schema作为包的后缀 --&amp;gt;&lt;/span&gt;
+            &lt;span class=&#34;nt&#34;&gt;&amp;lt;property&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;name=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;enableSubPackages&amp;#34;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;value=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;true&amp;#34;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;/&amp;gt;&lt;/span&gt;
+            &lt;span class=&#34;c&#34;&gt;&amp;lt;!-- 从数据库返回的值被清理前后的空格 --&amp;gt;&lt;/span&gt;
+            &lt;span class=&#34;nt&#34;&gt;&amp;lt;property&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;name=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;trimStrings&amp;#34;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;value=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;true&amp;#34;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;/&amp;gt;&lt;/span&gt;
+            &lt;span class=&#34;c&#34;&gt;&amp;lt;!-- for MyBatis3 / MyBatis3Simple
+&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;                是否创建一个不可变的类，如果为true，
+&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;                那么MBG会创建一个没有setter方法的类，取而代之的是类似constructorBased的类
+&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;             --&amp;gt;&lt;/span&gt;
+            &lt;span class=&#34;nt&#34;&gt;&amp;lt;property&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;name=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;immutable&amp;#34;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;value=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;false&amp;#34;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;/&amp;gt;&lt;/span&gt;
+
+            &lt;span class=&#34;c&#34;&gt;&amp;lt;!-- 设置一个根对象，
+&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;                如果设置了这个根对象，那么生成的keyClass或者recordClass会继承这个类；在Table的rootClass属性中可以覆盖该选项
+&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;                注意：如果在key class或者record class中有root class相同的属性，MBG就不会重新生成这些属性了，包括：
+&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;                    1，属性名相同，类型相同，有相同的getter/setter方法；
+&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;             --&amp;gt;&lt;/span&gt;
+            &lt;span class=&#34;c&#34;&gt;&amp;lt;!--&amp;lt;property name=&amp;#34;rootClass&amp;#34; value=&amp;#34;com.intfish.mygenerator.entity.BaseDomain&amp;#34;/&amp;gt;--&amp;gt;&lt;/span&gt;
+
+            &lt;span class=&#34;c&#34;&gt;&amp;lt;!-- 设置是否在getter方法中，对String类型字段调用trim()方法 --&amp;gt;&lt;/span&gt;
+            &lt;span class=&#34;nt&#34;&gt;&amp;lt;property&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;name=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;trimStrings&amp;#34;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;value=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;true&amp;#34;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;/&amp;gt;&lt;/span&gt;
+        &lt;span class=&#34;nt&#34;&gt;&amp;lt;/javaModelGenerator&amp;gt;&lt;/span&gt;
+
+
+        &lt;span class=&#34;c&#34;&gt;&amp;lt;!-- 生成SQL map的XML文件生成器，
+&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;            注意，在Mybatis3之后，我们可以使用mapper.xml文件+Mapper接口（或者不用mapper接口），
+&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;                或者只使用Mapper接口+Annotation，所以，如果 javaClientGenerator配置中配置了需要生成XML的话，这个元素就必须配置
+&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;            targetPackage/targetProject:同javaModelGenerator
+&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;         --&amp;gt;&lt;/span&gt;
+        &lt;span class=&#34;nt&#34;&gt;&amp;lt;sqlMapGenerator&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;targetPackage=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;mapper&amp;#34;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;targetProject=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;src/main/resources&amp;#34;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;&amp;gt;&lt;/span&gt;
+            &lt;span class=&#34;c&#34;&gt;&amp;lt;!-- 在targetPackage的基础上，根据数据库的schema再生成一层package，最终生成的类放在这个package下，默认为false --&amp;gt;&lt;/span&gt;
+            &lt;span class=&#34;nt&#34;&gt;&amp;lt;property&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;name=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;enableSubPackages&amp;#34;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;value=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;true&amp;#34;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;/&amp;gt;&lt;/span&gt;
+        &lt;span class=&#34;nt&#34;&gt;&amp;lt;/sqlMapGenerator&amp;gt;&lt;/span&gt;
+
+
+        &lt;span class=&#34;c&#34;&gt;&amp;lt;!-- 对于mybatis来说，即生成Mapper接口，注意，如果没有配置该元素，那么默认不会生成Mapper接口
+&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;            targetPackage/targetProject:同javaModelGenerator
+&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;            type：选择怎么生成mapper接口（在MyBatis3/MyBatis3Simple下）：
+&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;                1，ANNOTATEDMAPPER：会生成使用Mapper接口+Annotation的方式创建（SQL生成在annotation中），不会生成对应的XML；
+&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;                2，MIXEDMAPPER：使用混合配置，会生成Mapper接口，并适当添加合适的Annotation，但是XML会生成在XML中；
+&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;                3，XMLMAPPER：会生成Mapper接口，接口完全依赖XML；
+&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;            注意，如果context是MyBatis3Simple：只支持ANNOTATEDMAPPER和XMLMAPPER
+&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;        --&amp;gt;&lt;/span&gt;
+        &lt;span class=&#34;nt&#34;&gt;&amp;lt;javaClientGenerator&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;targetPackage=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;com.intfish.mygenerator.dao&amp;#34;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;type=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;XMLMAPPER&amp;#34;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;targetProject=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;src/main/java&amp;#34;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;&amp;gt;&lt;/span&gt;
+            &lt;span class=&#34;c&#34;&gt;&amp;lt;!-- 在targetPackage的基础上，根据数据库的schema再生成一层package，最终生成的类放在这个package下，默认为false --&amp;gt;&lt;/span&gt;
+            &lt;span class=&#34;nt&#34;&gt;&amp;lt;property&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;name=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;enableSubPackages&amp;#34;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;value=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;true&amp;#34;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;/&amp;gt;&lt;/span&gt;
+
+            &lt;span class=&#34;c&#34;&gt;&amp;lt;!-- 可以为所有生成的接口添加一个父接口，但是MBG只负责生成，不负责检查
+&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;            &amp;lt;property name=&amp;#34;rootInterface&amp;#34; value=&amp;#34;&amp;#34;/&amp;gt;
+&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;             --&amp;gt;&lt;/span&gt;
+        &lt;span class=&#34;nt&#34;&gt;&amp;lt;/javaClientGenerator&amp;gt;&lt;/span&gt;
+
+        &lt;span class=&#34;c&#34;&gt;&amp;lt;!-- 选择一个table来生成相关文件，可以有一个或多个table，必须要有table元素
+&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;            选择的table会生成一下文件：
+&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;            1，SQL map文件
+&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;            2，生成一个主键类；
+&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;            3，除了BLOB和主键的其他字段的类；
+&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;            4，包含BLOB的类；
+&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;            5，一个用户生成动态查询的条件类（selectByExample, deleteByExample），可选；
+&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;            6，Mapper接口（可选）
+&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;            tableName（必要）：要生成对象的表名；
+&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;            注意：大小写敏感问题。正常情况下，MBG会自动的去识别数据库标识符的大小写敏感度，在一般情况下，MBG会
+&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;                根据设置的schema，catalog或tablename去查询数据表，按照下面的流程：
+&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;                1，如果schema，catalog或tablename中有空格，那么设置的是什么格式，就精确的使用指定的大小写格式去查询；
+&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;                2，否则，如果数据库的标识符使用大写的，那么MBG自动把表名变成大写再查找；
+&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;                3，否则，如果数据库的标识符使用小写的，那么MBG自动把表名变成小写再查找；
+&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;                4，否则，使用指定的大小写格式查询；
+&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;            另外的，如果在创建表的时候，使用的&amp;#34;&amp;#34;把数据库对象规定大小写，就算数据库标识符是使用的大写，在这种情况下也会使用给定的大小写来创建表名；
+&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;            这个时候，请设置delimitIdentifiers=&amp;#34;true&amp;#34;即可保留大小写格式；
+&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;            可选：
+&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;            1，schema：数据库的schema；
+&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;            2，catalog：数据库的catalog；
+&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;            3，alias：为数据表设置的别名，如果设置了alias，那么生成的所有的SELECT SQL语句中，列名会变成：alias_actualColumnName
+&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;            4，domainObjectName：生成的domain类的名字，如果不设置，直接使用表名作为domain类的名字；可以设置为somepck.domainName，
+&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;    那么会自动把domainName类再放到somepck包里面；
+&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;            5，enableInsert（默认true）：指定是否生成insert语句；
+&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;            6，enableSelectByPrimaryKey（默认true）：指定是否生成按照主键查询对象的语句（就是getById或get）；
+&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;            7，enableSelectByExample（默认true）：MyBatis3Simple为false，指定是否生成动态查询语句；
+&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;            8，enableUpdateByPrimaryKey（默认true）：指定是否生成按照主键修改对象的语句（即update)；
+&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;            9，enableDeleteByPrimaryKey（默认true）：指定是否生成按照主键删除对象的语句（即delete）；
+&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;            10，enableDeleteByExample（默认true）：MyBatis3Simple为false，指定是否生成动态删除语句；
+&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;            11，enableCountByExample（默认true）：MyBatis3Simple为false，指定是否生成动态查询总条数语句（用于分页的总条数查询）；
+&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;            12，enableUpdateByExample（默认true）：MyBatis3Simple为false，指定是否生成动态修改语句（只修改对象中不为空的属性）；
+&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;            13，modelType：参考context元素的defaultModelType，相当于覆盖；
+&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;            14，delimitIdentifiers：参考tableName的解释，注意，默认的delimitIdentifiers是双引号，如果类似MYSQL这样的数据库，
+&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;    使用的是`（反引号，那么还需要设置context的beginningDelimiter和endingDelimiter属性）
+&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;            15，delimitAllColumns：设置是否所有生成的SQL中的列名都使用标识符引起来。默认为false，delimitIdentifiers参考context的属性
+&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;            注意，table里面很多参数都是对javaModelGenerator，context等元素的默认属性的一个复写；
+&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;         --&amp;gt;&lt;/span&gt;
+        &lt;span class=&#34;nt&#34;&gt;&amp;lt;table&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;tableName=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;user&amp;#34;&lt;/span&gt; &lt;span class=&#34;nt&#34;&gt;&amp;gt;&lt;/span&gt;
+            &lt;span class=&#34;c&#34;&gt;&amp;lt;!-- 参考 javaModelGenerator 的 constructorBased属性--&amp;gt;&lt;/span&gt;
+            &lt;span class=&#34;nt&#34;&gt;&amp;lt;property&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;name=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;constructorBased&amp;#34;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;value=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;false&amp;#34;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;/&amp;gt;&lt;/span&gt;
+            &lt;span class=&#34;c&#34;&gt;&amp;lt;!-- 默认为false，如果设置为true，在生成的SQL中，table名字不会加上catalog或schema； --&amp;gt;&lt;/span&gt;
+            &lt;span class=&#34;nt&#34;&gt;&amp;lt;property&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;name=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;ignoreQualifiersAtRuntime&amp;#34;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;value=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;false&amp;#34;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;/&amp;gt;&lt;/span&gt;
+            &lt;span class=&#34;c&#34;&gt;&amp;lt;!-- 参考 javaModelGenerator 的 immutable 属性 --&amp;gt;&lt;/span&gt;
+            &lt;span class=&#34;nt&#34;&gt;&amp;lt;property&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;name=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;immutable&amp;#34;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;value=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;false&amp;#34;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;/&amp;gt;&lt;/span&gt;
+            &lt;span class=&#34;c&#34;&gt;&amp;lt;!-- 指定是否只生成domain类，如果设置为true，只生成domain类，如果还配置了sqlMapGenerator，那么在mapper XML文件中，只生成resultMap元素 --&amp;gt;&lt;/span&gt;
+            &lt;span class=&#34;nt&#34;&gt;&amp;lt;property&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;name=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;modelOnly&amp;#34;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;value=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;false&amp;#34;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;/&amp;gt;&lt;/span&gt;
+            &lt;span class=&#34;c&#34;&gt;&amp;lt;!-- 参考 javaModelGenerator 的 rootClass 属性
+&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;            &amp;lt;property name=&amp;#34;rootClass&amp;#34; value=&amp;#34;&amp;#34;/&amp;gt;
+&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;             --&amp;gt;&lt;/span&gt;
+            &lt;span class=&#34;c&#34;&gt;&amp;lt;!-- 参考javaClientGenerator 的  rootInterface 属性
+&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;            &amp;lt;property name=&amp;#34;rootInterface&amp;#34; value=&amp;#34;&amp;#34;/&amp;gt;
+&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;            --&amp;gt;&lt;/span&gt;
+            &lt;span class=&#34;c&#34;&gt;&amp;lt;!-- 如果设置了runtimeCatalog，那么在生成的SQL中，使用该指定的catalog，而不是table元素上的catalog
+&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;            &amp;lt;property name=&amp;#34;runtimeCatalog&amp;#34; value=&amp;#34;&amp;#34;/&amp;gt;
+&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;            --&amp;gt;&lt;/span&gt;
+            &lt;span class=&#34;c&#34;&gt;&amp;lt;!-- 如果设置了runtimeSchema，那么在生成的SQL中，使用该指定的schema，而不是table元素上的schema
+&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;            &amp;lt;property name=&amp;#34;runtimeSchema&amp;#34; value=&amp;#34;&amp;#34;/&amp;gt;
+&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;            --&amp;gt;&lt;/span&gt;
+            &lt;span class=&#34;c&#34;&gt;&amp;lt;!-- 如果设置了runtimeTableName，那么在生成的SQL中，使用该指定的tablename，而不是table元素上的tablename
+&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;            &amp;lt;property name=&amp;#34;runtimeTableName&amp;#34; value=&amp;#34;&amp;#34;/&amp;gt;
+&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;            --&amp;gt;&lt;/span&gt;
+            &lt;span class=&#34;c&#34;&gt;&amp;lt;!-- 注意，该属性只针对MyBatis3Simple有用；
+&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;                如果选择的runtime是MyBatis3Simple，那么会生成一个SelectAll方法，如果指定了selectAllOrderByClause，那么会在该SQL中添加指定的这个order条件；
+&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;             --&amp;gt;&lt;/span&gt;
+            &lt;span class=&#34;nt&#34;&gt;&amp;lt;property&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;name=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;selectAllOrderByClause&amp;#34;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;value=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;id desc,name asc&amp;#34;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;/&amp;gt;&lt;/span&gt;
+            &lt;span class=&#34;c&#34;&gt;&amp;lt;!-- 如果设置为true，生成的model类会直接使用column本身的名字，而不会再使用驼峰命名方法，比如BORN_DATE，生成的属性名字就是BORN_DATE,而不会是bornDate --&amp;gt;&lt;/span&gt;
+            &lt;span class=&#34;nt&#34;&gt;&amp;lt;property&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;name=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;useActualColumnNames&amp;#34;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;value=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;false&amp;#34;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;/&amp;gt;&lt;/span&gt;
+
+            &lt;span class=&#34;c&#34;&gt;&amp;lt;!-- generatedKey用于生成生成主键的方法，
+&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;                如果设置了该元素，MBG会在生成的&amp;lt;insert&amp;gt;元素中生成一条正确的&amp;lt;selectKey&amp;gt;元素，该元素可选
+&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;                column:主键的列名；
+&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;                sqlStatement：要生成的selectKey语句，有以下可选项：
+&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;                    Cloudscape:相当于selectKey的SQL为： VALUES IDENTITY_VAL_LOCAL()
+&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;                    DB2       :相当于selectKey的SQL为： VALUES IDENTITY_VAL_LOCAL()
+&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;                    DB2_MF    :相当于selectKey的SQL为：SELECT IDENTITY_VAL_LOCAL() FROM SYSIBM.SYSDUMMY1
+&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;                    Derby     :相当于selectKey的SQL为：VALUES IDENTITY_VAL_LOCAL()
+&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;                    HSQLDB    :相当于selectKey的SQL为：CALL IDENTITY()
+&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;                    Informix  :相当于selectKey的SQL为：select dbinfo(&amp;#39;sqlca.sqlerrd1&amp;#39;) from systables where tabid=1
+&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;                    MySql     :相当于selectKey的SQL为：SELECT LAST_INSERT_ID()
+&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;                    SqlServer :相当于selectKey的SQL为：SELECT SCOPE_IDENTITY()
+&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;                    SYBASE    :相当于selectKey的SQL为：SELECT @@IDENTITY
+&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;                    JDBC      :相当于在生成的insert元素上添加useGeneratedKeys=&amp;#34;true&amp;#34;和keyProperty属性
+&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;            &amp;lt;generatedKey column=&amp;#34;&amp;#34; sqlStatement=&amp;#34;&amp;#34;/&amp;gt;
+&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;             --&amp;gt;&lt;/span&gt;
+
+            &lt;span class=&#34;c&#34;&gt;&amp;lt;!--
+&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;                该元素会在根据表中列名计算对象属性名之前先重命名列名，非常适合用于表中的列都有公用的前缀字符串的时候，
+&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;                比如列名为：CUST_ID,CUST_NAME,CUST_EMAIL,CUST_ADDRESS等；
+&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;                那么就可以设置searchString为&amp;#34;^CUST_&amp;#34;，并使用空白替换，那么生成的Customer对象中的属性名称就不是
+&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;                custId,custName等，而是先被替换为ID,NAME,EMAIL,然后变成属性：id，name，email；
+&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;                注意，MBG是使用java.util.regex.Matcher.replaceAll来替换searchString和replaceString的，
+&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;                如果使用了columnOverride元素，该属性无效；
+&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;            &amp;lt;columnRenamingRule searchString=&amp;#34;&amp;#34; replaceString=&amp;#34;&amp;#34;/&amp;gt;
+&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;             --&amp;gt;&lt;/span&gt;
+
+
+            &lt;span class=&#34;c&#34;&gt;&amp;lt;!-- 用来修改表中某个列的属性，MBG会使用修改后的列来生成domain的属性；
+&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;               column:要重新设置的列名；
+&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;               注意，一个table元素中可以有多个columnOverride元素哈~
+&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;             --&amp;gt;&lt;/span&gt;
+            &lt;span class=&#34;nt&#34;&gt;&amp;lt;columnOverride&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;column=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;name&amp;#34;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;&amp;gt;&lt;/span&gt;
+                &lt;span class=&#34;c&#34;&gt;&amp;lt;!-- 使用property属性来指定列要生成的属性名称 --&amp;gt;&lt;/span&gt;
+                &lt;span class=&#34;nt&#34;&gt;&amp;lt;property&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;name=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;property&amp;#34;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;value=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;name&amp;#34;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;/&amp;gt;&lt;/span&gt;
+                &lt;span class=&#34;c&#34;&gt;&amp;lt;!-- javaType用于指定生成的domain的属性类型，使用类型的全限定名
+&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;                &amp;lt;property name=&amp;#34;javaType&amp;#34; value=&amp;#34;&amp;#34;/&amp;gt;
+&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;                 --&amp;gt;&lt;/span&gt;
+                &lt;span class=&#34;c&#34;&gt;&amp;lt;!-- jdbcType用于指定该列的JDBC类型
+&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;                &amp;lt;property name=&amp;#34;jdbcType&amp;#34; value=&amp;#34;&amp;#34;/&amp;gt;
+&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;                 --&amp;gt;&lt;/span&gt;
+                &lt;span class=&#34;c&#34;&gt;&amp;lt;!-- typeHandler 用于指定该列使用到的TypeHandler，如果要指定，配置类型处理器的全限定名
+&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;                    注意，mybatis中，不会生成到mybatis-config.xml中的typeHandler
+&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;                    只会生成类似：where id = #{id,jdbcType=BIGINT,typeHandler=com._520it.mybatis.MyTypeHandler}的参数描述
+&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;                &amp;lt;property name=&amp;#34;jdbcType&amp;#34; value=&amp;#34;&amp;#34;/&amp;gt;
+&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;                --&amp;gt;&lt;/span&gt;
+                &lt;span class=&#34;c&#34;&gt;&amp;lt;!-- 参考table元素的delimitAllColumns配置，默认为false
+&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;                &amp;lt;property name=&amp;#34;delimitedColumnName&amp;#34; value=&amp;#34;&amp;#34;/&amp;gt;
+&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;                 --&amp;gt;&lt;/span&gt;
+            &lt;span class=&#34;nt&#34;&gt;&amp;lt;/columnOverride&amp;gt;&lt;/span&gt;
+            &lt;span class=&#34;c&#34;&gt;&amp;lt;!-- ignoreColumn设置一个MGB忽略的列，如果设置了改列，那么在生成的domain中，生成的SQL中，都不会有该列出现
+&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;               column:指定要忽略的列的名字；
+&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;               delimitedColumnName：参考table元素的delimitAllColumns配置，默认为false
+&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;               注意，一个table元素中可以有多个ignoreColumn元素
+&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;            &amp;lt;ignoreColumn column=&amp;#34;deptId&amp;#34; delimitedColumnName=&amp;#34;&amp;#34;/&amp;gt;
+&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;            --&amp;gt;&lt;/span&gt;
+        &lt;span class=&#34;nt&#34;&gt;&amp;lt;/table&amp;gt;&lt;/span&gt;
+    &lt;span class=&#34;nt&#34;&gt;&amp;lt;/context&amp;gt;&lt;/span&gt;
+
+&lt;span class=&#34;nt&#34;&gt;&amp;lt;/generatorConfiguration&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;插件&#34;&gt;插件&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;MBG自带插件&lt;/strong&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;提供的插件&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;随着 MyBatis Generator (MBG) 使用量的增长，我们发现通过插件添加功能越来越有用，而不是增加基础代码生成器的复杂性。插件是用于扩展 MBG 的模块化且易于理解的机制。有关编写插件的更多信息，请参阅 &lt;a class=&#34;link&#34; href=&#34;https://mybatis.org/generator/reference/pluggingIn.html&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;实现插件&lt;/a&gt;。有关配置插件的信息，请参阅&lt;a class=&#34;link&#34; href=&#34;https://mybatis.org/generator/configreference/plugin.html&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;大多数提供的插件都在包 &lt;code&gt;org.mybatis.generator.plugins 中&lt;/code&gt;。提供的插件展示了可以使用 MBG 插件完成的不同类型的任务。插件的源代码可通过 MBG 下载获得，也可以在&lt;a class=&#34;link&#34; href=&#34;https://github.com/mybatis/generator/tree/master/core/mybatis-generator-core/src/main/java/org/mybatis/generator/plugins&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt; 此处&lt;/a&gt;在线 &lt;a class=&#34;link&#34; href=&#34;https://github.com/mybatis/generator/tree/master/core/mybatis-generator-core/src/main/java/org/mybatis/generator/plugins&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;查看&lt;/a&gt;。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;org.mybatis.generator.plugins.CachePlugin&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;当使用的目标运行时不生成 XML 时，此插件没有影响。&lt;/p&gt;
+&lt;p&gt;这个插件向生成的 SQL 映射添加了一个 &lt;!-- raw HTML omitted --&gt; 元素。此插件仅适用于 MyBatis3 目标运行时。&lt;/p&gt;
+&lt;p&gt;此插件接受以下属性。所有都是可选的，如果指定，这些值将直接传递给生成的 &lt;!-- raw HTML omitted --&gt; 元素上的相应属性。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;缓存驱逐&lt;/li&gt;
+&lt;li&gt;cache_flushInterval&lt;/li&gt;
+&lt;li&gt;缓存只读&lt;/li&gt;
+&lt;li&gt;缓存大小&lt;/li&gt;
+&lt;li&gt;缓存类型&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;通过在 &lt;!-- raw HTML omitted --&gt; 元素上指定属性，可以覆盖任何属性。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;org.mybatis.generator.plugins.CaseInsensitiveLikePlugin&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;当使用的目标运行时基于 MyBatis 动态 SQL 时，此插件没有影响。&lt;/p&gt;
+&lt;p&gt;该插件向 Example 类（实际上是 Criteria 内部类）添加方法以支持不区分大小写的 LIKE 搜索。这演示了通过插件向示例类添加功能，而不是扩展类。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;org.mybatis.generator.plugins.EqualsHashCodePlugin&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;当使用的目标运行时是 MyBatis3Kotlin 时，这个插件没有影响，不需要。&lt;/p&gt;
+&lt;p&gt;该插件为 MBG 生成的 Java 模型对象添加了&lt;code&gt;equals&lt;/code&gt;和&lt;code&gt;hashCode&lt;/code&gt;方法。&lt;/p&gt;
+&lt;p&gt;默认情况下，&lt;code&gt;equals&lt;/code&gt;和&lt;code&gt;hashCode&lt;/code&gt;方法会检查它所知道的由此类生成的唯一字段。&lt;/p&gt;
+&lt;p&gt;这个插件接受一个属性：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;useEqualsHashCodeFromRoot&lt;/code&gt; (optional) 如果你已经指定了根类，你可以使用这个属性来调用super &lt;code&gt;equals&lt;/code&gt;和&lt;code&gt;hashCode&lt;/code&gt;方法来检查根类的字段。它对于具有继承关系的表很有用。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;org.mybatis.generator.plugins.FluentBuilderMethodsPlugin&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;当使用的目标运行时是 MyBatis3Kotlin 时，这个插件没有影响，不需要。&lt;/p&gt;
+&lt;p&gt;这个插件向生成的模型类添加了流畅的构建器方法。&lt;/p&gt;
+&lt;p&gt;例子：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;给定域类&lt;code&gt;MyDomainClass&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;使用 setter 方法&lt;code&gt;setFoo(String foo)&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;使用 setter 方法&lt;code&gt;setBar(Integer bar)&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;该插件将创建额外的方法：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;公共 MyDomainClass withFoo(String foo)&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;public MyDomainClass withBar(Integer bar)&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;此插件不接受任何属性。&lt;/p&gt;
+&lt;p&gt;使用此插件，您可以使用链式方法调用流畅地配置属性值。示例：&lt;code&gt;new MyDomain().withFoo(&amp;quot;Test&amp;quot;).withBar(4711);&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;org.mybatis.generator.plugins.MapperAnnotationPlugin&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;当使用的目标运行时基于 MyBatis 动态 SQL 时，该插件没有影响，不需要。&lt;/p&gt;
+&lt;p&gt;此插件将&lt;code&gt;@Mapper&lt;/code&gt;注释添加到生成的映射器接口。这个插件应该只在 MyBatis3 环境中使用。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;org.mybatis.generator.plugins.MapperConfigPlugin&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;当使用的目标运行时基于 MyBatis 动态 SQL 时，该插件没有影响，不需要。&lt;/p&gt;
+&lt;p&gt;此插件生成一个框架 MapperConfig.xml 文件，其中包含对 MBG 生成的 XML 映射器文件的引用。该文件可用于配置 MyBatis 3.x 环境。&lt;/p&gt;
+&lt;p&gt;这个插件接受三个属性：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;fileName&lt;/code&gt;（可选）生成的文件的名称。如果未指定，则默认为“MapperConfig.xml”。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;targetPackage&lt;/code&gt;（必需）文件应放置的包的名称。指定为“com.mycompany.sql”。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;targetProject&lt;/code&gt;（必需）应放置文件的项目的名称。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;注意：&lt;code&gt;targetPackage&lt;/code&gt;和&lt;code&gt;targetProject&lt;/code&gt;遵循与 sqlMapGenerator 配置元素上的&lt;code&gt;targetPackage&lt;/code&gt;和&lt;code&gt;targetProject&lt;/code&gt;值相同的规则。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;org.mybatis.generator.plugins.RenameExampleClassPlugin&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;当使用的目标运行时基于 MyBatis 动态 SQL 时，该插件没有影响，不需要。&lt;/p&gt;
+&lt;p&gt;该插件通过重命名由 MBG 生成的示例类来演示&lt;code&gt;初始化&lt;/code&gt;方法的用法。&lt;/p&gt;
+&lt;p&gt;这个插件接受两个属性：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;searchString&lt;/code&gt;（必需）用于搜索示例类的默认生成名称的正则表达式。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;replaceString&lt;/code&gt;（必需）要插入到&lt;code&gt;searchString&lt;/code&gt;匹配项上的 &lt;code&gt;字符串&lt;/code&gt;。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;例如，为了从xxxExample重命名所生成的示例类xxxCriteria，指定&lt;code&gt;实施例$&lt;/code&gt;用于&lt;code&gt;搜索字符串&lt;/code&gt; 和&lt;code&gt;标准&lt;/code&gt;为&lt;code&gt;replaceString&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;org.mybatis.generator.plugins.RowBoundsPlugin&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;当使用的目标运行时基于 MyBatis 动态 SQL 时，该插件没有影响，不需要。&lt;/p&gt;
+&lt;p&gt;这个插件将添加一个新版本的&lt;code&gt;selectByExample&lt;/code&gt; 方法，它接受一个&lt;code&gt;RowBounds&lt;/code&gt;参数。这支持 MyBatis RowBounds 函数，该函数可以限制返回结果列表的长度，并且可以指定开始位置。这在分页应用程序中很有用。&lt;/p&gt;
+&lt;p&gt;该插件仅对 MyBatis3 目标运行时有效。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;org.mybatis.generator.plugins.SerializablePlugin&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;当使用的目标运行时是 MyBatis3Kotlin 时，这个插件没有影响，不需要。&lt;/p&gt;
+&lt;p&gt;该插件将标记接口&lt;code&gt;java.io.Serializable&lt;/code&gt;添加到 MBG 生成的 Java 模型对象中。该插件还将&lt;code&gt;serialVersionUID&lt;/code&gt;字段添加 到模型类中。&lt;/p&gt;
+&lt;p&gt;重要提示：这是 java.io.Serializable 的简单实现，不会尝试对类进行任何版本控制。&lt;/p&gt;
+&lt;p&gt;这个插件接受两个属性：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;addGWTInterface&lt;/code&gt;（可选）真/假。如果为 true，则插件会将 Google Web Toolkit (GWT) &lt;code&gt;IsSerializable&lt;/code&gt;接口添加到模型对象。默认值为假。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;抑制JavaInterface&lt;/code&gt;（必需）真/假。如果为 true，插件将不会添加&lt;code&gt;java.io.Serializable&lt;/code&gt;接口。这是针对 GWT 对象应该可序列化的情况，但不是严格的 Java 意义上的。默认值为假。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;org.mybatis.generator.plugins.ToStringPlugin&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;当使用的目标运行时是 MyBatis3Kotlin 时，这个插件没有影响，不需要。&lt;/p&gt;
+&lt;p&gt;该插件将&lt;code&gt;toString()&lt;/code&gt;方法添加到生成的模型类中。&lt;/p&gt;
+&lt;p&gt;这个插件接受一个属性：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;useToStringFromRoot&lt;/code&gt; (可选) 如果您指定了根类，您可以使用该属性调用超级&lt;code&gt;toString&lt;/code&gt;方法打印根类的字段。它对于具有继承关系的表很有用。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;org.mybatis.generator.plugins.UnmergeableXmlMappersPlugin&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;当使用的目标运行时基于 MyBatis 动态 SQL 时，该插件没有影响，不需要。&lt;/p&gt;
+&lt;p&gt;此插件将禁用生成的映射器 XML 文件的 XML 合并功能。这将导致生成器以与 Java 文件相同的方式尊重 XML 文件的覆盖标志 - 如果覆盖为真，则现有文件将被覆盖，否则将使用唯一名称写入新文件。&lt;/p&gt;
+&lt;p&gt;如果您禁用所有评论，此插件会很有帮助。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;org.mybatis.generator.plugins.VirtualPrimaryKeyPlugin&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;此插件可用于指定充当主键的列，即使它们未在数据库中定义为主键。这在数据库表没有主定义的情况下很有用。通常，如果没有主键，MBG 将生成非常有限的方法集。该插件可用于生成完整的 MBG 方法。&lt;/p&gt;
+&lt;p&gt;要使用该插件，请将属性“virtualKeyColumns”添加到您的 &lt;!-- raw HTML omitted --&gt; 配置中，并将值设置为逗号或空格分隔的列名列表，这些列名应该被视为主键。列名必须与从数据库返回的列名完全匹配（通常全部为大写）。例如：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-xml&#34; data-lang=&#34;xml&#34;&gt;  &lt;span class=&#34;nt&#34;&gt;&amp;lt;table&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;tableName=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;foo&amp;#34;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class=&#34;nt&#34;&gt;&amp;lt;property&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;name=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;virtualKeyColumns&amp;#34;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;value=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;ID1, ID2&amp;#34;&lt;/span&gt; &lt;span class=&#34;nt&#34;&gt;/&amp;gt;&lt;/span&gt;
+  &lt;span class=&#34;nt&#34;&gt;&amp;lt;/table&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/blockquote&gt;
+&lt;p&gt;&lt;strong&gt;自定义插件&lt;/strong&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;h1 id=&#34;实现插件&#34;&gt;实现插件&lt;/h1&gt;
+&lt;p&gt;插件可用于修改或添加由 MyBatis Generator 生成的对象。插件必须实现接口 &lt;code&gt;org.mybatis.generator.api.Plugin&lt;/code&gt;。插件接口包含许多在代码生成过程的不同阶段调用的方法。任何特定插件通常不需要实现整个接口。因此，大多数插件应该扩展适配器类&lt;code&gt;org.mybatis.generator.api.PluginAdapter&lt;/code&gt;。适配器类提供了基本的插件支持，并为大多数接口方法（类似于 Swing 适配器类）实现了无操作方法。&lt;/p&gt;
+&lt;p&gt;MyBatis Generator 提供了几个插件（都在包 &lt;code&gt;org.mybatis.generator.plugins 中&lt;/code&gt;）。提供的插件展示了可以使用插件完成的不同类型的任务。插件的源代码可通过下载获得，也可以在&lt;a class=&#34;link&#34; href=&#34;https://github.com/mybatis/generator/tree/master/core/mybatis-generator-core/src/main/java/org/mybatis/generator/plugins&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt; 此处&lt;/a&gt;在线 &lt;a class=&#34;link&#34; href=&#34;https://github.com/mybatis/generator/tree/master/core/mybatis-generator-core/src/main/java/org/mybatis/generator/plugins&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;查看&lt;/a&gt;。&lt;/p&gt;
+&lt;h2 id=&#34;插件生命周期&#34;&gt;插件生命周期&lt;/h2&gt;
+&lt;p&gt;插件有生命周期。插件是在代码生成过程的初始化期间创建的，并在过程的不同阶段按顺序调用。以下列表显示了插件的基本生命周期：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;通过默认构造函数创建的插件&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;``调用了&lt;code&gt;setContext&lt;/code&gt;方法&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;``调用了&lt;code&gt;setProperties&lt;/code&gt;方法&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;``调用的&lt;code&gt;验证&lt;/code&gt;方法。如果此方法返回&lt;code&gt;false&lt;/code&gt;，则不会调用插件中的其他方法&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;对于配置中的每个表：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;``调用的&lt;code&gt;初始化&lt;/code&gt;方法&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Java 客户端方法：&lt;/p&gt;
+&lt;p&gt;1,2&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;code&gt;clientXXXMethodGenerated(Method, TopLevelClass, IntrospectedTable)&lt;/code&gt; - 在生成 Java 客户端实现类的每个方法时调用这些方法。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;clientXXXMethodGenerated(Method, Interface, IntrospectedTable)&lt;/code&gt; - 在生成 Java 客户端接口的每个方法时调用这些方法。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;调用了 clientGenerated(Interface, TopLevelClass, IntrospectedTable)&lt;/code&gt;方法&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;模型方法：&lt;/p&gt;
+&lt;p&gt;1&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;code&gt;modelFieldGenerated&lt;/code&gt; , &lt;code&gt;modelGetterMethodGenerated&lt;/code&gt; , &lt;code&gt;modelSetterMethodGenerated&lt;/code&gt;用于类中的每个字段&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;modelExampleClassGenerated(TopLevelClass, IntrospectedTable)&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;modelPrimaryKeyClassGenerated(TopLevelClass, IntrospectedTable)&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;modelBaseRecordClassGenerated(TopLevelClass, IntrospectedTable)&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;modelRecordWithBLOBsClassGenerated(TopLevelClass, IntrospectedTable)&lt;/code&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;SQL 映射方法：&lt;/p&gt;
+&lt;p&gt;1&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;code&gt;sqlMapXXXElementGenerated(XmlElement, IntrospectedTable)&lt;/code&gt; - 在生成 SQL 映射的每个元素时调用这些方法&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;sqlMapDocumentGenerated(Document, IntrospectedTable)&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;sqlMapDocument(GeneratedXmlFile, IntrospectedTable)&lt;/code&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;调用了 contextGenerateAdditionalJavaFiles(IntrospectedTable)&lt;/code&gt;方法&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;调用了 contextGenerateAdditionalXmlFiles(IntrospectedTable)&lt;/code&gt;方法&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;调用了 contextGenerateAdditionalJavaFiles()&lt;/code&gt;方法&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;调用了 contextGenerateAdditionalXmlFiles()&lt;/code&gt;方法&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;strong&gt;注意：&lt;/strong&gt;
+1 - 这些方法将由打包的代码生成器调用。如果您提供自定义代码生成器，则只有在自定义代码生成器调用这些方法时才会调用它们。
+2 - 只有在配置了 Java 客户端生成器时才会调用 Java 客户端方法。&lt;/p&gt;
+&lt;h2 id=&#34;编码插件&#34;&gt;编码插件&lt;/h2&gt;
+&lt;p&gt;实现插件的最佳方法是扩展 &lt;code&gt;org.mybatis.generator.api.PluginAdapter&lt;/code&gt;类并仅覆盖插件中您需要的特定方法。&lt;/p&gt;
+&lt;p&gt;插件接口中的方法可用于修改默认生成的代码，或添加额外的生成代码。可以用插件完成的事情的例子是：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;向生成的方法添加自定义注释&lt;/li&gt;
+&lt;li&gt;向生成的类添加其他方法&lt;/li&gt;
+&lt;li&gt;向生成的 XML 文件添加其他元素&lt;/li&gt;
+&lt;li&gt;生成额外的 Java 文件&lt;/li&gt;
+&lt;li&gt;生成额外的 XML 文件&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;该&lt;code&gt;contextXXX&lt;/code&gt;方法将总是被调用。其他方法由打包的代码生成器调用 - 并且仅当表的规则会导致特定元素的生成时。例如， 如果表没有主键，则不会调用&lt;code&gt;modelPrimaryKeyClassGenerated(TopLevelClass, IntrospectedTable)&lt;/code&gt;方法。&lt;/p&gt;
+&lt;p&gt;返回&lt;code&gt;布尔值的&lt;/code&gt;方法可用于绕过代码生成。如果这些方法中的任何一个返回&lt;code&gt;false&lt;/code&gt;，则不会将相关项添加到生成的代码中。如果配置了多个插件，那么第一个从方法返回 false 的插件将导致 MyBatis Generator 停止在所有其他插件中调用该方法。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3 id=&#34;实现自定义插件&#34;&gt;实现自定义插件&lt;/h3&gt;
+&lt;h4 id=&#34;自定义lombokplugin插件&#34;&gt;自定义lombokPlugin插件&lt;/h4&gt;
+&lt;p&gt;生成实体类时添加作者，创建时间，并使用lombok注解简化bean。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;kn&#34;&gt;package&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;com.xxgc.mybatis.plugin&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+
+&lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;org.mybatis.generator.api.IntrospectedColumn&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+&lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;org.mybatis.generator.api.IntrospectedTable&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+&lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;org.mybatis.generator.api.PluginAdapter&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+&lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;org.mybatis.generator.api.dom.java.FullyQualifiedJavaType&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+&lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;org.mybatis.generator.api.dom.java.Interface&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+&lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;org.mybatis.generator.api.dom.java.Method&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+&lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;org.mybatis.generator.api.dom.java.TopLevelClass&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+
+&lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;java.text.SimpleDateFormat&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+&lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;java.util.Date&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+&lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;java.util.List&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+
+&lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;LombokPlugin&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;extends&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;PluginAdapter&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+
+    &lt;span class=&#34;nd&#34;&gt;@Override&lt;/span&gt;
+    &lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;boolean&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;validate&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;List&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;String&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;list&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+        &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;true&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+    &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+
+    &lt;span class=&#34;nd&#34;&gt;@Override&lt;/span&gt;
+    &lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;boolean&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;modelBaseRecordClassGenerated&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;TopLevelClass&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;topLevelClass&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;IntrospectedTable&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;introspectedTable&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+        &lt;span class=&#34;c1&#34;&gt;//实体类的import
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;        &lt;span class=&#34;n&#34;&gt;topLevelClass&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;addImportedType&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;java.io.Serializable&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;topLevelClass&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;addImportedType&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;lombok.Data&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;topLevelClass&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;addImportedType&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;lombok.Builder&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;topLevelClass&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;addImportedType&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;lombok.NoArgsConstructor&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;topLevelClass&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;addImportedType&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;lombok.AllArgsConstructor&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+
+        &lt;span class=&#34;c1&#34;&gt;//实体类的注解
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;        &lt;span class=&#34;n&#34;&gt;topLevelClass&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;addAnnotation&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;@Data&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;topLevelClass&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;addAnnotation&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;@Builder&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;topLevelClass&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;addAnnotation&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;@NoArgsConstructor&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;topLevelClass&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;addAnnotation&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;@AllArgsConstructor&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+
+        &lt;span class=&#34;c1&#34;&gt;//实体类的注释(添加作者和文件生成时间)
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;        &lt;span class=&#34;n&#34;&gt;topLevelClass&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;addJavaDocLine&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;/**&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;topLevelClass&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;addJavaDocLine&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34; * @ybakiame&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;topLevelClass&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;addJavaDocLine&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34; * @date &amp;#34;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;SimpleDateFormat&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;yyyy/MM/dd/hh:mm&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;).&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;format&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Date&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;()));&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;topLevelClass&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;addJavaDocLine&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34; */&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+
+        &lt;span class=&#34;c1&#34;&gt;//接口
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;        &lt;span class=&#34;n&#34;&gt;topLevelClass&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;addSuperInterface&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;FullyQualifiedJavaType&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;java.io.Serializable&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;));&lt;/span&gt;
+        &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;true&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+    &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+
+    &lt;span class=&#34;nd&#34;&gt;@Override&lt;/span&gt;
+    &lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;boolean&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;clientGenerated&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Interface&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;anInterface&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;TopLevelClass&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;topLevelClass&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;IntrospectedTable&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;introspectedTable&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+        &lt;span class=&#34;c1&#34;&gt;//Mapper文件的注释
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;        &lt;span class=&#34;n&#34;&gt;anInterface&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;addJavaDocLine&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;/**&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;anInterface&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;addJavaDocLine&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34; * @ybakiame&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;anInterface&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;addJavaDocLine&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34; * @date &amp;#34;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;SimpleDateFormat&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;yyyy/MM/dd/hh:mm&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;).&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;format&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Date&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;()));&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;anInterface&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;addJavaDocLine&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34; */&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+        &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;true&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+    &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+
+    &lt;span class=&#34;nd&#34;&gt;@Override&lt;/span&gt;
+    &lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;boolean&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;modelSetterMethodGenerated&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Method&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;method&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;TopLevelClass&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;topLevelClass&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;IntrospectedColumn&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;introspectedColumn&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;IntrospectedTable&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;introspectedTable&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ModelClassType&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;modelClassType&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+        &lt;span class=&#34;c1&#34;&gt;//不生成getter
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;        &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;false&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+    &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+
+    &lt;span class=&#34;nd&#34;&gt;@Override&lt;/span&gt;
+    &lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;boolean&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;modelGetterMethodGenerated&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Method&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;method&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;TopLevelClass&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;topLevelClass&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;IntrospectedColumn&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;introspectedColumn&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;IntrospectedTable&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;introspectedTable&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ModelClassType&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;modelClassType&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+        &lt;span class=&#34;c1&#34;&gt;//不生成setter
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;        &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;false&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+    &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;自定义-commentgenerator-插件&#34;&gt;自定义 CommentGenerator 插件&lt;/h4&gt;
+&lt;p&gt;将MyBatis Generator生成的英文注释替换为中文注释&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;kn&#34;&gt;package&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;com.xxgc.mybatis.plugin&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+ 
+ 
+&lt;span class=&#34;kn&#34;&gt;import static&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;org.mybatis.generator.internal.util.StringUtility.isTrue&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+ 
+ 
+&lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;java.text.SimpleDateFormat&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+&lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;java.util.Date&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+&lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;java.util.Properties&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+ 
+&lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;org.mybatis.generator.api.CommentGenerator&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+&lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;org.mybatis.generator.api.IntrospectedColumn&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+&lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;org.mybatis.generator.api.IntrospectedTable&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+&lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;org.mybatis.generator.api.dom.java.CompilationUnit&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+&lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;org.mybatis.generator.api.dom.java.Field&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+&lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;org.mybatis.generator.api.dom.java.InnerClass&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+&lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;org.mybatis.generator.api.dom.java.InnerEnum&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+&lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;org.mybatis.generator.api.dom.java.JavaElement&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+&lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;org.mybatis.generator.api.dom.java.Method&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+&lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;org.mybatis.generator.api.dom.java.TopLevelClass&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+&lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;org.mybatis.generator.api.dom.xml.TextElement&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+&lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;org.mybatis.generator.api.dom.xml.XmlElement&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+&lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;org.mybatis.generator.api.dom.java.Parameter&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+&lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;org.mybatis.generator.config.MergeConstants&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+&lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;org.mybatis.generator.config.PropertyRegistry&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+ 
+&lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;MyCommentGenerator&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;implements&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;CommentGenerator&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+ 
+    &lt;span class=&#34;cm&#34;&gt;/**
+&lt;/span&gt;&lt;span class=&#34;cm&#34;&gt;      * properties配置文件
+&lt;/span&gt;&lt;span class=&#34;cm&#34;&gt;     */&lt;/span&gt;
+    &lt;span class=&#34;kd&#34;&gt;private&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Properties&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;properties&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+    &lt;span class=&#34;cm&#34;&gt;/**
+&lt;/span&gt;&lt;span class=&#34;cm&#34;&gt;      * properties配置文件
+&lt;/span&gt;&lt;span class=&#34;cm&#34;&gt;     */&lt;/span&gt;
+    &lt;span class=&#34;kd&#34;&gt;private&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Properties&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;systemPro&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+    
+    &lt;span class=&#34;cm&#34;&gt;/*
+&lt;/span&gt;&lt;span class=&#34;cm&#34;&gt;     * 父类时间
+&lt;/span&gt;&lt;span class=&#34;cm&#34;&gt;     */&lt;/span&gt;
+    &lt;span class=&#34;kd&#34;&gt;private&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;boolean&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;suppressDate&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+    
+    &lt;span class=&#34;cm&#34;&gt;/**
+&lt;/span&gt;&lt;span class=&#34;cm&#34;&gt;     * 父类所有注释
+&lt;/span&gt;&lt;span class=&#34;cm&#34;&gt;     */&lt;/span&gt;
+    &lt;span class=&#34;kd&#34;&gt;private&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;boolean&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;suppressAllComments&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+    
+    &lt;span class=&#34;cm&#34;&gt;/**
+&lt;/span&gt;&lt;span class=&#34;cm&#34;&gt;     * 当前时间
+&lt;/span&gt;&lt;span class=&#34;cm&#34;&gt;     */&lt;/span&gt;
+    &lt;span class=&#34;kd&#34;&gt;private&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;String&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;currentDateStr&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+    
+    &lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;MyCommentGenerator&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+        &lt;span class=&#34;kd&#34;&gt;super&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;properties&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Properties&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;systemPro&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;System&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getProperties&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;suppressDate&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;false&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;suppressAllComments&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;false&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;currentDateStr&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;SimpleDateFormat&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;yyyy-MM-dd&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)).&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;format&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Date&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;());&lt;/span&gt;
+    &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+    
+    &lt;span class=&#34;cm&#34;&gt;/**
+&lt;/span&gt;&lt;span class=&#34;cm&#34;&gt;     * Java类的类注释
+&lt;/span&gt;&lt;span class=&#34;cm&#34;&gt;     */&lt;/span&gt;
+	&lt;span class=&#34;nd&#34;&gt;@Override&lt;/span&gt;
+	&lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;addClassComment&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;InnerClass&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;innerClass&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;IntrospectedTable&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;introspectedTable&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+        &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;suppressAllComments&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+            &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+        &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+ 
+        &lt;span class=&#34;n&#34;&gt;StringBuilder&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;sb&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;StringBuilder&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;innerClass&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;addJavaDocLine&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;/**&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;sb&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;append&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34; * &amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;sb&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;append&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;introspectedTable&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getFullyQualifiedTable&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;());&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;sb&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;append&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34; &amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;sb&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;append&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;getDateString&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;());&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;innerClass&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;addJavaDocLine&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;sb&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;toString&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;().&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;replace&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;\n&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#34; &amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;));&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;innerClass&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;addJavaDocLine&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34; */&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+	&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+ 
+	&lt;span class=&#34;cm&#34;&gt;/**
+&lt;/span&gt;&lt;span class=&#34;cm&#34;&gt;	 * 为类添加注释
+&lt;/span&gt;&lt;span class=&#34;cm&#34;&gt;	 */&lt;/span&gt;
+	&lt;span class=&#34;nd&#34;&gt;@Override&lt;/span&gt;
+	&lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;addClassComment&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;InnerClass&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;innerClass&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;IntrospectedTable&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;introspectedTable&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;boolean&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;markAsDoNotDelete&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+		&lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;suppressAllComments&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+            &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+        &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;StringBuilder&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;sb&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;StringBuilder&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;innerClass&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;addJavaDocLine&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;/**&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;sb&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;append&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34; * &amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;sb&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;append&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34; * &amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;sb&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;append&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;introspectedTable&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getFullyQualifiedTable&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;());&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;innerClass&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;addJavaDocLine&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;sb&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;toString&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;().&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;replace&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;\n&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#34; &amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;));&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;sb&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;setLength&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;sb&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;append&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34; * @author &amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;sb&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;append&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;systemPro&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getProperty&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;user.name&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;));&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;sb&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;append&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34; &amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;sb&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;append&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;currentDateStr&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;innerClass&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;addJavaDocLine&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34; */&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+	&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+ 
+	
+	&lt;span class=&#34;cm&#34;&gt;/**
+&lt;/span&gt;&lt;span class=&#34;cm&#34;&gt;	 * Mybatis的Mapper.xml文件里面的注释
+&lt;/span&gt;&lt;span class=&#34;cm&#34;&gt;	 */&lt;/span&gt;
+	&lt;span class=&#34;nd&#34;&gt;@Override&lt;/span&gt;
+	&lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;addComment&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;XmlElement&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;xmlElement&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+		
+	&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+ 
+	&lt;span class=&#34;cm&#34;&gt;/**
+&lt;/span&gt;&lt;span class=&#34;cm&#34;&gt;	 * 
+&lt;/span&gt;&lt;span class=&#34;cm&#34;&gt;	 *@Title addConfigurationProperties 
+&lt;/span&gt;&lt;span class=&#34;cm&#34;&gt;	 *@Description: 从该配置中的任何属性添加此实例的属性CommentGenerator配置。
+&lt;/span&gt;&lt;span class=&#34;cm&#34;&gt;	 *              这个方法将在任何其他方法之前被调用。
+&lt;/span&gt;&lt;span class=&#34;cm&#34;&gt;	 *@Author fendo
+&lt;/span&gt;&lt;span class=&#34;cm&#34;&gt;	 *@Date 2017年10月5日 下午3:45:58
+&lt;/span&gt;&lt;span class=&#34;cm&#34;&gt;	 *@return
+&lt;/span&gt;&lt;span class=&#34;cm&#34;&gt;	 *@throws
+&lt;/span&gt;&lt;span class=&#34;cm&#34;&gt;	 */&lt;/span&gt;
+	&lt;span class=&#34;nd&#34;&gt;@Override&lt;/span&gt;
+	&lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;addConfigurationProperties&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Properties&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;properties&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+		&lt;span class=&#34;k&#34;&gt;this&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;properties&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;putAll&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;properties&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;suppressDate&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;isTrue&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;properties&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getProperty&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;PropertyRegistry&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;COMMENT_GENERATOR_SUPPRESS_DATE&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;));&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;suppressAllComments&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;isTrue&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;properties&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getProperty&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;PropertyRegistry&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;COMMENT_GENERATOR_SUPPRESS_ALL_COMMENTS&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;));&lt;/span&gt;
+	&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+ 
+	&lt;span class=&#34;cm&#34;&gt;/**
+&lt;/span&gt;&lt;span class=&#34;cm&#34;&gt;	 * 
+&lt;/span&gt;&lt;span class=&#34;cm&#34;&gt;	 *@Title getDateString 
+&lt;/span&gt;&lt;span class=&#34;cm&#34;&gt;	 *@Description: 此方法返回格式化的日期字符串以包含在Javadoc标记中和XML注释。 如果您不想要日期，则可以返回null在这些文档元素中。
+&lt;/span&gt;&lt;span class=&#34;cm&#34;&gt;	 *@Author fendo
+&lt;/span&gt;&lt;span class=&#34;cm&#34;&gt;	 *@Date 2017年10月5日 下午3:45:58
+&lt;/span&gt;&lt;span class=&#34;cm&#34;&gt;	 *@return
+&lt;/span&gt;&lt;span class=&#34;cm&#34;&gt;	 *@throws
+&lt;/span&gt;&lt;span class=&#34;cm&#34;&gt;	 */&lt;/span&gt;
+    &lt;span class=&#34;kd&#34;&gt;protected&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;String&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;getDateString&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;String&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;result&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;null&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+        &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(!&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;suppressDate&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+            &lt;span class=&#34;n&#34;&gt;result&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;currentDateStr&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+        &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+        &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;result&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+    &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+    
+    &lt;span class=&#34;cm&#34;&gt;/**
+&lt;/span&gt;&lt;span class=&#34;cm&#34;&gt;     * 
+&lt;/span&gt;&lt;span class=&#34;cm&#34;&gt;     *@Title addJavadocTag 
+&lt;/span&gt;&lt;span class=&#34;cm&#34;&gt;     *@Description: 此方法为其添加了自定义javadoc标签。
+&lt;/span&gt;&lt;span class=&#34;cm&#34;&gt;     *@Author fendo
+&lt;/span&gt;&lt;span class=&#34;cm&#34;&gt;     *@Date 2017年10月5日 下午3:49:05
+&lt;/span&gt;&lt;span class=&#34;cm&#34;&gt;     *@param javaElement
+&lt;/span&gt;&lt;span class=&#34;cm&#34;&gt;     *@param markAsDoNotDelete
+&lt;/span&gt;&lt;span class=&#34;cm&#34;&gt;     *@throws
+&lt;/span&gt;&lt;span class=&#34;cm&#34;&gt;     */&lt;/span&gt;
+	&lt;span class=&#34;kd&#34;&gt;protected&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;addJavadocTag&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;JavaElement&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;javaElement&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;boolean&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;markAsDoNotDelete&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;javaElement&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;addJavaDocLine&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34; *&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;StringBuilder&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;sb&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;StringBuilder&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;sb&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;append&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34; * &amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;sb&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;append&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;MergeConstants&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;NEW_ELEMENT_TAG&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+        &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;markAsDoNotDelete&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+            &lt;span class=&#34;n&#34;&gt;sb&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;append&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34; do_not_delete_during_merge&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+        &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;String&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;s&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;getDateString&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
+        &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;s&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;!=&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;null&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+            &lt;span class=&#34;n&#34;&gt;sb&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;append&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;sc&#34;&gt;&amp;#39; &amp;#39;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+            &lt;span class=&#34;n&#34;&gt;sb&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;append&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;s&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+        &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;javaElement&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;addJavaDocLine&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;sb&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;toString&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;());&lt;/span&gt;
+    &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+	
+	
+	&lt;span class=&#34;cm&#34;&gt;/**
+&lt;/span&gt;&lt;span class=&#34;cm&#34;&gt;	 * 为枚举添加注释
+&lt;/span&gt;&lt;span class=&#34;cm&#34;&gt;	 */&lt;/span&gt;
+	&lt;span class=&#34;nd&#34;&gt;@Override&lt;/span&gt;
+	&lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;addEnumComment&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;InnerEnum&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;innerEnum&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;IntrospectedTable&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;introspectedTable&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+		&lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;suppressAllComments&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+            &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+        &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;StringBuilder&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;sb&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;StringBuilder&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;innerEnum&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;addJavaDocLine&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;/**&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;sb&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;append&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34; * &amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;sb&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;append&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;introspectedTable&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getFullyQualifiedTable&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;());&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;innerEnum&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;addJavaDocLine&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;sb&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;toString&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;().&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;replace&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;\n&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#34; &amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;));&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;innerEnum&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;addJavaDocLine&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34; */&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+	&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+ 
+	&lt;span class=&#34;cm&#34;&gt;/**
+&lt;/span&gt;&lt;span class=&#34;cm&#34;&gt;	 * Java属性注释
+&lt;/span&gt;&lt;span class=&#34;cm&#34;&gt;	 */&lt;/span&gt;
+	&lt;span class=&#34;nd&#34;&gt;@Override&lt;/span&gt;
+	&lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;addFieldComment&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Field&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;field&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;IntrospectedTable&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;introspectedTable&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+		&lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;suppressAllComments&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+            &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+        &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;StringBuilder&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;sb&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;StringBuilder&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;field&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;addJavaDocLine&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;/**&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;sb&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;append&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34; * &amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;sb&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;append&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;introspectedTable&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getFullyQualifiedTable&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;());&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;field&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;addJavaDocLine&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;sb&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;toString&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;().&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;replace&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;\n&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#34; &amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;));&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;field&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;addJavaDocLine&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34; */&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+        
+        
+        
+	&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+ 
+	&lt;span class=&#34;cm&#34;&gt;/**
+&lt;/span&gt;&lt;span class=&#34;cm&#34;&gt;	 * 为字段添加注释
+&lt;/span&gt;&lt;span class=&#34;cm&#34;&gt;	 */&lt;/span&gt;
+	&lt;span class=&#34;nd&#34;&gt;@Override&lt;/span&gt;
+	&lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;addFieldComment&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Field&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;field&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;IntrospectedTable&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;introspectedTable&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;IntrospectedColumn&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;introspectedColumn&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+		&lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;suppressAllComments&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+            &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+        &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;StringBuilder&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;sb&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;StringBuilder&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;field&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;addJavaDocLine&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;/**&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;sb&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;append&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34; * &amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;sb&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;append&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;introspectedColumn&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getRemarks&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;());&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;field&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;addJavaDocLine&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;sb&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;toString&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;().&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;replace&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;\n&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#34; &amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;));&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;field&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;addJavaDocLine&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34; */&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+	&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+ 
+	&lt;span class=&#34;cm&#34;&gt;/**
+&lt;/span&gt;&lt;span class=&#34;cm&#34;&gt;	 * 普通方法的注释，这里主要是XXXMapper.java里面的接口方法的注释
+&lt;/span&gt;&lt;span class=&#34;cm&#34;&gt;	 */&lt;/span&gt;
+	&lt;span class=&#34;nd&#34;&gt;@Override&lt;/span&gt;
+	&lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;addGeneralMethodComment&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Method&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;method&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;IntrospectedTable&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;introspectedTable&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+	  &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;suppressAllComments&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+        &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+      &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+      &lt;span class=&#34;n&#34;&gt;method&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;addJavaDocLine&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;/**&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+      &lt;span class=&#34;n&#34;&gt;addJavadocTag&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;method&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;false&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+      &lt;span class=&#34;n&#34;&gt;method&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;addJavaDocLine&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34; */&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+	&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+ 
+	
+	&lt;span class=&#34;cm&#34;&gt;/**
+&lt;/span&gt;&lt;span class=&#34;cm&#34;&gt;	 * 给getter方法加注释
+&lt;/span&gt;&lt;span class=&#34;cm&#34;&gt;	 */&lt;/span&gt;
+	&lt;span class=&#34;nd&#34;&gt;@Override&lt;/span&gt;
+	&lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;addGetterComment&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Method&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;method&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;IntrospectedTable&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;introspectedTable&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;IntrospectedColumn&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;introspectedColumn&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+	    &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;suppressAllComments&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+            &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+        &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;method&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;addJavaDocLine&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;/**&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;StringBuilder&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;sb&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;StringBuilder&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;sb&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;append&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34; * &amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;sb&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;append&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;introspectedColumn&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getRemarks&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;());&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;method&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;addJavaDocLine&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;sb&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;toString&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;().&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;replace&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;\n&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#34; &amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;));&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;sb&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;setLength&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;sb&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;append&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34; * @return &amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;sb&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;append&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;introspectedColumn&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getActualColumnName&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;());&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;sb&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;append&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34; &amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;sb&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;append&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;introspectedColumn&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getRemarks&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;());&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;method&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;addJavaDocLine&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;sb&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;toString&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;().&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;replace&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;\n&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#34; &amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;));&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;method&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;addJavaDocLine&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34; */&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+	&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+ 
+	&lt;span class=&#34;cm&#34;&gt;/**
+&lt;/span&gt;&lt;span class=&#34;cm&#34;&gt;	 * 给Java文件加注释，这个注释是在文件的顶部，也就是package上面。
+&lt;/span&gt;&lt;span class=&#34;cm&#34;&gt;	 */&lt;/span&gt;
+	&lt;span class=&#34;nd&#34;&gt;@Override&lt;/span&gt;
+	&lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;addJavaFileComment&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;CompilationUnit&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;compilationUnit&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+    	&lt;span class=&#34;n&#34;&gt;SimpleDateFormat&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;sdf&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;SimpleDateFormat&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;yyyy-MM-dd&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+    	&lt;span class=&#34;n&#34;&gt;compilationUnit&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;addFileCommentLine&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;/*&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+    	&lt;span class=&#34;n&#34;&gt;compilationUnit&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;addFileCommentLine&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;*&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+    	&lt;span class=&#34;n&#34;&gt;compilationUnit&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;addFileCommentLine&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;* &amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;+&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;compilationUnit&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getType&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;().&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getShortName&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;()+&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;.java&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+    	&lt;span class=&#34;n&#34;&gt;compilationUnit&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;addFileCommentLine&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;* Copyright(C) 2017-2020 fendo公司&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+    	&lt;span class=&#34;n&#34;&gt;compilationUnit&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;addFileCommentLine&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;* @date &amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;+&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;sdf&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;format&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Date&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;())+&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+    	&lt;span class=&#34;n&#34;&gt;compilationUnit&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;addFileCommentLine&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;*/&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+	&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+ 
+	&lt;span class=&#34;cm&#34;&gt;/**
+&lt;/span&gt;&lt;span class=&#34;cm&#34;&gt;	 * 为模型类添加注释
+&lt;/span&gt;&lt;span class=&#34;cm&#34;&gt;	 */&lt;/span&gt;
+	&lt;span class=&#34;nd&#34;&gt;@Override&lt;/span&gt;
+	&lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;addModelClassComment&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;TopLevelClass&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;arg0&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;IntrospectedTable&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;arg1&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+		
+	&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+ 
+	&lt;span class=&#34;cm&#34;&gt;/**
+&lt;/span&gt;&lt;span class=&#34;cm&#34;&gt;	 * 为调用此方法作为根元素的第一个子节点添加注释。
+&lt;/span&gt;&lt;span class=&#34;cm&#34;&gt;	 */&lt;/span&gt;
+	&lt;span class=&#34;nd&#34;&gt;@Override&lt;/span&gt;
+	&lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;addRootComment&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;XmlElement&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;arg0&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+		
+	&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+ 
+	
+	&lt;span class=&#34;cm&#34;&gt;/**
+&lt;/span&gt;&lt;span class=&#34;cm&#34;&gt;	 * 给setter方法加注释
+&lt;/span&gt;&lt;span class=&#34;cm&#34;&gt;	 */&lt;/span&gt;
+	&lt;span class=&#34;nd&#34;&gt;@Override&lt;/span&gt;
+	&lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;addSetterComment&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Method&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;method&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;IntrospectedTable&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;introspectedTable&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;IntrospectedColumn&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;introspectedColumn&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+		&lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;suppressAllComments&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+            &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+        &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;method&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;addJavaDocLine&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;/**&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;StringBuilder&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;sb&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;StringBuilder&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;sb&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;append&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34; * &amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;sb&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;append&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;introspectedColumn&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getRemarks&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;());&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;method&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;addJavaDocLine&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;sb&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;toString&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;().&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;replace&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;\n&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#34; &amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;));&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;Parameter&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;parm&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;method&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getParameters&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;().&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;get&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;sb&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;setLength&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;sb&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;append&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34; * @param &amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;sb&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;append&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;parm&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getName&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;());&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;sb&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;append&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34; &amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;sb&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;append&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;introspectedColumn&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getRemarks&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;());&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;method&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;addJavaDocLine&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;sb&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;toString&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;().&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;replace&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;\n&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#34; &amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;));&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;method&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;addJavaDocLine&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34; */&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+	&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+ 
+&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;在-generatorconfigxml-文件中使用自定义插件&#34;&gt;在 generatorConfig.xml 文件中使用自定义插件&lt;/h4&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-xml&#34; data-lang=&#34;xml&#34;&gt;&lt;span class=&#34;c&#34;&gt;&amp;lt;!-- 自定义lombok --&amp;gt;&lt;/span&gt;
+&lt;span class=&#34;nt&#34;&gt;&amp;lt;plugin&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;type=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;com.xxgc.mybatis.plugin.LombokPlugin&amp;#34;&lt;/span&gt; &lt;span class=&#34;nt&#34;&gt;/&amp;gt;&lt;/span&gt;
+&lt;span class=&#34;c&#34;&gt;&amp;lt;!-- 自定义注解解析器 --&amp;gt;&lt;/span&gt;
+&lt;span class=&#34;nt&#34;&gt;&amp;lt;commentGenerator&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;type=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;com.xxgc.mybatis.plugin.MyCommentGenerator&amp;#34;&lt;/span&gt; &lt;span class=&#34;nt&#34;&gt;/&amp;gt;&lt;/span&gt;
+
+&lt;span class=&#34;c&#34;&gt;&amp;lt;!-- 自定义lombok增强 --&amp;gt;&lt;/span&gt;
+&lt;span class=&#34;nt&#34;&gt;&amp;lt;plugin&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;type=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;plugins.LombokPlugin&amp;#34;&lt;/span&gt; &lt;span class=&#34;nt&#34;&gt;&amp;gt;&lt;/span&gt;
+	&lt;span class=&#34;nt&#34;&gt;&amp;lt;property&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;name=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;hasLombok&amp;#34;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;value=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;true&amp;#34;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;/&amp;gt;&lt;/span&gt;
+&lt;span class=&#34;nt&#34;&gt;&amp;lt;/plugin&amp;gt;&lt;/span&gt;
+&lt;span class=&#34;c&#34;&gt;&amp;lt;!--通过type属性改成自己注解解析器--&amp;gt;&lt;/span&gt;
+&lt;span class=&#34;nt&#34;&gt;&amp;lt;commentGenerator&lt;/span&gt;  &lt;span class=&#34;na&#34;&gt;type=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;plugins.MyCommentGenerator&amp;#34;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;&amp;gt;&lt;/span&gt;
+	&lt;span class=&#34;nt&#34;&gt;&amp;lt;property&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;name=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;suppressDate&amp;#34;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;value=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;true&amp;#34;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;/&amp;gt;&lt;/span&gt;
+	&lt;span class=&#34;c&#34;&gt;&amp;lt;!-- 是否去除自动生成的注释 true：是 ： false:否 --&amp;gt;&lt;/span&gt;
+	&lt;span class=&#34;c&#34;&gt;&amp;lt;!--&amp;lt;property name=&amp;#34;suppressAllComments&amp;#34; value=&amp;#34;true&amp;#34; /&amp;gt;--&amp;gt;&lt;/span&gt;
+	&lt;span class=&#34;nt&#34;&gt;&amp;lt;property&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;name=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;addRemarkComments&amp;#34;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;value=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;true&amp;#34;&lt;/span&gt; &lt;span class=&#34;nt&#34;&gt;/&amp;gt;&lt;/span&gt;
+&lt;span class=&#34;nt&#34;&gt;&amp;lt;/commentGenerator&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;可能出现的问题&#34;&gt;可能出现的问题&lt;/h3&gt;
+&lt;p&gt;大多数情况下,到第三步就算是结束了.下面的,都是踩的坑.&lt;/p&gt;
+&lt;h4 id=&#34;提示找不到mycommentgenerator&#34;&gt;提示找不到MyCommentGenerator&lt;/h4&gt;
+&lt;p&gt;这个一般是使用Maven命令运行MBG时才会出现的错误.&lt;/p&gt;
+&lt;p&gt;原因是mybatis-generator-core与MyCommentGenerator不在同一个ClassPath下。需要将自定义插件打包生成jar,然后在pom文件mybatis-generator-maven-plugin插件中添加相关依赖。&lt;/p&gt;
+&lt;h4 id=&#34;获取不到字段注释&#34;&gt;获取不到字段注释&lt;/h4&gt;
+&lt;blockquote&gt;
+&lt;p&gt;没错,就是introspectedColumn.getRemarks()获取不到字段的注释,生成的javabean里面应该显示字段注释的地方显示的是null.配置文件中我们对&lt;!-- raw HTML omitted --&gt;做如下修改即可:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-xml&#34; data-lang=&#34;xml&#34;&gt;&lt;span class=&#34;nt&#34;&gt;&amp;lt;jdbcConnection&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;driverClass=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;${driver}&amp;#34;&lt;/span&gt;
+    &lt;span class=&#34;na&#34;&gt;connectionURL=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;{url}&amp;#34;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;userId=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;${username}&amp;#34;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;password=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;${password}&amp;#34;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class=&#34;c&#34;&gt;&amp;lt;!-- 针对oracle数据库 --&amp;gt;&lt;/span&gt;
+    &lt;span class=&#34;nt&#34;&gt;&amp;lt;property&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;name=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;remarksReporting&amp;#34;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;value=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;true&amp;#34;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;&amp;gt;&amp;lt;/property&amp;gt;&lt;/span&gt;
+    &lt;span class=&#34;c&#34;&gt;&amp;lt;!-- 针对mysql数据库 --&amp;gt;&lt;/span&gt;
+    &lt;span class=&#34;nt&#34;&gt;&amp;lt;property&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;name=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;useInformationSchema&amp;#34;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;value=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;true&amp;#34;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;&amp;gt;&amp;lt;/property&amp;gt;&lt;/span&gt;
+&lt;span class=&#34;nt&#34;&gt;&amp;lt;/jdbcConnection&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/blockquote&gt;
+</description>
+        </item>
+        <item>
+        <title>Java命名规范参考</title>
+        <link>https://example.com/p/java%E5%91%BD%E5%90%8D%E8%A7%84%E8%8C%83%E5%8F%82%E8%80%83/</link>
+        <pubDate>Sat, 23 Oct 2021 22:26:26 +0800</pubDate>
+        
+        <guid>https://example.com/p/java%E5%91%BD%E5%90%8D%E8%A7%84%E8%8C%83%E5%8F%82%E8%80%83/</guid>
+        <description>&lt;h1 id=&#34;java命名规范参考&#34;&gt;Java命名规范参考！&lt;/h1&gt;
+&lt;p&gt;文章摘自&lt;a class=&#34;link&#34; href=&#34;https://www.cnblogs.com/liqiangchn/p/12000361.html&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://www.cnblogs.com/liqiangchn/p/12000361.html&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;简洁清爽的代码风格应该是大多数工程师所期待的。在工作中笔者常常因为起名字而纠结，夸张点可以说是编程5分钟，命名两小时！究竟为什么命名成为了工作中的拦路虎。&lt;/p&gt;
+&lt;p&gt;每个公司都有不同的标准，目的是为了保持统一，减少沟通成本，提升团队研发效能。所以本文中是笔者结合阿里巴巴开发规范，以及工作中的见闻针对Java领域相关命名进行整理和总结，仅供参考。&lt;/p&gt;
+&lt;h2 id=&#34;java中的命名规范&#34;&gt;Java中的命名规范&lt;/h2&gt;
+&lt;p&gt;好的命名能体现出代码的特征，含义或者是用途，让阅读者可以根据名称的含义快速厘清程序的脉络。不同语言中采用的命名形式大相径庭，Java中常用到的命名形式共有三种，既首字母大写的UpperCamelCase，首字母小写的lowerCamelCase以及全部大写的并用下划线分割单词的UPPER_CAMEL_UNSER_SCORE。通常约定，&lt;strong&gt;类一般采用大驼峰命名，方法和局部变量使用小驼峰命名，而大写下划线命名通常是常量和枚举中使用。&lt;/strong&gt;&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&#34;text-align:center&#34;&gt;类型&lt;/th&gt;
+&lt;th style=&#34;text-align:center&#34;&gt;约束&lt;/th&gt;
+&lt;th style=&#34;text-align:center&#34;&gt;例&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;项目名&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;全部小写，多个单词用中划线分隔‘-’&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;spring-cloud&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;包名&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;全部小写&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;com.alibaba.fastjson&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;类名&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;单词首字母大写&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;Feature, ParserConfig,DefaultFieldDeserializer&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;变量名&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;首字母小写，多个单词组成时，除首个单词，其他单词首字母都要大写&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;password, userName&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;常量名&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;全部大写，多个单词，用&#39;_&amp;lsquo;分隔&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;CACHE_EXPIRED_TIME&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;方法&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;同变量&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;read(), readObject(), getById()&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h2 id=&#34;包命名&#34;&gt;包命名&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;包名&lt;/strong&gt;统一使用&lt;strong&gt;小写&lt;/strong&gt;，&lt;strong&gt;点分隔符&lt;/strong&gt;之间有且仅有一个自然语义的英文单词或者多个单词自然连接到一块（如 springframework，deepspace不需要使用任何分割）。包名统一使用单数形式，如果类命有复数含义，则可以使用复数形式。&lt;/p&gt;
+&lt;p&gt;包名的构成可以分为以下几四部分【前缀】 【发起者名】【项目名】【模块名】。常见的前缀可以分为以下几种：&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&#34;text-align:center&#34;&gt;前缀名&lt;/th&gt;
+&lt;th style=&#34;text-align:center&#34;&gt;例&lt;/th&gt;
+&lt;th style=&#34;text-align:center&#34;&gt;含义&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;indi（或onem ）&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;indi.发起者名.项目名.模块名.……&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;个体项目，指个人发起，但非自己独自完成的项目，可公开或私有项目，copyright主要属于发起者。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;pers&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;pers.个人名.项目名.模块名.……&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;个人项目，指个人发起，独自完成，可分享的项目，copyright主要属于个人&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;priv&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;priv.个人名.项目名.模块名.……&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;私有项目，指个人发起，独自完成，非公开的私人使用的项目，copyright属于个人。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;team&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;team.团队名.项目名.模块名.……&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;团队项目，指由团队发起，并由该团队开发的项目，copyright属于该团队所有&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;顶级域名&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;com.公司名.项目名.模块名.……&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;公司项目，copyright由项目发起的公司所有&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h2 id=&#34;类命名&#34;&gt;类命名&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;类名使用大驼峰命名形式&lt;/strong&gt;，类命通常时&lt;strong&gt;名词或名词短语&lt;/strong&gt;，接口名除了用名词和名词短语以外，还可以使用形容词或形容词短语，如Cloneable，Callable等，表示实现该接口的类有某种功能或能力。对于测试类则以它要测试的类开头，以Test结尾，如HashMapTest。&lt;/p&gt;
+&lt;p&gt;对于一些特殊特有名词缩写也可以使用全大写命名，比如XMLHttpRequest，不过笔者认为缩写三个字母以内都大写，超过三个字母则按照要给单词算。这个没有标准如阿里巴巴中fastjson用JSONObject作为类命，而google则使用JsonObjectRequest命名，对于这种特殊的缩写，原则是统一就好。&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;属性&lt;/th&gt;
+&lt;th&gt;约束&lt;/th&gt;
+&lt;th&gt;例&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;抽象类&lt;/td&gt;
+&lt;td&gt;Abstract 或者 Base 开头&lt;/td&gt;
+&lt;td&gt;BaseUserService&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;枚举类&lt;/td&gt;
+&lt;td&gt;Enum 作为后缀&lt;/td&gt;
+&lt;td&gt;GenderEnum&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;工具类&lt;/td&gt;
+&lt;td&gt;Utils作为后缀&lt;/td&gt;
+&lt;td&gt;StringUtils&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;异常类&lt;/td&gt;
+&lt;td&gt;Exception结尾&lt;/td&gt;
+&lt;td&gt;RuntimeException&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;接口实现类&lt;/td&gt;
+&lt;td&gt;接口名+ Impl&lt;/td&gt;
+&lt;td&gt;UserServiceImpl&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;领域模型相关&lt;/td&gt;
+&lt;td&gt;/DO/DTO/VO/DAO&lt;/td&gt;
+&lt;td&gt;正例：UserDAO 反例： UserDo， UserDao&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;设计模式相关类&lt;/td&gt;
+&lt;td&gt;Builder，Factory等&lt;/td&gt;
+&lt;td&gt;当使用到设计模式时，需要使用对应的设计模式作为后缀，如ThreadFactory&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;处理特定功能的&lt;/td&gt;
+&lt;td&gt;Handler，Predicate, Validator&lt;/td&gt;
+&lt;td&gt;表示处理器，校验器，断言，这些类工厂还有配套的方法名如handle，predicate，validate&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;测试类&lt;/td&gt;
+&lt;td&gt;Test结尾&lt;/td&gt;
+&lt;td&gt;UserServiceTest， 表示用来测试UserService类的&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;MVC分层&lt;/td&gt;
+&lt;td&gt;Controller，Service，ServiceImpl，DAO后缀&lt;/td&gt;
+&lt;td&gt;UserManageController，UserManageDAO&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h2 id=&#34;方法&#34;&gt;方法&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;方法命名采用小驼峰的形式&lt;/strong&gt;，首字小写，往后的每个单词首字母都要大写。 和类名不同的是，方法命名一般为&lt;strong&gt;动词或动词短语&lt;/strong&gt;，与参数或参数名共同组成动宾短语，即动词 + 名词。一个好的函数名一般能通过名字直接获知该函数实现什么样的功能。&lt;/p&gt;
+&lt;h3 id=&#34;返回真伪值的方法&#34;&gt;返回真伪值的方法&lt;/h3&gt;
+&lt;p&gt;注：Prefix-前缀，Suffix-后缀，Alone-单独使用&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;位置&lt;/th&gt;
+&lt;th&gt;单词&lt;/th&gt;
+&lt;th&gt;意义&lt;/th&gt;
+&lt;th&gt;例&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;Prefix&lt;/td&gt;
+&lt;td&gt;is&lt;/td&gt;
+&lt;td&gt;对象是否符合期待的状态&lt;/td&gt;
+&lt;td&gt;isValid&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Prefix&lt;/td&gt;
+&lt;td&gt;can&lt;/td&gt;
+&lt;td&gt;对象&lt;strong&gt;能否执行&lt;/strong&gt;所期待的动作&lt;/td&gt;
+&lt;td&gt;canRemove&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Prefix&lt;/td&gt;
+&lt;td&gt;should&lt;/td&gt;
+&lt;td&gt;调用方执行某个命令或方法是&lt;strong&gt;好还是不好&lt;/strong&gt;,&lt;strong&gt;应不应该&lt;/strong&gt;，或者说&lt;strong&gt;推荐还是不推荐&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;shouldMigrate&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Prefix&lt;/td&gt;
+&lt;td&gt;has&lt;/td&gt;
+&lt;td&gt;对象&lt;strong&gt;是否持有&lt;/strong&gt;所期待的数据和属性&lt;/td&gt;
+&lt;td&gt;hasObservers&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Prefix&lt;/td&gt;
+&lt;td&gt;needs&lt;/td&gt;
+&lt;td&gt;调用方&lt;strong&gt;是否需要&lt;/strong&gt;执行某个命令或方法&lt;/td&gt;
+&lt;td&gt;needsMigrate&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3 id=&#34;用来检查的方法&#34;&gt;用来检查的方法&lt;/h3&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;单词&lt;/th&gt;
+&lt;th&gt;意义&lt;/th&gt;
+&lt;th&gt;例&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;ensure&lt;/td&gt;
+&lt;td&gt;检查是否为期待的状态，不是则抛出异常或返回error code&lt;/td&gt;
+&lt;td&gt;ensureCapacity&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;validate&lt;/td&gt;
+&lt;td&gt;检查是否为正确的状态，不是则抛出异常或返回error code&lt;/td&gt;
+&lt;td&gt;validateInputs&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3 id=&#34;按需求才执行的方法&#34;&gt;按需求才执行的方法&lt;/h3&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;位置&lt;/th&gt;
+&lt;th&gt;单词&lt;/th&gt;
+&lt;th&gt;意义&lt;/th&gt;
+&lt;th&gt;例&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;Suffix&lt;/td&gt;
+&lt;td&gt;IfNeeded&lt;/td&gt;
+&lt;td&gt;需要的时候执行，不需要的时候什么都不做&lt;/td&gt;
+&lt;td&gt;drawIfNeeded&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Prefix&lt;/td&gt;
+&lt;td&gt;might&lt;/td&gt;
+&lt;td&gt;同上&lt;/td&gt;
+&lt;td&gt;mightCreate&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Prefix&lt;/td&gt;
+&lt;td&gt;try&lt;/td&gt;
+&lt;td&gt;尝试执行，失败时抛出异常或是返回errorcode&lt;/td&gt;
+&lt;td&gt;tryCreate&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Suffix&lt;/td&gt;
+&lt;td&gt;OrDefault&lt;/td&gt;
+&lt;td&gt;尝试执行，失败时返回默认值&lt;/td&gt;
+&lt;td&gt;getOrDefault&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Suffix&lt;/td&gt;
+&lt;td&gt;OrElse&lt;/td&gt;
+&lt;td&gt;尝试执行、失败时返回实际参数中指定的值&lt;/td&gt;
+&lt;td&gt;getOrElse&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Prefix&lt;/td&gt;
+&lt;td&gt;force&lt;/td&gt;
+&lt;td&gt;强制尝试执行。error抛出异常或是返回值&lt;/td&gt;
+&lt;td&gt;forceCreate, forceStop&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3 id=&#34;异步相关方法&#34;&gt;异步相关方法&lt;/h3&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;位置&lt;/th&gt;
+&lt;th&gt;单词&lt;/th&gt;
+&lt;th&gt;意义&lt;/th&gt;
+&lt;th&gt;例&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;Prefix&lt;/td&gt;
+&lt;td&gt;blocking&lt;/td&gt;
+&lt;td&gt;线程阻塞方法&lt;/td&gt;
+&lt;td&gt;blockingGetUser&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Suffix&lt;/td&gt;
+&lt;td&gt;InBackground&lt;/td&gt;
+&lt;td&gt;执行在后台的线程&lt;/td&gt;
+&lt;td&gt;doInBackground&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Suffix&lt;/td&gt;
+&lt;td&gt;Async&lt;/td&gt;
+&lt;td&gt;异步方法&lt;/td&gt;
+&lt;td&gt;sendAsync&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Suffix&lt;/td&gt;
+&lt;td&gt;Sync&lt;/td&gt;
+&lt;td&gt;对应已有异步方法的同步方法&lt;/td&gt;
+&lt;td&gt;sendSync&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Prefix or Alone&lt;/td&gt;
+&lt;td&gt;schedule&lt;/td&gt;
+&lt;td&gt;Job和Task放入队列&lt;/td&gt;
+&lt;td&gt;schedule, scheduleJob&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Prefix or Alone&lt;/td&gt;
+&lt;td&gt;post&lt;/td&gt;
+&lt;td&gt;同上&lt;/td&gt;
+&lt;td&gt;postJob&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Prefix or Alone&lt;/td&gt;
+&lt;td&gt;execute&lt;/td&gt;
+&lt;td&gt;执行异步方法（注：我一般拿这个做同步方法名）&lt;/td&gt;
+&lt;td&gt;execute, executeTask&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Prefix or Alone&lt;/td&gt;
+&lt;td&gt;start&lt;/td&gt;
+&lt;td&gt;同上&lt;/td&gt;
+&lt;td&gt;start, startJob&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Prefix or Alone&lt;/td&gt;
+&lt;td&gt;cancel&lt;/td&gt;
+&lt;td&gt;停止异步方法&lt;/td&gt;
+&lt;td&gt;cancel, cancelJob&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Prefix or Alone&lt;/td&gt;
+&lt;td&gt;stop&lt;/td&gt;
+&lt;td&gt;同上&lt;/td&gt;
+&lt;td&gt;stop, stopJob&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3 id=&#34;回调方法&#34;&gt;回调方法&lt;/h3&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;位置&lt;/th&gt;
+&lt;th&gt;单词&lt;/th&gt;
+&lt;th&gt;意义&lt;/th&gt;
+&lt;th&gt;例&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;Prefix&lt;/td&gt;
+&lt;td&gt;on&lt;/td&gt;
+&lt;td&gt;事件发生时执行&lt;/td&gt;
+&lt;td&gt;onCompleted&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Prefix&lt;/td&gt;
+&lt;td&gt;before&lt;/td&gt;
+&lt;td&gt;事件发生前执行&lt;/td&gt;
+&lt;td&gt;beforeUpdate&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Prefix&lt;/td&gt;
+&lt;td&gt;pre&lt;/td&gt;
+&lt;td&gt;同上&lt;/td&gt;
+&lt;td&gt;preUpdate&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Prefix&lt;/td&gt;
+&lt;td&gt;will&lt;/td&gt;
+&lt;td&gt;同上&lt;/td&gt;
+&lt;td&gt;willUpdate&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Prefix&lt;/td&gt;
+&lt;td&gt;after&lt;/td&gt;
+&lt;td&gt;事件发生后执行&lt;/td&gt;
+&lt;td&gt;afterUpdate&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Prefix&lt;/td&gt;
+&lt;td&gt;post&lt;/td&gt;
+&lt;td&gt;同上&lt;/td&gt;
+&lt;td&gt;postUpdate&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Prefix&lt;/td&gt;
+&lt;td&gt;did&lt;/td&gt;
+&lt;td&gt;同上&lt;/td&gt;
+&lt;td&gt;didUpdate&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Prefix&lt;/td&gt;
+&lt;td&gt;should&lt;/td&gt;
+&lt;td&gt;确认事件是否可以发生时执行&lt;/td&gt;
+&lt;td&gt;shouldUpdate&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3 id=&#34;操作对象生命周期的方法&#34;&gt;操作对象生命周期的方法&lt;/h3&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;单词&lt;/th&gt;
+&lt;th&gt;意义&lt;/th&gt;
+&lt;th&gt;例&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;initialize&lt;/td&gt;
+&lt;td&gt;初始化。也可作为延迟初始化使用&lt;/td&gt;
+&lt;td&gt;initialize&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;pause&lt;/td&gt;
+&lt;td&gt;暂停&lt;/td&gt;
+&lt;td&gt;onPause ，pause&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;stop&lt;/td&gt;
+&lt;td&gt;停止&lt;/td&gt;
+&lt;td&gt;onStop，stop&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;abandon&lt;/td&gt;
+&lt;td&gt;销毁的替代&lt;/td&gt;
+&lt;td&gt;abandon&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;destroy&lt;/td&gt;
+&lt;td&gt;同上&lt;/td&gt;
+&lt;td&gt;destroy&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;dispose&lt;/td&gt;
+&lt;td&gt;同上&lt;/td&gt;
+&lt;td&gt;dispose&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3 id=&#34;与集合操作相关的方法&#34;&gt;与集合操作相关的方法&lt;/h3&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;单词&lt;/th&gt;
+&lt;th&gt;意义&lt;/th&gt;
+&lt;th&gt;例&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;contains&lt;/td&gt;
+&lt;td&gt;是否持有与指定对象相同的对象&lt;/td&gt;
+&lt;td&gt;contains&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;add&lt;/td&gt;
+&lt;td&gt;添加&lt;/td&gt;
+&lt;td&gt;addJob&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;append&lt;/td&gt;
+&lt;td&gt;添加&lt;/td&gt;
+&lt;td&gt;appendJob&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;insert&lt;/td&gt;
+&lt;td&gt;插入到下标n&lt;/td&gt;
+&lt;td&gt;insertJob&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;put&lt;/td&gt;
+&lt;td&gt;添加与key对应的元素&lt;/td&gt;
+&lt;td&gt;putJob&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;remove&lt;/td&gt;
+&lt;td&gt;移除元素&lt;/td&gt;
+&lt;td&gt;removeJob&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;enqueue&lt;/td&gt;
+&lt;td&gt;添加到队列的最末位&lt;/td&gt;
+&lt;td&gt;enqueueJob&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;dequeue&lt;/td&gt;
+&lt;td&gt;从队列中头部取出并移除&lt;/td&gt;
+&lt;td&gt;dequeueJob&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;push&lt;/td&gt;
+&lt;td&gt;添加到栈头&lt;/td&gt;
+&lt;td&gt;pushJob&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;pop&lt;/td&gt;
+&lt;td&gt;从栈头取出并移除&lt;/td&gt;
+&lt;td&gt;popJob&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;peek&lt;/td&gt;
+&lt;td&gt;从栈头取出但不移除&lt;/td&gt;
+&lt;td&gt;peekJob&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;find&lt;/td&gt;
+&lt;td&gt;寻找符合条件的某物&lt;/td&gt;
+&lt;td&gt;findById&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3 id=&#34;与数据相关的方法&#34;&gt;与数据相关的方法&lt;/h3&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;单词&lt;/th&gt;
+&lt;th&gt;意义&lt;/th&gt;
+&lt;th&gt;例&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;create&lt;/td&gt;
+&lt;td&gt;新创建&lt;/td&gt;
+&lt;td&gt;createAccount&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;new&lt;/td&gt;
+&lt;td&gt;新创建&lt;/td&gt;
+&lt;td&gt;newAccount&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;from&lt;/td&gt;
+&lt;td&gt;从既有的某物新建，或是从其他的数据新建&lt;/td&gt;
+&lt;td&gt;fromConfig&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;to&lt;/td&gt;
+&lt;td&gt;转换&lt;/td&gt;
+&lt;td&gt;toString&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;update&lt;/td&gt;
+&lt;td&gt;更新既有某物&lt;/td&gt;
+&lt;td&gt;updateAccount&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;load&lt;/td&gt;
+&lt;td&gt;读取&lt;/td&gt;
+&lt;td&gt;loadAccount&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;fetch&lt;/td&gt;
+&lt;td&gt;远程读取&lt;/td&gt;
+&lt;td&gt;fetchAccount&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;delete&lt;/td&gt;
+&lt;td&gt;删除&lt;/td&gt;
+&lt;td&gt;deleteAccount&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;remove&lt;/td&gt;
+&lt;td&gt;删除&lt;/td&gt;
+&lt;td&gt;removeAccount&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;save&lt;/td&gt;
+&lt;td&gt;保存&lt;/td&gt;
+&lt;td&gt;saveAccount&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;store&lt;/td&gt;
+&lt;td&gt;保存&lt;/td&gt;
+&lt;td&gt;storeAccount&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;commit&lt;/td&gt;
+&lt;td&gt;保存&lt;/td&gt;
+&lt;td&gt;commitChange&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;apply&lt;/td&gt;
+&lt;td&gt;保存或应用&lt;/td&gt;
+&lt;td&gt;applyChange&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;clear&lt;/td&gt;
+&lt;td&gt;清除数据或是恢复到初始状态&lt;/td&gt;
+&lt;td&gt;clearAll&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;reset&lt;/td&gt;
+&lt;td&gt;清除数据或是恢复到初始状态&lt;/td&gt;
+&lt;td&gt;resetAll&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3 id=&#34;成对出现的动词&#34;&gt;成对出现的动词&lt;/h3&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;单词&lt;/th&gt;
+&lt;th&gt;意义&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;get获取&lt;/td&gt;
+&lt;td&gt;set 设置&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;add 增加&lt;/td&gt;
+&lt;td&gt;remove 删除&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;create 创建&lt;/td&gt;
+&lt;td&gt;destory 移除&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;start 启动&lt;/td&gt;
+&lt;td&gt;stop 停止&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;open 打开&lt;/td&gt;
+&lt;td&gt;close 关闭&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;read 读取&lt;/td&gt;
+&lt;td&gt;write 写入&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;load 载入&lt;/td&gt;
+&lt;td&gt;save 保存&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;create 创建&lt;/td&gt;
+&lt;td&gt;destroy 销毁&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;begin 开始&lt;/td&gt;
+&lt;td&gt;end 结束&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;backup 备份&lt;/td&gt;
+&lt;td&gt;restore 恢复&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;import 导入&lt;/td&gt;
+&lt;td&gt;export 导出&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;split 分割&lt;/td&gt;
+&lt;td&gt;merge 合并&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;inject 注入&lt;/td&gt;
+&lt;td&gt;extract 提取&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;attach 附着&lt;/td&gt;
+&lt;td&gt;detach 脱离&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;bind 绑定&lt;/td&gt;
+&lt;td&gt;separate 分离&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;view 查看&lt;/td&gt;
+&lt;td&gt;browse 浏览&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;edit 编辑&lt;/td&gt;
+&lt;td&gt;modify 修改&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;select 选取&lt;/td&gt;
+&lt;td&gt;mark 标记&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;copy 复制&lt;/td&gt;
+&lt;td&gt;paste 粘贴&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;undo 撤销&lt;/td&gt;
+&lt;td&gt;redo 重做&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;insert 插入&lt;/td&gt;
+&lt;td&gt;delete 移除&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;add 加入&lt;/td&gt;
+&lt;td&gt;append 添加&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;clean 清理&lt;/td&gt;
+&lt;td&gt;clear 清除&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;index 索引&lt;/td&gt;
+&lt;td&gt;sort 排序&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;find 查找&lt;/td&gt;
+&lt;td&gt;search 搜索&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;increase 增加&lt;/td&gt;
+&lt;td&gt;decrease 减少&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;play 播放&lt;/td&gt;
+&lt;td&gt;pause 暂停&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;launch 启动&lt;/td&gt;
+&lt;td&gt;run 运行&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;compile 编译&lt;/td&gt;
+&lt;td&gt;execute 执行&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;debug 调试&lt;/td&gt;
+&lt;td&gt;trace 跟踪&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;observe 观察&lt;/td&gt;
+&lt;td&gt;listen 监听&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;build 构建&lt;/td&gt;
+&lt;td&gt;publish 发布&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;input 输入&lt;/td&gt;
+&lt;td&gt;output 输出&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;encode 编码&lt;/td&gt;
+&lt;td&gt;decode 解码&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;encrypt 加密&lt;/td&gt;
+&lt;td&gt;decrypt 解密&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;compress 压缩&lt;/td&gt;
+&lt;td&gt;decompress 解压缩&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;pack 打包&lt;/td&gt;
+&lt;td&gt;unpack 解包&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;parse 解析&lt;/td&gt;
+&lt;td&gt;emit 生成&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;connect 连接&lt;/td&gt;
+&lt;td&gt;disconnect 断开&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;send 发送&lt;/td&gt;
+&lt;td&gt;receive 接收&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;download 下载&lt;/td&gt;
+&lt;td&gt;upload 上传&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;refresh 刷新&lt;/td&gt;
+&lt;td&gt;synchronize 同步&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;update 更新&lt;/td&gt;
+&lt;td&gt;revert 复原&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;lock 锁定&lt;/td&gt;
+&lt;td&gt;unlock 解锁&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;check out 签出&lt;/td&gt;
+&lt;td&gt;check in 签入&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;submit 提交&lt;/td&gt;
+&lt;td&gt;commit 交付&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;push 推&lt;/td&gt;
+&lt;td&gt;pull 拉&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;expand 展开&lt;/td&gt;
+&lt;td&gt;collapse 折叠&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;begin 起始&lt;/td&gt;
+&lt;td&gt;end 结束&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;start 开始&lt;/td&gt;
+&lt;td&gt;finish 完成&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;enter 进入&lt;/td&gt;
+&lt;td&gt;exit 退出&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;abort 放弃&lt;/td&gt;
+&lt;td&gt;quit 离开&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;obsolete 废弃&lt;/td&gt;
+&lt;td&gt;depreciate 废旧&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;collect 收集&lt;/td&gt;
+&lt;td&gt;aggregate 聚集&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h2 id=&#34;变量常量命名&#34;&gt;变量&amp;amp;常量命名&lt;/h2&gt;
+&lt;h3 id=&#34;变量命名&#34;&gt;变量命名&lt;/h3&gt;
+&lt;p&gt;变量是指在程序运行中可以改变其值的量，包括成员变量和局部变量。变量名由多单词组成时，第一个单词的首字母小写，其后单词的首字母大写，俗称骆驼式命名法（也称驼峰命名法），如 computedValues，index、变量命名时，尽量简短且能清楚的表达变量的作用，命名体现具体的业务含义即可。&lt;/p&gt;
+&lt;p&gt;变量名不应以下划线或美元符号开头，尽管这在语法上是允许的。变量名应简短且富于描述。变量名的选用应该易于记忆，即，能够指出其用途。尽量避免单个字符的变量名，除非是一次性的临时变量。pojo中的布尔变量，都不要加is(数据库中的布尔字段全都要加 is_ 前缀)。&lt;/p&gt;
+&lt;h3 id=&#34;常量命名&#34;&gt;常量命名&lt;/h3&gt;
+&lt;p&gt;常量命名CONSTANT_CASE，一般采用全部大写（作为方法参数时除外），单词间用下划线分割。那么什么是常量呢？&lt;/p&gt;
+&lt;p&gt;常量是在作用域内保持不变的值，一般使用final进行修饰。一般分为三种，全局常量（public static final修饰），类内常量（private static final 修饰）以及局部常量（方法内，或者参数中的常量），局部常量比较特殊，通常采用小驼峰命名即可。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;n&#34;&gt;Copy&lt;/span&gt;&lt;span class=&#34;cm&#34;&gt;/**
+&lt;/span&gt;&lt;span class=&#34;cm&#34;&gt; * 一个demo
+&lt;/span&gt;&lt;span class=&#34;cm&#34;&gt; *
+&lt;/span&gt;&lt;span class=&#34;cm&#34;&gt; * @author Jann Lee
+&lt;/span&gt;&lt;span class=&#34;cm&#34;&gt; * @date 2019-12-07 00:25
+&lt;/span&gt;&lt;span class=&#34;cm&#34;&gt; **/&lt;/span&gt;
+&lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;HelloWorld&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+
+    &lt;span class=&#34;cm&#34;&gt;/**
+&lt;/span&gt;&lt;span class=&#34;cm&#34;&gt;     * 局部常量(正例)
+&lt;/span&gt;&lt;span class=&#34;cm&#34;&gt;     */&lt;/span&gt;
+    &lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;static&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;final&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;long&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;USER_MESSAGE_CACHE_EXPIRE_TIME&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;3600&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+    
+      &lt;span class=&#34;cm&#34;&gt;/**
+&lt;/span&gt;&lt;span class=&#34;cm&#34;&gt;     * 局部常量(反例，命名不清晰）
+&lt;/span&gt;&lt;span class=&#34;cm&#34;&gt;     */&lt;/span&gt;
+    &lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;static&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;final&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;long&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;MESSAGE_CACHE_TIME&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;3600&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+    
+    &lt;span class=&#34;cm&#34;&gt;/**
+&lt;/span&gt;&lt;span class=&#34;cm&#34;&gt;     * 全局常量
+&lt;/span&gt;&lt;span class=&#34;cm&#34;&gt;     */&lt;/span&gt;
+    &lt;span class=&#34;kd&#34;&gt;private&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;static&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;final&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;String&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ERROR_MESSAGE&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#34; error message&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+
+    &lt;span class=&#34;cm&#34;&gt;/**
+&lt;/span&gt;&lt;span class=&#34;cm&#34;&gt;     * 成员变量
+&lt;/span&gt;&lt;span class=&#34;cm&#34;&gt;     */&lt;/span&gt;
+    &lt;span class=&#34;kd&#34;&gt;private&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;currentUserId&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+
+    &lt;span class=&#34;cm&#34;&gt;/**
+&lt;/span&gt;&lt;span class=&#34;cm&#34;&gt;     * 控制台打印 {@code message} 信息
+&lt;/span&gt;&lt;span class=&#34;cm&#34;&gt;     * 
+&lt;/span&gt;&lt;span class=&#34;cm&#34;&gt;     * @param message 消息体，局部常量
+&lt;/span&gt;&lt;span class=&#34;cm&#34;&gt;     */&lt;/span&gt;
+    &lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;sayHello&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;final&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;String&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;message&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;){&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;System&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;out&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;println&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;Hello world!&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+    &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+
+&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;常量一般都有自己的业务含义,&lt;strong&gt;不要害怕长度过长而进行省略或者缩写&lt;/strong&gt;。如，用户消息缓存过期时间的表示，那种方式更佳清晰，交给你来评判。&lt;/p&gt;
+&lt;h2 id=&#34;通用命名规则&#34;&gt;通用命名规则&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;尽量不要使用拼音；杜绝拼音和英文混用。对于一些通用的表示或者难以用英文描述的可以采用拼音，一旦采用拼音就坚决不能和英文混用。
+正例： BeiJing， HangZhou
+反例： validateCanShu&lt;/li&gt;
+&lt;li&gt;命名过程中尽量不要出现特殊的字符，常量除外。&lt;/li&gt;
+&lt;li&gt;尽量不要和jdk或者框架中已存在的类重名，也不能使用java中的关键字命名。&lt;/li&gt;
+&lt;li&gt;妙用介词，如for(可以用同音的4代替), to(可用同音的2代替), from, with，of等。
+如类名采用User4RedisDO，方法名getUserInfoFromRedis，convertJson2Map等。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;代码注解&#34;&gt;代码注解&lt;/h2&gt;
+&lt;h3 id=&#34;注解的原则&#34;&gt;注解的原则&lt;/h3&gt;
+&lt;p&gt;好的命名增加代码阅读性，代码的命名往往有严格的限制。而注解不同，程序员往往可以自由发挥，单并不意味着可以为所欲为之胡作非为。优雅的注解通常要满足三要素。&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Nothing is strange
+没有注解的代码对于阅读者非常不友好，哪怕代码写的在清除，阅读者至少从心理上会有抵触，更何况代码中往往有许多复杂的逻辑，所以一定要写注解，不仅要记录代码的逻辑，还有说清楚修改的逻辑。&lt;/li&gt;
+&lt;li&gt;Less is more
+从代码维护角度来讲，代码中的注解一定是精华中的精华。合理清晰的命名能让代码易于理解，对于逻辑简单且命名规范，能够清楚表达代码功能的代码不需要注解。滥用注解会增加额外的负担，更何况大部分都是废话。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;n&#34;&gt;Copy&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;// 根据id获取信息【废话注解】
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;getMessageById&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;id&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ol&gt;
+&lt;li&gt;Advance with the time
+注解应该随着代码的变动而改变，注解表达的信息要与代码中完全一致。通常情况下修改代码后一定要修改注解。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&#34;注解格式&#34;&gt;注解格式&lt;/h3&gt;
+&lt;p&gt;注解大体上可以分为两种，一种是javadoc注解，另一种是简单注解。javadoc注解可以生成JavaAPI为外部用户提供有效的支持javadoc注解通常在使用IDEA，或者Eclipse等开发工具时都可以自动生成，也支持自定义的注解模板，仅需要对对应的字段进行解释。参与同一项目开发的同学，尽量设置成相同的注解模板。&lt;/p&gt;
+&lt;h4 id=&#34;a-包注解&#34;&gt;a. 包注解&lt;/h4&gt;
+&lt;p&gt;包注解在工作中往往比较特殊，通过包注解可以快速知悉当前包下代码是用来实现哪些功能，强烈建议工作中加上，尤其是对于一些比较复杂的包，包注解一般在包的根目录下，名称统一为package-info.java。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;n&#34;&gt;Copy&lt;/span&gt;&lt;span class=&#34;cm&#34;&gt;/**
+&lt;/span&gt;&lt;span class=&#34;cm&#34;&gt; * 落地也质量检测
+&lt;/span&gt;&lt;span class=&#34;cm&#34;&gt; * 1. 用来解决什么问题
+&lt;/span&gt;&lt;span class=&#34;cm&#34;&gt; * 对广告主投放的广告落地页进行性能检测，模拟不同的系统，如Android，IOS等; 模拟不同的网络：2G，3G，4G，wifi等
+&lt;/span&gt;&lt;span class=&#34;cm&#34;&gt; *
+&lt;/span&gt;&lt;span class=&#34;cm&#34;&gt; * 2. 如何实现
+&lt;/span&gt;&lt;span class=&#34;cm&#34;&gt; * 基于chrome浏览器，用chromedriver驱动浏览器，设置对应的网络，OS参数，获取到浏览器返回结果。
+&lt;/span&gt;&lt;span class=&#34;cm&#34;&gt; *
+&lt;/span&gt;&lt;span class=&#34;cm&#34;&gt; * 注意： 网络环境配置信息{@link cn.mycookies.landingpagecheck.meta.NetWorkSpeedEnum}目前使用是常规速度，可以根据实际情况进行调整
+&lt;/span&gt;&lt;span class=&#34;cm&#34;&gt; * 
+&lt;/span&gt;&lt;span class=&#34;cm&#34;&gt; * @author cruder
+&lt;/span&gt;&lt;span class=&#34;cm&#34;&gt; * @time 2019/12/7 20:3 下午
+&lt;/span&gt;&lt;span class=&#34;cm&#34;&gt; */&lt;/span&gt;
+&lt;span class=&#34;kn&#34;&gt;package&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;cn.mycookies.landingpagecheck&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;b-类注解&#34;&gt;b. 类注解&lt;/h4&gt;
+&lt;p&gt;javadoc注解中，每个类都必须有注解。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;n&#34;&gt;Copy&lt;/span&gt;&lt;span class=&#34;cm&#34;&gt;/**
+&lt;/span&gt;&lt;span class=&#34;cm&#34;&gt;* Copyright (C), 2019-2020, Jann  balabala...
+&lt;/span&gt;&lt;span class=&#34;cm&#34;&gt;*
+&lt;/span&gt;&lt;span class=&#34;cm&#34;&gt;* 类的介绍：这是一个用来做什么事情的类，有哪些功能，用到的技术.....
+&lt;/span&gt;&lt;span class=&#34;cm&#34;&gt;*
+&lt;/span&gt;&lt;span class=&#34;cm&#34;&gt;* @author   类创建者姓名 保持对齐
+&lt;/span&gt;&lt;span class=&#34;cm&#34;&gt;* @date     创建日期 保持对齐
+&lt;/span&gt;&lt;span class=&#34;cm&#34;&gt;* @version  版本号 保持对齐
+&lt;/span&gt;&lt;span class=&#34;cm&#34;&gt;*/&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;c-属性注解&#34;&gt;c. 属性注解&lt;/h4&gt;
+&lt;p&gt;在每个属性前面必须加上属性注释，通常有一下两种形式，至于怎么选择，你高兴就好，不过一个项目中要保持统一。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;n&#34;&gt;Copy&lt;/span&gt;&lt;span class=&#34;cm&#34;&gt;/** 提示信息 */&lt;/span&gt;
+&lt;span class=&#34;kd&#34;&gt;private&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;String&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;userName&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+&lt;span class=&#34;cm&#34;&gt;/**
+&lt;/span&gt;&lt;span class=&#34;cm&#34;&gt; * 密码
+&lt;/span&gt;&lt;span class=&#34;cm&#34;&gt; */&lt;/span&gt;
+&lt;span class=&#34;kd&#34;&gt;private&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;String&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;password&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;d-方法注释&#34;&gt;d. 方法注释&lt;/h4&gt;
+&lt;p&gt;在每个方法前面必须加上方法注释，对于方法中的每个参数，以及返回值都要有说明。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;n&#34;&gt;Copy&lt;/span&gt;&lt;span class=&#34;cm&#34;&gt;/**
+&lt;/span&gt;&lt;span class=&#34;cm&#34;&gt;  * 方法的详细说明，能干嘛，怎么实现的，注意事项...
+&lt;/span&gt;&lt;span class=&#34;cm&#34;&gt;  *
+&lt;/span&gt;&lt;span class=&#34;cm&#34;&gt;  * @param xxx 	 参数1的使用说明， 能否为null
+&lt;/span&gt;&lt;span class=&#34;cm&#34;&gt;  * @return 返回结果的说明， 不同情况下会返回怎样的结果
+&lt;/span&gt;&lt;span class=&#34;cm&#34;&gt;  * @throws 异常类型   注明从此类方法中抛出异常的说明
+&lt;/span&gt;&lt;span class=&#34;cm&#34;&gt;  */&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;e-构造方法注释&#34;&gt;e. 构造方法注释&lt;/h4&gt;
+&lt;p&gt;在每个构造方法前面必须加上注释，注释模板如下：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;n&#34;&gt;Copy&lt;/span&gt;&lt;span class=&#34;cm&#34;&gt;/**
+&lt;/span&gt;&lt;span class=&#34;cm&#34;&gt;  * 构造方法的详细说明
+&lt;/span&gt;&lt;span class=&#34;cm&#34;&gt;  *
+&lt;/span&gt;&lt;span class=&#34;cm&#34;&gt;  * @param xxx 	 参数1的使用说明， 能否为null
+&lt;/span&gt;&lt;span class=&#34;cm&#34;&gt;  * @throws 异常类型   注明从此类方法中抛出异常的说明
+&lt;/span&gt;&lt;span class=&#34;cm&#34;&gt;  */&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;而简单注解往往是需要工程师字节定义，在使用注解时应该注意一下几点：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;枚举类的各个属性值都要使用注解，枚举可以理解为是常量，通常不会发生改变，通常会被在多个地方引用，对枚举的修改和添加属性通常会带来很大的影响。&lt;/li&gt;
+&lt;li&gt;保持排版整洁，不要使用行尾注释；双斜杠和星号之后要用1个空格分隔。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;n&#34;&gt;Copyint&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;id&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;// 反例：不要使用行尾注释
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;//反例：换行符与注释之间没有缩进
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;age&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;18&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+&lt;span class=&#34;c1&#34;&gt;// 正例：姓名
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;String&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;name&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+&lt;span class=&#34;cm&#34;&gt;/**
+&lt;/span&gt;&lt;span class=&#34;cm&#34;&gt; * 1. 多行注释
+&lt;/span&gt;&lt;span class=&#34;cm&#34;&gt; * 
+&lt;/span&gt;&lt;span class=&#34;cm&#34;&gt; * 2. 对于不同的逻辑说明，可以用空行分隔
+&lt;/span&gt;&lt;span class=&#34;cm&#34;&gt; */&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;总结&#34;&gt;总结&lt;/h2&gt;
+&lt;p&gt;无论是命名和注解，他们的目的都是为了让代码和工程师进行对话，增强代码的可读性，可维护性。优秀的代码往往能够见名知意，注解往往是对命名的补充和完善。命名太南了！&lt;/p&gt;
+</description>
+        </item>
+        <item>
         <title>springMVC实现restful风格</title>
         <link>https://example.com/p/springmvc%E5%AE%9E%E7%8E%B0restful%E9%A3%8E%E6%A0%BC/</link>
         <pubDate>Thu, 21 Oct 2021 21:51:22 +0800</pubDate>

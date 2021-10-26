@@ -1,0 +1,1494 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='mybatis-generator 官网：https://mybatis.org/generator/
+github储存库：https://github.com/mybatis/generator
+什么是 mybatis-generator  MyBatis Generator (MBG) 是 MyBatis MyBatis的代码生成器。它将为所有版本的 MyBatis 生成代码。它将内省一个数据库表（或多个表）并生成可用于访问表的工件。这减少了设置对象和配置文件以与数据库表交互的初始麻烦。MBG 试图对大量简单的 CRUD（创建、检索、更新、删除）的数据库操作产生重大影响。您仍然需要为连接查询或存储过程编写 SQL 和对象代码。
+ 功能  MBG 生成不同风格和不同语言的代码，这取决于它的配置方式。例如，MBG 可以生成 Java 或 Kotlin 代码。MBG 可以生成与 MyBatis3 兼容的 XML - 尽管现在被认为是 MBG 的遗留用途。生成代码的较新样式不需要 XML。
+根据它的配置方式，MyBatis Generator 可能会生成：
+  与表结构匹配的 Java 或 Kotlin 类。这可能包括：
+ 匹配表主键的类（如果有主键） 匹配表的非主键字段的类（BLOB 字段除外） 一个包含表的 BLOB 字段的类（如果表有 BLOB 字段） 启用动态选择、更新和删除的类  这些类之间有适当的继承关系。请注意，生成器可以配置为生成不同类型的 POJO 层次结构 - 例如，如果您愿意，您可以选择为每个表生成单个域对象。
+  在某些情况下，MBG 会生成 MyBatis3 Compatible SQL Map XML Files。MBG 为配置中的每个表上的简单 CRUD 函数生成 SQL。生成的 SQL 语句包括：'><title>Mybatis Generator使用</title>
+
+<link rel='canonical' href='https://example.com/p/mybatis-generator%E4%BD%BF%E7%94%A8/'>
+
+<link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content='Mybatis Generator使用'>
+<meta property='og:description' content='mybatis-generator 官网：https://mybatis.org/generator/
+github储存库：https://github.com/mybatis/generator
+什么是 mybatis-generator  MyBatis Generator (MBG) 是 MyBatis MyBatis的代码生成器。它将为所有版本的 MyBatis 生成代码。它将内省一个数据库表（或多个表）并生成可用于访问表的工件。这减少了设置对象和配置文件以与数据库表交互的初始麻烦。MBG 试图对大量简单的 CRUD（创建、检索、更新、删除）的数据库操作产生重大影响。您仍然需要为连接查询或存储过程编写 SQL 和对象代码。
+ 功能  MBG 生成不同风格和不同语言的代码，这取决于它的配置方式。例如，MBG 可以生成 Java 或 Kotlin 代码。MBG 可以生成与 MyBatis3 兼容的 XML - 尽管现在被认为是 MBG 的遗留用途。生成代码的较新样式不需要 XML。
+根据它的配置方式，MyBatis Generator 可能会生成：
+  与表结构匹配的 Java 或 Kotlin 类。这可能包括：
+ 匹配表主键的类（如果有主键） 匹配表的非主键字段的类（BLOB 字段除外） 一个包含表的 BLOB 字段的类（如果表有 BLOB 字段） 启用动态选择、更新和删除的类  这些类之间有适当的继承关系。请注意，生成器可以配置为生成不同类型的 POJO 层次结构 - 例如，如果您愿意，您可以选择为每个表生成单个域对象。
+  在某些情况下，MBG 会生成 MyBatis3 Compatible SQL Map XML Files。MBG 为配置中的每个表上的简单 CRUD 函数生成 SQL。生成的 SQL 语句包括：'>
+<meta property='og:url' content='https://example.com/p/mybatis-generator%E4%BD%BF%E7%94%A8/'>
+<meta property='og:site_name' content='ybakiame的个人博客'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='mybatis-generator' /><meta property='article:published_time' content='2021-10-26T19:34:24&#43;08:00'/><meta property='article:modified_time' content='2021-10-26T19:34:24&#43;08:00'/>
+<meta name="twitter:title" content="Mybatis Generator使用">
+<meta name="twitter:description" content="mybatis-generator 官网：https://mybatis.org/generator/
+github储存库：https://github.com/mybatis/generator
+什么是 mybatis-generator  MyBatis Generator (MBG) 是 MyBatis MyBatis的代码生成器。它将为所有版本的 MyBatis 生成代码。它将内省一个数据库表（或多个表）并生成可用于访问表的工件。这减少了设置对象和配置文件以与数据库表交互的初始麻烦。MBG 试图对大量简单的 CRUD（创建、检索、更新、删除）的数据库操作产生重大影响。您仍然需要为连接查询或存储过程编写 SQL 和对象代码。
+ 功能  MBG 生成不同风格和不同语言的代码，这取决于它的配置方式。例如，MBG 可以生成 Java 或 Kotlin 代码。MBG 可以生成与 MyBatis3 兼容的 XML - 尽管现在被认为是 MBG 的遗留用途。生成代码的较新样式不需要 XML。
+根据它的配置方式，MyBatis Generator 可能会生成：
+  与表结构匹配的 Java 或 Kotlin 类。这可能包括：
+ 匹配表主键的类（如果有主键） 匹配表的非主键字段的类（BLOB 字段除外） 一个包含表的 BLOB 字段的类（如果表有 BLOB 字段） 启用动态选择、更新和删除的类  这些类之间有适当的继承关系。请注意，生成器可以配置为生成不同类型的 POJO 层次结构 - 例如，如果您愿意，您可以选择为每个表生成单个域对象。
+  在某些情况下，MBG 会生成 MyBatis3 Compatible SQL Map XML Files。MBG 为配置中的每个表上的简单 CRUD 函数生成 SQL。生成的 SQL 语句包括：">
+    </head>
+    <body class="
+    article-page has-toc
+">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex 
+    
+        extended
+    
+">
+    
+        <div id="article-toolbar">
+            <a href="https://example.com" class="back-home">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="15 6 9 12 15 18" />
+</svg>
+
+
+
+                <span>返回</span>
+            </a>
+        </div>
+    
+<main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/mybatis/" >
+                mybatis
+            </a>
+        
+    </header>
+    
+
+    <h2 class="article-title">
+        <a href="/p/mybatis-generator%E4%BD%BF%E7%94%A8/">Mybatis Generator使用</a>
+    </h2>
+
+    <footer class="article-time">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+        <time class="article-time--published">Oct 26, 2021</time>
+    </footer></div>
+</header>
+
+    <section class="article-content">
+    <h1 id="mybatis-generatorhttpsmybatisorggenerator"><a class="link" href="https://mybatis.org/generator/"  target="_blank" rel="noopener"
+    >mybatis-generator</a></h1>
+<p>官网：<a class="link" href="https://mybatis.org/generator/"  target="_blank" rel="noopener"
+    >https://mybatis.org/generator/</a></p>
+<p>github储存库：<a class="link" href="https://github.com/mybatis/generator"  target="_blank" rel="noopener"
+    >https://github.com/mybatis/generator</a></p>
+<h2 id="什么是-mybatis-generator">什么是 mybatis-generator</h2>
+<blockquote>
+<p>MyBatis Generator (MBG) 是 MyBatis <a class="link" href="http://mybatis.org/"  target="_blank" rel="noopener"
+    >MyBatis</a>的代码生成器。它将为所有版本的 MyBatis 生成代码。它将内省一个数据库表（或多个表）并生成可用于访问表的工件。这减少了设置对象和配置文件以与数据库表交互的初始麻烦。MBG 试图对大量简单的 CRUD（创建、检索、更新、删除）的数据库操作产生重大影响。您仍然需要为连接查询或存储过程编写 SQL 和对象代码。</p>
+</blockquote>
+<h2 id="功能">功能</h2>
+<blockquote>
+<p>MBG 生成不同风格和不同语言的代码，这取决于它的配置方式。例如，MBG 可以生成 Java 或 Kotlin 代码。MBG 可以生成与 MyBatis3 兼容的 XML - 尽管现在被认为是 MBG 的遗留用途。生成代码的较新样式不需要 XML。</p>
+<p>根据它的配置方式，MyBatis Generator 可能会生成：</p>
+<ul>
+<li>
+<p>与表结构匹配的 Java 或 Kotlin 类。这可能包括：</p>
+<ul>
+<li>匹配表主键的类（如果有主键）</li>
+<li>匹配表的非主键字段的类（BLOB 字段除外）</li>
+<li>一个包含表的 BLOB 字段的类（如果表有 BLOB 字段）</li>
+<li>启用动态选择、更新和删除的类</li>
+</ul>
+<p>这些类之间有适当的继承关系。请注意，生成器可以配置为生成不同类型的 POJO 层次结构 - 例如，如果您愿意，您可以选择为每个表生成单个域对象。</p>
+</li>
+<li>
+<p>在某些情况下，MBG 会生成 MyBatis3 Compatible SQL Map XML Files。MBG 为配置中的每个表上的简单 CRUD 函数生成 SQL。生成的 SQL 语句包括：</p>
+<ul>
+<li>插入</li>
+<li>按主键更新</li>
+<li>示例更新（使用动态 where 子句）</li>
+<li>按主键删除</li>
+<li>删除示例（使用动态 where 子句）</li>
+<li>按主键选择</li>
+<li>按示例选择（使用动态 where 子句）</li>
+<li>举例数</li>
+</ul>
+<p>根据表的结构，这些语句有不同的变体（例如，如果表没有主键，则 MBG 不会通过主键函数生成更新）。</p>
+</li>
+<li>
+<p>适当使用上述对象的 Java 或 Kotlin 客户端类、接口和 Kotlin 扩展方法。客户端类的生成是可选的。MBG 将生成一个与 MyBatis 3.x 映射器基础设施配合使用的映射器接口</p>
+</li>
+</ul>
+<p>MyBatis 生成器旨在在迭代开发环境中良好运行，并且可以作为 Ant 任务或 Maven 插件包含在持续构建环境中。迭代运行 MBG 时需要注意的重要事项包括：</p>
+<ol>
+<li>如果存在与新生成的 XML 文件同名的现有文件，MBG 将自动合并 XML 文件。MBG 不会覆盖您对其生成的 XML 文件所做的任何自定义更改。您可以一遍又一遍地运行它，而不必担心丢失对您的 XML 的自定义更改。MBG 将替换之前运行中生成的任何 XML 元素。</li>
+<li>MBG<strong>不会</strong>合并 Java 文件，它可以覆盖现有文件或使用不同的唯一名称保存新生成的文件。如果对生成的 Java 文件进行更改并迭代运行 MBG，则必须手动合并更改。当作为<a class="link" href="http://www.eclipse.org/"  target="_blank" rel="noopener"
+    >Eclipse</a> 插件运行时 ，MBG 可以自动合并 Java 文件。</li>
+<li>MBG<strong>不会</strong>合并 Kotlin 文件，它可以覆盖现有文件或使用不同的唯一名称保存新生成的文件。如果您对生成的 Kotlin 文件进行更改并迭代运行 MBG，则必须手动合并更改。</li>
+</ol>
+<p><strong>依赖关系</strong></p>
+<p>MBG 没有 JRE 之外的依赖项。需要 Java 8 或更高版本。此外，还需要一个实现 DatabaseMetaData 接口的 JDBC 驱动程序，尤其是<code>getColumns</code>和 <code>getPrimaryKeys</code>方法。</p>
+</blockquote>
+<h2 id="mybatis-generator-的使用">mybatis-generator 的使用</h2>
+<h3 id="创建数据库">创建数据库</h3>
+<h3 id="创建-maven-工程">创建 maven 工程</h3>
+<h3 id="在-pomxml-中添加依赖">在 pom.xml 中添加依赖</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="cp">&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;</span>
+<span class="nt">&lt;project</span> <span class="na">xmlns=</span><span class="s">&#34;http://maven.apache.org/POM/4.0.0&#34;</span>
+         <span class="na">xmlns:xsi=</span><span class="s">&#34;http://www.w3.org/2001/XMLSchema-instance&#34;</span>
+         <span class="na">xsi:schemaLocation=</span><span class="s">&#34;http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd&#34;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;modelVersion&gt;</span>4.0.0<span class="nt">&lt;/modelVersion&gt;</span>
+
+    <span class="nt">&lt;groupId&gt;</span>org.example<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>MyBatis<span class="nt">&lt;/artifactId&gt;</span>
+    <span class="nt">&lt;packaging&gt;</span>pom<span class="nt">&lt;/packaging&gt;</span>
+    <span class="nt">&lt;version&gt;</span>1.0-SNAPSHOT<span class="nt">&lt;/version&gt;</span>
+
+    <span class="c">&lt;!--指定maven工程文件编码和要使用的jdk版本--&gt;</span>
+    <span class="nt">&lt;properties&gt;</span>
+        <span class="nt">&lt;project.build.sourceEncoding&gt;</span>UTF-8<span class="nt">&lt;/project.build.sourceEncoding&gt;</span>
+        <span class="nt">&lt;maven.compiler.source&gt;</span>1.8<span class="nt">&lt;/maven.compiler.source&gt;</span>
+        <span class="nt">&lt;maven.compiler.target&gt;</span>1.8<span class="nt">&lt;/maven.compiler.target&gt;</span>
+    <span class="nt">&lt;/properties&gt;</span>
+    
+    <span class="nt">&lt;dependencies&gt;</span>
+        <span class="c">&lt;!--mysql驱动--&gt;</span>
+        <span class="nt">&lt;dependency&gt;</span>
+            <span class="nt">&lt;groupId&gt;</span>mysql<span class="nt">&lt;/groupId&gt;</span>
+            <span class="nt">&lt;artifactId&gt;</span>mysql-connector-java<span class="nt">&lt;/artifactId&gt;</span>
+            <span class="nt">&lt;version&gt;</span>5.1.44<span class="nt">&lt;/version&gt;</span>
+        <span class="nt">&lt;/dependency&gt;</span>
+        <span class="c">&lt;!--mybatis的依赖--&gt;</span>
+        <span class="nt">&lt;dependency&gt;</span>
+            <span class="nt">&lt;groupId&gt;</span>org.mybatis<span class="nt">&lt;/groupId&gt;</span>
+            <span class="nt">&lt;artifactId&gt;</span>mybatis<span class="nt">&lt;/artifactId&gt;</span>
+            <span class="nt">&lt;version&gt;</span>3.5.7<span class="nt">&lt;/version&gt;</span>
+        <span class="nt">&lt;/dependency&gt;</span>
+        <span class="c">&lt;!--mybatis-generator插件--&gt;</span>
+        <span class="nt">&lt;dependency&gt;</span>
+            <span class="nt">&lt;groupId&gt;</span>org.mybatis.generator<span class="nt">&lt;/groupId&gt;</span>
+            <span class="nt">&lt;artifactId&gt;</span>mybatis-generator-maven-plugin<span class="nt">&lt;/artifactId&gt;</span>
+            <span class="nt">&lt;version&gt;</span>1.3.5<span class="nt">&lt;/version&gt;</span>
+        <span class="nt">&lt;/dependency&gt;</span>
+        <span class="c">&lt;!--Lombok插件--&gt;</span>
+        <span class="nt">&lt;dependency&gt;</span>
+            <span class="nt">&lt;groupId&gt;</span>org.projectlombok<span class="nt">&lt;/groupId&gt;</span>
+            <span class="nt">&lt;artifactId&gt;</span>lombok<span class="nt">&lt;/artifactId&gt;</span>
+            <span class="nt">&lt;version&gt;</span>1.18.12<span class="nt">&lt;/version&gt;</span>
+        <span class="nt">&lt;/dependency&gt;</span>
+    <span class="nt">&lt;/dependencies&gt;</span>
+
+    <span class="nt">&lt;build&gt;</span>
+        <span class="c">&lt;!--给出构建过程中用到的插件--&gt;</span>
+        <span class="nt">&lt;plugins&gt;</span>
+            <span class="c">&lt;!-- mybatis-generator自动生成代码插件 --&gt;</span>
+            <span class="nt">&lt;plugin&gt;</span>
+                <span class="nt">&lt;groupId&gt;</span>org.mybatis.generator<span class="nt">&lt;/groupId&gt;</span>
+                <span class="nt">&lt;artifactId&gt;</span>mybatis-generator-maven-plugin<span class="nt">&lt;/artifactId&gt;</span>
+                <span class="nt">&lt;version&gt;</span>1.3.5<span class="nt">&lt;/version&gt;</span>
+                <span class="nt">&lt;configuration&gt;</span>
+                    <span class="c">&lt;!-- 输出详细信息 --&gt;</span>
+                    <span class="nt">&lt;verbose&gt;</span>true<span class="nt">&lt;/verbose&gt;</span>
+                    <span class="c">&lt;!-- 覆盖生成文件 --&gt;</span>
+                    <span class="nt">&lt;overwrite&gt;</span>true<span class="nt">&lt;/overwrite&gt;</span>
+                    <span class="c">&lt;!-- 定义配置文件 --&gt;</span>
+             		<span class="nt">&lt;configurationFile&gt;</span>src/main/resources/generatorConfig.xml<span class="nt">&lt;/configurationFile&gt;</span>
+                <span class="nt">&lt;/configuration&gt;</span>
+            <span class="nt">&lt;/plugin&gt;</span>
+            <span class="c">&lt;!--
+</span><span class="c">			使用 maven-compiler-plugin 插件可以指定项目源码的 jdk 版本，编译后的 jdk 版本，以及编码（可选）
+</span><span class="c">			&lt;plugin&gt;
+</span><span class="c">                &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+</span><span class="c">                &lt;artifactId&gt;maven-compiler-plugin&lt;/artifactId&gt;
+</span><span class="c">                &lt;version&gt;3.8.0&lt;/version&gt;
+</span><span class="c">                &lt;configuration&gt;
+</span><span class="c">                    &lt;source&gt;1.8&lt;/source&gt;
+</span><span class="c">                    &lt;target&gt;1.8&lt;/target&gt;
+</span><span class="c">                &lt;/configuration&gt;
+</span><span class="c">            &lt;/plugin&gt;
+</span><span class="c">			--&gt;</span>
+        <span class="nt">&lt;/plugins&gt;</span>
+    <span class="nt">&lt;/build&gt;</span>
+<span class="nt">&lt;/project&gt;</span>
+</code></pre></div><p>使用 java 代码运行</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span><span class="o">{</span>
+ <span class="c1">// 执行中的异常信息会保存在warnings中 
+</span><span class="c1"></span> <span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">warnings</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;();</span>
+        <span class="c1">// true:生成的文件覆盖之前的
+</span><span class="c1"></span>        <span class="kt">boolean</span> <span class="n">overwrite</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
+        <span class="c1">// 读取配置,构造 Configuration 对象.  
+</span><span class="c1"></span>        <span class="c1">// 如果不想使用配置文件的话,也可以直接来 new Configuration(),然后给相应属性赋值.
+</span><span class="c1"></span>        <span class="n">File</span> <span class="n">configFile</span> <span class="o">=</span> <span class="k">new</span> <span class="n">File</span><span class="o">(</span><span class="s">&#34;generatorConfig.xml&#34;</span><span class="o">);</span>
+        <span class="n">ConfigurationParser</span> <span class="n">cp</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ConfigurationParser</span><span class="o">(</span><span class="n">warnings</span><span class="o">);</span>
+        <span class="n">Configuration</span> <span class="n">config</span> <span class="o">=</span> <span class="n">cp</span><span class="o">.</span><span class="na">parseConfiguration</span><span class="o">(</span><span class="n">configFile</span><span class="o">);</span>
+        <span class="n">DefaultShellCallback</span> <span class="n">callback</span> <span class="o">=</span> <span class="k">new</span> <span class="n">DefaultShellCallback</span><span class="o">(</span><span class="n">overwrite</span><span class="o">);</span>
+        <span class="n">MyBatisGenerator</span> <span class="n">myBatisGenerator</span> <span class="o">=</span> <span class="k">new</span> <span class="n">MyBatisGenerator</span><span class="o">(</span><span class="n">config</span><span class="o">,</span> <span class="n">callback</span><span class="o">,</span> <span class="n">warnings</span><span class="o">);</span>
+        <span class="n">myBatisGenerator</span><span class="o">.</span><span class="na">generate</span><span class="o">(</span><span class="kc">null</span><span class="o">);</span>
+    
+    <span class="k">for</span> <span class="o">(</span><span class="n">String</span> <span class="n">warning</span> <span class="o">:</span> <span class="n">warnings</span><span class="o">){</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">warning</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+</code></pre></div><p>或使用maven插件方式</p>
+<h3 id="创建-generatorconfigxml-配置文件">创建 generatorConfig.xml 配置文件</h3>
+<p>文件位于 <strong>resources</strong> 文件夹下</p>
+<p><strong>简易配置</strong></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="cp">&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;</span>
+<span class="cp">&lt;!DOCTYPE generatorConfiguration
+</span><span class="cp">        PUBLIC &#34;-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN&#34;
+</span><span class="cp">        &#34;http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd&#34;&gt;</span>
+<span class="c">&lt;!-- 配置生成器 --&gt;</span>
+<span class="nt">&lt;generatorConfiguration&gt;</span>
+    <span class="c">&lt;!-- 使用配置文件配置数据库连接 --&gt;</span>
+    <span class="nt">&lt;properties</span> <span class="na">resource=</span><span class="s">&#34;db.properties&#34;</span><span class="nt">/&gt;</span>
+    
+    <span class="nt">&lt;context</span> <span class="na">id=</span><span class="s">&#34;mysql&#34;</span> <span class="na">defaultModelType=</span><span class="s">&#34;flat&#34;</span> <span class="na">targetRuntime=</span><span class="s">&#34;MyBatis3&#34;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&#34;autoDelimitKeywords&#34;</span> <span class="na">value=</span><span class="s">&#34;false&#34;</span><span class="nt">/&gt;</span>
+        <span class="c">&lt;!-- 生成的Java文件的编码 --&gt;</span>
+        <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&#34;javaFileEncoding&#34;</span> <span class="na">value=</span><span class="s">&#34;UTF-8&#34;</span><span class="nt">/&gt;</span>
+        <span class="c">&lt;!-- 格式化java代码 --&gt;</span>
+        <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&#34;javaFormatter&#34;</span> <span class="na">value=</span><span class="s">&#34;org.mybatis.generator.api.dom.DefaultJavaFormatter&#34;</span><span class="nt">/&gt;</span>
+        <span class="c">&lt;!-- 格式化XML代码 --&gt;</span>
+        <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&#34;xmlFormatter&#34;</span> <span class="na">value=</span><span class="s">&#34;org.mybatis.generator.api.dom.DefaultXmlFormatter&#34;</span><span class="nt">/&gt;</span>
+
+        <span class="c">&lt;!-- beginningDelimiter和endingDelimiter：指明数据库的用于标记数据库对象名的符号，比如ORACLE就是双引号，MYSQL默认是`反引号； --&gt;</span>
+        <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&#34;beginningDelimiter&#34;</span> <span class="na">value=</span><span class="s">&#34;`&#34;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&#34;endingDelimiter&#34;</span> <span class="na">value=</span><span class="s">&#34;`&#34;</span><span class="nt">/&gt;</span>
+
+        <span class="c">&lt;!-- 生成 JavaBean 对象继承 Serializable 类 --&gt;</span>
+        <span class="nt">&lt;plugin</span> <span class="na">type=</span><span class="s">&#34;org.mybatis.generator.plugins.SerializablePlugin&#34;</span><span class="nt">/&gt;</span>
+
+        <span class="c">&lt;!--通过type默认为（suppressDate）属性改成自己注解解析器--&gt;</span>
+<span class="c">&lt;!--        &lt;commentGenerator  type=&#34;com.xxgc.mybatis.plugin.commentPlugin&#34;&gt;--&gt;</span>
+<span class="c">&lt;!--            &lt;property name=&#34;suppressDate&#34; value=&#34;true&#34;/&gt;--&gt;</span>
+<span class="c">&lt;!--            是否去除自动生成的注释 true：是 ： false:否 --&gt;</span>
+<span class="c">&lt;!--            &lt;property name=&#34;suppressAllComments&#34; value=&#34;true&#34; /&gt;--&gt;</span>
+<span class="c">&lt;!--            &lt;property name=&#34;addRemarkComments&#34; value=&#34;true&#34; /&gt;--&gt;</span>
+<span class="c">&lt;!--        &lt;/commentGenerator&gt;--&gt;</span>
+
+		<span class="c">&lt;!-- 连接数据库--&gt;</span>
+        <span class="nt">&lt;jdbcConnection</span>
+                <span class="na">driverClass=</span><span class="s">&#34;${driver}&#34;</span>
+                <span class="na">connectionURL=</span><span class="s">&#34;${url}&#34;</span>
+                <span class="na">userId=</span><span class="s">&#34;${username}&#34;</span>
+                <span class="na">password=</span><span class="s">&#34;#{password}&#34;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;/jdbcConnection&gt;</span>
+
+        <span class="c">&lt;!-- java类型处理器--&gt;</span>
+        <span class="nt">&lt;javaTypeResolver</span> <span class="na">type=</span><span class="s">&#34;org.mybatis.generator.internal.types.JavaTypeResolverDefaultImpl&#34;</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&#34;forceBigDecimals&#34;</span> <span class="na">value=</span><span class="s">&#34;false&#34;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;/javaTypeResolver&gt;</span>
+
+        <span class="c">&lt;!-- 实体类 文件生成位置 --&gt;</span>
+        <span class="nt">&lt;javaModelGenerator</span> <span class="na">targetPackage=</span><span class="s">&#34;com.xxgc.mybatis.entity&#34;</span> <span class="na">targetProject=</span><span class="s">&#34;src/main/java&#34;</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&#34;constructorBased&#34;</span> <span class="na">value=</span><span class="s">&#34;false&#34;</span><span class="nt">/&gt;</span>
+            <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&#34;enableSubPackages&#34;</span> <span class="na">value=</span><span class="s">&#34;true&#34;</span><span class="nt">/&gt;</span>
+            <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&#34;trimStrings&#34;</span> <span class="na">value=</span><span class="s">&#34;true&#34;</span><span class="nt">/&gt;</span>
+            <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&#34;immutable&#34;</span> <span class="na">value=</span><span class="s">&#34;false&#34;</span><span class="nt">/&gt;</span>
+            <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&#34;trimStrings&#34;</span> <span class="na">value=</span><span class="s">&#34;true&#34;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;/javaModelGenerator&gt;</span>
+        <span class="c">&lt;!--mapping.xml文件生成位置--&gt;</span>
+        <span class="nt">&lt;sqlMapGenerator</span> <span class="na">targetPackage=</span><span class="s">&#34;com.xxgc.mybatis.mapper&#34;</span> <span class="na">targetProject=</span><span class="s">&#34;src/main/resources&#34;</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&#34;enableSubPackages&#34;</span> <span class="na">value=</span><span class="s">&#34;true&#34;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;/sqlMapGenerator&gt;</span>
+        <span class="c">&lt;!--mapping文件生成位置--&gt;</span>
+        <span class="nt">&lt;javaClientGenerator</span> <span class="na">targetPackage=</span><span class="s">&#34;com.xxgc.mybatis.mapper&#34;</span> <span class="na">type=</span><span class="s">&#34;XMLMAPPER&#34;</span> <span class="na">targetProject=</span><span class="s">&#34;src/main/java&#34;</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&#34;enableSubPackages&#34;</span> <span class="na">value=</span><span class="s">&#34;true&#34;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;/javaClientGenerator&gt;</span>
+		
+        <span class="c">&lt;!-- 要生成的表--&gt;</span>
+        <span class="nt">&lt;table</span> <span class="na">tableName=</span><span class="s">&#34;user&#34;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;table</span> <span class="na">tableName=</span><span class="s">&#34;trade&#34;</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;/context&gt;</span>
+
+<span class="nt">&lt;/generatorConfiguration&gt;</span>
+</code></pre></div><p><strong>配置文件详解</strong></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml">?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;
+<span class="cp">&lt;!DOCTYPE generatorConfiguration
+</span><span class="cp">        PUBLIC &#34;-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN&#34;
+</span><span class="cp">        &#34;http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd&#34;&gt;</span>
+<span class="c">&lt;!-- 配置生成器 --&gt;</span>
+<span class="nt">&lt;generatorConfiguration&gt;</span>
+
+    <span class="c">&lt;!-- 可以用于加载配置项或者配置文件，在整个配置文件中就可以使用${propertyKey}的方式来引用配置项
+</span><span class="c">        resource：配置资源加载地址，使用resource，MBG从classpath开始找，比如com/myproject/generatorConfig.properties
+</span><span class="c">        url：配置资源加载地质，使用URL的方式，比如file:///C:/myfolder/generatorConfig.properties.
+</span><span class="c">        注意，两个属性只能选址一个;
+</span><span class="c">
+</span><span class="c">        另外，如果使用了mybatis-generator-maven-plugins，那么在pom.xml中定义的properties都可以直接在generatorConfig.xml中使用
+</span><span class="c">        &lt;properties resource=&#34;&#34; url=&#34;&#34; /&gt;
+</span><span class="c">         --&gt;</span>
+
+        <span class="c">&lt;!-- 在MBG工作的时候，需要额外加载的依赖包
+</span><span class="c">           location属性指明加载jar/zip包的全路径
+</span><span class="c">       &lt;classPathEntry location=&#34;/Program Files/IBM/SQLLIB/java/db2java.zip&#34; /&gt;
+</span><span class="c">         --&gt;</span>
+
+
+
+    <span class="c">&lt;!--
+</span><span class="c">        context:生成一组对象的环境
+</span><span class="c">        id:必选，上下文id，用于在生成错误时提示
+</span><span class="c">        defaultModelType:指定生成对象的样式
+</span><span class="c">            1，conditional：类似hierarchical；如果某张表只有一个字段，则不会生成改实体
+</span><span class="c">            2，flat：所有内容（主键，blob）等全部生成在一个对象中；常用
+</span><span class="c">            3，hierarchical：主键生成一个XXKey对象(key class)，Blob等单独生成一个对象，其他简单属性在一个对象中(record class)
+</span><span class="c">        targetRuntime:
+</span><span class="c">            1，MyBatis3：默认的值，生成基于MyBatis3.x以上版本的内容，包括XXXBySample；
+</span><span class="c">            2，MyBatis3Simple：类似MyBatis3，只是不生成XXXBySmple；
+</span><span class="c">        introspectedColumnImpl：类全限定名，用于扩展MBG
+</span><span class="c">    --&gt;</span>
+    <span class="nt">&lt;context</span> <span class="na">id=</span><span class="s">&#34;mysql&#34;</span> <span class="na">defaultModelType=</span><span class="s">&#34;flat&#34;</span> <span class="na">targetRuntime=</span><span class="s">&#34;MyBatis3&#34;</span><span class="nt">&gt;</span>
+
+
+        <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&#34;autoDelimitKeywords&#34;</span> <span class="na">value=</span><span class="s">&#34;false&#34;</span><span class="nt">/&gt;</span>
+        <span class="c">&lt;!-- 生成的Java文件的编码 --&gt;</span>
+        <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&#34;javaFileEncoding&#34;</span> <span class="na">value=</span><span class="s">&#34;UTF-8&#34;</span><span class="nt">/&gt;</span>
+        <span class="c">&lt;!-- 格式化java代码 --&gt;</span>
+        <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&#34;javaFormatter&#34;</span> <span class="na">value=</span><span class="s">&#34;org.mybatis.generator.api.dom.DefaultJavaFormatter&#34;</span><span class="nt">/&gt;</span>
+        <span class="c">&lt;!-- 格式化XML代码 --&gt;</span>
+        <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&#34;xmlFormatter&#34;</span> <span class="na">value=</span><span class="s">&#34;org.mybatis.generator.api.dom.DefaultXmlFormatter&#34;</span><span class="nt">/&gt;</span>
+
+        <span class="c">&lt;!-- beginningDelimiter和endingDelimiter：指明数据库的用于标记数据库对象名的符号，比如ORACLE就是双引号，MYSQL默认是`反引号； --&gt;</span>
+        <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&#34;beginningDelimiter&#34;</span> <span class="na">value=</span><span class="s">&#34;`&#34;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&#34;endingDelimiter&#34;</span> <span class="na">value=</span><span class="s">&#34;`&#34;</span><span class="nt">/&gt;</span>
+
+        <span class="c">&lt;!-- 自定义lombok增强 --&gt;</span>
+        <span class="nt">&lt;plugin</span> <span class="na">type=</span><span class="s">&#34;plugins.LombokPlugin&#34;</span> <span class="nt">&gt;</span>
+            <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&#34;hasLombok&#34;</span> <span class="na">value=</span><span class="s">&#34;true&#34;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;/plugin&gt;</span>
+
+
+        <span class="c">&lt;!--通过type属性改成自己注解解析器--&gt;</span>
+        <span class="nt">&lt;commentGenerator</span>  <span class="na">type=</span><span class="s">&#34;plugins.MyCommentGenerator&#34;</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&#34;suppressDate&#34;</span> <span class="na">value=</span><span class="s">&#34;true&#34;</span><span class="nt">/&gt;</span>
+            <span class="c">&lt;!-- 是否去除自动生成的注释 true：是 ： false:否 --&gt;</span>
+            <span class="c">&lt;!--&lt;property name=&#34;suppressAllComments&#34; value=&#34;true&#34; /&gt;--&gt;</span>
+            <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&#34;addRemarkComments&#34;</span> <span class="na">value=</span><span class="s">&#34;true&#34;</span> <span class="nt">/&gt;</span>
+        <span class="nt">&lt;/commentGenerator&gt;</span>
+
+
+
+        <span class="c">&lt;!-- 必须要有的，使用这个配置数据库连接的信息：驱动类、连接地址、用户名、密码
+</span><span class="c">            @TODO:是否可以扩展
+</span><span class="c">         --&gt;</span>
+        <span class="nt">&lt;jdbcConnection</span> <span class="na">driverClass=</span><span class="s">&#34;com.mysql.jdbc.Driver&#34;</span> <span class="na">connectionURL=</span><span class="s">&#34;jdbc:mysql://127.0.0.1:3306/mybatis?useUnicode=true&amp;amp;characterEncoding=UTF-8&#34;</span> <span class="na">userId=</span><span class="s">&#34;root&#34;</span> <span class="na">password=</span><span class="s">&#34;123456&#34;</span><span class="nt">&gt;</span>
+            <span class="c">&lt;!-- 这里面可以设置property属性，每一个property属性都设置到配置的Driver上 --&gt;</span>
+        <span class="nt">&lt;/jdbcConnection&gt;</span>
+
+        <span class="c">&lt;!-- java类型处理器
+</span><span class="c">            用于处理DB中的类型到Java中的类型，默认使用JavaTypeResolverDefaultImpl；
+</span><span class="c">            注意一点，默认会先尝试使用Integer，Long，Short等来对应DECIMAL和 NUMERIC数据类型；
+</span><span class="c">        --&gt;</span>
+        <span class="nt">&lt;javaTypeResolver</span> <span class="na">type=</span><span class="s">&#34;org.mybatis.generator.internal.types.JavaTypeResolverDefaultImpl&#34;</span><span class="nt">&gt;</span>
+            <span class="c">&lt;!--
+</span><span class="c">                true：使用BigDecimal对应DECIMAL和 NUMERIC数据类型
+</span><span class="c">                false：默认,
+</span><span class="c">                    scale&gt;0;length&gt;18：使用BigDecimal;
+</span><span class="c">                    scale=0;length[10,18]：使用Long；
+</span><span class="c">                    scale=0;length[5,9]：使用Integer；
+</span><span class="c">                    scale=0;length&lt;5：使用Short；
+</span><span class="c">             --&gt;</span>
+            <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&#34;forceBigDecimals&#34;</span> <span class="na">value=</span><span class="s">&#34;false&#34;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;/javaTypeResolver&gt;</span>
+
+
+        <span class="c">&lt;!-- java模型创建器，是必须要的元素
+</span><span class="c">            负责：1，key类（见context的defaultModelType）；2，java类；3，查询类
+</span><span class="c">            targetPackage：生成的类要放的包，真实的包受enableSubPackages属性控制；
+</span><span class="c">            targetProject：目标项目，指定一个存在的目录下，生成的内容会放到指定目录中，如果目录不存在，MBG不会自动建目录
+</span><span class="c">         --&gt;</span>
+        <span class="nt">&lt;javaModelGenerator</span> <span class="na">targetPackage=</span><span class="s">&#34;com.xxgc.mybatis.entity&#34;</span> <span class="na">targetProject=</span><span class="s">&#34;src/main/java&#34;</span><span class="nt">&gt;</span>
+            <span class="c">&lt;!--  for MyBatis3/MyBatis3Simple
+</span><span class="c">                自动为每一个生成的类创建一个构造方法，构造方法包含了所有的field；而不是使用setter；
+</span><span class="c">             --&gt;</span>
+            <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&#34;constructorBased&#34;</span> <span class="na">value=</span><span class="s">&#34;false&#34;</span><span class="nt">/&gt;</span>
+
+            <span class="c">&lt;!-- 在targetPackage的基础上，根据数据库的schema再生成一层package，最终生成的类放在这个package下，默认为false --&gt;</span>
+            <span class="c">&lt;!-- enableSubPackages:是否让schema作为包的后缀 --&gt;</span>
+            <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&#34;enableSubPackages&#34;</span> <span class="na">value=</span><span class="s">&#34;true&#34;</span><span class="nt">/&gt;</span>
+            <span class="c">&lt;!-- 从数据库返回的值被清理前后的空格 --&gt;</span>
+            <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&#34;trimStrings&#34;</span> <span class="na">value=</span><span class="s">&#34;true&#34;</span><span class="nt">/&gt;</span>
+            <span class="c">&lt;!-- for MyBatis3 / MyBatis3Simple
+</span><span class="c">                是否创建一个不可变的类，如果为true，
+</span><span class="c">                那么MBG会创建一个没有setter方法的类，取而代之的是类似constructorBased的类
+</span><span class="c">             --&gt;</span>
+            <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&#34;immutable&#34;</span> <span class="na">value=</span><span class="s">&#34;false&#34;</span><span class="nt">/&gt;</span>
+
+            <span class="c">&lt;!-- 设置一个根对象，
+</span><span class="c">                如果设置了这个根对象，那么生成的keyClass或者recordClass会继承这个类；在Table的rootClass属性中可以覆盖该选项
+</span><span class="c">                注意：如果在key class或者record class中有root class相同的属性，MBG就不会重新生成这些属性了，包括：
+</span><span class="c">                    1，属性名相同，类型相同，有相同的getter/setter方法；
+</span><span class="c">             --&gt;</span>
+            <span class="c">&lt;!--&lt;property name=&#34;rootClass&#34; value=&#34;com.intfish.mygenerator.entity.BaseDomain&#34;/&gt;--&gt;</span>
+
+            <span class="c">&lt;!-- 设置是否在getter方法中，对String类型字段调用trim()方法 --&gt;</span>
+            <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&#34;trimStrings&#34;</span> <span class="na">value=</span><span class="s">&#34;true&#34;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;/javaModelGenerator&gt;</span>
+
+
+        <span class="c">&lt;!-- 生成SQL map的XML文件生成器，
+</span><span class="c">            注意，在Mybatis3之后，我们可以使用mapper.xml文件+Mapper接口（或者不用mapper接口），
+</span><span class="c">                或者只使用Mapper接口+Annotation，所以，如果 javaClientGenerator配置中配置了需要生成XML的话，这个元素就必须配置
+</span><span class="c">            targetPackage/targetProject:同javaModelGenerator
+</span><span class="c">         --&gt;</span>
+        <span class="nt">&lt;sqlMapGenerator</span> <span class="na">targetPackage=</span><span class="s">&#34;mapper&#34;</span> <span class="na">targetProject=</span><span class="s">&#34;src/main/resources&#34;</span><span class="nt">&gt;</span>
+            <span class="c">&lt;!-- 在targetPackage的基础上，根据数据库的schema再生成一层package，最终生成的类放在这个package下，默认为false --&gt;</span>
+            <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&#34;enableSubPackages&#34;</span> <span class="na">value=</span><span class="s">&#34;true&#34;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;/sqlMapGenerator&gt;</span>
+
+
+        <span class="c">&lt;!-- 对于mybatis来说，即生成Mapper接口，注意，如果没有配置该元素，那么默认不会生成Mapper接口
+</span><span class="c">            targetPackage/targetProject:同javaModelGenerator
+</span><span class="c">            type：选择怎么生成mapper接口（在MyBatis3/MyBatis3Simple下）：
+</span><span class="c">                1，ANNOTATEDMAPPER：会生成使用Mapper接口+Annotation的方式创建（SQL生成在annotation中），不会生成对应的XML；
+</span><span class="c">                2，MIXEDMAPPER：使用混合配置，会生成Mapper接口，并适当添加合适的Annotation，但是XML会生成在XML中；
+</span><span class="c">                3，XMLMAPPER：会生成Mapper接口，接口完全依赖XML；
+</span><span class="c">            注意，如果context是MyBatis3Simple：只支持ANNOTATEDMAPPER和XMLMAPPER
+</span><span class="c">        --&gt;</span>
+        <span class="nt">&lt;javaClientGenerator</span> <span class="na">targetPackage=</span><span class="s">&#34;com.intfish.mygenerator.dao&#34;</span> <span class="na">type=</span><span class="s">&#34;XMLMAPPER&#34;</span> <span class="na">targetProject=</span><span class="s">&#34;src/main/java&#34;</span><span class="nt">&gt;</span>
+            <span class="c">&lt;!-- 在targetPackage的基础上，根据数据库的schema再生成一层package，最终生成的类放在这个package下，默认为false --&gt;</span>
+            <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&#34;enableSubPackages&#34;</span> <span class="na">value=</span><span class="s">&#34;true&#34;</span><span class="nt">/&gt;</span>
+
+            <span class="c">&lt;!-- 可以为所有生成的接口添加一个父接口，但是MBG只负责生成，不负责检查
+</span><span class="c">            &lt;property name=&#34;rootInterface&#34; value=&#34;&#34;/&gt;
+</span><span class="c">             --&gt;</span>
+        <span class="nt">&lt;/javaClientGenerator&gt;</span>
+
+        <span class="c">&lt;!-- 选择一个table来生成相关文件，可以有一个或多个table，必须要有table元素
+</span><span class="c">            选择的table会生成一下文件：
+</span><span class="c">            1，SQL map文件
+</span><span class="c">            2，生成一个主键类；
+</span><span class="c">            3，除了BLOB和主键的其他字段的类；
+</span><span class="c">            4，包含BLOB的类；
+</span><span class="c">            5，一个用户生成动态查询的条件类（selectByExample, deleteByExample），可选；
+</span><span class="c">            6，Mapper接口（可选）
+</span><span class="c">
+</span><span class="c">            tableName（必要）：要生成对象的表名；
+</span><span class="c">            注意：大小写敏感问题。正常情况下，MBG会自动的去识别数据库标识符的大小写敏感度，在一般情况下，MBG会
+</span><span class="c">                根据设置的schema，catalog或tablename去查询数据表，按照下面的流程：
+</span><span class="c">                1，如果schema，catalog或tablename中有空格，那么设置的是什么格式，就精确的使用指定的大小写格式去查询；
+</span><span class="c">                2，否则，如果数据库的标识符使用大写的，那么MBG自动把表名变成大写再查找；
+</span><span class="c">                3，否则，如果数据库的标识符使用小写的，那么MBG自动把表名变成小写再查找；
+</span><span class="c">                4，否则，使用指定的大小写格式查询；
+</span><span class="c">            另外的，如果在创建表的时候，使用的&#34;&#34;把数据库对象规定大小写，就算数据库标识符是使用的大写，在这种情况下也会使用给定的大小写来创建表名；
+</span><span class="c">            这个时候，请设置delimitIdentifiers=&#34;true&#34;即可保留大小写格式；
+</span><span class="c">
+</span><span class="c">            可选：
+</span><span class="c">            1，schema：数据库的schema；
+</span><span class="c">            2，catalog：数据库的catalog；
+</span><span class="c">            3，alias：为数据表设置的别名，如果设置了alias，那么生成的所有的SELECT SQL语句中，列名会变成：alias_actualColumnName
+</span><span class="c">            4，domainObjectName：生成的domain类的名字，如果不设置，直接使用表名作为domain类的名字；可以设置为somepck.domainName，
+</span><span class="c">    那么会自动把domainName类再放到somepck包里面；
+</span><span class="c">            5，enableInsert（默认true）：指定是否生成insert语句；
+</span><span class="c">            6，enableSelectByPrimaryKey（默认true）：指定是否生成按照主键查询对象的语句（就是getById或get）；
+</span><span class="c">            7，enableSelectByExample（默认true）：MyBatis3Simple为false，指定是否生成动态查询语句；
+</span><span class="c">            8，enableUpdateByPrimaryKey（默认true）：指定是否生成按照主键修改对象的语句（即update)；
+</span><span class="c">            9，enableDeleteByPrimaryKey（默认true）：指定是否生成按照主键删除对象的语句（即delete）；
+</span><span class="c">            10，enableDeleteByExample（默认true）：MyBatis3Simple为false，指定是否生成动态删除语句；
+</span><span class="c">            11，enableCountByExample（默认true）：MyBatis3Simple为false，指定是否生成动态查询总条数语句（用于分页的总条数查询）；
+</span><span class="c">            12，enableUpdateByExample（默认true）：MyBatis3Simple为false，指定是否生成动态修改语句（只修改对象中不为空的属性）；
+</span><span class="c">            13，modelType：参考context元素的defaultModelType，相当于覆盖；
+</span><span class="c">            14，delimitIdentifiers：参考tableName的解释，注意，默认的delimitIdentifiers是双引号，如果类似MYSQL这样的数据库，
+</span><span class="c">    使用的是`（反引号，那么还需要设置context的beginningDelimiter和endingDelimiter属性）
+</span><span class="c">            15，delimitAllColumns：设置是否所有生成的SQL中的列名都使用标识符引起来。默认为false，delimitIdentifiers参考context的属性
+</span><span class="c">
+</span><span class="c">            注意，table里面很多参数都是对javaModelGenerator，context等元素的默认属性的一个复写；
+</span><span class="c">         --&gt;</span>
+        <span class="nt">&lt;table</span> <span class="na">tableName=</span><span class="s">&#34;user&#34;</span> <span class="nt">&gt;</span>
+            <span class="c">&lt;!-- 参考 javaModelGenerator 的 constructorBased属性--&gt;</span>
+            <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&#34;constructorBased&#34;</span> <span class="na">value=</span><span class="s">&#34;false&#34;</span><span class="nt">/&gt;</span>
+            <span class="c">&lt;!-- 默认为false，如果设置为true，在生成的SQL中，table名字不会加上catalog或schema； --&gt;</span>
+            <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&#34;ignoreQualifiersAtRuntime&#34;</span> <span class="na">value=</span><span class="s">&#34;false&#34;</span><span class="nt">/&gt;</span>
+            <span class="c">&lt;!-- 参考 javaModelGenerator 的 immutable 属性 --&gt;</span>
+            <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&#34;immutable&#34;</span> <span class="na">value=</span><span class="s">&#34;false&#34;</span><span class="nt">/&gt;</span>
+            <span class="c">&lt;!-- 指定是否只生成domain类，如果设置为true，只生成domain类，如果还配置了sqlMapGenerator，那么在mapper XML文件中，只生成resultMap元素 --&gt;</span>
+            <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&#34;modelOnly&#34;</span> <span class="na">value=</span><span class="s">&#34;false&#34;</span><span class="nt">/&gt;</span>
+            <span class="c">&lt;!-- 参考 javaModelGenerator 的 rootClass 属性
+</span><span class="c">            &lt;property name=&#34;rootClass&#34; value=&#34;&#34;/&gt;
+</span><span class="c">             --&gt;</span>
+            <span class="c">&lt;!-- 参考javaClientGenerator 的  rootInterface 属性
+</span><span class="c">            &lt;property name=&#34;rootInterface&#34; value=&#34;&#34;/&gt;
+</span><span class="c">            --&gt;</span>
+            <span class="c">&lt;!-- 如果设置了runtimeCatalog，那么在生成的SQL中，使用该指定的catalog，而不是table元素上的catalog
+</span><span class="c">            &lt;property name=&#34;runtimeCatalog&#34; value=&#34;&#34;/&gt;
+</span><span class="c">            --&gt;</span>
+            <span class="c">&lt;!-- 如果设置了runtimeSchema，那么在生成的SQL中，使用该指定的schema，而不是table元素上的schema
+</span><span class="c">            &lt;property name=&#34;runtimeSchema&#34; value=&#34;&#34;/&gt;
+</span><span class="c">            --&gt;</span>
+            <span class="c">&lt;!-- 如果设置了runtimeTableName，那么在生成的SQL中，使用该指定的tablename，而不是table元素上的tablename
+</span><span class="c">            &lt;property name=&#34;runtimeTableName&#34; value=&#34;&#34;/&gt;
+</span><span class="c">            --&gt;</span>
+            <span class="c">&lt;!-- 注意，该属性只针对MyBatis3Simple有用；
+</span><span class="c">                如果选择的runtime是MyBatis3Simple，那么会生成一个SelectAll方法，如果指定了selectAllOrderByClause，那么会在该SQL中添加指定的这个order条件；
+</span><span class="c">             --&gt;</span>
+            <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&#34;selectAllOrderByClause&#34;</span> <span class="na">value=</span><span class="s">&#34;id desc,name asc&#34;</span><span class="nt">/&gt;</span>
+            <span class="c">&lt;!-- 如果设置为true，生成的model类会直接使用column本身的名字，而不会再使用驼峰命名方法，比如BORN_DATE，生成的属性名字就是BORN_DATE,而不会是bornDate --&gt;</span>
+            <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&#34;useActualColumnNames&#34;</span> <span class="na">value=</span><span class="s">&#34;false&#34;</span><span class="nt">/&gt;</span>
+
+            <span class="c">&lt;!-- generatedKey用于生成生成主键的方法，
+</span><span class="c">                如果设置了该元素，MBG会在生成的&lt;insert&gt;元素中生成一条正确的&lt;selectKey&gt;元素，该元素可选
+</span><span class="c">                column:主键的列名；
+</span><span class="c">                sqlStatement：要生成的selectKey语句，有以下可选项：
+</span><span class="c">                    Cloudscape:相当于selectKey的SQL为： VALUES IDENTITY_VAL_LOCAL()
+</span><span class="c">                    DB2       :相当于selectKey的SQL为： VALUES IDENTITY_VAL_LOCAL()
+</span><span class="c">                    DB2_MF    :相当于selectKey的SQL为：SELECT IDENTITY_VAL_LOCAL() FROM SYSIBM.SYSDUMMY1
+</span><span class="c">                    Derby     :相当于selectKey的SQL为：VALUES IDENTITY_VAL_LOCAL()
+</span><span class="c">                    HSQLDB    :相当于selectKey的SQL为：CALL IDENTITY()
+</span><span class="c">                    Informix  :相当于selectKey的SQL为：select dbinfo(&#39;sqlca.sqlerrd1&#39;) from systables where tabid=1
+</span><span class="c">                    MySql     :相当于selectKey的SQL为：SELECT LAST_INSERT_ID()
+</span><span class="c">                    SqlServer :相当于selectKey的SQL为：SELECT SCOPE_IDENTITY()
+</span><span class="c">                    SYBASE    :相当于selectKey的SQL为：SELECT @@IDENTITY
+</span><span class="c">                    JDBC      :相当于在生成的insert元素上添加useGeneratedKeys=&#34;true&#34;和keyProperty属性
+</span><span class="c">            &lt;generatedKey column=&#34;&#34; sqlStatement=&#34;&#34;/&gt;
+</span><span class="c">             --&gt;</span>
+
+            <span class="c">&lt;!--
+</span><span class="c">                该元素会在根据表中列名计算对象属性名之前先重命名列名，非常适合用于表中的列都有公用的前缀字符串的时候，
+</span><span class="c">                比如列名为：CUST_ID,CUST_NAME,CUST_EMAIL,CUST_ADDRESS等；
+</span><span class="c">                那么就可以设置searchString为&#34;^CUST_&#34;，并使用空白替换，那么生成的Customer对象中的属性名称就不是
+</span><span class="c">                custId,custName等，而是先被替换为ID,NAME,EMAIL,然后变成属性：id，name，email；
+</span><span class="c">
+</span><span class="c">                注意，MBG是使用java.util.regex.Matcher.replaceAll来替换searchString和replaceString的，
+</span><span class="c">                如果使用了columnOverride元素，该属性无效；
+</span><span class="c">
+</span><span class="c">            &lt;columnRenamingRule searchString=&#34;&#34; replaceString=&#34;&#34;/&gt;
+</span><span class="c">             --&gt;</span>
+
+
+            <span class="c">&lt;!-- 用来修改表中某个列的属性，MBG会使用修改后的列来生成domain的属性；
+</span><span class="c">               column:要重新设置的列名；
+</span><span class="c">               注意，一个table元素中可以有多个columnOverride元素哈~
+</span><span class="c">             --&gt;</span>
+            <span class="nt">&lt;columnOverride</span> <span class="na">column=</span><span class="s">&#34;name&#34;</span><span class="nt">&gt;</span>
+                <span class="c">&lt;!-- 使用property属性来指定列要生成的属性名称 --&gt;</span>
+                <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&#34;property&#34;</span> <span class="na">value=</span><span class="s">&#34;name&#34;</span><span class="nt">/&gt;</span>
+                <span class="c">&lt;!-- javaType用于指定生成的domain的属性类型，使用类型的全限定名
+</span><span class="c">                &lt;property name=&#34;javaType&#34; value=&#34;&#34;/&gt;
+</span><span class="c">                 --&gt;</span>
+                <span class="c">&lt;!-- jdbcType用于指定该列的JDBC类型
+</span><span class="c">                &lt;property name=&#34;jdbcType&#34; value=&#34;&#34;/&gt;
+</span><span class="c">                 --&gt;</span>
+                <span class="c">&lt;!-- typeHandler 用于指定该列使用到的TypeHandler，如果要指定，配置类型处理器的全限定名
+</span><span class="c">                    注意，mybatis中，不会生成到mybatis-config.xml中的typeHandler
+</span><span class="c">                    只会生成类似：where id = #{id,jdbcType=BIGINT,typeHandler=com._520it.mybatis.MyTypeHandler}的参数描述
+</span><span class="c">                &lt;property name=&#34;jdbcType&#34; value=&#34;&#34;/&gt;
+</span><span class="c">                --&gt;</span>
+                <span class="c">&lt;!-- 参考table元素的delimitAllColumns配置，默认为false
+</span><span class="c">                &lt;property name=&#34;delimitedColumnName&#34; value=&#34;&#34;/&gt;
+</span><span class="c">                 --&gt;</span>
+            <span class="nt">&lt;/columnOverride&gt;</span>
+            <span class="c">&lt;!-- ignoreColumn设置一个MGB忽略的列，如果设置了改列，那么在生成的domain中，生成的SQL中，都不会有该列出现
+</span><span class="c">               column:指定要忽略的列的名字；
+</span><span class="c">               delimitedColumnName：参考table元素的delimitAllColumns配置，默认为false
+</span><span class="c">
+</span><span class="c">               注意，一个table元素中可以有多个ignoreColumn元素
+</span><span class="c">            &lt;ignoreColumn column=&#34;deptId&#34; delimitedColumnName=&#34;&#34;/&gt;
+</span><span class="c">            --&gt;</span>
+        <span class="nt">&lt;/table&gt;</span>
+    <span class="nt">&lt;/context&gt;</span>
+
+<span class="nt">&lt;/generatorConfiguration&gt;</span>
+</code></pre></div><h3 id="插件">插件</h3>
+<p><strong>MBG自带插件</strong></p>
+<blockquote>
+<p><strong>提供的插件</strong></p>
+<p>随着 MyBatis Generator (MBG) 使用量的增长，我们发现通过插件添加功能越来越有用，而不是增加基础代码生成器的复杂性。插件是用于扩展 MBG 的模块化且易于理解的机制。有关编写插件的更多信息，请参阅 <a class="link" href="https://mybatis.org/generator/reference/pluggingIn.html"  target="_blank" rel="noopener"
+    >实现插件</a>。有关配置插件的信息，请参阅<a class="link" href="https://mybatis.org/generator/configreference/plugin.html"  target="_blank" rel="noopener"
+    ></a></p>
+<p>大多数提供的插件都在包 <code>org.mybatis.generator.plugins 中</code>。提供的插件展示了可以使用 MBG 插件完成的不同类型的任务。插件的源代码可通过 MBG 下载获得，也可以在<a class="link" href="https://github.com/mybatis/generator/tree/master/core/mybatis-generator-core/src/main/java/org/mybatis/generator/plugins"  target="_blank" rel="noopener"
+    > 此处</a>在线 <a class="link" href="https://github.com/mybatis/generator/tree/master/core/mybatis-generator-core/src/main/java/org/mybatis/generator/plugins"  target="_blank" rel="noopener"
+    >查看</a>。</p>
+<p><strong>org.mybatis.generator.plugins.CachePlugin</strong></p>
+<p>当使用的目标运行时不生成 XML 时，此插件没有影响。</p>
+<p>这个插件向生成的 SQL 映射添加了一个 <!-- raw HTML omitted --> 元素。此插件仅适用于 MyBatis3 目标运行时。</p>
+<p>此插件接受以下属性。所有都是可选的，如果指定，这些值将直接传递给生成的 <!-- raw HTML omitted --> 元素上的相应属性。</p>
+<ul>
+<li>缓存驱逐</li>
+<li>cache_flushInterval</li>
+<li>缓存只读</li>
+<li>缓存大小</li>
+<li>缓存类型</li>
+</ul>
+<p>通过在 <!-- raw HTML omitted --> 元素上指定属性，可以覆盖任何属性。</p>
+<p><strong>org.mybatis.generator.plugins.CaseInsensitiveLikePlugin</strong></p>
+<p>当使用的目标运行时基于 MyBatis 动态 SQL 时，此插件没有影响。</p>
+<p>该插件向 Example 类（实际上是 Criteria 内部类）添加方法以支持不区分大小写的 LIKE 搜索。这演示了通过插件向示例类添加功能，而不是扩展类。</p>
+<p><strong>org.mybatis.generator.plugins.EqualsHashCodePlugin</strong></p>
+<p>当使用的目标运行时是 MyBatis3Kotlin 时，这个插件没有影响，不需要。</p>
+<p>该插件为 MBG 生成的 Java 模型对象添加了<code>equals</code>和<code>hashCode</code>方法。</p>
+<p>默认情况下，<code>equals</code>和<code>hashCode</code>方法会检查它所知道的由此类生成的唯一字段。</p>
+<p>这个插件接受一个属性：</p>
+<ul>
+<li><code>useEqualsHashCodeFromRoot</code> (optional) 如果你已经指定了根类，你可以使用这个属性来调用super <code>equals</code>和<code>hashCode</code>方法来检查根类的字段。它对于具有继承关系的表很有用。</li>
+</ul>
+<p><strong>org.mybatis.generator.plugins.FluentBuilderMethodsPlugin</strong></p>
+<p>当使用的目标运行时是 MyBatis3Kotlin 时，这个插件没有影响，不需要。</p>
+<p>这个插件向生成的模型类添加了流畅的构建器方法。</p>
+<p>例子：</p>
+<ul>
+<li>给定域类<code>MyDomainClass</code></li>
+<li>使用 setter 方法<code>setFoo(String foo)</code></li>
+<li>使用 setter 方法<code>setBar(Integer bar)</code></li>
+</ul>
+<p>该插件将创建额外的方法：</p>
+<ul>
+<li><code>公共 MyDomainClass withFoo(String foo)</code></li>
+<li><code>public MyDomainClass withBar(Integer bar)</code></li>
+</ul>
+<p>此插件不接受任何属性。</p>
+<p>使用此插件，您可以使用链式方法调用流畅地配置属性值。示例：<code>new MyDomain().withFoo(&quot;Test&quot;).withBar(4711);</code></p>
+<p><strong>org.mybatis.generator.plugins.MapperAnnotationPlugin</strong></p>
+<p>当使用的目标运行时基于 MyBatis 动态 SQL 时，该插件没有影响，不需要。</p>
+<p>此插件将<code>@Mapper</code>注释添加到生成的映射器接口。这个插件应该只在 MyBatis3 环境中使用。</p>
+<p><strong>org.mybatis.generator.plugins.MapperConfigPlugin</strong></p>
+<p>当使用的目标运行时基于 MyBatis 动态 SQL 时，该插件没有影响，不需要。</p>
+<p>此插件生成一个框架 MapperConfig.xml 文件，其中包含对 MBG 生成的 XML 映射器文件的引用。该文件可用于配置 MyBatis 3.x 环境。</p>
+<p>这个插件接受三个属性：</p>
+<ul>
+<li><code>fileName</code>（可选）生成的文件的名称。如果未指定，则默认为“MapperConfig.xml”。</li>
+<li><code>targetPackage</code>（必需）文件应放置的包的名称。指定为“com.mycompany.sql”。</li>
+<li><code>targetProject</code>（必需）应放置文件的项目的名称。</li>
+</ul>
+<p>注意：<code>targetPackage</code>和<code>targetProject</code>遵循与 sqlMapGenerator 配置元素上的<code>targetPackage</code>和<code>targetProject</code>值相同的规则。</p>
+<p><strong>org.mybatis.generator.plugins.RenameExampleClassPlugin</strong></p>
+<p>当使用的目标运行时基于 MyBatis 动态 SQL 时，该插件没有影响，不需要。</p>
+<p>该插件通过重命名由 MBG 生成的示例类来演示<code>初始化</code>方法的用法。</p>
+<p>这个插件接受两个属性：</p>
+<ul>
+<li><code>searchString</code>（必需）用于搜索示例类的默认生成名称的正则表达式。</li>
+<li><code>replaceString</code>（必需）要插入到<code>searchString</code>匹配项上的 <code>字符串</code>。</li>
+</ul>
+<p>例如，为了从xxxExample重命名所生成的示例类xxxCriteria，指定<code>实施例$</code>用于<code>搜索字符串</code> 和<code>标准</code>为<code>replaceString</code></p>
+<p><strong>org.mybatis.generator.plugins.RowBoundsPlugin</strong></p>
+<p>当使用的目标运行时基于 MyBatis 动态 SQL 时，该插件没有影响，不需要。</p>
+<p>这个插件将添加一个新版本的<code>selectByExample</code> 方法，它接受一个<code>RowBounds</code>参数。这支持 MyBatis RowBounds 函数，该函数可以限制返回结果列表的长度，并且可以指定开始位置。这在分页应用程序中很有用。</p>
+<p>该插件仅对 MyBatis3 目标运行时有效。</p>
+<p><strong>org.mybatis.generator.plugins.SerializablePlugin</strong></p>
+<p>当使用的目标运行时是 MyBatis3Kotlin 时，这个插件没有影响，不需要。</p>
+<p>该插件将标记接口<code>java.io.Serializable</code>添加到 MBG 生成的 Java 模型对象中。该插件还将<code>serialVersionUID</code>字段添加 到模型类中。</p>
+<p>重要提示：这是 java.io.Serializable 的简单实现，不会尝试对类进行任何版本控制。</p>
+<p>这个插件接受两个属性：</p>
+<ul>
+<li><code>addGWTInterface</code>（可选）真/假。如果为 true，则插件会将 Google Web Toolkit (GWT) <code>IsSerializable</code>接口添加到模型对象。默认值为假。</li>
+<li><code>抑制JavaInterface</code>（必需）真/假。如果为 true，插件将不会添加<code>java.io.Serializable</code>接口。这是针对 GWT 对象应该可序列化的情况，但不是严格的 Java 意义上的。默认值为假。</li>
+</ul>
+<p><strong>org.mybatis.generator.plugins.ToStringPlugin</strong></p>
+<p>当使用的目标运行时是 MyBatis3Kotlin 时，这个插件没有影响，不需要。</p>
+<p>该插件将<code>toString()</code>方法添加到生成的模型类中。</p>
+<p>这个插件接受一个属性：</p>
+<ul>
+<li><code>useToStringFromRoot</code> (可选) 如果您指定了根类，您可以使用该属性调用超级<code>toString</code>方法打印根类的字段。它对于具有继承关系的表很有用。</li>
+</ul>
+<p><strong>org.mybatis.generator.plugins.UnmergeableXmlMappersPlugin</strong></p>
+<p>当使用的目标运行时基于 MyBatis 动态 SQL 时，该插件没有影响，不需要。</p>
+<p>此插件将禁用生成的映射器 XML 文件的 XML 合并功能。这将导致生成器以与 Java 文件相同的方式尊重 XML 文件的覆盖标志 - 如果覆盖为真，则现有文件将被覆盖，否则将使用唯一名称写入新文件。</p>
+<p>如果您禁用所有评论，此插件会很有帮助。</p>
+<p><strong>org.mybatis.generator.plugins.VirtualPrimaryKeyPlugin</strong></p>
+<p>此插件可用于指定充当主键的列，即使它们未在数据库中定义为主键。这在数据库表没有主定义的情况下很有用。通常，如果没有主键，MBG 将生成非常有限的方法集。该插件可用于生成完整的 MBG 方法。</p>
+<p>要使用该插件，请将属性“virtualKeyColumns”添加到您的 <!-- raw HTML omitted --> 配置中，并将值设置为逗号或空格分隔的列名列表，这些列名应该被视为主键。列名必须与从数据库返回的列名完全匹配（通常全部为大写）。例如：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml">  <span class="nt">&lt;table</span> <span class="na">tableName=</span><span class="s">&#34;foo&#34;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&#34;virtualKeyColumns&#34;</span> <span class="na">value=</span><span class="s">&#34;ID1, ID2&#34;</span> <span class="nt">/&gt;</span>
+  <span class="nt">&lt;/table&gt;</span>
+</code></pre></div></blockquote>
+<p><strong>自定义插件</strong></p>
+<blockquote>
+<h1 id="实现插件">实现插件</h1>
+<p>插件可用于修改或添加由 MyBatis Generator 生成的对象。插件必须实现接口 <code>org.mybatis.generator.api.Plugin</code>。插件接口包含许多在代码生成过程的不同阶段调用的方法。任何特定插件通常不需要实现整个接口。因此，大多数插件应该扩展适配器类<code>org.mybatis.generator.api.PluginAdapter</code>。适配器类提供了基本的插件支持，并为大多数接口方法（类似于 Swing 适配器类）实现了无操作方法。</p>
+<p>MyBatis Generator 提供了几个插件（都在包 <code>org.mybatis.generator.plugins 中</code>）。提供的插件展示了可以使用插件完成的不同类型的任务。插件的源代码可通过下载获得，也可以在<a class="link" href="https://github.com/mybatis/generator/tree/master/core/mybatis-generator-core/src/main/java/org/mybatis/generator/plugins"  target="_blank" rel="noopener"
+    > 此处</a>在线 <a class="link" href="https://github.com/mybatis/generator/tree/master/core/mybatis-generator-core/src/main/java/org/mybatis/generator/plugins"  target="_blank" rel="noopener"
+    >查看</a>。</p>
+<h2 id="插件生命周期">插件生命周期</h2>
+<p>插件有生命周期。插件是在代码生成过程的初始化期间创建的，并在过程的不同阶段按顺序调用。以下列表显示了插件的基本生命周期：</p>
+<ol>
+<li>
+<p>通过默认构造函数创建的插件</p>
+</li>
+<li>
+<p>``调用了<code>setContext</code>方法</p>
+</li>
+<li>
+<p>``调用了<code>setProperties</code>方法</p>
+</li>
+<li>
+<p>``调用的<code>验证</code>方法。如果此方法返回<code>false</code>，则不会调用插件中的其他方法</p>
+</li>
+<li>
+<p>对于配置中的每个表：</p>
+<ol>
+<li>
+<p>``调用的<code>初始化</code>方法</p>
+</li>
+<li>
+<p>Java 客户端方法：</p>
+<p>1,2</p>
+<ol>
+<li><code>clientXXXMethodGenerated(Method, TopLevelClass, IntrospectedTable)</code> - 在生成 Java 客户端实现类的每个方法时调用这些方法。</li>
+<li><code>clientXXXMethodGenerated(Method, Interface, IntrospectedTable)</code> - 在生成 Java 客户端接口的每个方法时调用这些方法。</li>
+<li><code>调用了 clientGenerated(Interface, TopLevelClass, IntrospectedTable)</code>方法</li>
+</ol>
+</li>
+<li>
+<p>模型方法：</p>
+<p>1</p>
+<ol>
+<li><code>modelFieldGenerated</code> , <code>modelGetterMethodGenerated</code> , <code>modelSetterMethodGenerated</code>用于类中的每个字段</li>
+<li><code>modelExampleClassGenerated(TopLevelClass, IntrospectedTable)</code></li>
+<li><code>modelPrimaryKeyClassGenerated(TopLevelClass, IntrospectedTable)</code></li>
+<li><code>modelBaseRecordClassGenerated(TopLevelClass, IntrospectedTable)</code></li>
+<li><code>modelRecordWithBLOBsClassGenerated(TopLevelClass, IntrospectedTable)</code></li>
+</ol>
+</li>
+<li>
+<p>SQL 映射方法：</p>
+<p>1</p>
+<ol>
+<li><code>sqlMapXXXElementGenerated(XmlElement, IntrospectedTable)</code> - 在生成 SQL 映射的每个元素时调用这些方法</li>
+<li><code>sqlMapDocumentGenerated(Document, IntrospectedTable)</code></li>
+<li><code>sqlMapDocument(GeneratedXmlFile, IntrospectedTable)</code></li>
+</ol>
+</li>
+<li>
+<p><code>调用了 contextGenerateAdditionalJavaFiles(IntrospectedTable)</code>方法</p>
+</li>
+<li>
+<p><code>调用了 contextGenerateAdditionalXmlFiles(IntrospectedTable)</code>方法</p>
+</li>
+</ol>
+</li>
+<li>
+<p><code>调用了 contextGenerateAdditionalJavaFiles()</code>方法</p>
+</li>
+<li>
+<p><code>调用了 contextGenerateAdditionalXmlFiles()</code>方法</p>
+</li>
+</ol>
+<p><strong>注意：</strong>
+1 - 这些方法将由打包的代码生成器调用。如果您提供自定义代码生成器，则只有在自定义代码生成器调用这些方法时才会调用它们。
+2 - 只有在配置了 Java 客户端生成器时才会调用 Java 客户端方法。</p>
+<h2 id="编码插件">编码插件</h2>
+<p>实现插件的最佳方法是扩展 <code>org.mybatis.generator.api.PluginAdapter</code>类并仅覆盖插件中您需要的特定方法。</p>
+<p>插件接口中的方法可用于修改默认生成的代码，或添加额外的生成代码。可以用插件完成的事情的例子是：</p>
+<ul>
+<li>向生成的方法添加自定义注释</li>
+<li>向生成的类添加其他方法</li>
+<li>向生成的 XML 文件添加其他元素</li>
+<li>生成额外的 Java 文件</li>
+<li>生成额外的 XML 文件</li>
+</ul>
+<p>该<code>contextXXX</code>方法将总是被调用。其他方法由打包的代码生成器调用 - 并且仅当表的规则会导致特定元素的生成时。例如， 如果表没有主键，则不会调用<code>modelPrimaryKeyClassGenerated(TopLevelClass, IntrospectedTable)</code>方法。</p>
+<p>返回<code>布尔值的</code>方法可用于绕过代码生成。如果这些方法中的任何一个返回<code>false</code>，则不会将相关项添加到生成的代码中。如果配置了多个插件，那么第一个从方法返回 false 的插件将导致 MyBatis Generator 停止在所有其他插件中调用该方法。</p>
+</blockquote>
+<h3 id="实现自定义插件">实现自定义插件</h3>
+<h4 id="自定义lombokplugin插件">自定义lombokPlugin插件</h4>
+<p>生成实体类时添加作者，创建时间，并使用lombok注解简化bean。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">com.xxgc.mybatis.plugin</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">org.mybatis.generator.api.IntrospectedColumn</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.mybatis.generator.api.IntrospectedTable</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.mybatis.generator.api.PluginAdapter</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.mybatis.generator.api.dom.java.FullyQualifiedJavaType</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.mybatis.generator.api.dom.java.Interface</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.mybatis.generator.api.dom.java.Method</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.mybatis.generator.api.dom.java.TopLevelClass</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">java.text.SimpleDateFormat</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.Date</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.List</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">LombokPlugin</span> <span class="kd">extends</span> <span class="n">PluginAdapter</span> <span class="o">{</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">validate</span><span class="o">(</span><span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">list</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">modelBaseRecordClassGenerated</span><span class="o">(</span><span class="n">TopLevelClass</span> <span class="n">topLevelClass</span><span class="o">,</span> <span class="n">IntrospectedTable</span> <span class="n">introspectedTable</span><span class="o">)</span> <span class="o">{</span>
+        <span class="c1">//实体类的import
+</span><span class="c1"></span>        <span class="n">topLevelClass</span><span class="o">.</span><span class="na">addImportedType</span><span class="o">(</span><span class="s">&#34;java.io.Serializable&#34;</span><span class="o">);</span>
+        <span class="n">topLevelClass</span><span class="o">.</span><span class="na">addImportedType</span><span class="o">(</span><span class="s">&#34;lombok.Data&#34;</span><span class="o">);</span>
+        <span class="n">topLevelClass</span><span class="o">.</span><span class="na">addImportedType</span><span class="o">(</span><span class="s">&#34;lombok.Builder&#34;</span><span class="o">);</span>
+        <span class="n">topLevelClass</span><span class="o">.</span><span class="na">addImportedType</span><span class="o">(</span><span class="s">&#34;lombok.NoArgsConstructor&#34;</span><span class="o">);</span>
+        <span class="n">topLevelClass</span><span class="o">.</span><span class="na">addImportedType</span><span class="o">(</span><span class="s">&#34;lombok.AllArgsConstructor&#34;</span><span class="o">);</span>
+
+        <span class="c1">//实体类的注解
+</span><span class="c1"></span>        <span class="n">topLevelClass</span><span class="o">.</span><span class="na">addAnnotation</span><span class="o">(</span><span class="s">&#34;@Data&#34;</span><span class="o">);</span>
+        <span class="n">topLevelClass</span><span class="o">.</span><span class="na">addAnnotation</span><span class="o">(</span><span class="s">&#34;@Builder&#34;</span><span class="o">);</span>
+        <span class="n">topLevelClass</span><span class="o">.</span><span class="na">addAnnotation</span><span class="o">(</span><span class="s">&#34;@NoArgsConstructor&#34;</span><span class="o">);</span>
+        <span class="n">topLevelClass</span><span class="o">.</span><span class="na">addAnnotation</span><span class="o">(</span><span class="s">&#34;@AllArgsConstructor&#34;</span><span class="o">);</span>
+
+        <span class="c1">//实体类的注释(添加作者和文件生成时间)
+</span><span class="c1"></span>        <span class="n">topLevelClass</span><span class="o">.</span><span class="na">addJavaDocLine</span><span class="o">(</span><span class="s">&#34;/**&#34;</span><span class="o">);</span>
+        <span class="n">topLevelClass</span><span class="o">.</span><span class="na">addJavaDocLine</span><span class="o">(</span><span class="s">&#34; * @ybakiame&#34;</span><span class="o">);</span>
+        <span class="n">topLevelClass</span><span class="o">.</span><span class="na">addJavaDocLine</span><span class="o">(</span><span class="s">&#34; * @date &#34;</span> <span class="o">+</span> <span class="k">new</span> <span class="n">SimpleDateFormat</span><span class="o">(</span><span class="s">&#34;yyyy/MM/dd/hh:mm&#34;</span><span class="o">).</span><span class="na">format</span><span class="o">(</span><span class="k">new</span> <span class="n">Date</span><span class="o">()));</span>
+        <span class="n">topLevelClass</span><span class="o">.</span><span class="na">addJavaDocLine</span><span class="o">(</span><span class="s">&#34; */&#34;</span><span class="o">);</span>
+
+        <span class="c1">//接口
+</span><span class="c1"></span>        <span class="n">topLevelClass</span><span class="o">.</span><span class="na">addSuperInterface</span><span class="o">(</span><span class="k">new</span> <span class="n">FullyQualifiedJavaType</span><span class="o">(</span><span class="s">&#34;java.io.Serializable&#34;</span><span class="o">));</span>
+        <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">clientGenerated</span><span class="o">(</span><span class="n">Interface</span> <span class="n">anInterface</span><span class="o">,</span> <span class="n">TopLevelClass</span> <span class="n">topLevelClass</span><span class="o">,</span> <span class="n">IntrospectedTable</span> <span class="n">introspectedTable</span><span class="o">)</span> <span class="o">{</span>
+        <span class="c1">//Mapper文件的注释
+</span><span class="c1"></span>        <span class="n">anInterface</span><span class="o">.</span><span class="na">addJavaDocLine</span><span class="o">(</span><span class="s">&#34;/**&#34;</span><span class="o">);</span>
+        <span class="n">anInterface</span><span class="o">.</span><span class="na">addJavaDocLine</span><span class="o">(</span><span class="s">&#34; * @ybakiame&#34;</span><span class="o">);</span>
+        <span class="n">anInterface</span><span class="o">.</span><span class="na">addJavaDocLine</span><span class="o">(</span><span class="s">&#34; * @date &#34;</span> <span class="o">+</span> <span class="k">new</span> <span class="n">SimpleDateFormat</span><span class="o">(</span><span class="s">&#34;yyyy/MM/dd/hh:mm&#34;</span><span class="o">).</span><span class="na">format</span><span class="o">(</span><span class="k">new</span> <span class="n">Date</span><span class="o">()));</span>
+        <span class="n">anInterface</span><span class="o">.</span><span class="na">addJavaDocLine</span><span class="o">(</span><span class="s">&#34; */&#34;</span><span class="o">);</span>
+        <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">modelSetterMethodGenerated</span><span class="o">(</span><span class="n">Method</span> <span class="n">method</span><span class="o">,</span> <span class="n">TopLevelClass</span> <span class="n">topLevelClass</span><span class="o">,</span> <span class="n">IntrospectedColumn</span> <span class="n">introspectedColumn</span><span class="o">,</span> <span class="n">IntrospectedTable</span> <span class="n">introspectedTable</span><span class="o">,</span> <span class="n">ModelClassType</span> <span class="n">modelClassType</span><span class="o">)</span> <span class="o">{</span>
+        <span class="c1">//不生成getter
+</span><span class="c1"></span>        <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">modelGetterMethodGenerated</span><span class="o">(</span><span class="n">Method</span> <span class="n">method</span><span class="o">,</span> <span class="n">TopLevelClass</span> <span class="n">topLevelClass</span><span class="o">,</span> <span class="n">IntrospectedColumn</span> <span class="n">introspectedColumn</span><span class="o">,</span> <span class="n">IntrospectedTable</span> <span class="n">introspectedTable</span><span class="o">,</span> <span class="n">ModelClassType</span> <span class="n">modelClassType</span><span class="o">)</span> <span class="o">{</span>
+        <span class="c1">//不生成setter
+</span><span class="c1"></span>        <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><h4 id="自定义-commentgenerator-插件">自定义 CommentGenerator 插件</h4>
+<p>将MyBatis Generator生成的英文注释替换为中文注释</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">com.xxgc.mybatis.plugin</span><span class="o">;</span>
+ 
+ 
+<span class="kn">import static</span> <span class="nn">org.mybatis.generator.internal.util.StringUtility.isTrue</span><span class="o">;</span>
+ 
+ 
+<span class="kn">import</span> <span class="nn">java.text.SimpleDateFormat</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.Date</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.Properties</span><span class="o">;</span>
+ 
+<span class="kn">import</span> <span class="nn">org.mybatis.generator.api.CommentGenerator</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.mybatis.generator.api.IntrospectedColumn</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.mybatis.generator.api.IntrospectedTable</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.mybatis.generator.api.dom.java.CompilationUnit</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.mybatis.generator.api.dom.java.Field</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.mybatis.generator.api.dom.java.InnerClass</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.mybatis.generator.api.dom.java.InnerEnum</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.mybatis.generator.api.dom.java.JavaElement</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.mybatis.generator.api.dom.java.Method</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.mybatis.generator.api.dom.java.TopLevelClass</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.mybatis.generator.api.dom.xml.TextElement</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.mybatis.generator.api.dom.xml.XmlElement</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.mybatis.generator.api.dom.java.Parameter</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.mybatis.generator.config.MergeConstants</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.mybatis.generator.config.PropertyRegistry</span><span class="o">;</span>
+ 
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">MyCommentGenerator</span> <span class="kd">implements</span> <span class="n">CommentGenerator</span><span class="o">{</span>
+ 
+    <span class="cm">/**
+</span><span class="cm">      * properties配置文件
+</span><span class="cm">     */</span>
+    <span class="kd">private</span> <span class="n">Properties</span> <span class="n">properties</span><span class="o">;</span>
+    <span class="cm">/**
+</span><span class="cm">      * properties配置文件
+</span><span class="cm">     */</span>
+    <span class="kd">private</span> <span class="n">Properties</span> <span class="n">systemPro</span><span class="o">;</span>
+    
+    <span class="cm">/*
+</span><span class="cm">     * 父类时间
+</span><span class="cm">     */</span>
+    <span class="kd">private</span> <span class="kt">boolean</span> <span class="n">suppressDate</span><span class="o">;</span>
+    
+    <span class="cm">/**
+</span><span class="cm">     * 父类所有注释
+</span><span class="cm">     */</span>
+    <span class="kd">private</span> <span class="kt">boolean</span> <span class="n">suppressAllComments</span><span class="o">;</span>
+    
+    <span class="cm">/**
+</span><span class="cm">     * 当前时间
+</span><span class="cm">     */</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">currentDateStr</span><span class="o">;</span>
+    
+    <span class="kd">public</span> <span class="nf">MyCommentGenerator</span><span class="o">()</span> <span class="o">{</span>
+        <span class="kd">super</span><span class="o">();</span>
+        <span class="n">properties</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Properties</span><span class="o">();</span>
+        <span class="n">systemPro</span> <span class="o">=</span> <span class="n">System</span><span class="o">.</span><span class="na">getProperties</span><span class="o">();</span>
+        <span class="n">suppressDate</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
+        <span class="n">suppressAllComments</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
+        <span class="n">currentDateStr</span> <span class="o">=</span> <span class="o">(</span><span class="k">new</span> <span class="n">SimpleDateFormat</span><span class="o">(</span><span class="s">&#34;yyyy-MM-dd&#34;</span><span class="o">)).</span><span class="na">format</span><span class="o">(</span><span class="k">new</span> <span class="n">Date</span><span class="o">());</span>
+    <span class="o">}</span>
+    
+    <span class="cm">/**
+</span><span class="cm">     * Java类的类注释
+</span><span class="cm">     */</span>
+	<span class="nd">@Override</span>
+	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">addClassComment</span><span class="o">(</span><span class="n">InnerClass</span> <span class="n">innerClass</span><span class="o">,</span> <span class="n">IntrospectedTable</span> <span class="n">introspectedTable</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">suppressAllComments</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">return</span><span class="o">;</span>
+        <span class="o">}</span>
+ 
+        <span class="n">StringBuilder</span> <span class="n">sb</span> <span class="o">=</span> <span class="k">new</span> <span class="n">StringBuilder</span><span class="o">();</span>
+        <span class="n">innerClass</span><span class="o">.</span><span class="na">addJavaDocLine</span><span class="o">(</span><span class="s">&#34;/**&#34;</span><span class="o">);</span>
+        <span class="n">sb</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="s">&#34; * &#34;</span><span class="o">);</span>
+        <span class="n">sb</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="n">introspectedTable</span><span class="o">.</span><span class="na">getFullyQualifiedTable</span><span class="o">());</span>
+        <span class="n">sb</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="s">&#34; &#34;</span><span class="o">);</span>
+        <span class="n">sb</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="n">getDateString</span><span class="o">());</span>
+        <span class="n">innerClass</span><span class="o">.</span><span class="na">addJavaDocLine</span><span class="o">(</span><span class="n">sb</span><span class="o">.</span><span class="na">toString</span><span class="o">().</span><span class="na">replace</span><span class="o">(</span><span class="s">&#34;\n&#34;</span><span class="o">,</span> <span class="s">&#34; &#34;</span><span class="o">));</span>
+        <span class="n">innerClass</span><span class="o">.</span><span class="na">addJavaDocLine</span><span class="o">(</span><span class="s">&#34; */&#34;</span><span class="o">);</span>
+	<span class="o">}</span>
+ 
+	<span class="cm">/**
+</span><span class="cm">	 * 为类添加注释
+</span><span class="cm">	 */</span>
+	<span class="nd">@Override</span>
+	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">addClassComment</span><span class="o">(</span><span class="n">InnerClass</span> <span class="n">innerClass</span><span class="o">,</span> <span class="n">IntrospectedTable</span> <span class="n">introspectedTable</span><span class="o">,</span> <span class="kt">boolean</span> <span class="n">markAsDoNotDelete</span><span class="o">)</span> <span class="o">{</span>
+		<span class="k">if</span> <span class="o">(</span><span class="n">suppressAllComments</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">return</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="n">StringBuilder</span> <span class="n">sb</span> <span class="o">=</span> <span class="k">new</span> <span class="n">StringBuilder</span><span class="o">();</span>
+        <span class="n">innerClass</span><span class="o">.</span><span class="na">addJavaDocLine</span><span class="o">(</span><span class="s">&#34;/**&#34;</span><span class="o">);</span>
+        <span class="n">sb</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="s">&#34; * &#34;</span><span class="o">);</span>
+        <span class="n">sb</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="s">&#34; * &#34;</span><span class="o">);</span>
+        <span class="n">sb</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="n">introspectedTable</span><span class="o">.</span><span class="na">getFullyQualifiedTable</span><span class="o">());</span>
+        <span class="n">innerClass</span><span class="o">.</span><span class="na">addJavaDocLine</span><span class="o">(</span><span class="n">sb</span><span class="o">.</span><span class="na">toString</span><span class="o">().</span><span class="na">replace</span><span class="o">(</span><span class="s">&#34;\n&#34;</span><span class="o">,</span> <span class="s">&#34; &#34;</span><span class="o">));</span>
+        <span class="n">sb</span><span class="o">.</span><span class="na">setLength</span><span class="o">(</span><span class="n">0</span><span class="o">);</span>
+        <span class="n">sb</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="s">&#34; * @author &#34;</span><span class="o">);</span>
+        <span class="n">sb</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="n">systemPro</span><span class="o">.</span><span class="na">getProperty</span><span class="o">(</span><span class="s">&#34;user.name&#34;</span><span class="o">));</span>
+        <span class="n">sb</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="s">&#34; &#34;</span><span class="o">);</span>
+        <span class="n">sb</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="n">currentDateStr</span><span class="o">);</span>
+        <span class="n">innerClass</span><span class="o">.</span><span class="na">addJavaDocLine</span><span class="o">(</span><span class="s">&#34; */&#34;</span><span class="o">);</span>
+	<span class="o">}</span>
+ 
+	
+	<span class="cm">/**
+</span><span class="cm">	 * Mybatis的Mapper.xml文件里面的注释
+</span><span class="cm">	 */</span>
+	<span class="nd">@Override</span>
+	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">addComment</span><span class="o">(</span><span class="n">XmlElement</span> <span class="n">xmlElement</span><span class="o">)</span> <span class="o">{</span>
+		
+	<span class="o">}</span>
+ 
+	<span class="cm">/**
+</span><span class="cm">	 * 
+</span><span class="cm">	 *@Title addConfigurationProperties 
+</span><span class="cm">	 *@Description: 从该配置中的任何属性添加此实例的属性CommentGenerator配置。
+</span><span class="cm">	 *              这个方法将在任何其他方法之前被调用。
+</span><span class="cm">	 *@Author fendo
+</span><span class="cm">	 *@Date 2017年10月5日 下午3:45:58
+</span><span class="cm">	 *@return
+</span><span class="cm">	 *@throws
+</span><span class="cm">	 */</span>
+	<span class="nd">@Override</span>
+	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">addConfigurationProperties</span><span class="o">(</span><span class="n">Properties</span> <span class="n">properties</span><span class="o">)</span> <span class="o">{</span>
+		<span class="k">this</span><span class="o">.</span><span class="na">properties</span><span class="o">.</span><span class="na">putAll</span><span class="o">(</span><span class="n">properties</span><span class="o">);</span>
+        <span class="n">suppressDate</span> <span class="o">=</span> <span class="n">isTrue</span><span class="o">(</span><span class="n">properties</span><span class="o">.</span><span class="na">getProperty</span><span class="o">(</span><span class="n">PropertyRegistry</span><span class="o">.</span><span class="na">COMMENT_GENERATOR_SUPPRESS_DATE</span><span class="o">));</span>
+        <span class="n">suppressAllComments</span> <span class="o">=</span> <span class="n">isTrue</span><span class="o">(</span><span class="n">properties</span><span class="o">.</span><span class="na">getProperty</span><span class="o">(</span><span class="n">PropertyRegistry</span><span class="o">.</span><span class="na">COMMENT_GENERATOR_SUPPRESS_ALL_COMMENTS</span><span class="o">));</span>
+	<span class="o">}</span>
+ 
+	<span class="cm">/**
+</span><span class="cm">	 * 
+</span><span class="cm">	 *@Title getDateString 
+</span><span class="cm">	 *@Description: 此方法返回格式化的日期字符串以包含在Javadoc标记中和XML注释。 如果您不想要日期，则可以返回null在这些文档元素中。
+</span><span class="cm">	 *@Author fendo
+</span><span class="cm">	 *@Date 2017年10月5日 下午3:45:58
+</span><span class="cm">	 *@return
+</span><span class="cm">	 *@throws
+</span><span class="cm">	 */</span>
+    <span class="kd">protected</span> <span class="n">String</span> <span class="nf">getDateString</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">String</span> <span class="n">result</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+        <span class="k">if</span> <span class="o">(!</span><span class="n">suppressDate</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="n">currentDateStr</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="n">result</span><span class="o">;</span>
+    <span class="o">}</span>
+    
+    <span class="cm">/**
+</span><span class="cm">     * 
+</span><span class="cm">     *@Title addJavadocTag 
+</span><span class="cm">     *@Description: 此方法为其添加了自定义javadoc标签。
+</span><span class="cm">     *@Author fendo
+</span><span class="cm">     *@Date 2017年10月5日 下午3:49:05
+</span><span class="cm">     *@param javaElement
+</span><span class="cm">     *@param markAsDoNotDelete
+</span><span class="cm">     *@throws
+</span><span class="cm">     */</span>
+	<span class="kd">protected</span> <span class="kt">void</span> <span class="nf">addJavadocTag</span><span class="o">(</span><span class="n">JavaElement</span> <span class="n">javaElement</span><span class="o">,</span> <span class="kt">boolean</span> <span class="n">markAsDoNotDelete</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">javaElement</span><span class="o">.</span><span class="na">addJavaDocLine</span><span class="o">(</span><span class="s">&#34; *&#34;</span><span class="o">);</span>
+        <span class="n">StringBuilder</span> <span class="n">sb</span> <span class="o">=</span> <span class="k">new</span> <span class="n">StringBuilder</span><span class="o">();</span>
+        <span class="n">sb</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="s">&#34; * &#34;</span><span class="o">);</span>
+        <span class="n">sb</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="n">MergeConstants</span><span class="o">.</span><span class="na">NEW_ELEMENT_TAG</span><span class="o">);</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">markAsDoNotDelete</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">sb</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="s">&#34; do_not_delete_during_merge&#34;</span><span class="o">);</span>
+        <span class="o">}</span>
+        <span class="n">String</span> <span class="n">s</span> <span class="o">=</span> <span class="n">getDateString</span><span class="o">();</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">s</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">sb</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="sc">&#39; &#39;</span><span class="o">);</span>
+            <span class="n">sb</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="n">s</span><span class="o">);</span>
+        <span class="o">}</span>
+        <span class="n">javaElement</span><span class="o">.</span><span class="na">addJavaDocLine</span><span class="o">(</span><span class="n">sb</span><span class="o">.</span><span class="na">toString</span><span class="o">());</span>
+    <span class="o">}</span>
+	
+	
+	<span class="cm">/**
+</span><span class="cm">	 * 为枚举添加注释
+</span><span class="cm">	 */</span>
+	<span class="nd">@Override</span>
+	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">addEnumComment</span><span class="o">(</span><span class="n">InnerEnum</span> <span class="n">innerEnum</span><span class="o">,</span> <span class="n">IntrospectedTable</span> <span class="n">introspectedTable</span><span class="o">)</span> <span class="o">{</span>
+		<span class="k">if</span> <span class="o">(</span><span class="n">suppressAllComments</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">return</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="n">StringBuilder</span> <span class="n">sb</span> <span class="o">=</span> <span class="k">new</span> <span class="n">StringBuilder</span><span class="o">();</span>
+        <span class="n">innerEnum</span><span class="o">.</span><span class="na">addJavaDocLine</span><span class="o">(</span><span class="s">&#34;/**&#34;</span><span class="o">);</span>
+        <span class="n">sb</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="s">&#34; * &#34;</span><span class="o">);</span>
+        <span class="n">sb</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="n">introspectedTable</span><span class="o">.</span><span class="na">getFullyQualifiedTable</span><span class="o">());</span>
+        <span class="n">innerEnum</span><span class="o">.</span><span class="na">addJavaDocLine</span><span class="o">(</span><span class="n">sb</span><span class="o">.</span><span class="na">toString</span><span class="o">().</span><span class="na">replace</span><span class="o">(</span><span class="s">&#34;\n&#34;</span><span class="o">,</span> <span class="s">&#34; &#34;</span><span class="o">));</span>
+        <span class="n">innerEnum</span><span class="o">.</span><span class="na">addJavaDocLine</span><span class="o">(</span><span class="s">&#34; */&#34;</span><span class="o">);</span>
+	<span class="o">}</span>
+ 
+	<span class="cm">/**
+</span><span class="cm">	 * Java属性注释
+</span><span class="cm">	 */</span>
+	<span class="nd">@Override</span>
+	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">addFieldComment</span><span class="o">(</span><span class="n">Field</span> <span class="n">field</span><span class="o">,</span> <span class="n">IntrospectedTable</span> <span class="n">introspectedTable</span><span class="o">)</span> <span class="o">{</span>
+		<span class="k">if</span> <span class="o">(</span><span class="n">suppressAllComments</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">return</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="n">StringBuilder</span> <span class="n">sb</span> <span class="o">=</span> <span class="k">new</span> <span class="n">StringBuilder</span><span class="o">();</span>
+        <span class="n">field</span><span class="o">.</span><span class="na">addJavaDocLine</span><span class="o">(</span><span class="s">&#34;/**&#34;</span><span class="o">);</span>
+        <span class="n">sb</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="s">&#34; * &#34;</span><span class="o">);</span>
+        <span class="n">sb</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="n">introspectedTable</span><span class="o">.</span><span class="na">getFullyQualifiedTable</span><span class="o">());</span>
+        <span class="n">field</span><span class="o">.</span><span class="na">addJavaDocLine</span><span class="o">(</span><span class="n">sb</span><span class="o">.</span><span class="na">toString</span><span class="o">().</span><span class="na">replace</span><span class="o">(</span><span class="s">&#34;\n&#34;</span><span class="o">,</span> <span class="s">&#34; &#34;</span><span class="o">));</span>
+        <span class="n">field</span><span class="o">.</span><span class="na">addJavaDocLine</span><span class="o">(</span><span class="s">&#34; */&#34;</span><span class="o">);</span>
+        
+        
+        
+	<span class="o">}</span>
+ 
+	<span class="cm">/**
+</span><span class="cm">	 * 为字段添加注释
+</span><span class="cm">	 */</span>
+	<span class="nd">@Override</span>
+	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">addFieldComment</span><span class="o">(</span><span class="n">Field</span> <span class="n">field</span><span class="o">,</span> <span class="n">IntrospectedTable</span> <span class="n">introspectedTable</span><span class="o">,</span><span class="n">IntrospectedColumn</span> <span class="n">introspectedColumn</span><span class="o">)</span> <span class="o">{</span>
+		<span class="k">if</span> <span class="o">(</span><span class="n">suppressAllComments</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">return</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="n">StringBuilder</span> <span class="n">sb</span> <span class="o">=</span> <span class="k">new</span> <span class="n">StringBuilder</span><span class="o">();</span>
+        <span class="n">field</span><span class="o">.</span><span class="na">addJavaDocLine</span><span class="o">(</span><span class="s">&#34;/**&#34;</span><span class="o">);</span>
+        <span class="n">sb</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="s">&#34; * &#34;</span><span class="o">);</span>
+        <span class="n">sb</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="n">introspectedColumn</span><span class="o">.</span><span class="na">getRemarks</span><span class="o">());</span>
+        <span class="n">field</span><span class="o">.</span><span class="na">addJavaDocLine</span><span class="o">(</span><span class="n">sb</span><span class="o">.</span><span class="na">toString</span><span class="o">().</span><span class="na">replace</span><span class="o">(</span><span class="s">&#34;\n&#34;</span><span class="o">,</span> <span class="s">&#34; &#34;</span><span class="o">));</span>
+        <span class="n">field</span><span class="o">.</span><span class="na">addJavaDocLine</span><span class="o">(</span><span class="s">&#34; */&#34;</span><span class="o">);</span>
+	<span class="o">}</span>
+ 
+	<span class="cm">/**
+</span><span class="cm">	 * 普通方法的注释，这里主要是XXXMapper.java里面的接口方法的注释
+</span><span class="cm">	 */</span>
+	<span class="nd">@Override</span>
+	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">addGeneralMethodComment</span><span class="o">(</span><span class="n">Method</span> <span class="n">method</span><span class="o">,</span> <span class="n">IntrospectedTable</span> <span class="n">introspectedTable</span><span class="o">)</span> <span class="o">{</span>
+	  <span class="k">if</span> <span class="o">(</span><span class="n">suppressAllComments</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span><span class="o">;</span>
+      <span class="o">}</span>
+      <span class="n">method</span><span class="o">.</span><span class="na">addJavaDocLine</span><span class="o">(</span><span class="s">&#34;/**&#34;</span><span class="o">);</span>
+      <span class="n">addJavadocTag</span><span class="o">(</span><span class="n">method</span><span class="o">,</span> <span class="kc">false</span><span class="o">);</span>
+      <span class="n">method</span><span class="o">.</span><span class="na">addJavaDocLine</span><span class="o">(</span><span class="s">&#34; */&#34;</span><span class="o">);</span>
+	<span class="o">}</span>
+ 
+	
+	<span class="cm">/**
+</span><span class="cm">	 * 给getter方法加注释
+</span><span class="cm">	 */</span>
+	<span class="nd">@Override</span>
+	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">addGetterComment</span><span class="o">(</span><span class="n">Method</span> <span class="n">method</span><span class="o">,</span> <span class="n">IntrospectedTable</span> <span class="n">introspectedTable</span><span class="o">,</span><span class="n">IntrospectedColumn</span> <span class="n">introspectedColumn</span><span class="o">)</span> <span class="o">{</span>
+	    <span class="k">if</span> <span class="o">(</span><span class="n">suppressAllComments</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">return</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="n">method</span><span class="o">.</span><span class="na">addJavaDocLine</span><span class="o">(</span><span class="s">&#34;/**&#34;</span><span class="o">);</span>
+        <span class="n">StringBuilder</span> <span class="n">sb</span> <span class="o">=</span> <span class="k">new</span> <span class="n">StringBuilder</span><span class="o">();</span>
+        <span class="n">sb</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="s">&#34; * &#34;</span><span class="o">);</span>
+        <span class="n">sb</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="n">introspectedColumn</span><span class="o">.</span><span class="na">getRemarks</span><span class="o">());</span>
+        <span class="n">method</span><span class="o">.</span><span class="na">addJavaDocLine</span><span class="o">(</span><span class="n">sb</span><span class="o">.</span><span class="na">toString</span><span class="o">().</span><span class="na">replace</span><span class="o">(</span><span class="s">&#34;\n&#34;</span><span class="o">,</span> <span class="s">&#34; &#34;</span><span class="o">));</span>
+        <span class="n">sb</span><span class="o">.</span><span class="na">setLength</span><span class="o">(</span><span class="n">0</span><span class="o">);</span>
+        <span class="n">sb</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="s">&#34; * @return &#34;</span><span class="o">);</span>
+        <span class="n">sb</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="n">introspectedColumn</span><span class="o">.</span><span class="na">getActualColumnName</span><span class="o">());</span>
+        <span class="n">sb</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="s">&#34; &#34;</span><span class="o">);</span>
+        <span class="n">sb</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="n">introspectedColumn</span><span class="o">.</span><span class="na">getRemarks</span><span class="o">());</span>
+        <span class="n">method</span><span class="o">.</span><span class="na">addJavaDocLine</span><span class="o">(</span><span class="n">sb</span><span class="o">.</span><span class="na">toString</span><span class="o">().</span><span class="na">replace</span><span class="o">(</span><span class="s">&#34;\n&#34;</span><span class="o">,</span> <span class="s">&#34; &#34;</span><span class="o">));</span>
+        <span class="n">method</span><span class="o">.</span><span class="na">addJavaDocLine</span><span class="o">(</span><span class="s">&#34; */&#34;</span><span class="o">);</span>
+	<span class="o">}</span>
+ 
+	<span class="cm">/**
+</span><span class="cm">	 * 给Java文件加注释，这个注释是在文件的顶部，也就是package上面。
+</span><span class="cm">	 */</span>
+	<span class="nd">@Override</span>
+	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">addJavaFileComment</span><span class="o">(</span><span class="n">CompilationUnit</span> <span class="n">compilationUnit</span><span class="o">)</span> <span class="o">{</span>
+    	<span class="n">SimpleDateFormat</span> <span class="n">sdf</span><span class="o">=</span><span class="k">new</span> <span class="n">SimpleDateFormat</span><span class="o">(</span><span class="s">&#34;yyyy-MM-dd&#34;</span><span class="o">);</span>
+    	<span class="n">compilationUnit</span><span class="o">.</span><span class="na">addFileCommentLine</span><span class="o">(</span><span class="s">&#34;/*&#34;</span><span class="o">);</span>
+    	<span class="n">compilationUnit</span><span class="o">.</span><span class="na">addFileCommentLine</span><span class="o">(</span><span class="s">&#34;*&#34;</span><span class="o">);</span>
+    	<span class="n">compilationUnit</span><span class="o">.</span><span class="na">addFileCommentLine</span><span class="o">(</span><span class="s">&#34;* &#34;</span><span class="o">+</span><span class="n">compilationUnit</span><span class="o">.</span><span class="na">getType</span><span class="o">().</span><span class="na">getShortName</span><span class="o">()+</span><span class="s">&#34;.java&#34;</span><span class="o">);</span>
+    	<span class="n">compilationUnit</span><span class="o">.</span><span class="na">addFileCommentLine</span><span class="o">(</span><span class="s">&#34;* Copyright(C) 2017-2020 fendo公司&#34;</span><span class="o">);</span>
+    	<span class="n">compilationUnit</span><span class="o">.</span><span class="na">addFileCommentLine</span><span class="o">(</span><span class="s">&#34;* @date &#34;</span><span class="o">+</span><span class="n">sdf</span><span class="o">.</span><span class="na">format</span><span class="o">(</span><span class="k">new</span> <span class="n">Date</span><span class="o">())+</span><span class="s">&#34;&#34;</span><span class="o">);</span>
+    	<span class="n">compilationUnit</span><span class="o">.</span><span class="na">addFileCommentLine</span><span class="o">(</span><span class="s">&#34;*/&#34;</span><span class="o">);</span>
+	<span class="o">}</span>
+ 
+	<span class="cm">/**
+</span><span class="cm">	 * 为模型类添加注释
+</span><span class="cm">	 */</span>
+	<span class="nd">@Override</span>
+	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">addModelClassComment</span><span class="o">(</span><span class="n">TopLevelClass</span> <span class="n">arg0</span><span class="o">,</span> <span class="n">IntrospectedTable</span> <span class="n">arg1</span><span class="o">)</span> <span class="o">{</span>
+		
+	<span class="o">}</span>
+ 
+	<span class="cm">/**
+</span><span class="cm">	 * 为调用此方法作为根元素的第一个子节点添加注释。
+</span><span class="cm">	 */</span>
+	<span class="nd">@Override</span>
+	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">addRootComment</span><span class="o">(</span><span class="n">XmlElement</span> <span class="n">arg0</span><span class="o">)</span> <span class="o">{</span>
+		
+	<span class="o">}</span>
+ 
+	
+	<span class="cm">/**
+</span><span class="cm">	 * 给setter方法加注释
+</span><span class="cm">	 */</span>
+	<span class="nd">@Override</span>
+	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">addSetterComment</span><span class="o">(</span><span class="n">Method</span> <span class="n">method</span><span class="o">,</span> <span class="n">IntrospectedTable</span> <span class="n">introspectedTable</span><span class="o">,</span><span class="n">IntrospectedColumn</span> <span class="n">introspectedColumn</span><span class="o">)</span> <span class="o">{</span>
+		<span class="k">if</span> <span class="o">(</span><span class="n">suppressAllComments</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">return</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="n">method</span><span class="o">.</span><span class="na">addJavaDocLine</span><span class="o">(</span><span class="s">&#34;/**&#34;</span><span class="o">);</span>
+        <span class="n">StringBuilder</span> <span class="n">sb</span> <span class="o">=</span> <span class="k">new</span> <span class="n">StringBuilder</span><span class="o">();</span>
+        <span class="n">sb</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="s">&#34; * &#34;</span><span class="o">);</span>
+        <span class="n">sb</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="n">introspectedColumn</span><span class="o">.</span><span class="na">getRemarks</span><span class="o">());</span>
+        <span class="n">method</span><span class="o">.</span><span class="na">addJavaDocLine</span><span class="o">(</span><span class="n">sb</span><span class="o">.</span><span class="na">toString</span><span class="o">().</span><span class="na">replace</span><span class="o">(</span><span class="s">&#34;\n&#34;</span><span class="o">,</span> <span class="s">&#34; &#34;</span><span class="o">));</span>
+        <span class="n">Parameter</span> <span class="n">parm</span> <span class="o">=</span> <span class="n">method</span><span class="o">.</span><span class="na">getParameters</span><span class="o">().</span><span class="na">get</span><span class="o">(</span><span class="n">0</span><span class="o">);</span>
+        <span class="n">sb</span><span class="o">.</span><span class="na">setLength</span><span class="o">(</span><span class="n">0</span><span class="o">);</span>
+        <span class="n">sb</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="s">&#34; * @param &#34;</span><span class="o">);</span>
+        <span class="n">sb</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="n">parm</span><span class="o">.</span><span class="na">getName</span><span class="o">());</span>
+        <span class="n">sb</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="s">&#34; &#34;</span><span class="o">);</span>
+        <span class="n">sb</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="n">introspectedColumn</span><span class="o">.</span><span class="na">getRemarks</span><span class="o">());</span>
+        <span class="n">method</span><span class="o">.</span><span class="na">addJavaDocLine</span><span class="o">(</span><span class="n">sb</span><span class="o">.</span><span class="na">toString</span><span class="o">().</span><span class="na">replace</span><span class="o">(</span><span class="s">&#34;\n&#34;</span><span class="o">,</span> <span class="s">&#34; &#34;</span><span class="o">));</span>
+        <span class="n">method</span><span class="o">.</span><span class="na">addJavaDocLine</span><span class="o">(</span><span class="s">&#34; */&#34;</span><span class="o">);</span>
+	<span class="o">}</span>
+ 
+<span class="o">}</span>
+</code></pre></div><h4 id="在-generatorconfigxml-文件中使用自定义插件">在 generatorConfig.xml 文件中使用自定义插件</h4>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="c">&lt;!-- 自定义lombok --&gt;</span>
+<span class="nt">&lt;plugin</span> <span class="na">type=</span><span class="s">&#34;com.xxgc.mybatis.plugin.LombokPlugin&#34;</span> <span class="nt">/&gt;</span>
+<span class="c">&lt;!-- 自定义注解解析器 --&gt;</span>
+<span class="nt">&lt;commentGenerator</span> <span class="na">type=</span><span class="s">&#34;com.xxgc.mybatis.plugin.MyCommentGenerator&#34;</span> <span class="nt">/&gt;</span>
+
+<span class="c">&lt;!-- 自定义lombok增强 --&gt;</span>
+<span class="nt">&lt;plugin</span> <span class="na">type=</span><span class="s">&#34;plugins.LombokPlugin&#34;</span> <span class="nt">&gt;</span>
+	<span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&#34;hasLombok&#34;</span> <span class="na">value=</span><span class="s">&#34;true&#34;</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;/plugin&gt;</span>
+<span class="c">&lt;!--通过type属性改成自己注解解析器--&gt;</span>
+<span class="nt">&lt;commentGenerator</span>  <span class="na">type=</span><span class="s">&#34;plugins.MyCommentGenerator&#34;</span><span class="nt">&gt;</span>
+	<span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&#34;suppressDate&#34;</span> <span class="na">value=</span><span class="s">&#34;true&#34;</span><span class="nt">/&gt;</span>
+	<span class="c">&lt;!-- 是否去除自动生成的注释 true：是 ： false:否 --&gt;</span>
+	<span class="c">&lt;!--&lt;property name=&#34;suppressAllComments&#34; value=&#34;true&#34; /&gt;--&gt;</span>
+	<span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&#34;addRemarkComments&#34;</span> <span class="na">value=</span><span class="s">&#34;true&#34;</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;/commentGenerator&gt;</span>
+</code></pre></div><h3 id="可能出现的问题">可能出现的问题</h3>
+<p>大多数情况下,到第三步就算是结束了.下面的,都是踩的坑.</p>
+<h4 id="提示找不到mycommentgenerator">提示找不到MyCommentGenerator</h4>
+<p>这个一般是使用Maven命令运行MBG时才会出现的错误.</p>
+<p>原因是mybatis-generator-core与MyCommentGenerator不在同一个ClassPath下。需要将自定义插件打包生成jar,然后在pom文件mybatis-generator-maven-plugin插件中添加相关依赖。</p>
+<h4 id="获取不到字段注释">获取不到字段注释</h4>
+<blockquote>
+<p>没错,就是introspectedColumn.getRemarks()获取不到字段的注释,生成的javabean里面应该显示字段注释的地方显示的是null.配置文件中我们对<!-- raw HTML omitted -->做如下修改即可:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="nt">&lt;jdbcConnection</span> <span class="na">driverClass=</span><span class="s">&#34;${driver}&#34;</span>
+    <span class="na">connectionURL=</span><span class="s">&#34;{url}&#34;</span> <span class="na">userId=</span><span class="s">&#34;${username}&#34;</span> <span class="na">password=</span><span class="s">&#34;${password}&#34;</span><span class="nt">&gt;</span>
+    <span class="c">&lt;!-- 针对oracle数据库 --&gt;</span>
+    <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&#34;remarksReporting&#34;</span> <span class="na">value=</span><span class="s">&#34;true&#34;</span><span class="nt">&gt;&lt;/property&gt;</span>
+    <span class="c">&lt;!-- 针对mysql数据库 --&gt;</span>
+    <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&#34;useInformationSchema&#34;</span> <span class="na">value=</span><span class="s">&#34;true&#34;</span><span class="nt">&gt;&lt;/property&gt;</span>
+<span class="nt">&lt;/jdbcConnection&gt;</span>
+</code></pre></div></blockquote>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/mybatis-generator/">mybatis-generator</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+    
+</article>
+
+    <aside class="related-contents--wrapper">
+    
+    
+</aside>
+
+     
+     
+        
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "hugo-theme-stack" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (DISQUS) {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2020 - 
+        
+        2021 ybakiame的个人博客
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="2.4.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css"integrity="sha256-c0uckgykQ9v5k&#43;IqViZOZKc47Jn7KQil4/MP3ySA3F8="crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css"integrity="sha256-SBLU4vv6CA6lHsZ1XyTdhyjJxCjPif/TRkjnsyGAGnE="crossorigin="anonymous"
+            >
+
+            </main>
+    
+        <aside class="sidebar right-sidebar sticky">
+            <section class="widget archives">
+                <div class="widget-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+                </div>
+                <h2 class="widget-title section-title">目录</h2>
+                
+                <div class="widget--toc">
+                    <nav id="TableOfContents">
+  <ol>
+    <li><a href="#什么是-mybatis-generator">什么是 mybatis-generator</a></li>
+    <li><a href="#功能">功能</a></li>
+    <li><a href="#mybatis-generator-的使用">mybatis-generator 的使用</a>
+      <ol>
+        <li><a href="#创建数据库">创建数据库</a></li>
+        <li><a href="#创建-maven-工程">创建 maven 工程</a></li>
+        <li><a href="#在-pomxml-中添加依赖">在 pom.xml 中添加依赖</a></li>
+        <li><a href="#创建-generatorconfigxml-配置文件">创建 generatorConfig.xml 配置文件</a></li>
+        <li><a href="#插件">插件</a></li>
+      </ol>
+    </li>
+  </ol>
+
+  <ol>
+    <li><a href="#插件生命周期">插件生命周期</a></li>
+    <li><a href="#编码插件">编码插件</a>
+      <ol>
+        <li><a href="#实现自定义插件">实现自定义插件</a>
+          <ol>
+            <li><a href="#自定义lombokplugin插件">自定义lombokPlugin插件</a></li>
+            <li><a href="#自定义-commentgenerator-插件">自定义 CommentGenerator 插件</a></li>
+            <li><a href="#在-generatorconfigxml-文件中使用自定义插件">在 generatorConfig.xml 文件中使用自定义插件</a></li>
+          </ol>
+        </li>
+        <li><a href="#可能出现的问题">可能出现的问题</a>
+          <ol>
+            <li><a href="#提示找不到mycommentgenerator">提示找不到MyCommentGenerator</a></li>
+            <li><a href="#获取不到字段注释">获取不到字段注释</a></li>
+          </ol>
+        </li>
+      </ol>
+    </li>
+  </ol>
+</nav>
+                </div>
+            </section>
+        </aside>
+    
+
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js"integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g="crossorigin="anonymous"
+                defer="false"
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>
