@@ -24,7 +24,7 @@ C 控制（controller） 控制器负责将 模型 中的 数据 显示在不同
  需要的jar包 spring-web-*.jar spring-webmvc-*.jar    修改web.xml中的
 &amp;lt;servlet&amp;gt; &amp;lt;servlet-name&amp;gt;dispatcher&amp;lt;/servlet-name&amp;gt; &amp;lt;servlet-class&amp;gt;org.springframework.web.servlet.DispatcherServlet&amp;lt;/servlet-class&amp;gt; &amp;lt;/servlet&amp;gt; &amp;lt;servlet-mapping&amp;gt; &amp;lt;servlet-name&amp;gt;dispatcher&amp;lt;/servlet-name&amp;gt; &amp;lt;url-pattern&amp;gt;/&amp;lt;/url-pattern&amp;gt; &amp;lt;/servlet-mapping&amp;gt;   将拦截地址改为/拦截所有请求，并交给SpringMVC的后台控制器来完成'>
 <meta property='og:url' content='https://example.com/p/springmvc%E6%9B%BF%E6%8D%A2%E4%BC%A0%E7%BB%9Fmvc/'>
-<meta property='og:site_name' content='ybakiame的个人博客'>
+<meta property='og:site_name' content='ybakiame Blog'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='JavaWeb' /><meta property='article:tag' content='Spring' /><meta property='article:published_time' content='2021-05-11T15:29:19&#43;08:00'/><meta property='article:modified_time' content='2021-05-11T15:29:19&#43;08:00'/>
 <meta name="twitter:title" content="SpringMvc替换传统MVC">
 <meta name="twitter:description" content="web开发模式  DAO层 对数据库的增删改查 web层 界面（jsp）加控制器（servlrt） service层 执行多个或一个dao层操作，并将其组合成一个完整的业务逻辑 控制层 使用servlet进行控制 数据访问层 使用DAO、Hibernate、JDBC等技术实现对数据库的增删改查 javaBean 用于封装数据  MVC M模型（model） 模型就是 包括 dao，bean
@@ -69,7 +69,7 @@ C 控制（controller） 控制器负责将 模型 中的 数据 显示在不同
 ">
     
         <div id="article-toolbar">
-            <a href="https://example.com" class="back-home">
+            <a href="/" class="back-home">
                 <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
   <polyline points="15 6 9 12 15 18" />
@@ -100,8 +100,28 @@ C 控制（controller） 控制器负责将 模型 中的 数据 显示在不同
         <a href="/p/springmvc%E6%9B%BF%E6%8D%A2%E4%BC%A0%E7%BB%9Fmvc/">SpringMvc替换传统MVC</a>
     </h2>
 
+    
+
+    
     <footer class="article-time">
-        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">May 11, 2021</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
   <circle cx="12" cy="12" r="9" />
   <polyline points="12 7 12 12 15 15" />
@@ -109,8 +129,14 @@ C 控制（controller） 控制器负责将 模型 中的 数据 显示在不同
 
 
 
-        <time class="article-time--published">May 11, 2021</time>
-    </footer></div>
+                <time class="article-time--reading">
+                    阅读时长: 5 分钟
+                </time>
+            </div>
+        
+    </footer>
+    
+</div>
 </header>
 
     <section class="article-content">
@@ -167,8 +193,7 @@ C 控制（controller） 控制器负责将 模型 中的 数据 显示在不同
        <span class="na">xmlns:xsi=</span><span class="s">&#34;http://www.w3.org/2001/XMLSchema-instance&#34;</span>
        <span class="na">xsi:schemaLocation=</span><span class="s">&#34;http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd&#34;</span><span class="nt">&gt;</span>
 
-    <span class="nt">&lt;bean</span> <span class="na">id=</span><span class="s">&#34;simpleUrlHandlerMapping&#34;</span>
-          <span class="na">class=</span><span class="s">&#34;org.springframework.web.servlet.handler.SimpleUrlHandlerMapping&#34;</span><span class="nt">&gt;</span>
+          class=&#34;org.springframework.web.servlet.handler.SimpleUrlHandlerMapping&#34;&gt;
         <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&#34;mappings&#34;</span><span class="nt">&gt;</span>
             <span class="nt">&lt;props&gt;</span>
                 <span class="c">&lt;!-- /hello 路径的请求交给 id 为 helloController 的控制器处理--&gt;</span>
@@ -204,7 +229,20 @@ C 控制（controller） 控制器负责将 模型 中的 数据 显示在不同
 </ol>
 <h2 id="跟踪-spring-mvc-的请求">跟踪 Spring MVC 的请求</h2>
 <p>每当用户在 Web 浏览器中点击链接或者提交表单的时候，请求就开始工作了，像是邮递员一样，从离开浏览器开始到获取响应返回，它会经历很多站点，在每一个站点都会留下一些信息同时也会带上其他信息，下图为 Spring MVC 的请求流程：</p>
-<p><img src="https:////upload-images.jianshu.io/upload_images/7896890-65ef874ad7da59a2.png?imageMogr2/auto-orient/strip%7cimageView2/2/w/784/format/webp" alt="img"  /></p>
+<p><figure 
+	>
+	<a href="https:////upload-images.jianshu.io/upload_images/7896890-65ef874ad7da59a2.png?imageMogr2/auto-orient/strip%7cimageView2/2/w/784/format/webp" >
+		<img src="https:////upload-images.jianshu.io/upload_images/7896890-65ef874ad7da59a2.png?imageMogr2/auto-orient/strip%7cimageView2/2/w/784/format/webp"
+			
+			
+			
+			loading="lazy"
+			alt="img">
+	</a>
+	
+	<figcaption>img</figcaption>
+	
+</figure></p>
 <h4 id="第一站dispatcherservlet">第一站：DispatcherServlet</h4>
 <p>从请求离开浏览器以后，第一站到达的就是 DispatcherServlet，看名字这是一个 Servlet，通过 J2EE 的学习，我们知道 Servlet 可以拦截并处理 HTTP 请求，DispatcherServlet 会拦截所有的请求，并且将这些请求发送给 Spring MVC 控制器。</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="nt">&lt;servlet&gt;</span>
@@ -345,7 +383,20 @@ C 控制（controller） 控制器负责将 模型 中的 数据 显示在不同
 </code></pre></div><p>这里配置了一个 Spring MVC 内置的一个视图解析器，该解析器是遵循着一种约定：会**在视图名上添加前缀和后缀，进而确定一个 Web 应用中视图资源的物理路径的。**让我们实际来看看效果：</p>
 <h4 id="第一步修改-hellocontroller">第一步：修改 HelloController</h4>
 <p>我们将代码修改一下：</p>
-<p><img src="https:////upload-images.jianshu.io/upload_images/7896890-2ce49e171bd6d547.png?imageMogr2/auto-orient/strip%7cimageView2/2/w/765/format/webp" alt="img"  /></p>
+<p><figure 
+	>
+	<a href="https:////upload-images.jianshu.io/upload_images/7896890-2ce49e171bd6d547.png?imageMogr2/auto-orient/strip%7cimageView2/2/w/765/format/webp" >
+		<img src="https:////upload-images.jianshu.io/upload_images/7896890-2ce49e171bd6d547.png?imageMogr2/auto-orient/strip%7cimageView2/2/w/765/format/webp"
+			
+			
+			
+			loading="lazy"
+			alt="img">
+	</a>
+	
+	<figcaption>img</figcaption>
+	
+</figure></p>
 <h4 id="第二步配置视图解析器">第二步：配置视图解析器：</h4>
 <p>按照上述的配置，完成：</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="cp">&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;</span>
@@ -378,7 +429,20 @@ C 控制（controller） 控制器负责将 模型 中的 数据 显示在不同
 <ul>
 <li><strong>原理：</strong></li>
 </ul>
-<p><img src="https:////upload-images.jianshu.io/upload_images/7896890-a716a3ac8f7e541d.png?imageMogr2/auto-orient/strip%7cimageView2/2/w/468/format/webp" alt="img"  /></p>
+<p><figure 
+	>
+	<a href="https:////upload-images.jianshu.io/upload_images/7896890-a716a3ac8f7e541d.png?imageMogr2/auto-orient/strip%7cimageView2/2/w/468/format/webp" >
+		<img src="https:////upload-images.jianshu.io/upload_images/7896890-a716a3ac8f7e541d.png?imageMogr2/auto-orient/strip%7cimageView2/2/w/468/format/webp"
+			
+			
+			
+			loading="lazy"
+			alt="img">
+	</a>
+	
+	<figcaption>img</figcaption>
+	
+</figure></p>
 <p>我们传入的逻辑视图名为 index ，再加上 “<code>/WEB-INF/page/</code>” 前缀和 “<code>.jsp</code>” 后缀，就能确定物理视图的路径了，这样我们以后就可以将所有的视图放入【page】文件夹下了！</p>
 <ul>
 <li>**注意：**此时的配置仅是 dispatcher-servlet.xml 下的</li>
@@ -416,7 +480,20 @@ C 控制（controller） 控制器负责将 模型 中的 数据 显示在不同
     <span class="k">return</span> <span class="k">null</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div><p>测试成功：</p>
-<p><img src="https:////upload-images.jianshu.io/upload_images/7896890-df21058b7ef71924.png?imageMogr2/auto-orient/strip%7cimageView2/2/w/706/format/webp" alt="img"  /></p>
+<p><figure 
+	>
+	<a href="https:////upload-images.jianshu.io/upload_images/7896890-df21058b7ef71924.png?imageMogr2/auto-orient/strip%7cimageView2/2/w/706/format/webp" >
+		<img src="https:////upload-images.jianshu.io/upload_images/7896890-df21058b7ef71924.png?imageMogr2/auto-orient/strip%7cimageView2/2/w/706/format/webp"
+			
+			
+			
+			loading="lazy"
+			alt="img">
+	</a>
+	
+	<figcaption>img</figcaption>
+	
+</figure></p>
 <h4 id="使用同名匹配规则">使用同名匹配规则</h4>
 <p>我们可以把方法定义的形参名字设置成和前台传入参数名一样的方法，来获取到数据（同名匹配规则）：</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="nd">@RequestMapping</span><span class="o">(</span><span class="s">&#34;/param&#34;</span><span class="o">)</span>
@@ -427,12 +504,38 @@ C 控制（controller） 控制器负责将 模型 中的 数据 显示在不同
     <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
 <span class="o">}</span>
 </code></pre></div><p>测试成功：</p>
-<p><img src="https:////upload-images.jianshu.io/upload_images/7896890-55a1c296c778e506.png?imageMogr2/auto-orient/strip%7cimageView2/2/w/595/format/webp" alt="img"  /></p>
+<p><figure 
+	>
+	<a href="https:////upload-images.jianshu.io/upload_images/7896890-55a1c296c778e506.png?imageMogr2/auto-orient/strip%7cimageView2/2/w/595/format/webp" >
+		<img src="https:////upload-images.jianshu.io/upload_images/7896890-55a1c296c778e506.png?imageMogr2/auto-orient/strip%7cimageView2/2/w/595/format/webp"
+			
+			
+			
+			loading="lazy"
+			alt="img">
+	</a>
+	
+	<figcaption>img</figcaption>
+	
+</figure></p>
 <ul>
 <li><strong>问题：</strong> 这样又会和前台产生很强的耦合，这是我们不希望的</li>
 <li><strong>解决：</strong> 使用 <code>@RequestParam(&quot;前台参数名&quot;)</code> 来注入：</li>
 </ul>
-<p><img src="https:////upload-images.jianshu.io/upload_images/7896890-a649ad50866a01c5.png?imageMogr2/auto-orient/strip%7cimageView2/2/w/760/format/webp" alt="img"  /></p>
+<p><figure 
+	>
+	<a href="https:////upload-images.jianshu.io/upload_images/7896890-a649ad50866a01c5.png?imageMogr2/auto-orient/strip%7cimageView2/2/w/760/format/webp" >
+		<img src="https:////upload-images.jianshu.io/upload_images/7896890-a649ad50866a01c5.png?imageMogr2/auto-orient/strip%7cimageView2/2/w/760/format/webp"
+			
+			
+			
+			loading="lazy"
+			alt="img">
+	</a>
+	
+	<figcaption>img</figcaption>
+	
+</figure></p>
 <ul>
 <li><strong><code>@RequestParam</code> 注解细节：</strong>
 该注解有三个变量：<code>value</code>、<code>required</code>、<code>defaultvalue</code></li>
@@ -455,7 +558,20 @@ C 控制（controller） 控制器负责将 模型 中的 数据 显示在不同
     <span class="cm">/* getter and setter */</span>
 <span class="o">}</span>
 </code></pre></div><p>然后测试仍然成功：</p>
-<p><img src="https:////upload-images.jianshu.io/upload_images/7896890-471d26bcb335aee6.png?imageMogr2/auto-orient/strip%7cimageView2/2/w/438/format/webp" alt="img"  /></p>
+<p><figure 
+	>
+	<a href="https:////upload-images.jianshu.io/upload_images/7896890-471d26bcb335aee6.png?imageMogr2/auto-orient/strip%7cimageView2/2/w/438/format/webp" >
+		<img src="https:////upload-images.jianshu.io/upload_images/7896890-471d26bcb335aee6.png?imageMogr2/auto-orient/strip%7cimageView2/2/w/438/format/webp"
+			
+			
+			
+			loading="lazy"
+			alt="img">
+	</a>
+	
+	<figcaption>img</figcaption>
+	
+</figure></p>
 <h4 id="中文乱码问题">中文乱码问题</h4>
 <ul>
 <li><strong>注意：</strong> 跟 Servlet 中的一样，该方法只对 POST 方法有效（因为是直接处理的 request）</li>
@@ -497,12 +613,51 @@ C 控制（controller） 控制器负责将 模型 中的 数据 显示在不同
     <span class="k">return</span> <span class="k">new</span> <span class="n">ModelAndView</span><span class="o">(</span><span class="s">&#34;test1&#34;</span><span class="o">);</span>
 <span class="o">}</span>
 </code></pre></div><p>在浏览器地址栏中输入：<code>localhost/value</code> 测试</p>
-<p><img src="https:////upload-images.jianshu.io/upload_images/7896890-66d2f24a876306e6.png?imageMogr2/auto-orient/strip%7cimageView2/2/w/562/format/webp" alt="img"  /></p>
+<p><figure 
+	>
+	<a href="https:////upload-images.jianshu.io/upload_images/7896890-66d2f24a876306e6.png?imageMogr2/auto-orient/strip%7cimageView2/2/w/562/format/webp" >
+		<img src="https:////upload-images.jianshu.io/upload_images/7896890-66d2f24a876306e6.png?imageMogr2/auto-orient/strip%7cimageView2/2/w/562/format/webp"
+			
+			
+			
+			loading="lazy"
+			alt="img">
+	</a>
+	
+	<figcaption>img</figcaption>
+	
+</figure></p>
 <h4 id="使用-spring-mvc-所提供的-modelandview-对象">使用 Spring MVC 所提供的 ModelAndView 对象</h4>
-<p><img src="https:////upload-images.jianshu.io/upload_images/7896890-360ce67947be817d.png?imageMogr2/auto-orient/strip%7cimageView2/2/w/703/format/webp" alt="img"  /></p>
+<p><figure 
+	>
+	<a href="https:////upload-images.jianshu.io/upload_images/7896890-360ce67947be817d.png?imageMogr2/auto-orient/strip%7cimageView2/2/w/703/format/webp" >
+		<img src="https:////upload-images.jianshu.io/upload_images/7896890-360ce67947be817d.png?imageMogr2/auto-orient/strip%7cimageView2/2/w/703/format/webp"
+			
+			
+			
+			loading="lazy"
+			alt="img">
+	</a>
+	
+	<figcaption>img</figcaption>
+	
+</figure></p>
 <h4 id="使用-model-对象">使用 Model 对象</h4>
 <p>在 Spring MVC 中，我们通常都是使用这样的方式来绑定数据，</p>
-<p><img src="https:////upload-images.jianshu.io/upload_images/7896890-685dd384904ad28f.png?imageMogr2/auto-orient/strip%7cimageView2/2/w/536/format/webp" alt="img"  /></p>
+<p><figure 
+	>
+	<a href="https:////upload-images.jianshu.io/upload_images/7896890-685dd384904ad28f.png?imageMogr2/auto-orient/strip%7cimageView2/2/w/536/format/webp" >
+		<img src="https:////upload-images.jianshu.io/upload_images/7896890-685dd384904ad28f.png?imageMogr2/auto-orient/strip%7cimageView2/2/w/536/format/webp"
+			
+			
+			
+			loading="lazy"
+			alt="img">
+	</a>
+	
+	<figcaption>img</figcaption>
+	
+</figure></p>
 <ul>
 <li><strong>使用 <code>@ModelAttribute</code> 注解：</strong></li>
 </ul>
@@ -533,7 +688,20 @@ C 控制（controller） 控制器负责将 模型 中的 数据 显示在不同
     <span class="k">return</span> <span class="n">mav</span><span class="o">;</span>
 <span class="o">}</span>
 </code></pre></div><p>我们使用 <code>redirect:/hello</code> 就表示我们要跳转到 <code>/hello</code> 这个路径，我们重启服务器，在地址栏中输入：<code>localhost/jump</code> ，会自动跳转到 <code>/hello</code> 路径下：</p>
-<p><img src="https:////upload-images.jianshu.io/upload_images/7896890-390fb571e9f6ff03.png?imageMogr2/auto-orient/strip%7cimageView2/2/w/947/format/webp" alt="img"  /></p>
+<p><figure 
+	>
+	<a href="https:////upload-images.jianshu.io/upload_images/7896890-390fb571e9f6ff03.png?imageMogr2/auto-orient/strip%7cimageView2/2/w/947/format/webp" >
+		<img src="https:////upload-images.jianshu.io/upload_images/7896890-390fb571e9f6ff03.png?imageMogr2/auto-orient/strip%7cimageView2/2/w/947/format/webp"
+			
+			
+			
+			loading="lazy"
+			alt="img">
+	</a>
+	
+	<figcaption>img</figcaption>
+	
+</figure></p>
 <p>也可以这样用：</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="nd">@RequestMapping</span><span class="o">(</span><span class="s">&#34;/jump&#34;</span><span class="o">)</span>
 <span class="kd">public</span> <span class="n">String</span> <span class="nf">jump</span><span class="o">()</span> <span class="o">{</span>
@@ -619,6 +787,7 @@ C 控制（controller） 控制器负责将 模型 中的 数据 显示在不同
     </section>
     </footer>
 
+
     
 </article>
 
@@ -695,7 +864,7 @@ C 控制（controller） 控制器负责将 模型 中的 数据 显示在不同
 </aside>
 
      
-     
+    
         
     <div class="disqus-container">
     <div id="disqus_thread"></div>
@@ -747,14 +916,15 @@ C 控制（controller） 控制器负责将 模型 中的 数据 显示在不同
         
             2020 - 
         
-        2021 ybakiame的个人博客
+        2021 ybakiame Blog
     </section>
     
     <section class="powerby">
         Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
-        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="2.4.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.5.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
     </section>
 </footer>
+
 
     
 <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">

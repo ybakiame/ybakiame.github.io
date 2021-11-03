@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>java基础 on ybakiame的个人博客</title>
+    <title>java基础 on ybakiame Blog</title>
     <link>https://example.com/categories/java%E5%9F%BA%E7%A1%80/</link>
-    <description>Recent content in java基础 on ybakiame的个人博客</description>
+    <description>Recent content in java基础 on ybakiame Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Sat, 23 Oct 2021 22:26:26 +0800</lastBuildDate><atom:link href="https://example.com/categories/java%E5%9F%BA%E7%A1%80/index.xml" rel="self" type="application/rss+xml" />

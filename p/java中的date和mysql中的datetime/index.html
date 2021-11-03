@@ -10,7 +10,7 @@
 <meta property='og:description' content='java中的date 1、java.sql.date   格式为``2016-02-01` 是针对SQL语句使用的，它只包含日期而没有时间部分 一般是在数据库的时间字段   2、java.util.date   格式为 Wed Oct 20 15:02:35 CST 2021 在除SQL语句外的情况下面使用 一般是日常日期字段   sqlDate和UtilDate 1、java.util.Date 是 java.sql.Date 的父类 2、相互转化 java.sql.Date sqlDate=new Java.sql.Date(); java.util.Date utilDate=new java.util.Date (sqlDate.getTime()); 3、继承关系  java.lang.Object -&amp;gt; java.util.Date -&amp;gt; java.sql.Date
  4、 使用环境   java.sql.Date主要是用于sql中！ java.util.Date一般的环境下都可以使用！    5、转化 SimpleDateFormat bartDateFormat = new SimpleDateFormat(&amp;#34;yyyy-MM-dd&amp;#34;); String dateStringToParse = &amp;#34;2007-7-12&amp;#34;; //utilDate to sqlDate  try { //使用符合格式的字符串构建一个utilDate  java.'>
 <meta property='og:url' content='https://example.com/p/java%E4%B8%AD%E7%9A%84date%E5%92%8Cmysql%E4%B8%AD%E7%9A%84datetime/'>
-<meta property='og:site_name' content='ybakiame的个人博客'>
+<meta property='og:site_name' content='ybakiame Blog'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='java Date' /><meta property='article:published_time' content='2021-10-19T21:16:55&#43;08:00'/><meta property='article:modified_time' content='2021-10-19T21:16:55&#43;08:00'/>
 <meta name="twitter:title" content="Java中的Date和Mysql中的datetime">
 <meta name="twitter:description" content="java中的date 1、java.sql.date   格式为``2016-02-01` 是针对SQL语句使用的，它只包含日期而没有时间部分 一般是在数据库的时间字段   2、java.util.date   格式为 Wed Oct 20 15:02:35 CST 2021 在除SQL语句外的情况下面使用 一般是日常日期字段   sqlDate和UtilDate 1、java.util.Date 是 java.sql.Date 的父类 2、相互转化 java.sql.Date sqlDate=new Java.sql.Date(); java.util.Date utilDate=new java.util.Date (sqlDate.getTime()); 3、继承关系  java.lang.Object -&amp;gt; java.util.Date -&amp;gt; java.sql.Date
@@ -48,7 +48,7 @@
 ">
     
         <div id="article-toolbar">
-            <a href="https://example.com" class="back-home">
+            <a href="/" class="back-home">
                 <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
   <polyline points="15 6 9 12 15 18" />
@@ -79,8 +79,28 @@
         <a href="/p/java%E4%B8%AD%E7%9A%84date%E5%92%8Cmysql%E4%B8%AD%E7%9A%84datetime/">Java中的Date和Mysql中的datetime</a>
     </h2>
 
+    
+
+    
     <footer class="article-time">
-        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Oct 19, 2021</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
   <circle cx="12" cy="12" r="9" />
   <polyline points="12 7 12 12 15 15" />
@@ -88,8 +108,14 @@
 
 
 
-        <time class="article-time--published">Oct 19, 2021</time>
-    </footer></div>
+                <time class="article-time--reading">
+                    阅读时长: 1 分钟
+                </time>
+            </div>
+        
+    </footer>
+    
+</div>
 </header>
 
     <section class="article-content">
@@ -178,6 +204,7 @@
     </section>
     </footer>
 
+
     
 </article>
 
@@ -230,7 +257,7 @@
 </aside>
 
      
-     
+    
         
     <div class="disqus-container">
     <div id="disqus_thread"></div>
@@ -282,14 +309,15 @@
         
             2020 - 
         
-        2021 ybakiame的个人博客
+        2021 ybakiame Blog
     </section>
     
     <section class="powerby">
         Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
-        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="2.4.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.5.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
     </section>
 </footer>
+
 
     
 <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">

@@ -20,7 +20,7 @@
 具体说，就是 HTTP 协议里面，四个表示操作方式的动词：GET、POST、PUT、DELETE。它们分别对应四种基本操作：
  GET 用来获取资源 POST 用来新建资源 PUT 用来更新资源 DELETE 用来删除资源       HTTP方法名 使用场景 资源操作 是否幂等 是否安全     GET 从服务器取出资源（一项或多项） SELECT 是 是   POST 在服务器新建一个资源 INSERT 否 否   PUT 在服务器更新资源（客户端提供完整资源数据） UPDATE 是 否   DELETE 从服务器删除资源 DELETE 是 否     幂等性：对同一REST接口的多次访问，得到的资源状态是相同的。 安全性：对该REST接口访问，不会使服务器端资源的状态发生改变。   RESTful：就是符合REST原则的架构方式即可称为RESTful。'>
 <meta property='og:url' content='https://example.com/p/springmvc%E5%AE%9E%E7%8E%B0restful%E9%A3%8E%E6%A0%BC/'>
-<meta property='og:site_name' content='ybakiame的个人博客'>
+<meta property='og:site_name' content='ybakiame Blog'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='restful' /><meta property='article:published_time' content='2021-10-21T21:51:22&#43;08:00'/><meta property='article:modified_time' content='2021-10-21T21:51:22&#43;08:00'/>
 <meta name="twitter:title" content="springMVC实现restful风格">
 <meta name="twitter:description" content="1、REST的概念 REST为“Representational State Transfer”的缩写，中文释义为“表现层状态转换”，REST不是一种标准，而是一种设计风格。是目前最流行的一种互联网软件架构风格。它倡导结构清晰、符合标准、易于理解、扩展方便的Web架构体系，主张严格按照HTTP协议中定义的规范设计结构严谨的Web应用架构体系。由于REST所倡导的理念让Web应用更易于开发和维护，更加优雅简洁，所以正得到越来越多网站的采用。
@@ -63,7 +63,7 @@
 ">
     
         <div id="article-toolbar">
-            <a href="https://example.com" class="back-home">
+            <a href="/" class="back-home">
                 <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
   <polyline points="15 6 9 12 15 18" />
@@ -94,8 +94,28 @@
         <a href="/p/springmvc%E5%AE%9E%E7%8E%B0restful%E9%A3%8E%E6%A0%BC/">springMVC实现restful风格</a>
     </h2>
 
+    
+
+    
     <footer class="article-time">
-        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Oct 21, 2021</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
   <circle cx="12" cy="12" r="9" />
   <polyline points="12 7 12 12 15 15" />
@@ -103,8 +123,14 @@
 
 
 
-        <time class="article-time--published">Oct 21, 2021</time>
-    </footer></div>
+                <time class="article-time--reading">
+                    阅读时长: 3 分钟
+                </time>
+            </div>
+        
+    </footer>
+    
+</div>
 </header>
 
     <section class="article-content">
@@ -388,6 +414,7 @@ public String sendMessage(@PathVariable(&#34;foo&#34;) String foo,
     </section>
     </footer>
 
+
     
 </article>
 
@@ -416,7 +443,7 @@ public String sendMessage(@PathVariable(&#34;foo&#34;) String foo,
 </aside>
 
      
-     
+    
         
     <div class="disqus-container">
     <div id="disqus_thread"></div>
@@ -468,14 +495,15 @@ public String sendMessage(@PathVariable(&#34;foo&#34;) String foo,
         
             2020 - 
         
-        2021 ybakiame的个人博客
+        2021 ybakiame Blog
     </section>
     
     <section class="powerby">
         Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
-        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="2.4.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.5.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
     </section>
 </footer>
+
 
     
 <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">

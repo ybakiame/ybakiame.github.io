@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Mysql on ybakiame的个人博客</title>
+    <title>Mysql on ybakiame Blog</title>
     <link>https://example.com/categories/mysql/</link>
-    <description>Recent content in Mysql on ybakiame的个人博客</description>
+    <description>Recent content in Mysql on ybakiame Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Wed, 29 Sep 2021 17:06:44 +0800</lastBuildDate><atom:link href="https://example.com/categories/mysql/index.xml" rel="self" type="application/rss+xml" />

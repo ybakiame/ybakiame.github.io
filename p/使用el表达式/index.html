@@ -26,7 +26,7 @@
  EL中的基础操作符 EL表达式支持大部分Java所提供的算术和逻辑操作符：
    操作符 描述     . 访问一个Bean属性或者一个映射条目   [] 访问一个数组或者链表的元素   ( ) 组织一个子表达式以改变优先级   &#43; 加   - 减或负   * 乘   / or div 除   % or mod 取模   == or eq 测试是否相等   !'>
 <meta property='og:url' content='https://example.com/p/%E4%BD%BF%E7%94%A8el%E8%A1%A8%E8%BE%BE%E5%BC%8F/'>
-<meta property='og:site_name' content='ybakiame的个人博客'>
+<meta property='og:site_name' content='ybakiame Blog'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='JavaWeb' /><meta property='article:tag' content='Jsp' /><meta property='article:published_time' content='2021-05-11T15:29:19&#43;08:00'/><meta property='article:modified_time' content='2021-05-11T15:29:19&#43;08:00'/>
 <meta name="twitter:title" content="使用EL表达式">
 <meta name="twitter:description" content="EL（Expression Language） JSP表达式语言（EL）使得访问存储在JavaBean中的数据变得非常简单。JSP EL既可以用来创建算术表达式也可以用来创建逻辑表达式。在JSP EL表达式内可以使用整型数，浮点数，字符串，常量true、false，还有null。
@@ -72,7 +72,7 @@
 ">
     
         <div id="article-toolbar">
-            <a href="https://example.com" class="back-home">
+            <a href="/" class="back-home">
                 <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
   <polyline points="15 6 9 12 15 18" />
@@ -103,8 +103,28 @@
         <a href="/p/%E4%BD%BF%E7%94%A8el%E8%A1%A8%E8%BE%BE%E5%BC%8F/">使用EL表达式</a>
     </h2>
 
+    
+
+    
     <footer class="article-time">
-        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">May 11, 2021</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
   <circle cx="12" cy="12" r="9" />
   <polyline points="12 7 12 12 15 15" />
@@ -112,8 +132,14 @@
 
 
 
-        <time class="article-time--published">May 11, 2021</time>
-    </footer></div>
+                <time class="article-time--reading">
+                    阅读时长: 2 分钟
+                </time>
+            </div>
+        
+    </footer>
+    
+</div>
 </header>
 
     <section class="article-content">
@@ -342,7 +368,20 @@ Box Perimeter is: ${2*box.width + 2*box.height}
 &lt;/body&gt;&lt;/body&gt;
 &lt;/html&gt;&lt;/html&gt;
 </code></pre><p>运行结果如下：</p>
-<p><img src="https://www.runoob.com/wp-content/uploads/2014/01/jsp-expression-language.jpg" alt="jsp-expression-language"  /></p>
+<p><figure 
+	>
+	<a href="https://www.runoob.com/wp-content/uploads/2014/01/jsp-expression-language.jpg" >
+		<img src="https://www.runoob.com/wp-content/uploads/2014/01/jsp-expression-language.jpg"
+			
+			
+			
+			loading="lazy"
+			alt="jsp-expression-language">
+	</a>
+	
+	<figcaption>jsp-expression-language</figcaption>
+	
+</figure></p>
 <p>header对象返回单一值，而headerValues则返回一个字符串数组。</p>
 <h2 id="el函数库">El函数库</h2>
 <p>导入标签库:</p>
@@ -410,6 +449,7 @@ String join(String array[],String separator); //联合字符串数组
     </section>
     </footer>
 
+
     
 </article>
 
@@ -462,7 +502,7 @@ String join(String array[],String separator); //联合字符串数组
 </aside>
 
      
-     
+    
         
     <div class="disqus-container">
     <div id="disqus_thread"></div>
@@ -514,14 +554,15 @@ String join(String array[],String separator); //联合字符串数组
         
             2020 - 
         
-        2021 ybakiame的个人博客
+        2021 ybakiame Blog
     </section>
     
     <section class="powerby">
         Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
-        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="2.4.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.5.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
     </section>
 </footer>
+
 
     
 <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">

@@ -1,12 +1,42 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
-        <title>ybakiame的个人博客</title>
+        <title>ybakiame Blog</title>
         <link>https://example.com/</link>
-        <description>Recent content on ybakiame的个人博客</description>
+        <description>Recent content on ybakiame Blog</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
-        <lastBuildDate>Tue, 26 Oct 2021 19:34:24 +0800</lastBuildDate><atom:link href="https://example.com/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Tue, 26 Oct 2021 22:14:13 +0800</lastBuildDate><atom:link href="https://example.com/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Maven项目xml过滤</title>
+        <link>https://example.com/p/maven%E9%A1%B9%E7%9B%AExml%E8%BF%87%E6%BB%A4/</link>
+        <pubDate>Tue, 26 Oct 2021 22:14:13 +0800</pubDate>
+        
+        <guid>https://example.com/p/maven%E9%A1%B9%E7%9B%AExml%E8%BF%87%E6%BB%A4/</guid>
+        <description>&lt;p&gt;在 pom.xml 中添加&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-xml&#34; data-lang=&#34;xml&#34;&gt;&lt;span class=&#34;nt&#34;&gt;&amp;lt;build&amp;gt;&lt;/span&gt;
+        &lt;span class=&#34;c&#34;&gt;&amp;lt;!--在进行模块化开发打jar包时，maven会将非java文件过滤掉，例如xml,properties等配置文件。--&amp;gt;&lt;/span&gt;
+        &lt;span class=&#34;nt&#34;&gt;&amp;lt;resources&amp;gt;&lt;/span&gt;
+            &lt;span class=&#34;nt&#34;&gt;&amp;lt;resource&amp;gt;&lt;/span&gt;
+                &lt;span class=&#34;nt&#34;&gt;&amp;lt;directory&amp;gt;&lt;/span&gt;src/main/java&lt;span class=&#34;nt&#34;&gt;&amp;lt;/directory&amp;gt;&lt;/span&gt;
+                &lt;span class=&#34;nt&#34;&gt;&amp;lt;includes&amp;gt;&lt;/span&gt;
+                    &lt;span class=&#34;nt&#34;&gt;&amp;lt;include&amp;gt;&lt;/span&gt;**/*.properties&lt;span class=&#34;nt&#34;&gt;&amp;lt;/include&amp;gt;&lt;/span&gt;
+                    &lt;span class=&#34;nt&#34;&gt;&amp;lt;include&amp;gt;&lt;/span&gt;**/*.xml&lt;span class=&#34;nt&#34;&gt;&amp;lt;/include&amp;gt;&lt;/span&gt;
+                &lt;span class=&#34;nt&#34;&gt;&amp;lt;/includes&amp;gt;&lt;/span&gt;
+                &lt;span class=&#34;nt&#34;&gt;&amp;lt;filtering&amp;gt;&lt;/span&gt;false&lt;span class=&#34;nt&#34;&gt;&amp;lt;/filtering&amp;gt;&lt;/span&gt;
+            &lt;span class=&#34;nt&#34;&gt;&amp;lt;/resource&amp;gt;&lt;/span&gt;
+            &lt;span class=&#34;nt&#34;&gt;&amp;lt;resource&amp;gt;&lt;/span&gt;
+                &lt;span class=&#34;nt&#34;&gt;&amp;lt;directory&amp;gt;&lt;/span&gt;src/main/resources&lt;span class=&#34;nt&#34;&gt;&amp;lt;/directory&amp;gt;&lt;/span&gt;
+                &lt;span class=&#34;nt&#34;&gt;&amp;lt;includes&amp;gt;&lt;/span&gt;
+                    &lt;span class=&#34;nt&#34;&gt;&amp;lt;include&amp;gt;&lt;/span&gt;**/*.properties&lt;span class=&#34;nt&#34;&gt;&amp;lt;/include&amp;gt;&lt;/span&gt;
+                    &lt;span class=&#34;nt&#34;&gt;&amp;lt;include&amp;gt;&lt;/span&gt;**/*.xml&lt;span class=&#34;nt&#34;&gt;&amp;lt;/include&amp;gt;&lt;/span&gt;
+                &lt;span class=&#34;nt&#34;&gt;&amp;lt;/includes&amp;gt;&lt;/span&gt;
+                &lt;span class=&#34;nt&#34;&gt;&amp;lt;filtering&amp;gt;&lt;/span&gt;false&lt;span class=&#34;nt&#34;&gt;&amp;lt;/filtering&amp;gt;&lt;/span&gt;
+            &lt;span class=&#34;nt&#34;&gt;&amp;lt;/resource&amp;gt;&lt;/span&gt;
+        &lt;span class=&#34;nt&#34;&gt;&amp;lt;/resources&amp;gt;&lt;/span&gt;
+&lt;span class=&#34;nt&#34;&gt;&amp;lt;/build&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+        </item>
+        <item>
         <title>Mybatis Generator使用</title>
         <link>https://example.com/p/mybatis-generator%E4%BD%BF%E7%94%A8/</link>
         <pubDate>Tue, 26 Oct 2021 19:34:24 +0800</pubDate>
@@ -147,26 +177,27 @@
         &lt;span class=&#34;nt&#34;&gt;&amp;lt;/plugins&amp;gt;&lt;/span&gt;
     &lt;span class=&#34;nt&#34;&gt;&amp;lt;/build&amp;gt;&lt;/span&gt;
 &lt;span class=&#34;nt&#34;&gt;&amp;lt;/project&amp;gt;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;使用 java 代码运行&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;static&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;main&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;String&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[]&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;args&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;throws&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Exception&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
- &lt;span class=&#34;c1&#34;&gt;// 执行中的异常信息会保存在warnings中 
-&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;List&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;String&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;warnings&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ArrayList&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;String&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;();&lt;/span&gt;
-        &lt;span class=&#34;c1&#34;&gt;// true:生成的文件覆盖之前的
-&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;        &lt;span class=&#34;kt&#34;&gt;boolean&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;overwrite&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;true&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
-        &lt;span class=&#34;c1&#34;&gt;// 读取配置,构造 Configuration 对象.  
-&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;        &lt;span class=&#34;c1&#34;&gt;// 如果不想使用配置文件的话,也可以直接来 new Configuration(),然后给相应属性赋值.
-&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;        &lt;span class=&#34;n&#34;&gt;File&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;configFile&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;File&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;generatorConfig.xml&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;使用 java 代码运行（有自定义插件时使用）&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;static&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;main&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;String&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[]&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;args&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;throws&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Exception&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+        
+        &lt;span class=&#34;c1&#34;&gt;// LogFactory.forceSlf4jLogging();
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;        &lt;span class=&#34;c1&#34;&gt;// System.setProperty(&amp;#34;user.name&amp;#34;, &amp;#34;zzs&amp;#34;);
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;        &lt;span class=&#34;c1&#34;&gt;// 这个集合记录着生成、合并、覆盖文件的信息
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;        &lt;span class=&#34;n&#34;&gt;List&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;String&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;warnings&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ArrayList&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;String&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;();&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;InputStream&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;in&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;MybatisGenerator&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;class&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getClassLoader&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;().&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getResourceAsStream&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;generatorConfig.xml&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
         &lt;span class=&#34;n&#34;&gt;ConfigurationParser&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;cp&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ConfigurationParser&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;warnings&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
-        &lt;span class=&#34;n&#34;&gt;Configuration&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;config&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;cp&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;parseConfiguration&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;configFile&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;Configuration&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;config&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;cp&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;parseConfiguration&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;in&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+        
+        &lt;span class=&#34;c1&#34;&gt;// 不覆盖 Java 文件
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;        &lt;span class=&#34;kt&#34;&gt;boolean&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;overwrite&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;false&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
         &lt;span class=&#34;n&#34;&gt;DefaultShellCallback&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;callback&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;DefaultShellCallback&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;overwrite&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
         &lt;span class=&#34;n&#34;&gt;MyBatisGenerator&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;myBatisGenerator&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;MyBatisGenerator&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;config&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;callback&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;warnings&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
-        &lt;span class=&#34;n&#34;&gt;myBatisGenerator&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;generate&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kc&#34;&gt;null&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
-    
-    &lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;String&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;warning&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;warnings&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;){&lt;/span&gt;
-        &lt;span class=&#34;n&#34;&gt;System&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;out&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;println&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;warning&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
-    &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+        
+        &lt;span class=&#34;c1&#34;&gt;// 生成文件
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;        &lt;span class=&#34;n&#34;&gt;myBatisGenerator&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;generate&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kc&#34;&gt;null&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+        &lt;span class=&#34;c1&#34;&gt;// 打印信息
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;        &lt;span class=&#34;n&#34;&gt;warnings&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;forEach&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;System&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;err&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;println&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
 &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
-
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;或使用maven插件方式&lt;/p&gt;
 &lt;h3 id=&#34;创建-generatorconfigxml-配置文件&#34;&gt;创建 generatorConfig.xml 配置文件&lt;/h3&gt;
 &lt;p&gt;文件位于 &lt;strong&gt;resources&lt;/strong&gt; 文件夹下&lt;/p&gt;
@@ -527,7 +558,105 @@
     &lt;span class=&#34;nt&#34;&gt;&amp;lt;/context&amp;gt;&lt;/span&gt;
 
 &lt;span class=&#34;nt&#34;&gt;&amp;lt;/generatorConfiguration&amp;gt;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;插件&#34;&gt;插件&lt;/h3&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;context-targetruntime-选择&#34;&gt;context targetRuntime 选择&lt;/h3&gt;
+&lt;blockquote&gt;
+&lt;p&gt;MyBatis Generator (MBG) 根据配置方式生成不同风格的代码。这是通过在&lt;code&gt;&amp;lt;context&amp;gt;&lt;/code&gt;配置元素上指定&lt;code&gt;targetRuntime&lt;/code&gt;属性来控制的。&lt;/p&gt;
+&lt;h2 id=&#34;目标运行时信息和示例&#34;&gt;目标运行时信息和示例&lt;/h2&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&#34;text-align:left&#34;&gt;目标运行时&lt;/th&gt;
+&lt;th style=&#34;text-align:left&#34;&gt;注释&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;MyBatis3DynamicSql&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;&lt;em&gt;这是默认值&lt;/em&gt;&lt;!-- raw HTML omitted --&gt;生成 Java 代码&lt;!-- raw HTML omitted --&gt;不生成 XML - MyBatis3 注解被独占使用&lt;!-- raw HTML omitted --&gt;生成的模型对象是“扁平的”——没有单独的主键对象&lt;!-- raw HTML omitted --&gt;生成的代码依赖于 MyBatis 动态 SQL 库&lt;!-- raw HTML omitted --&gt;生成的代码量比较少生成的代码为查询构造提供了极大的灵活性&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;MyBatis3Kotlin&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;生成 Kotlin 代码&lt;!-- raw HTML omitted --&gt;不生成 XML - MyBatis3 注解被独占使用&lt;!-- raw HTML omitted --&gt;生成的模型对象是“扁平的”——没有单独的主键对象&lt;!-- raw HTML omitted --&gt;生成的代码依赖于 MyBatis 动态 SQL 库&lt;!-- raw HTML omitted --&gt;生成的代码量比较少&lt;!-- raw HTML omitted --&gt;生成的代码为查询构造提供了极大的灵活性&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;MyBatis3&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;这是原始运行时。在 MBG 1.3.6 版本之前，MBG 的大多数用法都使用这种风格的代码。&lt;!-- raw HTML omitted --&gt;生成 Java 代码&lt;!-- raw HTML omitted --&gt;生成兼容 MyBatis3 的 XML 和 SQL 或兼容 MyBatis3 的带注释的接口，没有 XML&lt;!-- raw HTML omitted --&gt;生成的模型对象可能具有具有单独主键对象和/或带有 BLOB 字段的单独对象的层次结构&lt;!-- raw HTML omitted --&gt;生成的代码没有外部依赖&lt;!-- raw HTML omitted --&gt;生成的代码量非常大&lt;!-- raw HTML omitted --&gt;生成的代码构建查询能力有限，难以扩展&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;MyBatis3Simple&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;这是 MyBatis3 运行时的简化版本。&lt;!-- raw HTML omitted --&gt;生成 Java 代码&lt;!-- raw HTML omitted --&gt;生成兼容 MyBatis3 的 XML 和 SQL 或兼容 MyBatis3 的带注释的接口，没有 XML&lt;!-- raw HTML omitted --&gt;生成的模型对象是“扁平的”——没有单独的主键对象&lt;!-- raw HTML omitted --&gt;生成的代码没有外部依赖&lt;!-- raw HTML omitted --&gt;生成的代码量比较少&lt;!-- raw HTML omitted --&gt;不会生成“示例”或“选择性”方法&lt;!-- raw HTML omitted --&gt;生成的代码不包含动态查询构建的方法，难以扩展&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3 id=&#34;mybatis3dynamicsql-的示例配置参考httpswwwcnblogscomzhangzisheng001p12820344html&#34;&gt;MyBatis3DynamicSql 的示例配置(&lt;a class=&#34;link&#34; href=&#34;https://www.cnblogs.com/ZhangZiSheng001/p/12820344.html&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;参考&lt;/a&gt;)&lt;/h3&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;&amp;lt;!DOCTYPE generatorConfiguration PUBLIC 
+ &amp;quot;-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN&amp;quot; 
+ &amp;quot;http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd&amp;quot;&amp;gt; 
+&amp;lt;generatorConfiguration&amp;gt; 
+  &amp;lt;context id= &amp;quot;dsql&amp;quot; targetRuntime=&amp;quot;MyBatis3DynamicSql&amp;quot;&amp;gt; 
+    &amp;lt;jdbcConnection driverClass=&amp;quot;org.hsqldb.jdbcDriver&amp;quot; 
+        connectionURL=&amp;quot;jdbc:hsqldb:mem:aname&amp;quot; /&amp;gt; 
+
+    &amp;lt;javaModelGenerator targetPackage=&amp;quot;example.model&amp;quot; targetProject=&amp;quot;src/main/java &amp;quot;/&amp;gt; 
+
+    &amp;lt;javaClientGenerator targetPackage=&amp;quot;example.mapper&amp;quot; targetProject=&amp;quot;src/main/java&amp;quot;/&amp;gt; 
+
+    &amp;lt;table tableName=&amp;quot;FooTable&amp;quot; /&amp;gt; 
+  &amp;lt;/context&amp;gt;
+&amp;lt;/generatorConfiguration&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;mybatis3kotlin-的示例配置&#34;&gt;MyBatis3Kotlin 的示例配置&lt;/h3&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;&amp;lt;!DOCTYPE generatorConfiguration PUBLIC 
+ &amp;quot;-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN&amp;quot; 
+ &amp;quot;http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd&amp;quot;&amp;gt; 
+&amp;lt;generatorConfiguration&amp;gt; 
+  &amp;lt;context id= &amp;quot;kotlin&amp;quot; targetRuntime=&amp;quot;MyBatis3Kotlin&amp;quot;&amp;gt; 
+    &amp;lt;jdbcConnection driverClass=&amp;quot;org.hsqldb.jdbcDriver&amp;quot; 
+        connectionURL=&amp;quot;jdbc:hsqldb:mem:aname&amp;quot; /&amp;gt; 
+
+    &amp;lt;javaModelGenerator targetPackage=&amp;quot;example.model&amp;quot; targetProject=&amp;quot;src/main/kotlin &amp;quot;/&amp;gt; 
+
+    &amp;lt;javaClientGenerator targetPackage=&amp;quot;example.mapper&amp;quot; targetProject=&amp;quot;src/main/kotlin&amp;quot;/&amp;gt; 
+
+    &amp;lt;table tableName=&amp;quot;FooTable&amp;quot; /&amp;gt; 
+  &amp;lt;/context&amp;gt;
+&amp;lt;/generatorConfiguration&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;mybatis3-的示例配置&#34;&gt;MyBatis3 的示例配置&lt;/h3&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;&amp;lt;!DOCTYPE generatorConfiguration PUBLIC 
+ &amp;quot;-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN&amp;quot; 
+ &amp;quot;http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd&amp;quot;&amp;gt; 
+&amp;lt;generatorConfiguration&amp;gt; 
+  &amp;lt;context id= &amp;quot;simple&amp;quot; targetRuntime=&amp;quot;MyBatis3Simple&amp;quot;&amp;gt; 
+    &amp;lt;jdbcConnection driverClass=&amp;quot;org.hsqldb.jdbcDriver&amp;quot; 
+        connectionURL=&amp;quot;jdbc:hsqldb:mem:aname&amp;quot; /&amp;gt; 
+
+    &amp;lt;javaModelGenerator targetPackage=&amp;quot;example.model&amp;quot; targetProject=&amp;quot;src/main/java &amp;quot;/&amp;gt; 
+
+    &amp;lt;sqlMapGenerator targetPackage=&amp;quot;example.mapper&amp;quot; targetProject=&amp;quot;src/main/resources&amp;quot;/&amp;gt; 
+
+    &amp;lt;javaClientGenerator type=&amp;quot;XMLMAPPER&amp;quot; targetPackage=&amp;quot;example.mapper&amp;quot;targetProject=&amp;quot;src/main/java&amp;quot;/&amp;gt; 
+
+    &amp;lt;table tableName=&amp;quot;FooTable&amp;quot; /&amp;gt; 
+  &amp;lt;/context&amp;gt;
+&amp;lt;/generatorConfiguration&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;mybatis3simple-的示例配置&#34;&gt;MyBatis3Simple 的示例配置&lt;/h3&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;&amp;lt;!DOCTYPE generatorConfiguration PUBLIC 
+ &amp;quot;-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN&amp;quot; 
+ &amp;quot;http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd&amp;quot;&amp;gt; 
+&amp;lt;generatorConfiguration&amp;gt; 
+  &amp;lt;context id= &amp;quot;simple&amp;quot; targetRuntime=&amp;quot;MyBatis3Simple&amp;quot;&amp;gt; 
+    &amp;lt;jdbcConnection driverClass=&amp;quot;org.hsqldb.jdbcDriver&amp;quot; 
+        connectionURL=&amp;quot;jdbc:hsqldb:mem:aname&amp;quot; /&amp;gt; 
+
+    &amp;lt;javaModelGenerator targetPackage=&amp;quot;example.model&amp;quot; targetProject=&amp;quot;src/main/java &amp;quot;/&amp;gt; 
+
+    &amp;lt;javaClientGenerator type=&amp;quot;ANNOTATEDMAPPER&amp;quot; targetPackage=&amp;quot;example.mapper&amp;quot; targetProject=&amp;quot;src/main/java&amp;quot;/&amp;gt; 
+
+    &amp;lt;table tableName=&amp;quot;FooTable&amp;quot; /&amp;gt;
+  &amp;lt;/context&amp;gt; 
+&amp;lt;/generatorConfiguration&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/blockquote&gt;
+&lt;h3 id=&#34;插件&#34;&gt;插件&lt;/h3&gt;
 &lt;p&gt;&lt;strong&gt;MBG自带插件&lt;/strong&gt;&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;&lt;strong&gt;提供的插件&lt;/strong&gt;&lt;/p&gt;
@@ -1131,10 +1260,10 @@
 &lt;blockquote&gt;
 &lt;p&gt;没错,就是introspectedColumn.getRemarks()获取不到字段的注释,生成的javabean里面应该显示字段注释的地方显示的是null.配置文件中我们对&lt;!-- raw HTML omitted --&gt;做如下修改即可:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-xml&#34; data-lang=&#34;xml&#34;&gt;&lt;span class=&#34;nt&#34;&gt;&amp;lt;jdbcConnection&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;driverClass=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;${driver}&amp;#34;&lt;/span&gt;
-    &lt;span class=&#34;na&#34;&gt;connectionURL=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;{url}&amp;#34;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;userId=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;${username}&amp;#34;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;password=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;${password}&amp;#34;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;&amp;gt;&lt;/span&gt;
-    &lt;span class=&#34;c&#34;&gt;&amp;lt;!-- 针对oracle数据库 --&amp;gt;&lt;/span&gt;
-    &lt;span class=&#34;nt&#34;&gt;&amp;lt;property&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;name=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;remarksReporting&amp;#34;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;value=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;true&amp;#34;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;&amp;gt;&amp;lt;/property&amp;gt;&lt;/span&gt;
-    &lt;span class=&#34;c&#34;&gt;&amp;lt;!-- 针对mysql数据库 --&amp;gt;&lt;/span&gt;
+	&lt;span class=&#34;na&#34;&gt;connectionURL=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;{url}&amp;#34;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;userId=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;${username}&amp;#34;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;password=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;${password}&amp;#34;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;&amp;gt;&lt;/span&gt;
+	&lt;span class=&#34;c&#34;&gt;&amp;lt;!-- 针对oracle数据库 --&amp;gt;&lt;/span&gt;
+	&lt;span class=&#34;nt&#34;&gt;&amp;lt;property&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;name=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;remarksReporting&amp;#34;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;value=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;true&amp;#34;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;&amp;gt;&amp;lt;/property&amp;gt;&lt;/span&gt;
+	&lt;span class=&#34;c&#34;&gt;&amp;lt;!-- 针对mysql数据库 --&amp;gt;&lt;/span&gt;
     &lt;span class=&#34;nt&#34;&gt;&amp;lt;property&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;name=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;useInformationSchema&amp;#34;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;value=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;true&amp;#34;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;&amp;gt;&amp;lt;/property&amp;gt;&lt;/span&gt;
 &lt;span class=&#34;nt&#34;&gt;&amp;lt;/jdbcConnection&amp;gt;&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/blockquote&gt;
@@ -5307,10 +5436,10 @@ theme = &amp;quot;ananke&amp;quot;
 
 	&lt;span class=&#34;nd&#34;&gt;@Override&lt;/span&gt;
 	&lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;doFilter&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ServletRequest&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;request&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ServletResponse&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;response&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;FilterChain&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;chain&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
-           &lt;span class=&#34;kd&#34;&gt;throws&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;IOException&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ServletException&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+			&lt;span class=&#34;kd&#34;&gt;throws&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;IOException&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ServletException&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
 
-       &lt;span class=&#34;n&#34;&gt;System&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;out&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;println&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;执行了filter&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
-       &lt;span class=&#34;n&#34;&gt;chain&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;doFilter&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;request&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;response&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+		&lt;span class=&#34;n&#34;&gt;System&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;out&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;println&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;执行了filter&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+		&lt;span class=&#34;n&#34;&gt;chain&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;doFilter&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;request&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;response&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
 
 	&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
 
@@ -5404,7 +5533,7 @@ theme = &amp;quot;ananke&amp;quot;
 &lt;p&gt;web.xml&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-xml&#34; data-lang=&#34;xml&#34;&gt;&lt;span class=&#34;nt&#34;&gt;&amp;lt;filter-mapping&amp;gt;&lt;/span&gt;
                                 &lt;span class=&#34;nt&#34;&gt;&amp;lt;dispatcher&amp;gt;&lt;/span&gt;REQUEST(同上)&lt;span class=&#34;nt&#34;&gt;&amp;lt;/dispatcher&amp;gt;&lt;/span&gt;
-                          &lt;span class=&#34;nt&#34;&gt;&amp;lt;/filter-mapping&amp;gt;&lt;/span&gt;
+							&lt;span class=&#34;nt&#34;&gt;&amp;lt;/filter-mapping&amp;gt;&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
@@ -5946,8 +6075,7 @@ mysql&amp;gt; SELECT * FROM tmp10;
        &lt;span class=&#34;na&#34;&gt;xmlns:xsi=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;http://www.w3.org/2001/XMLSchema-instance&amp;#34;&lt;/span&gt;
        &lt;span class=&#34;na&#34;&gt;xsi:schemaLocation=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd&amp;#34;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;&amp;gt;&lt;/span&gt;
 
-    &lt;span class=&#34;nt&#34;&gt;&amp;lt;bean&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;id=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;simpleUrlHandlerMapping&amp;#34;&lt;/span&gt;
-          &lt;span class=&#34;na&#34;&gt;class=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;org.springframework.web.servlet.handler.SimpleUrlHandlerMapping&amp;#34;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;&amp;gt;&lt;/span&gt;
+          class=&amp;#34;org.springframework.web.servlet.handler.SimpleUrlHandlerMapping&amp;#34;&amp;gt;
         &lt;span class=&#34;nt&#34;&gt;&amp;lt;property&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;name=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;mappings&amp;#34;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;&amp;gt;&lt;/span&gt;
             &lt;span class=&#34;nt&#34;&gt;&amp;lt;props&amp;gt;&lt;/span&gt;
                 &lt;span class=&#34;c&#34;&gt;&amp;lt;!-- /hello 路径的请求交给 id 为 helloController 的控制器处理--&amp;gt;&lt;/span&gt;
@@ -5983,7 +6111,20 @@ mysql&amp;gt; SELECT * FROM tmp10;
 &lt;/ol&gt;
 &lt;h2 id=&#34;跟踪-spring-mvc-的请求&#34;&gt;跟踪 Spring MVC 的请求&lt;/h2&gt;
 &lt;p&gt;每当用户在 Web 浏览器中点击链接或者提交表单的时候，请求就开始工作了，像是邮递员一样，从离开浏览器开始到获取响应返回，它会经历很多站点，在每一个站点都会留下一些信息同时也会带上其他信息，下图为 Spring MVC 的请求流程：&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https:////upload-images.jianshu.io/upload_images/7896890-65ef874ad7da59a2.png?imageMogr2/auto-orient/strip%7cimageView2/2/w/784/format/webp&#34; alt=&#34;img&#34;  /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;figure 
+	&gt;
+	&lt;a href=&#34;https:////upload-images.jianshu.io/upload_images/7896890-65ef874ad7da59a2.png?imageMogr2/auto-orient/strip%7cimageView2/2/w/784/format/webp&#34; &gt;
+		&lt;img src=&#34;https:////upload-images.jianshu.io/upload_images/7896890-65ef874ad7da59a2.png?imageMogr2/auto-orient/strip%7cimageView2/2/w/784/format/webp&#34;
+			
+			
+			
+			loading=&#34;lazy&#34;
+			alt=&#34;img&#34;&gt;
+	&lt;/a&gt;
+	
+	&lt;figcaption&gt;img&lt;/figcaption&gt;
+	
+&lt;/figure&gt;&lt;/p&gt;
 &lt;h4 id=&#34;第一站dispatcherservlet&#34;&gt;第一站：DispatcherServlet&lt;/h4&gt;
 &lt;p&gt;从请求离开浏览器以后，第一站到达的就是 DispatcherServlet，看名字这是一个 Servlet，通过 J2EE 的学习，我们知道 Servlet 可以拦截并处理 HTTP 请求，DispatcherServlet 会拦截所有的请求，并且将这些请求发送给 Spring MVC 控制器。&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-xml&#34; data-lang=&#34;xml&#34;&gt;&lt;span class=&#34;nt&#34;&gt;&amp;lt;servlet&amp;gt;&lt;/span&gt;
@@ -6124,7 +6265,20 @@ mysql&amp;gt; SELECT * FROM tmp10;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;这里配置了一个 Spring MVC 内置的一个视图解析器，该解析器是遵循着一种约定：会**在视图名上添加前缀和后缀，进而确定一个 Web 应用中视图资源的物理路径的。**让我们实际来看看效果：&lt;/p&gt;
 &lt;h4 id=&#34;第一步修改-hellocontroller&#34;&gt;第一步：修改 HelloController&lt;/h4&gt;
 &lt;p&gt;我们将代码修改一下：&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https:////upload-images.jianshu.io/upload_images/7896890-2ce49e171bd6d547.png?imageMogr2/auto-orient/strip%7cimageView2/2/w/765/format/webp&#34; alt=&#34;img&#34;  /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;figure 
+	&gt;
+	&lt;a href=&#34;https:////upload-images.jianshu.io/upload_images/7896890-2ce49e171bd6d547.png?imageMogr2/auto-orient/strip%7cimageView2/2/w/765/format/webp&#34; &gt;
+		&lt;img src=&#34;https:////upload-images.jianshu.io/upload_images/7896890-2ce49e171bd6d547.png?imageMogr2/auto-orient/strip%7cimageView2/2/w/765/format/webp&#34;
+			
+			
+			
+			loading=&#34;lazy&#34;
+			alt=&#34;img&#34;&gt;
+	&lt;/a&gt;
+	
+	&lt;figcaption&gt;img&lt;/figcaption&gt;
+	
+&lt;/figure&gt;&lt;/p&gt;
 &lt;h4 id=&#34;第二步配置视图解析器&#34;&gt;第二步：配置视图解析器：&lt;/h4&gt;
 &lt;p&gt;按照上述的配置，完成：&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-xml&#34; data-lang=&#34;xml&#34;&gt;&lt;span class=&#34;cp&#34;&gt;&amp;lt;?xml version=&amp;#34;1.0&amp;#34; encoding=&amp;#34;UTF-8&amp;#34;?&amp;gt;&lt;/span&gt;
@@ -6157,7 +6311,20 @@ mysql&amp;gt; SELECT * FROM tmp10;
 &lt;ul&gt;
 &lt;li&gt;&lt;strong&gt;原理：&lt;/strong&gt;&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;img src=&#34;https:////upload-images.jianshu.io/upload_images/7896890-a716a3ac8f7e541d.png?imageMogr2/auto-orient/strip%7cimageView2/2/w/468/format/webp&#34; alt=&#34;img&#34;  /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;figure 
+	&gt;
+	&lt;a href=&#34;https:////upload-images.jianshu.io/upload_images/7896890-a716a3ac8f7e541d.png?imageMogr2/auto-orient/strip%7cimageView2/2/w/468/format/webp&#34; &gt;
+		&lt;img src=&#34;https:////upload-images.jianshu.io/upload_images/7896890-a716a3ac8f7e541d.png?imageMogr2/auto-orient/strip%7cimageView2/2/w/468/format/webp&#34;
+			
+			
+			
+			loading=&#34;lazy&#34;
+			alt=&#34;img&#34;&gt;
+	&lt;/a&gt;
+	
+	&lt;figcaption&gt;img&lt;/figcaption&gt;
+	
+&lt;/figure&gt;&lt;/p&gt;
 &lt;p&gt;我们传入的逻辑视图名为 index ，再加上 “&lt;code&gt;/WEB-INF/page/&lt;/code&gt;” 前缀和 “&lt;code&gt;.jsp&lt;/code&gt;” 后缀，就能确定物理视图的路径了，这样我们以后就可以将所有的视图放入【page】文件夹下了！&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;**注意：**此时的配置仅是 dispatcher-servlet.xml 下的&lt;/li&gt;
@@ -6195,7 +6362,20 @@ mysql&amp;gt; SELECT * FROM tmp10;
     &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;null&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
 &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;测试成功：&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https:////upload-images.jianshu.io/upload_images/7896890-df21058b7ef71924.png?imageMogr2/auto-orient/strip%7cimageView2/2/w/706/format/webp&#34; alt=&#34;img&#34;  /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;figure 
+	&gt;
+	&lt;a href=&#34;https:////upload-images.jianshu.io/upload_images/7896890-df21058b7ef71924.png?imageMogr2/auto-orient/strip%7cimageView2/2/w/706/format/webp&#34; &gt;
+		&lt;img src=&#34;https:////upload-images.jianshu.io/upload_images/7896890-df21058b7ef71924.png?imageMogr2/auto-orient/strip%7cimageView2/2/w/706/format/webp&#34;
+			
+			
+			
+			loading=&#34;lazy&#34;
+			alt=&#34;img&#34;&gt;
+	&lt;/a&gt;
+	
+	&lt;figcaption&gt;img&lt;/figcaption&gt;
+	
+&lt;/figure&gt;&lt;/p&gt;
 &lt;h4 id=&#34;使用同名匹配规则&#34;&gt;使用同名匹配规则&lt;/h4&gt;
 &lt;p&gt;我们可以把方法定义的形参名字设置成和前台传入参数名一样的方法，来获取到数据（同名匹配规则）：&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;nd&#34;&gt;@RequestMapping&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;/param&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
@@ -6206,12 +6386,38 @@ mysql&amp;gt; SELECT * FROM tmp10;
     &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;null&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
 &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;测试成功：&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https:////upload-images.jianshu.io/upload_images/7896890-55a1c296c778e506.png?imageMogr2/auto-orient/strip%7cimageView2/2/w/595/format/webp&#34; alt=&#34;img&#34;  /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;figure 
+	&gt;
+	&lt;a href=&#34;https:////upload-images.jianshu.io/upload_images/7896890-55a1c296c778e506.png?imageMogr2/auto-orient/strip%7cimageView2/2/w/595/format/webp&#34; &gt;
+		&lt;img src=&#34;https:////upload-images.jianshu.io/upload_images/7896890-55a1c296c778e506.png?imageMogr2/auto-orient/strip%7cimageView2/2/w/595/format/webp&#34;
+			
+			
+			
+			loading=&#34;lazy&#34;
+			alt=&#34;img&#34;&gt;
+	&lt;/a&gt;
+	
+	&lt;figcaption&gt;img&lt;/figcaption&gt;
+	
+&lt;/figure&gt;&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;strong&gt;问题：&lt;/strong&gt; 这样又会和前台产生很强的耦合，这是我们不希望的&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;解决：&lt;/strong&gt; 使用 &lt;code&gt;@RequestParam(&amp;quot;前台参数名&amp;quot;)&lt;/code&gt; 来注入：&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;img src=&#34;https:////upload-images.jianshu.io/upload_images/7896890-a649ad50866a01c5.png?imageMogr2/auto-orient/strip%7cimageView2/2/w/760/format/webp&#34; alt=&#34;img&#34;  /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;figure 
+	&gt;
+	&lt;a href=&#34;https:////upload-images.jianshu.io/upload_images/7896890-a649ad50866a01c5.png?imageMogr2/auto-orient/strip%7cimageView2/2/w/760/format/webp&#34; &gt;
+		&lt;img src=&#34;https:////upload-images.jianshu.io/upload_images/7896890-a649ad50866a01c5.png?imageMogr2/auto-orient/strip%7cimageView2/2/w/760/format/webp&#34;
+			
+			
+			
+			loading=&#34;lazy&#34;
+			alt=&#34;img&#34;&gt;
+	&lt;/a&gt;
+	
+	&lt;figcaption&gt;img&lt;/figcaption&gt;
+	
+&lt;/figure&gt;&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;strong&gt;&lt;code&gt;@RequestParam&lt;/code&gt; 注解细节：&lt;/strong&gt;
 该注解有三个变量：&lt;code&gt;value&lt;/code&gt;、&lt;code&gt;required&lt;/code&gt;、&lt;code&gt;defaultvalue&lt;/code&gt;&lt;/li&gt;
@@ -6234,7 +6440,20 @@ mysql&amp;gt; SELECT * FROM tmp10;
     &lt;span class=&#34;cm&#34;&gt;/* getter and setter */&lt;/span&gt;
 &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;然后测试仍然成功：&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https:////upload-images.jianshu.io/upload_images/7896890-471d26bcb335aee6.png?imageMogr2/auto-orient/strip%7cimageView2/2/w/438/format/webp&#34; alt=&#34;img&#34;  /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;figure 
+	&gt;
+	&lt;a href=&#34;https:////upload-images.jianshu.io/upload_images/7896890-471d26bcb335aee6.png?imageMogr2/auto-orient/strip%7cimageView2/2/w/438/format/webp&#34; &gt;
+		&lt;img src=&#34;https:////upload-images.jianshu.io/upload_images/7896890-471d26bcb335aee6.png?imageMogr2/auto-orient/strip%7cimageView2/2/w/438/format/webp&#34;
+			
+			
+			
+			loading=&#34;lazy&#34;
+			alt=&#34;img&#34;&gt;
+	&lt;/a&gt;
+	
+	&lt;figcaption&gt;img&lt;/figcaption&gt;
+	
+&lt;/figure&gt;&lt;/p&gt;
 &lt;h4 id=&#34;中文乱码问题&#34;&gt;中文乱码问题&lt;/h4&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;strong&gt;注意：&lt;/strong&gt; 跟 Servlet 中的一样，该方法只对 POST 方法有效（因为是直接处理的 request）&lt;/li&gt;
@@ -6276,12 +6495,51 @@ mysql&amp;gt; SELECT * FROM tmp10;
     &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ModelAndView&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;test1&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
 &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;在浏览器地址栏中输入：&lt;code&gt;localhost/value&lt;/code&gt; 测试&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https:////upload-images.jianshu.io/upload_images/7896890-66d2f24a876306e6.png?imageMogr2/auto-orient/strip%7cimageView2/2/w/562/format/webp&#34; alt=&#34;img&#34;  /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;figure 
+	&gt;
+	&lt;a href=&#34;https:////upload-images.jianshu.io/upload_images/7896890-66d2f24a876306e6.png?imageMogr2/auto-orient/strip%7cimageView2/2/w/562/format/webp&#34; &gt;
+		&lt;img src=&#34;https:////upload-images.jianshu.io/upload_images/7896890-66d2f24a876306e6.png?imageMogr2/auto-orient/strip%7cimageView2/2/w/562/format/webp&#34;
+			
+			
+			
+			loading=&#34;lazy&#34;
+			alt=&#34;img&#34;&gt;
+	&lt;/a&gt;
+	
+	&lt;figcaption&gt;img&lt;/figcaption&gt;
+	
+&lt;/figure&gt;&lt;/p&gt;
 &lt;h4 id=&#34;使用-spring-mvc-所提供的-modelandview-对象&#34;&gt;使用 Spring MVC 所提供的 ModelAndView 对象&lt;/h4&gt;
-&lt;p&gt;&lt;img src=&#34;https:////upload-images.jianshu.io/upload_images/7896890-360ce67947be817d.png?imageMogr2/auto-orient/strip%7cimageView2/2/w/703/format/webp&#34; alt=&#34;img&#34;  /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;figure 
+	&gt;
+	&lt;a href=&#34;https:////upload-images.jianshu.io/upload_images/7896890-360ce67947be817d.png?imageMogr2/auto-orient/strip%7cimageView2/2/w/703/format/webp&#34; &gt;
+		&lt;img src=&#34;https:////upload-images.jianshu.io/upload_images/7896890-360ce67947be817d.png?imageMogr2/auto-orient/strip%7cimageView2/2/w/703/format/webp&#34;
+			
+			
+			
+			loading=&#34;lazy&#34;
+			alt=&#34;img&#34;&gt;
+	&lt;/a&gt;
+	
+	&lt;figcaption&gt;img&lt;/figcaption&gt;
+	
+&lt;/figure&gt;&lt;/p&gt;
 &lt;h4 id=&#34;使用-model-对象&#34;&gt;使用 Model 对象&lt;/h4&gt;
 &lt;p&gt;在 Spring MVC 中，我们通常都是使用这样的方式来绑定数据，&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https:////upload-images.jianshu.io/upload_images/7896890-685dd384904ad28f.png?imageMogr2/auto-orient/strip%7cimageView2/2/w/536/format/webp&#34; alt=&#34;img&#34;  /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;figure 
+	&gt;
+	&lt;a href=&#34;https:////upload-images.jianshu.io/upload_images/7896890-685dd384904ad28f.png?imageMogr2/auto-orient/strip%7cimageView2/2/w/536/format/webp&#34; &gt;
+		&lt;img src=&#34;https:////upload-images.jianshu.io/upload_images/7896890-685dd384904ad28f.png?imageMogr2/auto-orient/strip%7cimageView2/2/w/536/format/webp&#34;
+			
+			
+			
+			loading=&#34;lazy&#34;
+			alt=&#34;img&#34;&gt;
+	&lt;/a&gt;
+	
+	&lt;figcaption&gt;img&lt;/figcaption&gt;
+	
+&lt;/figure&gt;&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;strong&gt;使用 &lt;code&gt;@ModelAttribute&lt;/code&gt; 注解：&lt;/strong&gt;&lt;/li&gt;
 &lt;/ul&gt;
@@ -6312,7 +6570,20 @@ mysql&amp;gt; SELECT * FROM tmp10;
     &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;mav&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
 &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;我们使用 &lt;code&gt;redirect:/hello&lt;/code&gt; 就表示我们要跳转到 &lt;code&gt;/hello&lt;/code&gt; 这个路径，我们重启服务器，在地址栏中输入：&lt;code&gt;localhost/jump&lt;/code&gt; ，会自动跳转到 &lt;code&gt;/hello&lt;/code&gt; 路径下：&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https:////upload-images.jianshu.io/upload_images/7896890-390fb571e9f6ff03.png?imageMogr2/auto-orient/strip%7cimageView2/2/w/947/format/webp&#34; alt=&#34;img&#34;  /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;figure 
+	&gt;
+	&lt;a href=&#34;https:////upload-images.jianshu.io/upload_images/7896890-390fb571e9f6ff03.png?imageMogr2/auto-orient/strip%7cimageView2/2/w/947/format/webp&#34; &gt;
+		&lt;img src=&#34;https:////upload-images.jianshu.io/upload_images/7896890-390fb571e9f6ff03.png?imageMogr2/auto-orient/strip%7cimageView2/2/w/947/format/webp&#34;
+			
+			
+			
+			loading=&#34;lazy&#34;
+			alt=&#34;img&#34;&gt;
+	&lt;/a&gt;
+	
+	&lt;figcaption&gt;img&lt;/figcaption&gt;
+	
+&lt;/figure&gt;&lt;/p&gt;
 &lt;p&gt;也可以这样用：&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;nd&#34;&gt;@RequestMapping&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;/jump&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
 &lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;String&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;jump&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
@@ -6602,7 +6873,20 @@ Box Perimeter is: ${2*box.width + 2*box.height}
 &amp;lt;/body&amp;gt;&amp;lt;/body&amp;gt;
 &amp;lt;/html&amp;gt;&amp;lt;/html&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;运行结果如下：&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://www.runoob.com/wp-content/uploads/2014/01/jsp-expression-language.jpg&#34; alt=&#34;jsp-expression-language&#34;  /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;figure 
+	&gt;
+	&lt;a href=&#34;https://www.runoob.com/wp-content/uploads/2014/01/jsp-expression-language.jpg&#34; &gt;
+		&lt;img src=&#34;https://www.runoob.com/wp-content/uploads/2014/01/jsp-expression-language.jpg&#34;
+			
+			
+			
+			loading=&#34;lazy&#34;
+			alt=&#34;jsp-expression-language&#34;&gt;
+	&lt;/a&gt;
+	
+	&lt;figcaption&gt;jsp-expression-language&lt;/figcaption&gt;
+	
+&lt;/figure&gt;&lt;/p&gt;
 &lt;p&gt;header对象返回单一值，而headerValues则返回一个字符串数组。&lt;/p&gt;
 &lt;h2 id=&#34;el函数库&#34;&gt;El函数库&lt;/h2&gt;
 &lt;p&gt;导入标签库:&lt;/p&gt;

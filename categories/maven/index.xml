@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>maven on ybakiame Blog</title>
+    <link>https://example.com/categories/maven/</link>
+    <description>Recent content in maven on ybakiame Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 26 Oct 2021 22:14:13 +0800</lastBuildDate><atom:link href="https://example.com/categories/maven/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Maven项目xml过滤</title>
+      <link>https://example.com/p/maven%E9%A1%B9%E7%9B%AExml%E8%BF%87%E6%BB%A4/</link>
+      <pubDate>Tue, 26 Oct 2021 22:14:13 +0800</pubDate>
+      
+      <guid>https://example.com/p/maven%E9%A1%B9%E7%9B%AExml%E8%BF%87%E6%BB%A4/</guid>
+      <description>在 pom.xml 中添加
+&amp;lt;build&amp;gt; &amp;lt;!--在进行模块化开发打jar包时，maven会将非java文件过滤掉，例如xml,properties等配置文件。--&amp;gt; &amp;lt;resources&amp;gt; &amp;lt;resource&amp;gt; &amp;lt;directory&amp;gt;src/main/java&amp;lt;/directory&amp;gt; &amp;lt;includes&amp;gt; &amp;lt;include&amp;gt;**/*.properties&amp;lt;/include&amp;gt; &amp;lt;include&amp;gt;**/*.xml&amp;lt;/include&amp;gt; &amp;lt;/includes&amp;gt; &amp;lt;filtering&amp;gt;false&amp;lt;/filtering&amp;gt; &amp;lt;/resource&amp;gt; &amp;lt;resource&amp;gt; &amp;lt;directory&amp;gt;src/main/resources&amp;lt;/directory&amp;gt; &amp;lt;includes&amp;gt; &amp;lt;include&amp;gt;**/*.properties&amp;lt;/include&amp;gt; &amp;lt;include&amp;gt;**/*.xml&amp;lt;/include&amp;gt; &amp;lt;/includes&amp;gt; &amp;lt;filtering&amp;gt;false&amp;lt;/filtering&amp;gt; &amp;lt;/resource&amp;gt; &amp;lt;/resources&amp;gt; &amp;lt;/build&amp;gt; </description>
+    </item>
+    
+  </channel>
+</rss>

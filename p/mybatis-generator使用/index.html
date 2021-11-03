@@ -22,7 +22,7 @@ github储存库：https://github.com/mybatis/generator
  匹配表主键的类（如果有主键） 匹配表的非主键字段的类（BLOB 字段除外） 一个包含表的 BLOB 字段的类（如果表有 BLOB 字段） 启用动态选择、更新和删除的类  这些类之间有适当的继承关系。请注意，生成器可以配置为生成不同类型的 POJO 层次结构 - 例如，如果您愿意，您可以选择为每个表生成单个域对象。
   在某些情况下，MBG 会生成 MyBatis3 Compatible SQL Map XML Files。MBG 为配置中的每个表上的简单 CRUD 函数生成 SQL。生成的 SQL 语句包括：'>
 <meta property='og:url' content='https://example.com/p/mybatis-generator%E4%BD%BF%E7%94%A8/'>
-<meta property='og:site_name' content='ybakiame的个人博客'>
+<meta property='og:site_name' content='ybakiame Blog'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='mybatis-generator' /><meta property='article:published_time' content='2021-10-26T19:34:24&#43;08:00'/><meta property='article:modified_time' content='2021-10-26T19:34:24&#43;08:00'/>
 <meta name="twitter:title" content="Mybatis Generator使用">
 <meta name="twitter:description" content="mybatis-generator 官网：https://mybatis.org/generator/
@@ -66,7 +66,7 @@ github储存库：https://github.com/mybatis/generator
 ">
     
         <div id="article-toolbar">
-            <a href="https://example.com" class="back-home">
+            <a href="/" class="back-home">
                 <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
   <polyline points="15 6 9 12 15 18" />
@@ -97,8 +97,28 @@ github储存库：https://github.com/mybatis/generator
         <a href="/p/mybatis-generator%E4%BD%BF%E7%94%A8/">Mybatis Generator使用</a>
     </h2>
 
+    
+
+    
     <footer class="article-time">
-        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Oct 26, 2021</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
   <circle cx="12" cy="12" r="9" />
   <polyline points="12 7 12 12 15 15" />
@@ -106,8 +126,14 @@ github储存库：https://github.com/mybatis/generator
 
 
 
-        <time class="article-time--published">Oct 26, 2021</time>
-    </footer></div>
+                <time class="article-time--reading">
+                    阅读时长: 11 分钟
+                </time>
+            </div>
+        
+    </footer>
+    
+</div>
 </header>
 
     <section class="article-content">
@@ -246,26 +272,27 @@ github储存库：https://github.com/mybatis/generator
         <span class="nt">&lt;/plugins&gt;</span>
     <span class="nt">&lt;/build&gt;</span>
 <span class="nt">&lt;/project&gt;</span>
-</code></pre></div><p>使用 java 代码运行</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span><span class="o">{</span>
- <span class="c1">// 执行中的异常信息会保存在warnings中 
-</span><span class="c1"></span> <span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">warnings</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;();</span>
-        <span class="c1">// true:生成的文件覆盖之前的
-</span><span class="c1"></span>        <span class="kt">boolean</span> <span class="n">overwrite</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
-        <span class="c1">// 读取配置,构造 Configuration 对象.  
-</span><span class="c1"></span>        <span class="c1">// 如果不想使用配置文件的话,也可以直接来 new Configuration(),然后给相应属性赋值.
-</span><span class="c1"></span>        <span class="n">File</span> <span class="n">configFile</span> <span class="o">=</span> <span class="k">new</span> <span class="n">File</span><span class="o">(</span><span class="s">&#34;generatorConfig.xml&#34;</span><span class="o">);</span>
+</code></pre></div><p>使用 java 代码运行（有自定义插件时使用）</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+        
+        <span class="c1">// LogFactory.forceSlf4jLogging();
+</span><span class="c1"></span>        <span class="c1">// System.setProperty(&#34;user.name&#34;, &#34;zzs&#34;);
+</span><span class="c1"></span>        <span class="c1">// 这个集合记录着生成、合并、覆盖文件的信息
+</span><span class="c1"></span>        <span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">warnings</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;();</span>
+        <span class="n">InputStream</span> <span class="n">in</span> <span class="o">=</span> <span class="n">MybatisGenerator</span><span class="o">.</span><span class="na">class</span><span class="o">.</span><span class="na">getClassLoader</span><span class="o">().</span><span class="na">getResourceAsStream</span><span class="o">(</span><span class="s">&#34;generatorConfig.xml&#34;</span><span class="o">);</span>
         <span class="n">ConfigurationParser</span> <span class="n">cp</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ConfigurationParser</span><span class="o">(</span><span class="n">warnings</span><span class="o">);</span>
-        <span class="n">Configuration</span> <span class="n">config</span> <span class="o">=</span> <span class="n">cp</span><span class="o">.</span><span class="na">parseConfiguration</span><span class="o">(</span><span class="n">configFile</span><span class="o">);</span>
+        <span class="n">Configuration</span> <span class="n">config</span> <span class="o">=</span> <span class="n">cp</span><span class="o">.</span><span class="na">parseConfiguration</span><span class="o">(</span><span class="n">in</span><span class="o">);</span>
+        
+        <span class="c1">// 不覆盖 Java 文件
+</span><span class="c1"></span>        <span class="kt">boolean</span> <span class="n">overwrite</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
         <span class="n">DefaultShellCallback</span> <span class="n">callback</span> <span class="o">=</span> <span class="k">new</span> <span class="n">DefaultShellCallback</span><span class="o">(</span><span class="n">overwrite</span><span class="o">);</span>
         <span class="n">MyBatisGenerator</span> <span class="n">myBatisGenerator</span> <span class="o">=</span> <span class="k">new</span> <span class="n">MyBatisGenerator</span><span class="o">(</span><span class="n">config</span><span class="o">,</span> <span class="n">callback</span><span class="o">,</span> <span class="n">warnings</span><span class="o">);</span>
-        <span class="n">myBatisGenerator</span><span class="o">.</span><span class="na">generate</span><span class="o">(</span><span class="kc">null</span><span class="o">);</span>
-    
-    <span class="k">for</span> <span class="o">(</span><span class="n">String</span> <span class="n">warning</span> <span class="o">:</span> <span class="n">warnings</span><span class="o">){</span>
-        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">warning</span><span class="o">);</span>
-    <span class="o">}</span>
+        
+        <span class="c1">// 生成文件
+</span><span class="c1"></span>        <span class="n">myBatisGenerator</span><span class="o">.</span><span class="na">generate</span><span class="o">(</span><span class="kc">null</span><span class="o">);</span>
+        <span class="c1">// 打印信息
+</span><span class="c1"></span>        <span class="n">warnings</span><span class="o">.</span><span class="na">forEach</span><span class="o">(</span><span class="n">System</span><span class="o">.</span><span class="na">err</span><span class="o">::</span><span class="n">println</span><span class="o">);</span>
 <span class="o">}</span>
-
 </code></pre></div><p>或使用maven插件方式</p>
 <h3 id="创建-generatorconfigxml-配置文件">创建 generatorConfig.xml 配置文件</h3>
 <p>文件位于 <strong>resources</strong> 文件夹下</p>
@@ -626,7 +653,105 @@ github储存库：https://github.com/mybatis/generator
     <span class="nt">&lt;/context&gt;</span>
 
 <span class="nt">&lt;/generatorConfiguration&gt;</span>
-</code></pre></div><h3 id="插件">插件</h3>
+</code></pre></div><h3 id="context-targetruntime-选择">context targetRuntime 选择</h3>
+<blockquote>
+<p>MyBatis Generator (MBG) 根据配置方式生成不同风格的代码。这是通过在<code>&lt;context&gt;</code>配置元素上指定<code>targetRuntime</code>属性来控制的。</p>
+<h2 id="目标运行时信息和示例">目标运行时信息和示例</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">目标运行时</th>
+<th style="text-align:left">注释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">MyBatis3DynamicSql</td>
+<td style="text-align:left"><em>这是默认值</em><!-- raw HTML omitted -->生成 Java 代码<!-- raw HTML omitted -->不生成 XML - MyBatis3 注解被独占使用<!-- raw HTML omitted -->生成的模型对象是“扁平的”——没有单独的主键对象<!-- raw HTML omitted -->生成的代码依赖于 MyBatis 动态 SQL 库<!-- raw HTML omitted -->生成的代码量比较少生成的代码为查询构造提供了极大的灵活性</td>
+</tr>
+<tr>
+<td style="text-align:left">MyBatis3Kotlin</td>
+<td style="text-align:left">生成 Kotlin 代码<!-- raw HTML omitted -->不生成 XML - MyBatis3 注解被独占使用<!-- raw HTML omitted -->生成的模型对象是“扁平的”——没有单独的主键对象<!-- raw HTML omitted -->生成的代码依赖于 MyBatis 动态 SQL 库<!-- raw HTML omitted -->生成的代码量比较少<!-- raw HTML omitted -->生成的代码为查询构造提供了极大的灵活性</td>
+</tr>
+<tr>
+<td style="text-align:left">MyBatis3</td>
+<td style="text-align:left">这是原始运行时。在 MBG 1.3.6 版本之前，MBG 的大多数用法都使用这种风格的代码。<!-- raw HTML omitted -->生成 Java 代码<!-- raw HTML omitted -->生成兼容 MyBatis3 的 XML 和 SQL 或兼容 MyBatis3 的带注释的接口，没有 XML<!-- raw HTML omitted -->生成的模型对象可能具有具有单独主键对象和/或带有 BLOB 字段的单独对象的层次结构<!-- raw HTML omitted -->生成的代码没有外部依赖<!-- raw HTML omitted -->生成的代码量非常大<!-- raw HTML omitted -->生成的代码构建查询能力有限，难以扩展</td>
+</tr>
+<tr>
+<td style="text-align:left">MyBatis3Simple</td>
+<td style="text-align:left">这是 MyBatis3 运行时的简化版本。<!-- raw HTML omitted -->生成 Java 代码<!-- raw HTML omitted -->生成兼容 MyBatis3 的 XML 和 SQL 或兼容 MyBatis3 的带注释的接口，没有 XML<!-- raw HTML omitted -->生成的模型对象是“扁平的”——没有单独的主键对象<!-- raw HTML omitted -->生成的代码没有外部依赖<!-- raw HTML omitted -->生成的代码量比较少<!-- raw HTML omitted -->不会生成“示例”或“选择性”方法<!-- raw HTML omitted -->生成的代码不包含动态查询构建的方法，难以扩展</td>
+</tr>
+</tbody>
+</table>
+<h3 id="mybatis3dynamicsql-的示例配置参考httpswwwcnblogscomzhangzisheng001p12820344html">MyBatis3DynamicSql 的示例配置(<a class="link" href="https://www.cnblogs.com/ZhangZiSheng001/p/12820344.html"  target="_blank" rel="noopener"
+    >参考</a>)</h3>
+<pre tabindex="0"><code>&lt;!DOCTYPE generatorConfiguration PUBLIC 
+ &quot;-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN&quot; 
+ &quot;http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd&quot;&gt; 
+&lt;generatorConfiguration&gt; 
+  &lt;context id= &quot;dsql&quot; targetRuntime=&quot;MyBatis3DynamicSql&quot;&gt; 
+    &lt;jdbcConnection driverClass=&quot;org.hsqldb.jdbcDriver&quot; 
+        connectionURL=&quot;jdbc:hsqldb:mem:aname&quot; /&gt; 
+
+    &lt;javaModelGenerator targetPackage=&quot;example.model&quot; targetProject=&quot;src/main/java &quot;/&gt; 
+
+    &lt;javaClientGenerator targetPackage=&quot;example.mapper&quot; targetProject=&quot;src/main/java&quot;/&gt; 
+
+    &lt;table tableName=&quot;FooTable&quot; /&gt; 
+  &lt;/context&gt;
+&lt;/generatorConfiguration&gt;
+</code></pre><h3 id="mybatis3kotlin-的示例配置">MyBatis3Kotlin 的示例配置</h3>
+<pre tabindex="0"><code>&lt;!DOCTYPE generatorConfiguration PUBLIC 
+ &quot;-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN&quot; 
+ &quot;http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd&quot;&gt; 
+&lt;generatorConfiguration&gt; 
+  &lt;context id= &quot;kotlin&quot; targetRuntime=&quot;MyBatis3Kotlin&quot;&gt; 
+    &lt;jdbcConnection driverClass=&quot;org.hsqldb.jdbcDriver&quot; 
+        connectionURL=&quot;jdbc:hsqldb:mem:aname&quot; /&gt; 
+
+    &lt;javaModelGenerator targetPackage=&quot;example.model&quot; targetProject=&quot;src/main/kotlin &quot;/&gt; 
+
+    &lt;javaClientGenerator targetPackage=&quot;example.mapper&quot; targetProject=&quot;src/main/kotlin&quot;/&gt; 
+
+    &lt;table tableName=&quot;FooTable&quot; /&gt; 
+  &lt;/context&gt;
+&lt;/generatorConfiguration&gt;
+</code></pre><h3 id="mybatis3-的示例配置">MyBatis3 的示例配置</h3>
+<pre tabindex="0"><code>&lt;!DOCTYPE generatorConfiguration PUBLIC 
+ &quot;-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN&quot; 
+ &quot;http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd&quot;&gt; 
+&lt;generatorConfiguration&gt; 
+  &lt;context id= &quot;simple&quot; targetRuntime=&quot;MyBatis3Simple&quot;&gt; 
+    &lt;jdbcConnection driverClass=&quot;org.hsqldb.jdbcDriver&quot; 
+        connectionURL=&quot;jdbc:hsqldb:mem:aname&quot; /&gt; 
+
+    &lt;javaModelGenerator targetPackage=&quot;example.model&quot; targetProject=&quot;src/main/java &quot;/&gt; 
+
+    &lt;sqlMapGenerator targetPackage=&quot;example.mapper&quot; targetProject=&quot;src/main/resources&quot;/&gt; 
+
+    &lt;javaClientGenerator type=&quot;XMLMAPPER&quot; targetPackage=&quot;example.mapper&quot;targetProject=&quot;src/main/java&quot;/&gt; 
+
+    &lt;table tableName=&quot;FooTable&quot; /&gt; 
+  &lt;/context&gt;
+&lt;/generatorConfiguration&gt;
+</code></pre><h3 id="mybatis3simple-的示例配置">MyBatis3Simple 的示例配置</h3>
+<pre tabindex="0"><code>&lt;!DOCTYPE generatorConfiguration PUBLIC 
+ &quot;-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN&quot; 
+ &quot;http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd&quot;&gt; 
+&lt;generatorConfiguration&gt; 
+  &lt;context id= &quot;simple&quot; targetRuntime=&quot;MyBatis3Simple&quot;&gt; 
+    &lt;jdbcConnection driverClass=&quot;org.hsqldb.jdbcDriver&quot; 
+        connectionURL=&quot;jdbc:hsqldb:mem:aname&quot; /&gt; 
+
+    &lt;javaModelGenerator targetPackage=&quot;example.model&quot; targetProject=&quot;src/main/java &quot;/&gt; 
+
+    &lt;javaClientGenerator type=&quot;ANNOTATEDMAPPER&quot; targetPackage=&quot;example.mapper&quot; targetProject=&quot;src/main/java&quot;/&gt; 
+
+    &lt;table tableName=&quot;FooTable&quot; /&gt;
+  &lt;/context&gt; 
+&lt;/generatorConfiguration&gt;
+</code></pre></blockquote>
+<h3 id="插件">插件</h3>
 <p><strong>MBG自带插件</strong></p>
 <blockquote>
 <p><strong>提供的插件</strong></p>
@@ -1230,10 +1355,10 @@ github储存库：https://github.com/mybatis/generator
 <blockquote>
 <p>没错,就是introspectedColumn.getRemarks()获取不到字段的注释,生成的javabean里面应该显示字段注释的地方显示的是null.配置文件中我们对<!-- raw HTML omitted -->做如下修改即可:</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="nt">&lt;jdbcConnection</span> <span class="na">driverClass=</span><span class="s">&#34;${driver}&#34;</span>
-    <span class="na">connectionURL=</span><span class="s">&#34;{url}&#34;</span> <span class="na">userId=</span><span class="s">&#34;${username}&#34;</span> <span class="na">password=</span><span class="s">&#34;${password}&#34;</span><span class="nt">&gt;</span>
-    <span class="c">&lt;!-- 针对oracle数据库 --&gt;</span>
-    <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&#34;remarksReporting&#34;</span> <span class="na">value=</span><span class="s">&#34;true&#34;</span><span class="nt">&gt;&lt;/property&gt;</span>
-    <span class="c">&lt;!-- 针对mysql数据库 --&gt;</span>
+	<span class="na">connectionURL=</span><span class="s">&#34;{url}&#34;</span> <span class="na">userId=</span><span class="s">&#34;${username}&#34;</span> <span class="na">password=</span><span class="s">&#34;${password}&#34;</span><span class="nt">&gt;</span>
+	<span class="c">&lt;!-- 针对oracle数据库 --&gt;</span>
+	<span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&#34;remarksReporting&#34;</span> <span class="na">value=</span><span class="s">&#34;true&#34;</span><span class="nt">&gt;&lt;/property&gt;</span>
+	<span class="c">&lt;!-- 针对mysql数据库 --&gt;</span>
     <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&#34;useInformationSchema&#34;</span> <span class="na">value=</span><span class="s">&#34;true&#34;</span><span class="nt">&gt;&lt;/property&gt;</span>
 <span class="nt">&lt;/jdbcConnection&gt;</span>
 </code></pre></div></blockquote>
@@ -1264,6 +1389,7 @@ github储存库：https://github.com/mybatis/generator
     </section>
     </footer>
 
+
     
 </article>
 
@@ -1273,7 +1399,7 @@ github储存库：https://github.com/mybatis/generator
 </aside>
 
      
-     
+    
         
     <div class="disqus-container">
     <div id="disqus_thread"></div>
@@ -1325,14 +1451,15 @@ github储存库：https://github.com/mybatis/generator
         
             2020 - 
         
-        2021 ybakiame的个人博客
+        2021 ybakiame Blog
     </section>
     
     <section class="powerby">
         Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
-        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="2.4.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.5.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
     </section>
 </footer>
+
 
     
 <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
@@ -1441,6 +1568,15 @@ github储存库：https://github.com/mybatis/generator
         <li><a href="#创建-maven-工程">创建 maven 工程</a></li>
         <li><a href="#在-pomxml-中添加依赖">在 pom.xml 中添加依赖</a></li>
         <li><a href="#创建-generatorconfigxml-配置文件">创建 generatorConfig.xml 配置文件</a></li>
+        <li><a href="#context-targetruntime-选择">context targetRuntime 选择</a></li>
+      </ol>
+    </li>
+    <li><a href="#目标运行时信息和示例">目标运行时信息和示例</a>
+      <ol>
+        <li><a href="#mybatis3dynamicsql-的示例配置参考httpswwwcnblogscomzhangzisheng001p12820344html">MyBatis3DynamicSql 的示例配置(<a href="https://www.cnblogs.com/ZhangZiSheng001/p/12820344.html">参考</a>)</a></li>
+        <li><a href="#mybatis3kotlin-的示例配置">MyBatis3Kotlin 的示例配置</a></li>
+        <li><a href="#mybatis3-的示例配置">MyBatis3 的示例配置</a></li>
+        <li><a href="#mybatis3simple-的示例配置">MyBatis3Simple 的示例配置</a></li>
         <li><a href="#插件">插件</a></li>
       </ol>
     </li>

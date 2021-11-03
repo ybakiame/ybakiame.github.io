@@ -16,7 +16,7 @@ springMvc过滤静态资源文件 1、使用Tomcat的defaultServlet来处理静�
 &amp;lt;!--在springmvc拦截所有请求之前放行所有静态资源文件--&amp;gt; &amp;lt;!--每一个&amp;lt;url-pattern&amp;gt;代表一种静态资源文件--&amp;gt; &amp;lt;servlet-mapping&amp;gt; &amp;lt;servlet-name&amp;gt;default&amp;lt;/servlet-name&amp;gt; &amp;lt;url-pattern&amp;gt;*.html&amp;lt;/url-pattern&amp;gt; &amp;lt;url-pattern&amp;gt;*.css&amp;lt;/url-pattern&amp;gt; &amp;lt;url-pattern&amp;gt;*.js&amp;lt;/url-pattern&amp;gt; &amp;lt;url-pattern&amp;gt;*.ico&amp;lt;/url-pattern&amp;gt; &amp;lt;url-pattern&amp;gt;*.jpg&amp;lt;/url-pattern&amp;gt; &amp;lt;url-pattern&amp;gt;*.png&amp;lt;/url-pattern&amp;gt; &amp;lt;url-pattern&amp;gt;*.gif&amp;lt;/url-pattern&amp;gt; &amp;lt;/servlet-mapping&amp;gt;  要写在DispatcherServlet的前面， 让defaultServlet先拦截，这个就不会进入Spring了，我想性能是最好的吧。
  Tomcat, Jetty, JBoss, and GlassFish 默认 Servlet的名字 &amp;ndash; &amp;ldquo;default&amp;rdquo; Google App Engine 默认 Servlet的名字 &amp;ndash; &amp;ldquo;_ah_default&amp;rdquo; Resin 默认 Servlet的名字 &amp;ndash; &amp;ldquo;resin-file&amp;rdquo; WebLogic 默认 Servlet的名字 &amp;ndash; &amp;ldquo;FileServlet&amp;rdquo; WebSphere 默认 Servlet的名字 &amp;ndash; &amp;ldquo;SimpleFileServlet&amp;rdquo;   2、使用&amp;lt;mvc:resources&amp;gt;标签 在dispatcher-servlet.'>
 <meta property='og:url' content='https://example.com/p/springmvc%E9%9D%99%E6%80%81%E8%B5%84%E6%BA%90%E8%BF%87%E6%BB%A4/'>
-<meta property='og:site_name' content='ybakiame的个人博客'>
+<meta property='og:site_name' content='ybakiame Blog'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='springMvc' /><meta property='article:published_time' content='2021-10-21T20:07:06&#43;08:00'/><meta property='article:modified_time' content='2021-10-21T20:07:06&#43;08:00'/>
 <meta name="twitter:title" content="SpringMvc静态资源过滤">
 <meta name="twitter:description" content="配置DispatcherServlet 在进行Spring MVC的配置时，通常会配置一个dispatcher-servlet.xml用于处理对应的URL。web.xml中配置如下：
@@ -57,7 +57,7 @@ springMvc过滤静态资源文件 1、使用Tomcat的defaultServlet来处理静�
 ">
     
         <div id="article-toolbar">
-            <a href="https://example.com" class="back-home">
+            <a href="/" class="back-home">
                 <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
   <polyline points="15 6 9 12 15 18" />
@@ -88,8 +88,28 @@ springMvc过滤静态资源文件 1、使用Tomcat的defaultServlet来处理静�
         <a href="/p/springmvc%E9%9D%99%E6%80%81%E8%B5%84%E6%BA%90%E8%BF%87%E6%BB%A4/">SpringMvc静态资源过滤</a>
     </h2>
 
+    
+
+    
     <footer class="article-time">
-        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Oct 21, 2021</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
   <circle cx="12" cy="12" r="9" />
   <polyline points="12 7 12 12 15 15" />
@@ -97,8 +117,14 @@ springMvc过滤静态资源文件 1、使用Tomcat的defaultServlet来处理静�
 
 
 
-        <time class="article-time--published">Oct 21, 2021</time>
-    </footer></div>
+                <time class="article-time--reading">
+                    阅读时长: 1 分钟
+                </time>
+            </div>
+        
+    </footer>
+    
+</div>
 </header>
 
     <section class="article-content">
@@ -203,6 +229,7 @@ springMvc过滤静态资源文件 1、使用Tomcat的defaultServlet来处理静�
     </section>
     </footer>
 
+
     
 </article>
 
@@ -231,7 +258,7 @@ springMvc过滤静态资源文件 1、使用Tomcat的defaultServlet来处理静�
 </aside>
 
      
-     
+    
         
     <div class="disqus-container">
     <div id="disqus_thread"></div>
@@ -283,14 +310,15 @@ springMvc过滤静态资源文件 1、使用Tomcat的defaultServlet来处理静�
         
             2020 - 
         
-        2021 ybakiame的个人博客
+        2021 ybakiame Blog
     </section>
     
     <section class="powerby">
         Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
-        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="2.4.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.5.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
     </section>
 </footer>
+
 
     
 <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
