@@ -1,0 +1,862 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='Ajax研究 简介   AJAX = Asynchronous JavaScript and XML（异步的 JavaScript 和 XML）。
+  AJAX 是一种在无需重新加载整个网页的情况下，能够更新部分网页的技术。
+  Ajax 不是一种新的编程语言，而是一种用于创建更好更快以及交互性更强的Web应用程序的技术。
+  在 2005 年，Google 通过其 Google Suggest 使 AJAX 变得流行起来。Google Suggest能够自动帮你完成搜索单词。
+  Google Suggest 使用 AJAX 创造出动态性极强的 web 界面：当您在谷歌的搜索框输入关键字时，JavaScript 会把这些字符发送到服务器，然后服务器会返回一个搜索建议的列表。
+  就和国内百度的搜索框一样!
+  传统的网页(即不用ajax技术的网页)，想要更新内容或者提交一个表单，都需要重新加载整个网页。
+  使用ajax技术的网页，通过在后台服务器进行少量的数据交换，就可以实现异步局部更新。
+  使用Ajax，用户可以创建接近本地桌面应用的直接、高可用、更丰富、更动态的Web用户界面。
+  伪造Ajax 我们可以使用前端的一个标签来伪造一个ajax的样子。iframe标签
+1、新建一个module ：sspringmvc-06-ajax ， 导入web支持！
+2、编写一个 ajax-frame.html 使用 iframe 测试，感受下效果
+&amp;lt;!DOCTYPE html&amp;gt; &amp;lt;html&amp;gt; &amp;lt;head lang=&amp;#34;en&amp;#34;&amp;gt; &amp;lt;meta charset=&amp;#34;UTF-8&amp;#34;&amp;gt; &amp;lt;title&amp;gt;kuangshen&amp;lt;/title&amp;gt; &amp;lt;/head&amp;gt; &amp;lt;body&amp;gt; &amp;lt;script type=&amp;#34;text/javascript&amp;#34;&amp;gt; window.'><title>SpringMVC07 Ajax研究</title>
+
+<link rel='canonical' href='https://example.com/p/springmvc07-ajax%E7%A0%94%E7%A9%B6/'>
+
+<link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content='SpringMVC07 Ajax研究'>
+<meta property='og:description' content='Ajax研究 简介   AJAX = Asynchronous JavaScript and XML（异步的 JavaScript 和 XML）。
+  AJAX 是一种在无需重新加载整个网页的情况下，能够更新部分网页的技术。
+  Ajax 不是一种新的编程语言，而是一种用于创建更好更快以及交互性更强的Web应用程序的技术。
+  在 2005 年，Google 通过其 Google Suggest 使 AJAX 变得流行起来。Google Suggest能够自动帮你完成搜索单词。
+  Google Suggest 使用 AJAX 创造出动态性极强的 web 界面：当您在谷歌的搜索框输入关键字时，JavaScript 会把这些字符发送到服务器，然后服务器会返回一个搜索建议的列表。
+  就和国内百度的搜索框一样!
+  传统的网页(即不用ajax技术的网页)，想要更新内容或者提交一个表单，都需要重新加载整个网页。
+  使用ajax技术的网页，通过在后台服务器进行少量的数据交换，就可以实现异步局部更新。
+  使用Ajax，用户可以创建接近本地桌面应用的直接、高可用、更丰富、更动态的Web用户界面。
+  伪造Ajax 我们可以使用前端的一个标签来伪造一个ajax的样子。iframe标签
+1、新建一个module ：sspringmvc-06-ajax ， 导入web支持！
+2、编写一个 ajax-frame.html 使用 iframe 测试，感受下效果
+&amp;lt;!DOCTYPE html&amp;gt; &amp;lt;html&amp;gt; &amp;lt;head lang=&amp;#34;en&amp;#34;&amp;gt; &amp;lt;meta charset=&amp;#34;UTF-8&amp;#34;&amp;gt; &amp;lt;title&amp;gt;kuangshen&amp;lt;/title&amp;gt; &amp;lt;/head&amp;gt; &amp;lt;body&amp;gt; &amp;lt;script type=&amp;#34;text/javascript&amp;#34;&amp;gt; window.'>
+<meta property='og:url' content='https://example.com/p/springmvc07-ajax%E7%A0%94%E7%A9%B6/'>
+<meta property='og:site_name' content='ybakiame&#39; Blog'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='springMVC' /><meta property='article:published_time' content='2021-11-09T09:43:00&#43;08:00'/><meta property='article:modified_time' content='2021-11-09T09:43:00&#43;08:00'/>
+<meta name="twitter:title" content="SpringMVC07 Ajax研究">
+<meta name="twitter:description" content="Ajax研究 简介   AJAX = Asynchronous JavaScript and XML（异步的 JavaScript 和 XML）。
+  AJAX 是一种在无需重新加载整个网页的情况下，能够更新部分网页的技术。
+  Ajax 不是一种新的编程语言，而是一种用于创建更好更快以及交互性更强的Web应用程序的技术。
+  在 2005 年，Google 通过其 Google Suggest 使 AJAX 变得流行起来。Google Suggest能够自动帮你完成搜索单词。
+  Google Suggest 使用 AJAX 创造出动态性极强的 web 界面：当您在谷歌的搜索框输入关键字时，JavaScript 会把这些字符发送到服务器，然后服务器会返回一个搜索建议的列表。
+  就和国内百度的搜索框一样!
+  传统的网页(即不用ajax技术的网页)，想要更新内容或者提交一个表单，都需要重新加载整个网页。
+  使用ajax技术的网页，通过在后台服务器进行少量的数据交换，就可以实现异步局部更新。
+  使用Ajax，用户可以创建接近本地桌面应用的直接、高可用、更丰富、更动态的Web用户界面。
+  伪造Ajax 我们可以使用前端的一个标签来伪造一个ajax的样子。iframe标签
+1、新建一个module ：sspringmvc-06-ajax ， 导入web支持！
+2、编写一个 ajax-frame.html 使用 iframe 测试，感受下效果
+&amp;lt;!DOCTYPE html&amp;gt; &amp;lt;html&amp;gt; &amp;lt;head lang=&amp;#34;en&amp;#34;&amp;gt; &amp;lt;meta charset=&amp;#34;UTF-8&amp;#34;&amp;gt; &amp;lt;title&amp;gt;kuangshen&amp;lt;/title&amp;gt; &amp;lt;/head&amp;gt; &amp;lt;body&amp;gt; &amp;lt;script type=&amp;#34;text/javascript&amp;#34;&amp;gt; window.">
+    </head>
+    <body class="
+    article-page has-toc
+">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex 
+    
+        extended
+    
+">
+    
+        <div id="article-toolbar">
+            <a href="/" class="back-home">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="15 6 9 12 15 18" />
+</svg>
+
+
+
+                <span>返回</span>
+            </a>
+        </div>
+    
+<main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/spring/" >
+                spring
+            </a>
+        
+    </header>
+    
+
+    <h2 class="article-title">
+        <a href="/p/springmvc07-ajax%E7%A0%94%E7%A9%B6/">SpringMVC07 Ajax研究</a>
+    </h2>
+
+    
+
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Nov 09, 2021</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    阅读时长: 4 分钟
+                </time>
+            </div>
+        
+    </footer>
+    
+</div>
+</header>
+
+    <section class="article-content">
+    <h2 id="ajax研究">Ajax研究</h2>
+<h3 id="简介">简介</h3>
+<ul>
+<li>
+<p><strong>AJAX = Asynchronous JavaScript and XML（异步的 JavaScript 和 XML）。</strong></p>
+</li>
+<li>
+<p>AJAX 是一种在无需重新加载整个网页的情况下，能够更新部分网页的技术。</p>
+</li>
+<li>
+<p><strong>Ajax 不是一种新的编程语言，而是一种用于创建更好更快以及交互性更强的Web应用程序的技术。</strong></p>
+</li>
+<li>
+<p>在 2005 年，Google 通过其 Google Suggest 使 AJAX 变得流行起来。Google Suggest能够自动帮你完成搜索单词。</p>
+</li>
+<li>
+<p>Google Suggest 使用 AJAX 创造出动态性极强的 web 界面：当您在谷歌的搜索框输入关键字时，JavaScript 会把这些字符发送到服务器，然后服务器会返回一个搜索建议的列表。</p>
+</li>
+<li>
+<p>就和国内百度的搜索框一样!</p>
+</li>
+<li>
+<p>传统的网页(即不用ajax技术的网页)，想要更新内容或者提交一个表单，都需要重新加载整个网页。</p>
+</li>
+<li>
+<p>使用ajax技术的网页，通过在后台服务器进行少量的数据交换，就可以实现异步局部更新。</p>
+</li>
+<li>
+<p>使用Ajax，用户可以创建接近本地桌面应用的直接、高可用、更丰富、更动态的Web用户界面。</p>
+</li>
+</ul>
+<h3 id="伪造ajax">伪造Ajax</h3>
+<p>我们可以使用前端的一个标签来伪造一个ajax的样子。iframe标签</p>
+<p>1、新建一个module ：sspringmvc-06-ajax ， 导入web支持！</p>
+<p>2、编写一个 ajax-frame.html 使用 iframe 测试，感受下效果</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="p">&lt;</span><span class="nt">html</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">head</span> <span class="na">lang</span><span class="o">=</span><span class="s">&#34;en&#34;</span><span class="p">&gt;</span>
+   <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">charset</span><span class="o">=</span><span class="s">&#34;UTF-8&#34;</span><span class="p">&gt;</span>
+   <span class="p">&lt;</span><span class="nt">title</span><span class="p">&gt;</span>kuangshen<span class="p">&lt;/</span><span class="nt">title</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+
+<span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text/javascript&#34;</span><span class="p">&gt;</span>
+   <span class="nb">window</span><span class="p">.</span><span class="nx">onload</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){</span>
+       <span class="kd">var</span> <span class="nx">myDate</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">();</span>
+       <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;currentTime&#39;</span><span class="p">).</span><span class="nx">innerText</span> <span class="o">=</span> <span class="nx">myDate</span><span class="p">.</span><span class="nx">getTime</span><span class="p">();</span>
+  <span class="p">};</span>
+
+   <span class="kd">function</span> <span class="nx">LoadPage</span><span class="p">(){</span>
+       <span class="kd">var</span> <span class="nx">targetUrl</span> <span class="o">=</span>  <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;url&#39;</span><span class="p">).</span><span class="nx">value</span><span class="p">;</span>
+       <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">targetUrl</span><span class="p">);</span>
+       <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">&#34;iframePosition&#34;</span><span class="p">).</span><span class="nx">src</span> <span class="o">=</span> <span class="nx">targetUrl</span><span class="p">;</span>
+  <span class="p">}</span>
+
+<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+
+<span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>
+   <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>请输入要加载的地址：<span class="p">&lt;</span><span class="nt">span</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;currentTime&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">span</span><span class="p">&gt;&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+   <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>
+       <span class="p">&lt;</span><span class="nt">input</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;url&#34;</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text&#34;</span> <span class="na">value</span><span class="o">=</span><span class="s">&#34;https://www.baidu.com/&#34;</span><span class="p">/&gt;</span>
+       <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;button&#34;</span> <span class="na">value</span><span class="o">=</span><span class="s">&#34;提交&#34;</span> <span class="na">onclick</span><span class="o">=</span><span class="s">&#34;LoadPage()&#34;</span><span class="p">&gt;</span>
+   <span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+
+<span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>
+   <span class="p">&lt;</span><span class="nt">h3</span><span class="p">&gt;</span>加载页面位置：<span class="p">&lt;/</span><span class="nt">h3</span><span class="p">&gt;</span>
+   <span class="p">&lt;</span><span class="nt">iframe</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;iframePosition&#34;</span> <span class="na">style</span><span class="o">=</span><span class="s">&#34;width: 100%;height: 500px;&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">iframe</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+
+<span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
+</code></pre></div><p>3、使用IDEA开浏览器测试一下！</p>
+<p><strong>利用AJAX可以做：</strong></p>
+<ul>
+<li>注册时，输入用户名自动检测用户是否已经存在。</li>
+<li>登陆时，提示用户名密码错误</li>
+<li>删除数据行时，将行ID发送到后台，后台在数据库中删除，数据库删除成功后，在页面DOM中将数据行也删除。</li>
+<li>&hellip;.等等</li>
+</ul>
+<h3 id="jqueryajax">jQuery.ajax</h3>
+<p>纯JS原生实现Ajax我们不去讲解这里，直接使用jquery提供的，方便学习和使用，避免重复造轮子，有兴趣的同学可以去了解下JS原生XMLHttpRequest ！</p>
+<p>Ajax的核心是XMLHttpRequest对象(XHR)。XHR为向服务器发送请求和解析服务器响应提供了接口。能够以异步方式从服务器获取新数据。</p>
+<p>jQuery 提供多个与 AJAX 有关的方法。</p>
+<p>通过 jQuery AJAX 方法，您能够使用 HTTP Get 和 HTTP Post 从远程服务器上请求文本、HTML、XML 或 JSON – 同时您能够把这些外部数据直接载入网页的被选元素中。</p>
+<p>jQuery 不是生产者，而是大自然搬运工。</p>
+<p>jQuery Ajax本质就是 XMLHttpRequest，对他进行了封装，方便调用！</p>
+<pre tabindex="0"><code>jQuery.ajax(...)
+      部分参数：
+            url：请求地址
+            type：请求方式，GET、POST（1.9.0之后用method）
+        headers：请求头
+            data：要发送的数据
+    contentType：即将发送信息至服务器的内容编码类型(默认: &quot;application/x-www-form-urlencoded; charset=UTF-8&quot;)
+          async：是否异步
+        timeout：设置请求超时时间（毫秒）
+      beforeSend：发送请求前执行的函数(全局)
+        complete：完成之后执行的回调函数(全局)
+        success：成功之后执行的回调函数(全局)
+          error：失败之后执行的回调函数(全局)
+        accepts：通过请求头发送给服务器，告诉服务器当前客户端可接受的数据类型
+        dataType：将服务器端返回的数据转换成指定类型
+          &quot;xml&quot;: 将服务器端返回的内容转换成xml格式
+          &quot;text&quot;: 将服务器端返回的内容转换成普通文本格式
+          &quot;html&quot;: 将服务器端返回的内容转换成普通文本格式，在插入DOM中时，如果包含JavaScript标签，则会尝试去执行。
+        &quot;script&quot;: 尝试将返回值当作JavaScript去执行，然后再将服务器端返回的内容转换成普通文本格式
+          &quot;json&quot;: 将服务器端返回的内容转换成相应的JavaScript对象
+        &quot;jsonp&quot;: JSONP 格式使用 JSONP 形式调用函数时，如 &quot;myurl?callback=?&quot; jQuery 将自动替换 ? 为正确的函数名，以执行回调函数
+</code></pre><p><strong>我们来个简单的测试，使用最原始的HttpServletResponse处理 , .最简单 , 最通用</strong></p>
+<p>1、配置web.xml 和 springmvc的配置文件，复制上面案例的即可 【记得静态资源过滤和注解驱动配置上】</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="cp">&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;</span>
+<span class="nt">&lt;beans</span> <span class="na">xmlns=</span><span class="s">&#34;http://www.springframework.org/schema/beans&#34;</span>
+      <span class="na">xmlns:xsi=</span><span class="s">&#34;http://www.w3.org/2001/XMLSchema-instance&#34;</span>
+      <span class="na">xmlns:context=</span><span class="s">&#34;http://www.springframework.org/schema/context&#34;</span>
+      <span class="na">xmlns:mvc=</span><span class="s">&#34;http://www.springframework.org/schema/mvc&#34;</span>
+      <span class="na">xsi:schemaLocation=</span><span class="s">&#34;http://www.springframework.org/schema/beans
+</span><span class="s">       http://www.springframework.org/schema/beans/spring-beans.xsd
+</span><span class="s">       http://www.springframework.org/schema/context
+</span><span class="s">       https://www.springframework.org/schema/context/spring-context.xsd
+</span><span class="s">       http://www.springframework.org/schema/mvc
+</span><span class="s">       https://www.springframework.org/schema/mvc/spring-mvc.xsd&#34;</span><span class="nt">&gt;</span>
+
+   <span class="c">&lt;!-- 自动扫描指定的包，下面所有注解类交给IOC容器管理 --&gt;</span>
+   <span class="nt">&lt;context:component-scan</span> <span class="na">base-package=</span><span class="s">&#34;com.kuang.controller&#34;</span><span class="nt">/&gt;</span>
+   <span class="nt">&lt;mvc:default-servlet-handler</span> <span class="nt">/&gt;</span>
+   <span class="nt">&lt;mvc:annotation-driven</span> <span class="nt">/&gt;</span>
+
+   <span class="c">&lt;!-- 视图解析器 --&gt;</span>
+   <span class="nt">&lt;bean</span> <span class="na">class=</span><span class="s">&#34;org.springframework.web.servlet.view.InternalResourceViewResolver&#34;</span>
+         <span class="na">id=</span><span class="s">&#34;internalResourceViewResolver&#34;</span><span class="nt">&gt;</span>
+       <span class="c">&lt;!-- 前缀 --&gt;</span>
+       <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&#34;prefix&#34;</span> <span class="na">value=</span><span class="s">&#34;/WEB-INF/jsp/&#34;</span> <span class="nt">/&gt;</span>
+       <span class="c">&lt;!-- 后缀 --&gt;</span>
+       <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&#34;suffix&#34;</span> <span class="na">value=</span><span class="s">&#34;.jsp&#34;</span> <span class="nt">/&gt;</span>
+   <span class="nt">&lt;/bean&gt;</span>
+
+<span class="nt">&lt;/beans&gt;</span>
+</code></pre></div><p>2、编写一个AjaxController</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="nd">@Controller</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">AjaxController</span> <span class="o">{</span>
+
+   <span class="nd">@RequestMapping</span><span class="o">(</span><span class="s">&#34;/a1&#34;</span><span class="o">)</span>
+   <span class="kd">public</span> <span class="kt">void</span> <span class="nf">ajax1</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span> <span class="o">,</span> <span class="n">HttpServletResponse</span> <span class="n">response</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">IOException</span> <span class="o">{</span>
+       <span class="k">if</span> <span class="o">(</span><span class="s">&#34;admin&#34;</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">name</span><span class="o">)){</span>
+           <span class="n">response</span><span class="o">.</span><span class="na">getWriter</span><span class="o">().</span><span class="na">print</span><span class="o">(</span><span class="s">&#34;true&#34;</span><span class="o">);</span>
+      <span class="o">}</span><span class="k">else</span><span class="o">{</span>
+           <span class="n">response</span><span class="o">.</span><span class="na">getWriter</span><span class="o">().</span><span class="na">print</span><span class="o">(</span><span class="s">&#34;false&#34;</span><span class="o">);</span>
+      <span class="o">}</span>
+  <span class="o">}</span>
+
+<span class="o">}</span>
+</code></pre></div><p>3、导入jquery ， 可以使用在线的CDN ， 也可以下载导入</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&#34;https://code.jquery.com/jquery-3.1.1.min.js&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&#34;${pageContext.request.contextPath}/statics/js/jquery-3.1.1.min.js&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</code></pre></div><p>4、编写index.jsp测试</p>
+<pre tabindex="0"><code class="language-jsp" data-lang="jsp">&lt;%@ page contentType=&quot;text/html;charset=UTF-8&quot; language=&quot;java&quot; %&gt;
+&lt;html&gt;
+ &lt;head&gt;
+   &lt;title&gt;$Title$&lt;/title&gt;
+  &lt;%--&lt;script src=&quot;https://code.jquery.com/jquery-3.1.1.min.js&quot;&gt;&lt;/script&gt;--%&gt;
+   &lt;script src=&quot;${pageContext.request.contextPath}/statics/js/jquery-3.1.1.min.js&quot;&gt;&lt;/script&gt;
+   &lt;script&gt;
+       function a1(){
+           $.post({
+               url:&quot;${pageContext.request.contextPath}/a1&quot;,
+               data:{'name':$(&quot;#txtName&quot;).val()},
+               success:function (data,status) {
+                   alert(data);
+                   alert(status);
+              }
+          });
+      }
+   &lt;/script&gt;
+ &lt;/head&gt;
+ &lt;body&gt;
+
+&lt;%--onblur：失去焦点触发事件--%&gt;
+用户名:&lt;input type=&quot;text&quot; id=&quot;txtName&quot; onblur=&quot;a1()&quot;/&gt;
+
+ &lt;/body&gt;
+&lt;/html&gt;
+</code></pre><p>5、启动tomcat测试！打开浏览器的控制台，当我们鼠标离开输入框的时候，可以看到发出了一个ajax的请求！是后台返回给我们的结果！测试成功！</p>
+<h3 id="springmvc实现">Springmvc实现</h3>
+<p>实体类user</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="nd">@Data</span>
+<span class="nd">@AllArgsConstructor</span>
+<span class="nd">@NoArgsConstructor</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">User</span> <span class="o">{</span>
+
+   <span class="kd">private</span> <span class="n">String</span> <span class="n">name</span><span class="o">;</span>
+   <span class="kd">private</span> <span class="kt">int</span> <span class="n">age</span><span class="o">;</span>
+   <span class="kd">private</span> <span class="n">String</span> <span class="n">sex</span><span class="o">;</span>
+
+<span class="o">}</span>
+</code></pre></div><p>我们来获取一个集合对象，展示到前端页面</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="nd">@RequestMapping</span><span class="o">(</span><span class="s">&#34;/a2&#34;</span><span class="o">)</span>
+<span class="kd">public</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;</span> <span class="nf">ajax2</span><span class="o">(){</span>
+   <span class="n">List</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;</span> <span class="n">list</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;();</span>
+   <span class="n">list</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="k">new</span> <span class="n">User</span><span class="o">(</span><span class="s">&#34;张三&#34;</span><span class="o">,</span><span class="n">3</span><span class="o">,</span><span class="s">&#34;男&#34;</span><span class="o">));</span>
+   <span class="n">list</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="k">new</span> <span class="n">User</span><span class="o">(</span><span class="s">&#34;李四&#34;</span><span class="o">,</span><span class="n">3</span><span class="o">,</span><span class="s">&#34;男&#34;</span><span class="o">));</span>
+   <span class="n">list</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="k">new</span> <span class="n">User</span><span class="o">(</span><span class="s">&#34;王五&#34;</span><span class="o">,</span><span class="n">3</span><span class="o">,</span><span class="s">&#34;男&#34;</span><span class="o">));</span>
+   <span class="k">return</span> <span class="n">list</span><span class="o">;</span> <span class="c1">//由于@RestController注解，将list转成json格式返回
+</span><span class="c1"></span><span class="o">}</span>
+</code></pre></div><p>前端页面</p>
+<pre tabindex="0"><code class="language-jsp" data-lang="jsp">&lt;%@ page contentType=&quot;text/html;charset=UTF-8&quot; language=&quot;java&quot; %&gt;
+&lt;html&gt;
+&lt;head&gt;
+   &lt;title&gt;Title&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;input type=&quot;button&quot; id=&quot;btn&quot; value=&quot;获取数据&quot;/&gt;
+&lt;table width=&quot;80%&quot; align=&quot;center&quot;&gt;
+   &lt;tr&gt;
+       &lt;td&gt;姓名&lt;/td&gt;
+       &lt;td&gt;年龄&lt;/td&gt;
+       &lt;td&gt;性别&lt;/td&gt;
+   &lt;/tr&gt;
+   &lt;tbody id=&quot;content&quot;&gt;
+   &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;script src=&quot;${pageContext.request.contextPath}/statics/js/jquery-3.1.1.min.js&quot;&gt;&lt;/script&gt;
+&lt;script&gt;
+
+   $(function () {
+       $(&quot;#btn&quot;).click(function () {
+           $.post(&quot;${pageContext.request.contextPath}/a2&quot;,function (data) {
+               console.log(data)
+               var html=&quot;&quot;;
+               for (var i = 0; i &lt;data.length ; i++) {
+                   html+= &quot;&lt;tr&gt;&quot; +
+                       &quot;&lt;td&gt;&quot; + data[i].name + &quot;&lt;/td&gt;&quot; +
+                       &quot;&lt;td&gt;&quot; + data[i].age + &quot;&lt;/td&gt;&quot; +
+                       &quot;&lt;td&gt;&quot; + data[i].sex + &quot;&lt;/td&gt;&quot; +
+                       &quot;&lt;/tr&gt;&quot;
+              }
+               $(&quot;#content&quot;).html(html);
+          });
+      })
+  })
+&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre><p><strong>成功实现了数据回显！可以体会一下Ajax的好处！</strong></p>
+<h3 id="注册提示效果">注册提示效果</h3>
+<p>我们再测试一个小Demo，思考一下我们平时注册时候，输入框后面的实时提示怎么做到的；如何优化</p>
+<p>我们写一个Controller</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="nd">@RequestMapping</span><span class="o">(</span><span class="s">&#34;/a3&#34;</span><span class="o">)</span>
+<span class="kd">public</span> <span class="n">String</span> <span class="nf">ajax3</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">,</span><span class="n">String</span> <span class="n">pwd</span><span class="o">){</span>
+   <span class="n">String</span> <span class="n">msg</span> <span class="o">=</span> <span class="s">&#34;&#34;</span><span class="o">;</span>
+   <span class="c1">//模拟数据库中存在数据
+</span><span class="c1"></span>   <span class="k">if</span> <span class="o">(</span><span class="n">name</span><span class="o">!=</span><span class="kc">null</span><span class="o">){</span>
+       <span class="k">if</span> <span class="o">(</span><span class="s">&#34;admin&#34;</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">name</span><span class="o">)){</span>
+           <span class="n">msg</span> <span class="o">=</span> <span class="s">&#34;OK&#34;</span><span class="o">;</span>
+      <span class="o">}</span><span class="k">else</span> <span class="o">{</span>
+           <span class="n">msg</span> <span class="o">=</span> <span class="s">&#34;用户名输入错误&#34;</span><span class="o">;</span>
+      <span class="o">}</span>
+  <span class="o">}</span>
+   <span class="k">if</span> <span class="o">(</span><span class="n">pwd</span><span class="o">!=</span><span class="kc">null</span><span class="o">){</span>
+       <span class="k">if</span> <span class="o">(</span><span class="s">&#34;123456&#34;</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">pwd</span><span class="o">)){</span>
+           <span class="n">msg</span> <span class="o">=</span> <span class="s">&#34;OK&#34;</span><span class="o">;</span>
+      <span class="o">}</span><span class="k">else</span> <span class="o">{</span>
+           <span class="n">msg</span> <span class="o">=</span> <span class="s">&#34;密码输入有误&#34;</span><span class="o">;</span>
+      <span class="o">}</span>
+  <span class="o">}</span>
+   <span class="k">return</span> <span class="n">msg</span><span class="o">;</span> <span class="c1">//由于@RestController注解，将msg转成json格式返回
+</span><span class="c1"></span><span class="o">}</span>
+</code></pre></div><p>前端页面 login.jsp</p>
+<pre tabindex="0"><code class="language-jsp" data-lang="jsp">&lt;%@ page contentType=&quot;text/html;charset=UTF-8&quot; language=&quot;java&quot; %&gt;
+&lt;html&gt;
+&lt;head&gt;
+   &lt;title&gt;ajax&lt;/title&gt;
+   &lt;script src=&quot;${pageContext.request.contextPath}/statics/js/jquery-3.1.1.min.js&quot;&gt;&lt;/script&gt;
+   &lt;script&gt;
+
+       function a1(){
+           $.post({
+               url:&quot;${pageContext.request.contextPath}/a3&quot;,
+               data:{'name':$(&quot;#name&quot;).val()},
+               success:function (data) {
+                   if (data.toString()=='OK'){
+                       $(&quot;#userInfo&quot;).css(&quot;color&quot;,&quot;green&quot;);
+                  }else {
+                       $(&quot;#userInfo&quot;).css(&quot;color&quot;,&quot;red&quot;);
+                  }
+                   $(&quot;#userInfo&quot;).html(data);
+              }
+          });
+      }
+       function a2(){
+           $.post({
+               url:&quot;${pageContext.request.contextPath}/a3&quot;,
+               data:{'pwd':$(&quot;#pwd&quot;).val()},
+               success:function (data) {
+                   if (data.toString()=='OK'){
+                       $(&quot;#pwdInfo&quot;).css(&quot;color&quot;,&quot;green&quot;);
+                  }else {
+                       $(&quot;#pwdInfo&quot;).css(&quot;color&quot;,&quot;red&quot;);
+                  }
+                   $(&quot;#pwdInfo&quot;).html(data);
+              }
+          });
+      }
+
+   &lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;p&gt;
+  用户名:&lt;input type=&quot;text&quot; id=&quot;name&quot; onblur=&quot;a1()&quot;/&gt;
+   &lt;span id=&quot;userInfo&quot;&gt;&lt;/span&gt;
+&lt;/p&gt;
+&lt;p&gt;
+  密码:&lt;input type=&quot;text&quot; id=&quot;pwd&quot; onblur=&quot;a2()&quot;/&gt;
+   &lt;span id=&quot;pwdInfo&quot;&gt;&lt;/span&gt;
+&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre><p>【记得处理json乱码问题】</p>
+<p>测试一下效果，动态请求响应，局部刷新，就是如此！</p>
+<h3 id="获取baidu接口demo">获取baidu接口Demo</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="cp">&lt;!DOCTYPE HTML&gt;</span>
+<span class="p">&lt;</span><span class="nt">html</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
+   <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">http-equiv</span><span class="o">=</span><span class="s">&#34;Content-Type&#34;</span> <span class="na">content</span><span class="o">=</span><span class="s">&#34;text/html; charset=utf-8&#34;</span><span class="p">&gt;</span>
+   <span class="p">&lt;</span><span class="nt">title</span><span class="p">&gt;</span>JSONP百度搜索<span class="p">&lt;/</span><span class="nt">title</span><span class="p">&gt;</span>
+   <span class="p">&lt;</span><span class="nt">style</span><span class="p">&gt;</span>
+       <span class="p">#</span><span class="nn">q</span><span class="p">{</span>
+           <span class="k">width</span><span class="p">:</span> <span class="mi">500</span><span class="kt">px</span><span class="p">;</span>
+           <span class="k">height</span><span class="p">:</span> <span class="mi">30</span><span class="kt">px</span><span class="p">;</span>
+           <span class="k">border</span><span class="p">:</span><span class="mi">1</span><span class="kt">px</span> <span class="kc">solid</span> <span class="mh">#ddd</span><span class="p">;</span>
+           <span class="k">line-height</span><span class="p">:</span> <span class="mi">30</span><span class="kt">px</span><span class="p">;</span>
+           <span class="k">display</span><span class="p">:</span> <span class="kc">block</span><span class="p">;</span>
+           <span class="k">margin</span><span class="p">:</span> <span class="mi">0</span> <span class="kc">auto</span><span class="p">;</span>
+           <span class="k">padding</span><span class="p">:</span> <span class="mi">0</span> <span class="mi">10</span><span class="kt">px</span><span class="p">;</span>
+           <span class="k">font-size</span><span class="p">:</span> <span class="mi">14</span><span class="kt">px</span><span class="p">;</span>
+      <span class="p">}</span>
+       <span class="p">#</span><span class="nn">ul</span><span class="p">{</span>
+           <span class="k">width</span><span class="p">:</span> <span class="mi">520</span><span class="kt">px</span><span class="p">;</span>
+           <span class="k">list-style</span><span class="p">:</span> <span class="kc">none</span><span class="p">;</span>
+           <span class="k">margin</span><span class="p">:</span> <span class="mi">0</span> <span class="kc">auto</span><span class="p">;</span>
+           <span class="k">padding</span><span class="p">:</span> <span class="mi">0</span><span class="p">;</span>
+           <span class="k">border</span><span class="p">:</span><span class="mi">1</span><span class="kt">px</span> <span class="kc">solid</span> <span class="mh">#ddd</span><span class="p">;</span>
+           <span class="k">margin-top</span><span class="p">:</span> <span class="mi">-1</span><span class="kt">px</span><span class="p">;</span>
+           <span class="k">display</span><span class="p">:</span> <span class="kc">none</span><span class="p">;</span>
+      <span class="p">}</span>
+       <span class="p">#</span><span class="nn">ul</span> <span class="nt">li</span><span class="p">{</span>
+           <span class="k">line-height</span><span class="p">:</span> <span class="mi">30</span><span class="kt">px</span><span class="p">;</span>
+           <span class="k">padding</span><span class="p">:</span> <span class="mi">0</span> <span class="mi">10</span><span class="kt">px</span><span class="p">;</span>
+      <span class="p">}</span>
+       <span class="p">#</span><span class="nn">ul</span> <span class="nt">li</span><span class="p">:</span><span class="nd">hover</span><span class="p">{</span>
+           <span class="k">background-color</span><span class="p">:</span> <span class="mh">#f60</span><span class="p">;</span>
+           <span class="k">color</span><span class="p">:</span> <span class="mh">#fff</span><span class="p">;</span>
+      <span class="p">}</span>
+   <span class="p">&lt;/</span><span class="nt">style</span><span class="p">&gt;</span>
+   <span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
+
+       <span class="c1">// 2.步骤二
+</span><span class="c1"></span>       <span class="c1">// 定义demo函数 (分析接口、数据)
+</span><span class="c1"></span>       <span class="kd">function</span> <span class="nx">demo</span><span class="p">(</span><span class="nx">data</span><span class="p">){</span>
+           <span class="kd">var</span> <span class="nx">Ul</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;ul&#39;</span><span class="p">);</span>
+           <span class="kd">var</span> <span class="nx">html</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">;</span>
+           <span class="c1">// 如果搜索数据存在 把内容添加进去
+</span><span class="c1"></span>           <span class="k">if</span> <span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">s</span><span class="p">.</span><span class="nx">length</span><span class="p">)</span> <span class="p">{</span>
+               <span class="c1">// 隐藏掉的ul显示出来
+</span><span class="c1"></span>               <span class="nx">Ul</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">display</span> <span class="o">=</span> <span class="s1">&#39;block&#39;</span><span class="p">;</span>
+               <span class="c1">// 搜索到的数据循环追加到li里
+</span><span class="c1"></span>               <span class="k">for</span><span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span><span class="nx">i</span><span class="o">&lt;</span><span class="nx">data</span><span class="p">.</span><span class="nx">s</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span><span class="nx">i</span><span class="o">++</span><span class="p">){</span>
+                   <span class="nx">html</span> <span class="o">+=</span> <span class="s1">&#39;&lt;li&gt;&#39;</span><span class="o">+</span><span class="nx">data</span><span class="p">.</span><span class="nx">s</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span><span class="o">+</span><span class="s1">&#39;&lt;/li&gt;&#39;</span><span class="p">;</span>
+              <span class="p">}</span>
+               <span class="c1">// 循环的li写入ul
+</span><span class="c1"></span>               <span class="nx">Ul</span><span class="p">.</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="nx">html</span><span class="p">;</span>
+          <span class="p">}</span>
+      <span class="p">}</span>
+
+       <span class="c1">// 1.步骤一
+</span><span class="c1"></span>       <span class="nb">window</span><span class="p">.</span><span class="nx">onload</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){</span>
+           <span class="c1">// 获取输入框和ul
+</span><span class="c1"></span>           <span class="kd">var</span> <span class="nx">Q</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;q&#39;</span><span class="p">);</span>
+           <span class="kd">var</span> <span class="nx">Ul</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;ul&#39;</span><span class="p">);</span>
+
+           <span class="c1">// 事件鼠标抬起时候
+</span><span class="c1"></span>           <span class="nx">Q</span><span class="p">.</span><span class="nx">onkeyup</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){</span>
+               <span class="c1">// 如果输入框不等于空
+</span><span class="c1"></span>               <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">value</span> <span class="o">!=</span> <span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="p">{</span>
+                   <span class="c1">// ☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆JSONPz重点☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆
+</span><span class="c1"></span>                   <span class="c1">// 创建标签
+</span><span class="c1"></span>                   <span class="kd">var</span> <span class="nx">script</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s1">&#39;script&#39;</span><span class="p">);</span>
+                   <span class="c1">//给定要跨域的地址 赋值给src
+</span><span class="c1"></span>                   <span class="c1">//这里是要请求的跨域的地址 我写的是百度搜索的跨域地址
+</span><span class="c1"></span>                   <span class="nx">script</span><span class="p">.</span><span class="nx">src</span> <span class="o">=</span> <span class="s1">&#39;https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd=&#39;</span><span class="o">+</span><span class="k">this</span><span class="p">.</span><span class="nx">value</span><span class="o">+</span><span class="s1">&#39;&amp;cb=demo&#39;</span><span class="p">;</span>
+                   <span class="c1">// 将组合好的带src的script标签追加到body里
+</span><span class="c1"></span>                   <span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">script</span><span class="p">);</span>
+              <span class="p">}</span>
+          <span class="p">}</span>
+      <span class="p">}</span>
+   <span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
+
+<span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text&#34;</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;q&#34;</span> <span class="p">/&gt;</span>
+<span class="p">&lt;</span><span class="nt">ul</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;ul&#34;</span><span class="p">&gt;</span>
+
+<span class="p">&lt;/</span><span class="nt">ul</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
+</code></pre></div><p>Ajax在我们开发中十分重要，一定要学会使用！</p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/springmvc/">springMVC</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+    <aside class="related-contents--wrapper">
+    
+    
+        <h2 class="section-title">相关文章</h2>
+        <div class="related-contents">
+            <div class="flex article-list--tile">
+                
+                    
+<article class="">
+    <a href="/p/springmvc08-%E6%8B%A6%E6%88%AA%E5%99%A8%E4%B8%8E%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E4%B8%8B%E8%BD%BD/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">SpringMVC08 拦截器与文件上传下载</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
+    <a href="/p/springmvc06-json%E4%BA%A4%E4%BA%92%E5%A4%84%E7%90%86/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">SpringMVC06 Json交互处理</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
+    <a href="/p/springmvc05-%E6%95%B4%E5%90%88ssm%E6%A1%86%E6%9E%B6/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">SpringMVC05 整合SSM框架</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
+    <a href="/p/springmvc04-%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E5%8F%8A%E8%B7%B3%E8%BD%AC/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">SpringMVC04 数据处理及跳转</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
+    <a href="/p/springmvc03-restful%E5%92%8C%E6%8E%A7%E5%88%B6%E5%99%A8/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">SpringMVC03 RestFul和控制器</h2>
+        </div>
+    </a>
+</article>
+                
+            </div>
+        </div>
+    
+</aside>
+
+     
+    
+        
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "stack" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (DISQUS) {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2020 - 
+        
+        2021 ybakiame&#39; Blog
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.5.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css"integrity="sha256-c0uckgykQ9v5k&#43;IqViZOZKc47Jn7KQil4/MP3ySA3F8="crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css"integrity="sha256-SBLU4vv6CA6lHsZ1XyTdhyjJxCjPif/TRkjnsyGAGnE="crossorigin="anonymous"
+            >
+
+            </main>
+    
+        <aside class="sidebar right-sidebar sticky">
+            <section class="widget archives">
+                <div class="widget-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+                </div>
+                <h2 class="widget-title section-title">目录</h2>
+                
+                <div class="widget--toc">
+                    <nav id="TableOfContents">
+  <ol>
+    <li><a href="#ajax研究">Ajax研究</a>
+      <ol>
+        <li><a href="#简介">简介</a></li>
+        <li><a href="#伪造ajax">伪造Ajax</a></li>
+        <li><a href="#jqueryajax">jQuery.ajax</a></li>
+        <li><a href="#springmvc实现">Springmvc实现</a></li>
+        <li><a href="#注册提示效果">注册提示效果</a></li>
+        <li><a href="#获取baidu接口demo">获取baidu接口Demo</a></li>
+      </ol>
+    </li>
+  </ol>
+</nav>
+                </div>
+            </section>
+        </aside>
+    
+
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js"integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g="crossorigin="anonymous"
+                defer="false"
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

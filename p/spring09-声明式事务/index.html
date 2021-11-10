@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='声明式事务 回顾事务  事务在项目开发过程非常重要，涉及到数据的一致性的问题，不容马虎！ 事务管理是企业级应用程序开发中必备技术，用来确保数据的完整性和一致性。  事务就是把一系列的动作当成一个独立的工作单元，这些动作要么全部完成，要么全部不起作用。
+事务四个属性ACID 原子性（atomicity）  事务是原子性操作，由一系列动作组成，事务的原子性确保动作要么全部完成，要么完全不起作用  一致性（consistency）  一旦所有事务动作完成，事务就要被提交。数据和资源处于一种满足业务规则的一致性状态中  隔离性（isolation）  可能多个事务会同时处理相同的数据，因此每个事务都应该与其他事务隔离开来，防止数据损坏  持久性（durability）  事务一旦完成，无论系统发生什么错误，结果都不会受到影响。通常情况下，事务的结果被写到持久化存储器中  测试 将上面的代码拷贝到一个新项目中
+在之前的案例中，我们给userDao接口新增两个方法，删除和增加用户；
+//添加一个用户 int addUser(User user); //根据id删除用户 int deleteUser(int id); mapper文件，我们故意把 deletes 写错，测试！
+&amp;lt;insert id=&amp;#34;addUser&amp;#34; parameterType=&amp;#34;com.kuang.pojo.User&amp;#34;&amp;gt; insert into user (id,name,pwd) values (#{id},#{name},#{pwd}) &amp;lt;/insert&amp;gt; &amp;lt;delete id=&amp;#34;deleteUser&amp;#34; parameterType=&amp;#34;int&amp;#34;&amp;gt; deletes from user where id = #{id} &amp;lt;/delete&amp;gt; 编写接口的实现类，在实现类中，我们去操作一波
+public class UserDaoImpl extends SqlSessionDaoSupport implements UserMapper { //增加一些操作  public List&amp;lt;User&amp;gt; selectUser() { User user = new User(4,&amp;#34;小明&amp;#34;,&amp;#34;123456&amp;#34;); UserMapper mapper = getSqlSession().'><title>Spring09 声明式事务</title>
+
+<link rel='canonical' href='https://example.com/p/spring09-%E5%A3%B0%E6%98%8E%E5%BC%8F%E4%BA%8B%E5%8A%A1/'>
+
+<link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content='Spring09 声明式事务'>
+<meta property='og:description' content='声明式事务 回顾事务  事务在项目开发过程非常重要，涉及到数据的一致性的问题，不容马虎！ 事务管理是企业级应用程序开发中必备技术，用来确保数据的完整性和一致性。  事务就是把一系列的动作当成一个独立的工作单元，这些动作要么全部完成，要么全部不起作用。
+事务四个属性ACID 原子性（atomicity）  事务是原子性操作，由一系列动作组成，事务的原子性确保动作要么全部完成，要么完全不起作用  一致性（consistency）  一旦所有事务动作完成，事务就要被提交。数据和资源处于一种满足业务规则的一致性状态中  隔离性（isolation）  可能多个事务会同时处理相同的数据，因此每个事务都应该与其他事务隔离开来，防止数据损坏  持久性（durability）  事务一旦完成，无论系统发生什么错误，结果都不会受到影响。通常情况下，事务的结果被写到持久化存储器中  测试 将上面的代码拷贝到一个新项目中
+在之前的案例中，我们给userDao接口新增两个方法，删除和增加用户；
+//添加一个用户 int addUser(User user); //根据id删除用户 int deleteUser(int id); mapper文件，我们故意把 deletes 写错，测试！
+&amp;lt;insert id=&amp;#34;addUser&amp;#34; parameterType=&amp;#34;com.kuang.pojo.User&amp;#34;&amp;gt; insert into user (id,name,pwd) values (#{id},#{name},#{pwd}) &amp;lt;/insert&amp;gt; &amp;lt;delete id=&amp;#34;deleteUser&amp;#34; parameterType=&amp;#34;int&amp;#34;&amp;gt; deletes from user where id = #{id} &amp;lt;/delete&amp;gt; 编写接口的实现类，在实现类中，我们去操作一波
+public class UserDaoImpl extends SqlSessionDaoSupport implements UserMapper { //增加一些操作  public List&amp;lt;User&amp;gt; selectUser() { User user = new User(4,&amp;#34;小明&amp;#34;,&amp;#34;123456&amp;#34;); UserMapper mapper = getSqlSession().'>
+<meta property='og:url' content='https://example.com/p/spring09-%E5%A3%B0%E6%98%8E%E5%BC%8F%E4%BA%8B%E5%8A%A1/'>
+<meta property='og:site_name' content='ybakiame&#39; Blog'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='spring' /><meta property='article:published_time' content='2021-11-09T09:27:01&#43;08:00'/><meta property='article:modified_time' content='2021-11-09T09:27:01&#43;08:00'/>
+<meta name="twitter:title" content="Spring09 声明式事务">
+<meta name="twitter:description" content="声明式事务 回顾事务  事务在项目开发过程非常重要，涉及到数据的一致性的问题，不容马虎！ 事务管理是企业级应用程序开发中必备技术，用来确保数据的完整性和一致性。  事务就是把一系列的动作当成一个独立的工作单元，这些动作要么全部完成，要么全部不起作用。
+事务四个属性ACID 原子性（atomicity）  事务是原子性操作，由一系列动作组成，事务的原子性确保动作要么全部完成，要么完全不起作用  一致性（consistency）  一旦所有事务动作完成，事务就要被提交。数据和资源处于一种满足业务规则的一致性状态中  隔离性（isolation）  可能多个事务会同时处理相同的数据，因此每个事务都应该与其他事务隔离开来，防止数据损坏  持久性（durability）  事务一旦完成，无论系统发生什么错误，结果都不会受到影响。通常情况下，事务的结果被写到持久化存储器中  测试 将上面的代码拷贝到一个新项目中
+在之前的案例中，我们给userDao接口新增两个方法，删除和增加用户；
+//添加一个用户 int addUser(User user); //根据id删除用户 int deleteUser(int id); mapper文件，我们故意把 deletes 写错，测试！
+&amp;lt;insert id=&amp;#34;addUser&amp;#34; parameterType=&amp;#34;com.kuang.pojo.User&amp;#34;&amp;gt; insert into user (id,name,pwd) values (#{id},#{name},#{pwd}) &amp;lt;/insert&amp;gt; &amp;lt;delete id=&amp;#34;deleteUser&amp;#34; parameterType=&amp;#34;int&amp;#34;&amp;gt; deletes from user where id = #{id} &amp;lt;/delete&amp;gt; 编写接口的实现类，在实现类中，我们去操作一波
+public class UserDaoImpl extends SqlSessionDaoSupport implements UserMapper { //增加一些操作  public List&amp;lt;User&amp;gt; selectUser() { User user = new User(4,&amp;#34;小明&amp;#34;,&amp;#34;123456&amp;#34;); UserMapper mapper = getSqlSession().">
+    </head>
+    <body class="
+    article-page has-toc
+">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex 
+    
+        extended
+    
+">
+    
+        <div id="article-toolbar">
+            <a href="/" class="back-home">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="15 6 9 12 15 18" />
+</svg>
+
+
+
+                <span>返回</span>
+            </a>
+        </div>
+    
+<main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/spring/" >
+                spring
+            </a>
+        
+    </header>
+    
+
+    <h2 class="article-title">
+        <a href="/p/spring09-%E5%A3%B0%E6%98%8E%E5%BC%8F%E4%BA%8B%E5%8A%A1/">Spring09 声明式事务</a>
+    </h2>
+
+    
+
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Nov 09, 2021</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    阅读时长: 2 分钟
+                </time>
+            </div>
+        
+    </footer>
+    
+</div>
+</header>
+
+    <section class="article-content">
+    <h2 id="声明式事务">声明式事务</h2>
+<h3 id="回顾事务">回顾事务</h3>
+<ul>
+<li>事务在项目开发过程非常重要，涉及到数据的一致性的问题，不容马虎！</li>
+<li>事务管理是企业级应用程序开发中必备技术，用来确保数据的完整性和一致性。</li>
+</ul>
+<p>事务就是把一系列的动作当成一个独立的工作单元，这些动作要么全部完成，要么全部不起作用。</p>
+<h3 id="事务四个属性acid">事务四个属性ACID</h3>
+<h4 id="原子性atomicity">原子性（atomicity）</h4>
+<ul>
+<li>事务是原子性操作，由一系列动作组成，事务的原子性确保动作要么全部完成，要么完全不起作用</li>
+</ul>
+<h4 id="一致性consistency">一致性（consistency）</h4>
+<ul>
+<li>一旦所有事务动作完成，事务就要被提交。数据和资源处于一种满足业务规则的一致性状态中</li>
+</ul>
+<h4 id="隔离性isolation">隔离性（isolation）</h4>
+<ul>
+<li>可能多个事务会同时处理相同的数据，因此每个事务都应该与其他事务隔离开来，防止数据损坏</li>
+</ul>
+<h4 id="持久性durability">持久性（durability）</h4>
+<ul>
+<li>事务一旦完成，无论系统发生什么错误，结果都不会受到影响。通常情况下，事务的结果被写到持久化存储器中</li>
+</ul>
+<h3 id="测试">测试</h3>
+<p>将上面的代码拷贝到一个新项目中</p>
+<p>在之前的案例中，我们给userDao接口新增两个方法，删除和增加用户；</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="c1">//添加一个用户
+</span><span class="c1"></span><span class="kt">int</span> <span class="nf">addUser</span><span class="o">(</span><span class="n">User</span> <span class="n">user</span><span class="o">);</span>
+
+<span class="c1">//根据id删除用户
+</span><span class="c1"></span><span class="kt">int</span> <span class="nf">deleteUser</span><span class="o">(</span><span class="kt">int</span> <span class="n">id</span><span class="o">);</span>
+</code></pre></div><p>mapper文件，我们故意把 deletes 写错，测试！</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="nt">&lt;insert</span> <span class="na">id=</span><span class="s">&#34;addUser&#34;</span> <span class="na">parameterType=</span><span class="s">&#34;com.kuang.pojo.User&#34;</span><span class="nt">&gt;</span>
+insert into user (id,name,pwd) values (#{id},#{name},#{pwd})
+<span class="nt">&lt;/insert&gt;</span>
+
+<span class="nt">&lt;delete</span> <span class="na">id=</span><span class="s">&#34;deleteUser&#34;</span> <span class="na">parameterType=</span><span class="s">&#34;int&#34;</span><span class="nt">&gt;</span>
+deletes from user where id = #{id}
+<span class="nt">&lt;/delete&gt;</span>
+</code></pre></div><p>编写接口的实现类，在实现类中，我们去操作一波</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">UserDaoImpl</span> <span class="kd">extends</span> <span class="n">SqlSessionDaoSupport</span> <span class="kd">implements</span> <span class="n">UserMapper</span> <span class="o">{</span>
+
+   <span class="c1">//增加一些操作
+</span><span class="c1"></span>   <span class="kd">public</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;</span> <span class="nf">selectUser</span><span class="o">()</span> <span class="o">{</span>
+       <span class="n">User</span> <span class="n">user</span> <span class="o">=</span> <span class="k">new</span> <span class="n">User</span><span class="o">(</span><span class="n">4</span><span class="o">,</span><span class="s">&#34;小明&#34;</span><span class="o">,</span><span class="s">&#34;123456&#34;</span><span class="o">);</span>
+       <span class="n">UserMapper</span> <span class="n">mapper</span> <span class="o">=</span> <span class="n">getSqlSession</span><span class="o">().</span><span class="na">getMapper</span><span class="o">(</span><span class="n">UserMapper</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+       <span class="n">mapper</span><span class="o">.</span><span class="na">addUser</span><span class="o">(</span><span class="n">user</span><span class="o">);</span>
+       <span class="n">mapper</span><span class="o">.</span><span class="na">deleteUser</span><span class="o">(</span><span class="n">4</span><span class="o">);</span>
+       <span class="k">return</span> <span class="n">mapper</span><span class="o">.</span><span class="na">selectUser</span><span class="o">();</span>
+  <span class="o">}</span>
+
+   <span class="c1">//新增
+</span><span class="c1"></span>   <span class="kd">public</span> <span class="kt">int</span> <span class="nf">addUser</span><span class="o">(</span><span class="n">User</span> <span class="n">user</span><span class="o">)</span> <span class="o">{</span>
+       <span class="n">UserMapper</span> <span class="n">mapper</span> <span class="o">=</span> <span class="n">getSqlSession</span><span class="o">().</span><span class="na">getMapper</span><span class="o">(</span><span class="n">UserMapper</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+       <span class="k">return</span> <span class="n">mapper</span><span class="o">.</span><span class="na">addUser</span><span class="o">(</span><span class="n">user</span><span class="o">);</span>
+  <span class="o">}</span>
+   <span class="c1">//删除
+</span><span class="c1"></span>   <span class="kd">public</span> <span class="kt">int</span> <span class="nf">deleteUser</span><span class="o">(</span><span class="kt">int</span> <span class="n">id</span><span class="o">)</span> <span class="o">{</span>
+       <span class="n">UserMapper</span> <span class="n">mapper</span> <span class="o">=</span> <span class="n">getSqlSession</span><span class="o">().</span><span class="na">getMapper</span><span class="o">(</span><span class="n">UserMapper</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+       <span class="k">return</span> <span class="n">mapper</span><span class="o">.</span><span class="na">deleteUser</span><span class="o">(</span><span class="n">id</span><span class="o">);</span>
+  <span class="o">}</span>
+
+<span class="o">}</span>
+</code></pre></div><p>测试</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="nd">@Test</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">test2</span><span class="o">(){</span>
+   <span class="n">ApplicationContext</span> <span class="n">context</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ClassPathXmlApplicationContext</span><span class="o">(</span><span class="s">&#34;beans.xml&#34;</span><span class="o">);</span>
+   <span class="n">UserMapper</span> <span class="n">mapper</span> <span class="o">=</span> <span class="o">(</span><span class="n">UserMapper</span><span class="o">)</span> <span class="n">context</span><span class="o">.</span><span class="na">getBean</span><span class="o">(</span><span class="s">&#34;userDao&#34;</span><span class="o">);</span>
+   <span class="n">List</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;</span> <span class="n">user</span> <span class="o">=</span> <span class="n">mapper</span><span class="o">.</span><span class="na">selectUser</span><span class="o">();</span>
+   <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">user</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div><p>报错：sql异常，delete写错了</p>
+<p>结果 ：插入成功！</p>
+<p>没有进行事务的管理；我们想让他们都成功才成功，有一个失败，就都失败，我们就应该需要<strong>事务！</strong></p>
+<p>以前我们都需要自己手动管理事务，十分麻烦！</p>
+<p>但是Spring给我们提供了事务管理，我们只需要配置即可；</p>
+<h3 id="spring中的事务管理">Spring中的事务管理</h3>
+<p>Spring在不同的事务管理API之上定义了一个抽象层，使得开发人员不必了解底层的事务管理API就可以使用Spring的事务管理机制。Spring支持编程式事务管理和声明式的事务管理。</p>
+<h4 id="编程式事务管理">编程式事务管理</h4>
+<ul>
+<li>将事务管理代码嵌到业务方法中来控制事务的提交和回滚</li>
+<li>缺点：必须在每个事务操作业务逻辑中包含额外的事务管理代码</li>
+</ul>
+<h4 id="声明式事务管理">声明式事务管理</h4>
+<ul>
+<li>一般情况下比编程式事务好用。</li>
+<li>将事务管理代码从业务方法中分离出来，以声明的方式来实现事务管理。</li>
+<li>将事务管理作为横切关注点，通过aop方法模块化。Spring中通过Spring AOP框架支持声明式事务管理。</li>
+</ul>
+<h4 id="使用spring管理事务">使用Spring管理事务</h4>
+<p>注意头文件的约束导入 : tx</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml">xmlns:tx=&#34;http://www.springframework.org/schema/tx&#34;
+http://www.springframework.org/schema/tx
+http://www.springframework.org/schema/tx/spring-tx.xsd&#34;&gt;
+</code></pre></div><h5 id="事务管理器">事务管理器</h5>
+<ul>
+<li>无论使用Spring的哪种事务管理策略（编程式或者声明式）事务管理器都是必须的。</li>
+<li>就是 Spring的核心事务管理抽象，管理封装了一组独立于技术的方法。</li>
+</ul>
+<h5 id="jdbc事务">JDBC事务</h5>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="nt">&lt;bean</span> <span class="na">id=</span><span class="s">&#34;transactionManager&#34;</span> <span class="na">class=</span><span class="s">&#34;org.springframework.jdbc.datasource.DataSourceTransactionManager&#34;</span><span class="nt">&gt;</span>
+       <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&#34;dataSource&#34;</span> <span class="na">ref=</span><span class="s">&#34;dataSource&#34;</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;/bean&gt;</span>
+</code></pre></div><h5 id="配置好事务管理器后我们需要去配置事务的通知">配置好事务管理器后我们需要去配置事务的通知</h5>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="c">&lt;!--配置事务通知--&gt;</span>
+<span class="nt">&lt;tx:advice</span> <span class="na">id=</span><span class="s">&#34;txAdvice&#34;</span> <span class="na">transaction-manager=</span><span class="s">&#34;transactionManager&#34;</span><span class="nt">&gt;</span>
+   <span class="nt">&lt;tx:attributes&gt;</span>
+       <span class="c">&lt;!--配置哪些方法使用什么样的事务,配置事务的传播特性--&gt;</span>
+       <span class="nt">&lt;tx:method</span> <span class="na">name=</span><span class="s">&#34;add&#34;</span> <span class="na">propagation=</span><span class="s">&#34;REQUIRED&#34;</span><span class="nt">/&gt;</span>
+       <span class="nt">&lt;tx:method</span> <span class="na">name=</span><span class="s">&#34;delete&#34;</span> <span class="na">propagation=</span><span class="s">&#34;REQUIRED&#34;</span><span class="nt">/&gt;</span>
+       <span class="nt">&lt;tx:method</span> <span class="na">name=</span><span class="s">&#34;update&#34;</span> <span class="na">propagation=</span><span class="s">&#34;REQUIRED&#34;</span><span class="nt">/&gt;</span>
+       <span class="nt">&lt;tx:method</span> <span class="na">name=</span><span class="s">&#34;search*&#34;</span> <span class="na">propagation=</span><span class="s">&#34;REQUIRED&#34;</span><span class="nt">/&gt;</span>
+       <span class="nt">&lt;tx:method</span> <span class="na">name=</span><span class="s">&#34;get&#34;</span> <span class="na">read-only=</span><span class="s">&#34;true&#34;</span><span class="nt">/&gt;</span>
+       <span class="nt">&lt;tx:method</span> <span class="na">name=</span><span class="s">&#34;*&#34;</span> <span class="na">propagation=</span><span class="s">&#34;REQUIRED&#34;</span><span class="nt">/&gt;</span>
+   <span class="nt">&lt;/tx:attributes&gt;</span>
+<span class="nt">&lt;/tx:advice&gt;</span>
+</code></pre></div><h5 id="spring事务传播特性">spring事务传播特性：</h5>
+<p>事务传播行为就是多个事务方法相互调用时，事务如何在这些方法间传播。spring支持7种事务传播行为：</p>
+<ul>
+<li>propagation_requierd：如果当前没有事务，就新建一个事务，如果已存在一个事务中，加入到这个事务中，这是最常见的选择。</li>
+<li>propagation_supports：支持当前事务，如果没有当前事务，就以非事务方法执行。</li>
+<li>propagation_mandatory：使用当前事务，如果没有当前事务，就抛出异常。</li>
+<li>propagation_required_new：新建事务，如果当前存在事务，把当前事务挂起。</li>
+<li>propagation_not_supported：以非事务方式执行操作，如果当前存在事务，就把当前事务挂起。</li>
+<li>propagation_never：以非事务方式执行操作，如果当前事务存在则抛出异常。</li>
+<li>propagation_nested：如果当前存在事务，则在嵌套事务内执行。如果当前没有事务，则执行与propagation_required类似的操作</li>
+</ul>
+<p>Spring 默认的事务传播行为是 PROPAGATION_REQUIRED，它适合于绝大多数的情况。</p>
+<p>假设 ServiveX#methodX() 都工作在事务环境下（即都被 Spring 事务增强了），假设程序中存在如下的调用链：Service1#method1()-&gt;Service2#method2()-&gt;Service3#method3()，那么这 3 个服务类的 3 个方法通过 Spring 的事务传播机制都工作在同一个事务中。</p>
+<p>就好比，我们刚才的几个方法存在调用，所以会被放在一组事务当中！</p>
+<h3 id="配置aop">配置AOP</h3>
+<p>导入aop的头文件！</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="c">&lt;!--配置aop织入事务--&gt;</span>
+<span class="nt">&lt;aop:config&gt;</span>
+   <span class="nt">&lt;aop:pointcut</span> <span class="na">id=</span><span class="s">&#34;txPointcut&#34;</span> <span class="na">expression=</span><span class="s">&#34;execution(* com.xxgc.dao.*.*(..))&#34;</span><span class="nt">/&gt;</span>
+   <span class="nt">&lt;aop:advisor</span> <span class="na">advice-ref=</span><span class="s">&#34;txAdvice&#34;</span> <span class="na">pointcut-ref=</span><span class="s">&#34;txPointcut&#34;</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;/aop:config&gt;</span>
+</code></pre></div><p><strong>进行测试</strong></p>
+<p>删掉刚才插入的数据，再次测试！</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="nd">@Test</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">test2</span><span class="o">(){</span>
+   <span class="n">ApplicationContext</span> <span class="n">context</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ClassPathXmlApplicationContext</span><span class="o">(</span><span class="s">&#34;beans.xml&#34;</span><span class="o">);</span>
+   <span class="n">UserMapper</span> <span class="n">mapper</span> <span class="o">=</span> <span class="o">(</span><span class="n">UserMapper</span><span class="o">)</span> <span class="n">context</span><span class="o">.</span><span class="na">getBean</span><span class="o">(</span><span class="s">&#34;userDao&#34;</span><span class="o">);</span>
+   <span class="n">List</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;</span> <span class="n">user</span> <span class="o">=</span> <span class="n">mapper</span><span class="o">.</span><span class="na">selectUser</span><span class="o">();</span>
+   <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">user</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div><p>为什么需要配置事务？</p>
+<ul>
+<li>
+<p>如果不配置，就需要我们手动提交控制事务；</p>
+</li>
+<li>
+<p>事务在项目开发过程非常重要，涉及到数据的一致性的问题，不容马虎！</p>
+</li>
+</ul>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/spring/">spring</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+    <aside class="related-contents--wrapper">
+    
+    
+        <h2 class="section-title">相关文章</h2>
+        <div class="related-contents">
+            <div class="flex article-list--tile">
+                
+                    
+<article class="">
+    <a href="/p/spring08-%E6%95%B4%E5%90%88mybatis/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Spring08 整合MyBatis</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
+    <a href="/p/spring07-aop%E4%BD%BF%E7%94%A8/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Spring07 AOP使用</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
+    <a href="/p/spring06-%E5%8A%A8/%E9%9D%99%E6%80%81%E4%BB%A3%E7%90%86/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Spring06 动/静态代理</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
+    <a href="/p/spring05-%E4%BD%BF%E7%94%A8%E6%B3%A8%E8%A7%A3%E5%BC%80%E5%8F%91/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Spring05 使用注解开发</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
+    <a href="/p/spring04-%E8%87%AA%E5%8A%A8%E8%A3%85%E9%85%8D/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Spring04 自动装配</h2>
+        </div>
+    </a>
+</article>
+                
+            </div>
+        </div>
+    
+</aside>
+
+     
+    
+        
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "stack" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (DISQUS) {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2020 - 
+        
+        2021 ybakiame&#39; Blog
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.5.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css"integrity="sha256-c0uckgykQ9v5k&#43;IqViZOZKc47Jn7KQil4/MP3ySA3F8="crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css"integrity="sha256-SBLU4vv6CA6lHsZ1XyTdhyjJxCjPif/TRkjnsyGAGnE="crossorigin="anonymous"
+            >
+
+            </main>
+    
+        <aside class="sidebar right-sidebar sticky">
+            <section class="widget archives">
+                <div class="widget-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+                </div>
+                <h2 class="widget-title section-title">目录</h2>
+                
+                <div class="widget--toc">
+                    <nav id="TableOfContents">
+  <ol>
+    <li><a href="#声明式事务">声明式事务</a>
+      <ol>
+        <li><a href="#回顾事务">回顾事务</a></li>
+        <li><a href="#事务四个属性acid">事务四个属性ACID</a>
+          <ol>
+            <li><a href="#原子性atomicity">原子性（atomicity）</a></li>
+            <li><a href="#一致性consistency">一致性（consistency）</a></li>
+            <li><a href="#隔离性isolation">隔离性（isolation）</a></li>
+            <li><a href="#持久性durability">持久性（durability）</a></li>
+          </ol>
+        </li>
+        <li><a href="#测试">测试</a></li>
+        <li><a href="#spring中的事务管理">Spring中的事务管理</a>
+          <ol>
+            <li><a href="#编程式事务管理">编程式事务管理</a></li>
+            <li><a href="#声明式事务管理">声明式事务管理</a></li>
+            <li><a href="#使用spring管理事务">使用Spring管理事务</a></li>
+          </ol>
+        </li>
+        <li><a href="#配置aop">配置AOP</a></li>
+      </ol>
+    </li>
+  </ol>
+</nav>
+                </div>
+            </section>
+        </aside>
+    
+
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js"integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g="crossorigin="anonymous"
+                defer="false"
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

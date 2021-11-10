@@ -16,8 +16,8 @@ springMvc过滤静态资源文件 1、使用Tomcat的defaultServlet来处理静�
 &amp;lt;!--在springmvc拦截所有请求之前放行所有静态资源文件--&amp;gt; &amp;lt;!--每一个&amp;lt;url-pattern&amp;gt;代表一种静态资源文件--&amp;gt; &amp;lt;servlet-mapping&amp;gt; &amp;lt;servlet-name&amp;gt;default&amp;lt;/servlet-name&amp;gt; &amp;lt;url-pattern&amp;gt;*.html&amp;lt;/url-pattern&amp;gt; &amp;lt;url-pattern&amp;gt;*.css&amp;lt;/url-pattern&amp;gt; &amp;lt;url-pattern&amp;gt;*.js&amp;lt;/url-pattern&amp;gt; &amp;lt;url-pattern&amp;gt;*.ico&amp;lt;/url-pattern&amp;gt; &amp;lt;url-pattern&amp;gt;*.jpg&amp;lt;/url-pattern&amp;gt; &amp;lt;url-pattern&amp;gt;*.png&amp;lt;/url-pattern&amp;gt; &amp;lt;url-pattern&amp;gt;*.gif&amp;lt;/url-pattern&amp;gt; &amp;lt;/servlet-mapping&amp;gt;  要写在DispatcherServlet的前面， 让defaultServlet先拦截，这个就不会进入Spring了，我想性能是最好的吧。
  Tomcat, Jetty, JBoss, and GlassFish 默认 Servlet的名字 &amp;ndash; &amp;ldquo;default&amp;rdquo; Google App Engine 默认 Servlet的名字 &amp;ndash; &amp;ldquo;_ah_default&amp;rdquo; Resin 默认 Servlet的名字 &amp;ndash; &amp;ldquo;resin-file&amp;rdquo; WebLogic 默认 Servlet的名字 &amp;ndash; &amp;ldquo;FileServlet&amp;rdquo; WebSphere 默认 Servlet的名字 &amp;ndash; &amp;ldquo;SimpleFileServlet&amp;rdquo;   2、使用&amp;lt;mvc:resources&amp;gt;标签 在dispatcher-servlet.'>
 <meta property='og:url' content='https://example.com/p/springmvc%E9%9D%99%E6%80%81%E8%B5%84%E6%BA%90%E8%BF%87%E6%BB%A4/'>
-<meta property='og:site_name' content='ybakiame Blog'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='springMvc' /><meta property='article:published_time' content='2021-10-21T20:07:06&#43;08:00'/><meta property='article:modified_time' content='2021-10-21T20:07:06&#43;08:00'/>
+<meta property='og:site_name' content='ybakiame&#39; Blog'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='springMVC' /><meta property='article:published_time' content='2021-10-21T20:07:06&#43;08:00'/><meta property='article:modified_time' content='2021-10-21T20:07:06&#43;08:00'/>
 <meta name="twitter:title" content="SpringMvc静态资源过滤">
 <meta name="twitter:description" content="配置DispatcherServlet 在进行Spring MVC的配置时，通常会配置一个dispatcher-servlet.xml用于处理对应的URL。web.xml中配置如下：
 &amp;lt;!--springmvc默认拦截器拦截请求--&amp;gt; &amp;lt;servlet&amp;gt; &amp;lt;servlet-name&amp;gt;SpringMVC&amp;lt;/servlet-name&amp;gt; &amp;lt;servlet-class&amp;gt;org.springframework.web.servlet.DispatcherServlet&amp;lt;/servlet-class&amp;gt; &amp;lt;init-param&amp;gt; &amp;lt;param-name&amp;gt;contextConfigLocation&amp;lt;/param-name&amp;gt; &amp;lt;param-value&amp;gt;classpath:dispatcher-servlet.xml&amp;lt;/param-value&amp;gt; &amp;lt;/init-param&amp;gt; &amp;lt;!--tomcat启动时立即初始化拦截器--&amp;gt; &amp;lt;load-on-startup&amp;gt;1&amp;lt;/load-on-startup&amp;gt; &amp;lt;/servlet&amp;gt; &amp;lt;servlet-mapping&amp;gt; &amp;lt;!-- url-pattern拦截地址的区别 / 会匹配url请求/index等 ,也会匹配静态资源*.js,*.html等, 不会匹配*.jsp文件。 /* 会匹配url请求/index等 ,也会匹配静态资源*.js,*.html等, 会匹配*.jsp文件。 在实际开发中可能遇到 *.do、*.cation 等拦截代后缀的请求 --&amp;gt; &amp;lt;servlet-name&amp;gt;SpringMVC&amp;lt;/servlet-name&amp;gt; &amp;lt;url-pattern&amp;gt;/&amp;lt;/url-pattern&amp;gt; &amp;lt;!-- 只拦截.do请求 &amp;lt;url-pattern&amp;gt;*.do&amp;lt;/url-pattern&amp;gt; --&amp;gt; &amp;lt;/servlet-mapping&amp;gt; 优雅 REST 风格的 URL 不希望带 .html 或 .do 等后缀，而如果将 DispatcherServlet 请求映射配置为&amp;quot;/&amp;quot;，则Spring MVC将捕获Web容器所有的请求，静态资源的请求找不到对应处理器将导致错误。
@@ -77,8 +77,8 @@ springMvc过滤静态资源文件 1、使用Tomcat的defaultServlet来处理静�
     
     <header class="article-category">
         
-            <a href="/categories/springmvc/" >
-                springMvc
+            <a href="/categories/spring/" >
+                spring
             </a>
         
     </header>
@@ -183,8 +183,7 @@ springMvc过滤静态资源文件 1、使用Tomcat的defaultServlet来处理静�
 </blockquote>
 <h3 id="2使用mvcresources标签">2、使用<code>&lt;mvc:resources&gt;</code>标签</h3>
 <p>在<code>dispatcher-servlet.xml</code>中插入以下配置：</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="c">&lt;!--    放行静态资源文件--&gt;</span>
-<span class="nt">&lt;mvc:annotation-driven</span> <span class="nt">/&gt;</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="nt">&lt;mvc:annotation-driven</span> <span class="nt">/&gt;</span>
 <span class="nt">&lt;mvc:resources</span> <span class="na">location=</span><span class="s">&#34;/resources/&#34;</span> <span class="na">mapping=</span><span class="s">&#34;/resources/**&#34;</span><span class="nt">/&gt;</span>
 <span class="nt">&lt;mvc:resources</span> <span class="na">location=</span><span class="s">&#34;/classpath:/META-INF/publicResources/&#34;</span> <span class="na">mapping=</span><span class="s">&#34;/resources/**&#34;</span><span class="nt">/&gt;</span>
 </code></pre></div><blockquote>
@@ -210,7 +209,7 @@ springMvc过滤静态资源文件 1、使用Tomcat的defaultServlet来处理静�
     
     <section class="article-tags">
         
-            <a href="/tags/springmvc/">springMvc</a>
+            <a href="/tags/springmvc/">springMVC</a>
         
     </section>
 
@@ -242,12 +241,60 @@ springMvc过滤静态资源文件 1、使用Tomcat的defaultServlet来处理静�
                 
                     
 <article class="">
-    <a href="/p/springmvc%E5%AE%9E%E7%8E%B0restful%E9%A3%8E%E6%A0%BC/">
+    <a href="/p/springmvc08-%E6%8B%A6%E6%88%AA%E5%99%A8%E4%B8%8E%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E4%B8%8B%E8%BD%BD/">
         
         
 
         <div class="article-details">
-            <h2 class="article-title">springMVC实现restful风格</h2>
+            <h2 class="article-title">SpringMVC08 拦截器与文件上传下载</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
+    <a href="/p/springmvc07-ajax%E7%A0%94%E7%A9%B6/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">SpringMVC07 Ajax研究</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
+    <a href="/p/springmvc06-json%E4%BA%A4%E4%BA%92%E5%A4%84%E7%90%86/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">SpringMVC06 Json交互处理</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
+    <a href="/p/springmvc05-%E6%95%B4%E5%90%88ssm%E6%A1%86%E6%9E%B6/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">SpringMVC05 整合SSM框架</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
+    <a href="/p/springmvc04-%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E5%8F%8A%E8%B7%B3%E8%BD%AC/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">SpringMVC04 数据处理及跳转</h2>
         </div>
     </a>
 </article>
@@ -274,7 +321,7 @@ springMvc过滤静态资源文件 1、使用Tomcat的defaultServlet来处理静�
             return;
         }
         var d = document, s = d.createElement('script'); s.async = true;
-        s.src = '//' + "hugo-theme-stack" + '.disqus.com/embed.js';
+        s.src = '//' + "stack" + '.disqus.com/embed.js';
         s.setAttribute('data-timestamp', +new Date());
         (d.head || d.body).appendChild(s);
     })();
@@ -310,7 +357,7 @@ springMvc过滤静态资源文件 1、使用Tomcat的defaultServlet来处理静�
         
             2020 - 
         
-        2021 ybakiame Blog
+        2021 ybakiame&#39; Blog
     </section>
     
     <section class="powerby">

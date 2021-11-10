@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='拦截器以及文件的上传和下载 拦截器 概述 SpringMVC的处理器拦截器类似于Servlet开发中的过滤器Filter,用于对处理器进行预处理和后处理。开发者可以自己定义一些拦截器来实现特定的功能。
+**过滤器与拦截器的区别：**拦截器是AOP思想的具体应用。
+过滤器
+ servlet规范中的一部分，任何java web工程都可以使用 在url-pattern中配置了/*之后，可以对所有要访问的资源进行拦截  拦截器
+ 拦截器是SpringMVC框架自己的，只有使用了SpringMVC框架的工程才能使用 拦截器只会拦截访问的控制器方法， 如果访问的是jsp/html/css/image/js是不会进行拦截的  自定义拦截器 那如何实现拦截器呢？
+想要自定义拦截器，必须实现 HandlerInterceptor 接口。
+1、新建一个Moudule ， springmvc-07-Interceptor ， 添加web支持
+2、配置web.xml 和 springmvc-servlet.xml 文件
+3、编写一个拦截器
+package com.kuang.interceptor; import org.springframework.web.servlet.HandlerInterceptor; import org.springframework.web.servlet.ModelAndView; import javax.servlet.http.HttpServletRequest; import javax.servlet.http.HttpServletResponse; public class MyInterceptor implements HandlerInterceptor { //在请求处理的方法之前执行  //如果返回true执行下一个拦截器  //如果返回false就不执行下一个拦截器  public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o) throws Exception { System.out.println(&amp;#34;------------处理前------------&amp;#34;); return true; } //在请求处理方法执行之后执行  public void postHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o, ModelAndView modelAndView) throws Exception { System.'><title>SpringMVC08 拦截器与文件上传下载</title>
+
+<link rel='canonical' href='https://example.com/p/springmvc08-%E6%8B%A6%E6%88%AA%E5%99%A8%E4%B8%8E%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E4%B8%8B%E8%BD%BD/'>
+
+<link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content='SpringMVC08 拦截器与文件上传下载'>
+<meta property='og:description' content='拦截器以及文件的上传和下载 拦截器 概述 SpringMVC的处理器拦截器类似于Servlet开发中的过滤器Filter,用于对处理器进行预处理和后处理。开发者可以自己定义一些拦截器来实现特定的功能。
+**过滤器与拦截器的区别：**拦截器是AOP思想的具体应用。
+过滤器
+ servlet规范中的一部分，任何java web工程都可以使用 在url-pattern中配置了/*之后，可以对所有要访问的资源进行拦截  拦截器
+ 拦截器是SpringMVC框架自己的，只有使用了SpringMVC框架的工程才能使用 拦截器只会拦截访问的控制器方法， 如果访问的是jsp/html/css/image/js是不会进行拦截的  自定义拦截器 那如何实现拦截器呢？
+想要自定义拦截器，必须实现 HandlerInterceptor 接口。
+1、新建一个Moudule ， springmvc-07-Interceptor ， 添加web支持
+2、配置web.xml 和 springmvc-servlet.xml 文件
+3、编写一个拦截器
+package com.kuang.interceptor; import org.springframework.web.servlet.HandlerInterceptor; import org.springframework.web.servlet.ModelAndView; import javax.servlet.http.HttpServletRequest; import javax.servlet.http.HttpServletResponse; public class MyInterceptor implements HandlerInterceptor { //在请求处理的方法之前执行  //如果返回true执行下一个拦截器  //如果返回false就不执行下一个拦截器  public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o) throws Exception { System.out.println(&amp;#34;------------处理前------------&amp;#34;); return true; } //在请求处理方法执行之后执行  public void postHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o, ModelAndView modelAndView) throws Exception { System.'>
+<meta property='og:url' content='https://example.com/p/springmvc08-%E6%8B%A6%E6%88%AA%E5%99%A8%E4%B8%8E%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E4%B8%8B%E8%BD%BD/'>
+<meta property='og:site_name' content='ybakiame&#39; Blog'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='springMVC' /><meta property='article:published_time' content='2021-11-09T09:43:55&#43;08:00'/><meta property='article:modified_time' content='2021-11-09T09:43:55&#43;08:00'/>
+<meta name="twitter:title" content="SpringMVC08 拦截器与文件上传下载">
+<meta name="twitter:description" content="拦截器以及文件的上传和下载 拦截器 概述 SpringMVC的处理器拦截器类似于Servlet开发中的过滤器Filter,用于对处理器进行预处理和后处理。开发者可以自己定义一些拦截器来实现特定的功能。
+**过滤器与拦截器的区别：**拦截器是AOP思想的具体应用。
+过滤器
+ servlet规范中的一部分，任何java web工程都可以使用 在url-pattern中配置了/*之后，可以对所有要访问的资源进行拦截  拦截器
+ 拦截器是SpringMVC框架自己的，只有使用了SpringMVC框架的工程才能使用 拦截器只会拦截访问的控制器方法， 如果访问的是jsp/html/css/image/js是不会进行拦截的  自定义拦截器 那如何实现拦截器呢？
+想要自定义拦截器，必须实现 HandlerInterceptor 接口。
+1、新建一个Moudule ， springmvc-07-Interceptor ， 添加web支持
+2、配置web.xml 和 springmvc-servlet.xml 文件
+3、编写一个拦截器
+package com.kuang.interceptor; import org.springframework.web.servlet.HandlerInterceptor; import org.springframework.web.servlet.ModelAndView; import javax.servlet.http.HttpServletRequest; import javax.servlet.http.HttpServletResponse; public class MyInterceptor implements HandlerInterceptor { //在请求处理的方法之前执行  //如果返回true执行下一个拦截器  //如果返回false就不执行下一个拦截器  public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o) throws Exception { System.out.println(&amp;#34;------------处理前------------&amp;#34;); return true; } //在请求处理方法执行之后执行  public void postHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o, ModelAndView modelAndView) throws Exception { System.">
+    </head>
+    <body class="
+    article-page has-toc
+">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex 
+    
+        extended
+    
+">
+    
+        <div id="article-toolbar">
+            <a href="/" class="back-home">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="15 6 9 12 15 18" />
+</svg>
+
+
+
+                <span>返回</span>
+            </a>
+        </div>
+    
+<main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/spring/" >
+                spring
+            </a>
+        
+    </header>
+    
+
+    <h2 class="article-title">
+        <a href="/p/springmvc08-%E6%8B%A6%E6%88%AA%E5%99%A8%E4%B8%8E%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E4%B8%8B%E8%BD%BD/">SpringMVC08 拦截器与文件上传下载</a>
+    </h2>
+
+    
+
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Nov 09, 2021</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    阅读时长: 4 分钟
+                </time>
+            </div>
+        
+    </footer>
+    
+</div>
+</header>
+
+    <section class="article-content">
+    <h2 id="拦截器以及文件的上传和下载">拦截器以及文件的上传和下载</h2>
+<h3 id="拦截器">拦截器</h3>
+<h4 id="概述">概述</h4>
+<p>SpringMVC的处理器拦截器类似于Servlet开发中的过滤器Filter,用于对处理器进行预处理和后处理。开发者可以自己定义一些拦截器来实现特定的功能。</p>
+<p>**过滤器与拦截器的区别：**拦截器是AOP思想的具体应用。</p>
+<p><strong>过滤器</strong></p>
+<ul>
+<li>servlet规范中的一部分，任何java web工程都可以使用</li>
+<li>在url-pattern中配置了/*之后，可以对所有要访问的资源进行拦截</li>
+</ul>
+<p><strong>拦截器</strong></p>
+<ul>
+<li>拦截器是SpringMVC框架自己的，只有使用了SpringMVC框架的工程才能使用</li>
+<li>拦截器只会拦截访问的控制器方法， 如果访问的是jsp/html/css/image/js是不会进行拦截的</li>
+</ul>
+<h4 id="自定义拦截器">自定义拦截器</h4>
+<p>那如何实现拦截器呢？</p>
+<p>想要自定义拦截器，必须实现 HandlerInterceptor 接口。</p>
+<p>1、新建一个Moudule ， springmvc-07-Interceptor  ， 添加web支持</p>
+<p>2、配置web.xml 和 springmvc-servlet.xml 文件</p>
+<p>3、编写一个拦截器</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">com.kuang.interceptor</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">org.springframework.web.servlet.HandlerInterceptor</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.web.servlet.ModelAndView</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">javax.servlet.http.HttpServletRequest</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">javax.servlet.http.HttpServletResponse</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">MyInterceptor</span> <span class="kd">implements</span> <span class="n">HandlerInterceptor</span> <span class="o">{</span>
+
+   <span class="c1">//在请求处理的方法之前执行
+</span><span class="c1"></span>   <span class="c1">//如果返回true执行下一个拦截器
+</span><span class="c1"></span>   <span class="c1">//如果返回false就不执行下一个拦截器
+</span><span class="c1"></span>   <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">preHandle</span><span class="o">(</span><span class="n">HttpServletRequest</span> <span class="n">httpServletRequest</span><span class="o">,</span> <span class="n">HttpServletResponse</span> <span class="n">httpServletResponse</span><span class="o">,</span> <span class="n">Object</span> <span class="n">o</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+       <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;------------处理前------------&#34;</span><span class="o">);</span>
+       <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+  <span class="o">}</span>
+
+   <span class="c1">//在请求处理方法执行之后执行
+</span><span class="c1"></span>   <span class="kd">public</span> <span class="kt">void</span> <span class="nf">postHandle</span><span class="o">(</span><span class="n">HttpServletRequest</span> <span class="n">httpServletRequest</span><span class="o">,</span> <span class="n">HttpServletResponse</span> <span class="n">httpServletResponse</span><span class="o">,</span> <span class="n">Object</span> <span class="n">o</span><span class="o">,</span> <span class="n">ModelAndView</span> <span class="n">modelAndView</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+       <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;------------处理后------------&#34;</span><span class="o">);</span>
+  <span class="o">}</span>
+
+   <span class="c1">//在dispatcherServlet处理后执行,做清理工作.
+</span><span class="c1"></span>   <span class="kd">public</span> <span class="kt">void</span> <span class="nf">afterCompletion</span><span class="o">(</span><span class="n">HttpServletRequest</span> <span class="n">httpServletRequest</span><span class="o">,</span> <span class="n">HttpServletResponsehttpServletResponse</span><span class="o">,</span> <span class="n">Object</span> <span class="n">o</span><span class="o">,</span> <span class="n">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+       <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;------------清理------------&#34;</span><span class="o">);</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p>4、在springmvc的配置文件中配置拦截器</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="c">&lt;!--关于拦截器的配置--&gt;</span>
+<span class="nt">&lt;mvc:interceptors&gt;</span>
+   <span class="nt">&lt;mvc:interceptor&gt;</span>
+       <span class="c">&lt;!--/** 包括路径及其子路径--&gt;</span>
+       <span class="c">&lt;!--/admin/* 拦截的是/admin/add等等这种 , /admin/add/user不会被拦截--&gt;</span>
+       <span class="c">&lt;!--/admin/** 拦截的是/admin/下的所有--&gt;</span>
+       <span class="nt">&lt;mvc:mapping</span> <span class="na">path=</span><span class="s">&#34;/**&#34;</span><span class="nt">/&gt;</span>
+       <span class="c">&lt;!--bean配置的就是拦截器--&gt;</span>
+       <span class="nt">&lt;bean</span> <span class="na">class=</span><span class="s">&#34;com.kuang.interceptor.MyInterceptor&#34;</span><span class="nt">/&gt;</span>
+   <span class="nt">&lt;/mvc:interceptor&gt;</span>
+<span class="nt">&lt;/mvc:interceptors&gt;</span>
+</code></pre></div><p>5、编写一个Controller，接收请求</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="c1">//测试拦截器的控制器
+</span><span class="c1"></span><span class="nd">@Controller</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">InterceptorController</span> <span class="o">{</span>
+
+   <span class="nd">@RequestMapping</span><span class="o">(</span><span class="s">&#34;/interceptor&#34;</span><span class="o">)</span>
+   <span class="nd">@ResponseBody</span>
+   <span class="kd">public</span> <span class="n">String</span> <span class="nf">testFunction</span><span class="o">()</span> <span class="o">{</span>
+       <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;控制器中的方法执行了&#34;</span><span class="o">);</span>
+       <span class="k">return</span> <span class="s">&#34;hello&#34;</span><span class="o">;</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p>6、前端 index.jsp</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;${pageContext.request.contextPath}/interceptor&#34;</span><span class="p">&gt;</span>拦截器测试<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+</code></pre></div><p>7、启动tomcat 测试一下！</p>
+<h4 id="验证用户是否登录-认证用户">验证用户是否登录 (认证用户)</h4>
+<h5 id="实现思路">实现思路</h5>
+<p>1、有一个登陆页面，需要写一个controller访问页面。</p>
+<p>2、登陆页面有一提交表单的动作。需要在controller中处理。判断用户名密码是否正确。如果正确，向session中写入用户信息。<em>返回登陆成功。</em></p>
+<p>3、拦截用户请求，判断用户是否登陆。如果用户已经登陆。放行， 如果用户未登陆，跳转到登陆页面</p>
+<h5 id="测试">测试：</h5>
+<p>1、编写一个登陆页面  login.jsp</p>
+<pre tabindex="0"><code class="language-jsp" data-lang="jsp">&lt;%@ page contentType=&quot;text/html;charset=UTF-8&quot; language=&quot;java&quot; %&gt;
+&lt;html&gt;
+&lt;head&gt;
+   &lt;title&gt;Title&lt;/title&gt;
+&lt;/head&gt;
+
+&lt;h1&gt;登录页面&lt;/h1&gt;
+&lt;hr&gt;
+
+&lt;body&gt;
+&lt;form action=&quot;${pageContext.request.contextPath}/user/login&quot;&gt;
+  用户名：&lt;input type=&quot;text&quot; name=&quot;username&quot;&gt; &lt;br&gt;
+  密码：&lt;input type=&quot;password&quot; name=&quot;pwd&quot;&gt; &lt;br&gt;
+   &lt;input type=&quot;submit&quot; value=&quot;提交&quot;&gt;
+&lt;/form&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre><p>2、编写一个Controller处理请求</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="nd">@Controller</span>
+<span class="nd">@RequestMapping</span><span class="o">(</span><span class="s">&#34;/user&#34;</span><span class="o">)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">UserController</span> <span class="o">{</span>
+
+   <span class="c1">//跳转到登陆页面
+</span><span class="c1"></span>   <span class="nd">@RequestMapping</span><span class="o">(</span><span class="s">&#34;/jumplogin&#34;</span><span class="o">)</span>
+   <span class="kd">public</span> <span class="n">String</span> <span class="nf">jumpLogin</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+       <span class="k">return</span> <span class="s">&#34;login&#34;</span><span class="o">;</span>
+  <span class="o">}</span>
+
+   <span class="c1">//跳转到成功页面
+</span><span class="c1"></span>   <span class="nd">@RequestMapping</span><span class="o">(</span><span class="s">&#34;/jumpSuccess&#34;</span><span class="o">)</span>
+   <span class="kd">public</span> <span class="n">String</span> <span class="nf">jumpSuccess</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+       <span class="k">return</span> <span class="s">&#34;success&#34;</span><span class="o">;</span>
+  <span class="o">}</span>
+
+   <span class="c1">//登陆提交
+</span><span class="c1"></span>   <span class="nd">@RequestMapping</span><span class="o">(</span><span class="s">&#34;/login&#34;</span><span class="o">)</span>
+   <span class="kd">public</span> <span class="n">String</span> <span class="nf">login</span><span class="o">(</span><span class="n">HttpSession</span> <span class="n">session</span><span class="o">,</span> <span class="n">String</span> <span class="n">username</span><span class="o">,</span> <span class="n">String</span> <span class="n">pwd</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+       <span class="c1">// 向session记录用户身份信息
+</span><span class="c1"></span>       <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;接收前端===&#34;</span><span class="o">+</span><span class="n">username</span><span class="o">);</span>
+       <span class="n">session</span><span class="o">.</span><span class="na">setAttribute</span><span class="o">(</span><span class="s">&#34;user&#34;</span><span class="o">,</span> <span class="n">username</span><span class="o">);</span>
+       <span class="k">return</span> <span class="s">&#34;success&#34;</span><span class="o">;</span>
+  <span class="o">}</span>
+
+   <span class="c1">//退出登陆
+</span><span class="c1"></span>   <span class="nd">@RequestMapping</span><span class="o">(</span><span class="s">&#34;logout&#34;</span><span class="o">)</span>
+   <span class="kd">public</span> <span class="n">String</span> <span class="nf">logout</span><span class="o">(</span><span class="n">HttpSession</span> <span class="n">session</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+       <span class="c1">// session 过期
+</span><span class="c1"></span>       <span class="n">session</span><span class="o">.</span><span class="na">invalidate</span><span class="o">();</span>
+       <span class="k">return</span> <span class="s">&#34;login&#34;</span><span class="o">;</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p>3、编写一个登陆成功的页面 success.jsp</p>
+<pre tabindex="0"><code class="language-jsp" data-lang="jsp">&lt;%@ page contentType=&quot;text/html;charset=UTF-8&quot; language=&quot;java&quot; %&gt;
+&lt;html&gt;
+&lt;head&gt;
+   &lt;title&gt;Title&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+&lt;h1&gt;登录成功页面&lt;/h1&gt;
+&lt;hr&gt;
+
+${user}
+&lt;a href=&quot;${pageContext.request.contextPath}/user/logout&quot;&gt;注销&lt;/a&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre><p>4、在 index 页面上测试跳转！启动Tomcat 测试，未登录也可以进入主页！</p>
+<pre tabindex="0"><code class="language-jsp" data-lang="jsp">&lt;%@ page contentType=&quot;text/html;charset=UTF-8&quot; language=&quot;java&quot; %&gt;
+&lt;html&gt;
+ &lt;head&gt;
+   &lt;title&gt;$Title$&lt;/title&gt;
+ &lt;/head&gt;
+ &lt;body&gt;
+ &lt;h1&gt;首页&lt;/h1&gt;
+ &lt;hr&gt;
+&lt;%--登录--%&gt;
+ &lt;a href=&quot;${pageContext.request.contextPath}/user/jumplogin&quot;&gt;登录&lt;/a&gt;
+ &lt;a href=&quot;${pageContext.request.contextPath}/user/jumpSuccess&quot;&gt;成功页面&lt;/a&gt;
+ &lt;/body&gt;
+&lt;/html&gt;
+</code></pre><p>5、编写用户登录拦截器</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">com.kuang.interceptor</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">org.springframework.web.servlet.HandlerInterceptor</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.web.servlet.ModelAndView</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">javax.servlet.ServletException</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">javax.servlet.http.HttpServletRequest</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">javax.servlet.http.HttpServletResponse</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">javax.servlet.http.HttpSession</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.io.IOException</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">LoginInterceptor</span> <span class="kd">implements</span> <span class="n">HandlerInterceptor</span> <span class="o">{</span>
+
+   <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">preHandle</span><span class="o">(</span><span class="n">HttpServletRequest</span> <span class="n">request</span><span class="o">,</span> <span class="n">HttpServletResponse</span> <span class="n">response</span><span class="o">,</span> <span class="n">Object</span> <span class="n">handler</span><span class="o">)</span> <span class="n">throwsServletException</span><span class="o">,</span> <span class="n">IOException</span> <span class="o">{</span>
+       <span class="c1">// 如果是登陆页面则放行
+</span><span class="c1"></span>       <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;uri: &#34;</span> <span class="o">+</span> <span class="n">request</span><span class="o">.</span><span class="na">getRequestURI</span><span class="o">());</span>
+       <span class="k">if</span> <span class="o">(</span><span class="n">request</span><span class="o">.</span><span class="na">getRequestURI</span><span class="o">().</span><span class="na">contains</span><span class="o">(</span><span class="s">&#34;login&#34;</span><span class="o">))</span> <span class="o">{</span>
+           <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+      <span class="o">}</span>
+
+       <span class="n">HttpSession</span> <span class="n">session</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="na">getSession</span><span class="o">();</span>
+
+       <span class="c1">// 如果用户已登陆也放行
+</span><span class="c1"></span>       <span class="k">if</span><span class="o">(</span><span class="n">session</span><span class="o">.</span><span class="na">getAttribute</span><span class="o">(</span><span class="s">&#34;user&#34;</span><span class="o">)</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+           <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+      <span class="o">}</span>
+
+       <span class="c1">// 用户没有登陆跳转到登陆页面
+</span><span class="c1"></span>       <span class="n">request</span><span class="o">.</span><span class="na">getRequestDispatcher</span><span class="o">(</span><span class="s">&#34;/WEB-INF/jsp/login.jsp&#34;</span><span class="o">).</span><span class="na">forward</span><span class="o">(</span><span class="n">request</span><span class="o">,</span> <span class="n">response</span><span class="o">);</span>
+       <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+  <span class="o">}</span>
+
+   <span class="kd">public</span> <span class="kt">void</span> <span class="nf">postHandle</span><span class="o">(</span><span class="n">HttpServletRequest</span> <span class="n">httpServletRequest</span><span class="o">,</span> <span class="n">HttpServletResponse</span> <span class="n">httpServletResponse</span><span class="o">,</span> <span class="n">Object</span> <span class="n">o</span><span class="o">,</span> <span class="n">ModelAndView</span> <span class="n">modelAndView</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+
+  <span class="o">}</span>
+   
+   <span class="kd">public</span> <span class="kt">void</span> <span class="nf">afterCompletion</span><span class="o">(</span><span class="n">HttpServletRequest</span> <span class="n">httpServletRequest</span><span class="o">,</span> <span class="n">HttpServletResponsehttpServletResponse</span><span class="o">,</span> <span class="n">Object</span> <span class="n">o</span><span class="o">,</span> <span class="n">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p>6、在Springmvc的配置文件中注册拦截器</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="c">&lt;!--关于拦截器的配置--&gt;</span>
+<span class="nt">&lt;mvc:interceptors&gt;</span>
+   <span class="nt">&lt;mvc:interceptor&gt;</span>
+       <span class="nt">&lt;mvc:mapping</span> <span class="na">path=</span><span class="s">&#34;/**&#34;</span><span class="nt">/&gt;</span>
+       <span class="nt">&lt;bean</span> <span class="na">id=</span><span class="s">&#34;loginInterceptor&#34;</span> <span class="na">class=</span><span class="s">&#34;com.kuang.interceptor.LoginInterceptor&#34;</span><span class="nt">/&gt;</span>
+   <span class="nt">&lt;/mvc:interceptor&gt;</span>
+<span class="nt">&lt;/mvc:interceptors&gt;</span>
+</code></pre></div><p>7、再次重启Tomcat测试！</p>
+<p><strong>OK，测试登录拦截功能无误.</strong></p>
+<h3 id="文件上传和下载">文件上传和下载</h3>
+<h4 id="准备工作">准备工作</h4>
+<p>文件上传是项目开发中最常见的功能之一 ,springMVC 可以很好的支持文件上传，但是SpringMVC上下文中默认没有装配MultipartResolver，因此默认情况下其不能处理文件上传工作。如果想使用Spring的文件上传功能，则需要在上下文中配置MultipartResolver。</p>
+<p>前端表单要求：为了能上传文件，必须将表单的method设置为POST，并将enctype设置为multipart/form-data。只有在这样的情况下，浏览器才会把用户选择的文件以二进制数据发送给服务器；</p>
+<p><strong>对表单中的 enctype 属性做个详细的说明：</strong></p>
+<ul>
+<li>application/x-www=form-urlencoded：默认方式，只处理表单域中的 value 属性值，采用这种编码方式的表单会将表单域中的值处理成 URL 编码方式。</li>
+<li>multipart/form-data：这种编码方式会以二进制流的方式来处理表单数据，这种编码方式会把文件域指定文件的内容也封装到请求参数中，不会对字符编码。</li>
+<li>text/plain：除了把空格转换为 &ldquo;+&rdquo; 号外，其他字符都不做编码处理，这种方式适用直接通过表单发送邮件。</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">form</span> <span class="na">action</span><span class="o">=</span><span class="s">&#34;&#34;</span> <span class="na">enctype</span><span class="o">=</span><span class="s">&#34;multipart/form-data&#34;</span> <span class="na">method</span><span class="o">=</span><span class="s">&#34;post&#34;</span><span class="p">&gt;</span>
+   <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;file&#34;</span> <span class="na">name</span><span class="o">=</span><span class="s">&#34;file&#34;</span><span class="p">/&gt;</span>
+   <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;submit&#34;</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">form</span><span class="p">&gt;</span>
+</code></pre></div><p>一旦设置了enctype为multipart/form-data，浏览器即会采用二进制流的方式来处理表单数据，而对于文件上传的处理则涉及在服务器端解析原始的HTTP响应。在2003年，Apache Software Foundation发布了开源的Commons FileUpload组件，其很快成为Servlet/JSP程序员上传文件的最佳选择。</p>
+<ul>
+<li>Servlet3.0规范已经提供方法来处理文件上传，但这种上传需要在Servlet中完成。</li>
+<li>而Spring MVC则提供了更简单的封装。</li>
+<li>Spring MVC为文件上传提供了直接的支持，这种支持是用即插即用的MultipartResolver实现的。</li>
+<li>Spring MVC使用Apache Commons FileUpload技术实现了一个MultipartResolver实现类：</li>
+<li>CommonsMultipartResolver。因此，SpringMVC的文件上传还需要依赖Apache Commons FileUpload的组件。</li>
+</ul>
+<h4 id="文件上传">文件上传</h4>
+<p>1、导入文件上传的jar包，commons-fileupload ， Maven会自动帮我们导入他的依赖包 commons-io包；</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="c">&lt;!--文件上传--&gt;</span>
+<span class="nt">&lt;dependency&gt;</span>
+   <span class="nt">&lt;groupId&gt;</span>commons-fileupload<span class="nt">&lt;/groupId&gt;</span>
+   <span class="nt">&lt;artifactId&gt;</span>commons-fileupload<span class="nt">&lt;/artifactId&gt;</span>
+   <span class="nt">&lt;version&gt;</span>1.3.3<span class="nt">&lt;/version&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+<span class="c">&lt;!--servlet-api导入高版本的--&gt;</span>
+<span class="nt">&lt;dependency&gt;</span>
+   <span class="nt">&lt;groupId&gt;</span>javax.servlet<span class="nt">&lt;/groupId&gt;</span>
+   <span class="nt">&lt;artifactId&gt;</span>javax.servlet-api<span class="nt">&lt;/artifactId&gt;</span>
+   <span class="nt">&lt;version&gt;</span>4.0.1<span class="nt">&lt;/version&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+</code></pre></div><p>2、配置bean：multipartResolver</p>
+<p>【<strong>注意！！！这个bena的id必须为：multipartResolver ， 否则上传文件会报400的错误！在这里栽过坑,教训！</strong>】</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="c">&lt;!--文件上传配置--&gt;</span>
+<span class="nt">&lt;bean</span> <span class="na">id=</span><span class="s">&#34;multipartResolver&#34;</span> <span class="na">class=</span><span class="s">&#34;org.springframework.web.multipart.commons.CommonsMultipartResolver&#34;</span><span class="nt">&gt;</span>
+   <span class="c">&lt;!-- 请求的编码格式，必须和jSP的pageEncoding属性一致，以便正确读取表单的内容，默认为ISO-8859-1 --&gt;</span>
+   <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&#34;defaultEncoding&#34;</span> <span class="na">value=</span><span class="s">&#34;utf-8&#34;</span><span class="nt">/&gt;</span>
+   <span class="c">&lt;!-- 上传文件大小上限，单位为字节（10485760=10M） --&gt;</span>
+   <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&#34;maxUploadSize&#34;</span> <span class="na">value=</span><span class="s">&#34;10485760&#34;</span><span class="nt">/&gt;</span>
+   <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&#34;maxInMemorySize&#34;</span> <span class="na">value=</span><span class="s">&#34;40960&#34;</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;/bean&gt;</span>
+</code></pre></div><p>CommonsMultipartFile 的 常用方法：</p>
+<ul>
+<li><strong>String getOriginalFilename()：获取上传文件的原名</strong></li>
+<li><strong>InputStream getInputStream()：获取文件流</strong></li>
+<li><strong>void transferTo(File dest)：将上传文件保存到一个目录文件中</strong></li>
+</ul>
+<p>我们去实际测试一下</p>
+<p>3、编写前端页面</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">form</span> <span class="na">action</span><span class="o">=</span><span class="s">&#34;/upload&#34;</span> <span class="na">enctype</span><span class="o">=</span><span class="s">&#34;multipart/form-data&#34;</span> <span class="na">method</span><span class="o">=</span><span class="s">&#34;post&#34;</span><span class="p">&gt;</span>
+ <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;file&#34;</span> <span class="na">name</span><span class="o">=</span><span class="s">&#34;file&#34;</span><span class="p">/&gt;</span>
+ <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;submit&#34;</span> <span class="na">value</span><span class="o">=</span><span class="s">&#34;upload&#34;</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">form</span><span class="p">&gt;</span>
+</code></pre></div><p>4、<strong>Controller</strong></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="nd">@Controller</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">FileController</span> <span class="o">{</span>
+   <span class="c1">//@RequestParam(&#34;file&#34;) 将name=file控件得到的文件封装成CommonsMultipartFile 对象
+</span><span class="c1"></span>   <span class="c1">//批量上传CommonsMultipartFile则为数组即可
+</span><span class="c1"></span>   <span class="nd">@RequestMapping</span><span class="o">(</span><span class="s">&#34;/upload&#34;</span><span class="o">)</span>
+   <span class="kd">public</span> <span class="n">String</span> <span class="nf">fileUpload</span><span class="o">(</span><span class="nd">@RequestParam</span><span class="o">(</span><span class="s">&#34;file&#34;</span><span class="o">)</span> <span class="n">CommonsMultipartFile</span> <span class="n">file</span> <span class="o">,</span> <span class="n">HttpServletRequest</span> <span class="n">request</span><span class="o">)</span> <span class="n">throwsIOException</span> <span class="o">{</span>
+
+       <span class="c1">//获取文件名 : file.getOriginalFilename();
+</span><span class="c1"></span>       <span class="n">String</span> <span class="n">uploadFileName</span> <span class="o">=</span> <span class="n">file</span><span class="o">.</span><span class="na">getOriginalFilename</span><span class="o">();</span>
+
+       <span class="c1">//如果文件名为空，直接回到首页！
+</span><span class="c1"></span>       <span class="k">if</span> <span class="o">(</span><span class="s">&#34;&#34;</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">uploadFileName</span><span class="o">)){</span>
+           <span class="k">return</span> <span class="s">&#34;redirect:/index.jsp&#34;</span><span class="o">;</span>
+      <span class="o">}</span>
+       <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;上传文件名 : &#34;</span><span class="o">+</span><span class="n">uploadFileName</span><span class="o">);</span>
+
+       <span class="c1">//上传路径保存设置
+</span><span class="c1"></span>       <span class="n">String</span> <span class="n">path</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="na">getServletContext</span><span class="o">().</span><span class="na">getRealPath</span><span class="o">(</span><span class="s">&#34;/upload&#34;</span><span class="o">);</span>
+       <span class="c1">//如果路径不存在，创建一个
+</span><span class="c1"></span>       <span class="n">File</span> <span class="n">realPath</span> <span class="o">=</span> <span class="k">new</span> <span class="n">File</span><span class="o">(</span><span class="n">path</span><span class="o">);</span>
+       <span class="k">if</span> <span class="o">(!</span><span class="n">realPath</span><span class="o">.</span><span class="na">exists</span><span class="o">()){</span>
+           <span class="n">realPath</span><span class="o">.</span><span class="na">mkdir</span><span class="o">();</span>
+      <span class="o">}</span>
+       <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;上传文件保存地址：&#34;</span><span class="o">+</span><span class="n">realPath</span><span class="o">);</span>
+
+       <span class="n">InputStream</span> <span class="n">is</span> <span class="o">=</span> <span class="n">file</span><span class="o">.</span><span class="na">getInputStream</span><span class="o">();</span> <span class="c1">//文件输入流
+</span><span class="c1"></span>       <span class="n">OutputStream</span> <span class="n">os</span> <span class="o">=</span> <span class="k">new</span> <span class="n">FileOutputStream</span><span class="o">(</span><span class="k">new</span> <span class="n">File</span><span class="o">(</span><span class="n">realPath</span><span class="o">,</span><span class="n">uploadFileName</span><span class="o">));</span> <span class="c1">//文件输出流
+</span><span class="c1"></span>
+       <span class="c1">//读取写出
+</span><span class="c1"></span>       <span class="kt">int</span> <span class="n">len</span><span class="o">=</span><span class="n">0</span><span class="o">;</span>
+       <span class="kt">byte</span><span class="o">[]</span> <span class="n">buffer</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">byte</span><span class="o">[</span><span class="n">1024</span><span class="o">];</span>
+       <span class="k">while</span> <span class="o">((</span><span class="n">len</span><span class="o">=</span><span class="n">is</span><span class="o">.</span><span class="na">read</span><span class="o">(</span><span class="n">buffer</span><span class="o">))!=-</span><span class="n">1</span><span class="o">){</span>
+           <span class="n">os</span><span class="o">.</span><span class="na">write</span><span class="o">(</span><span class="n">buffer</span><span class="o">,</span><span class="n">0</span><span class="o">,</span><span class="n">len</span><span class="o">);</span>
+           <span class="n">os</span><span class="o">.</span><span class="na">flush</span><span class="o">();</span>
+      <span class="o">}</span>
+       <span class="n">os</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+       <span class="n">is</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+       <span class="k">return</span> <span class="s">&#34;redirect:/index.jsp&#34;</span><span class="o">;</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p>5、测试上传文件，OK！</p>
+<h4 id="采用filetransto-来保存上传的文件">采用file.Transto 来保存上传的文件</h4>
+<p>1、编写Controller</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="cm">/*
+</span><span class="cm">* 采用file.Transto 来保存上传的文件
+</span><span class="cm">*/</span>
+<span class="nd">@RequestMapping</span><span class="o">(</span><span class="s">&#34;/upload2&#34;</span><span class="o">)</span>
+<span class="kd">public</span> <span class="n">String</span>  <span class="nf">fileUpload2</span><span class="o">(</span><span class="nd">@RequestParam</span><span class="o">(</span><span class="s">&#34;file&#34;</span><span class="o">)</span> <span class="n">CommonsMultipartFile</span> <span class="n">file</span><span class="o">,</span> <span class="n">HttpServletRequest</span> <span class="n">request</span><span class="o">)</span> <span class="n">throwsIOException</span> <span class="o">{</span>
+
+   <span class="c1">//上传路径保存设置
+</span><span class="c1"></span>   <span class="n">String</span> <span class="n">path</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="na">getServletContext</span><span class="o">().</span><span class="na">getRealPath</span><span class="o">(</span><span class="s">&#34;/upload&#34;</span><span class="o">);</span>
+   <span class="n">File</span> <span class="n">realPath</span> <span class="o">=</span> <span class="k">new</span> <span class="n">File</span><span class="o">(</span><span class="n">path</span><span class="o">);</span>
+   <span class="k">if</span> <span class="o">(!</span><span class="n">realPath</span><span class="o">.</span><span class="na">exists</span><span class="o">()){</span>
+       <span class="n">realPath</span><span class="o">.</span><span class="na">mkdir</span><span class="o">();</span>
+  <span class="o">}</span>
+   <span class="c1">//上传文件地址
+</span><span class="c1"></span>   <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;上传文件保存地址：&#34;</span><span class="o">+</span><span class="n">realPath</span><span class="o">);</span>
+
+   <span class="c1">//通过CommonsMultipartFile的方法直接写文件（注意这个时候）
+</span><span class="c1"></span>   <span class="n">file</span><span class="o">.</span><span class="na">transferTo</span><span class="o">(</span><span class="k">new</span> <span class="n">File</span><span class="o">(</span><span class="n">realPath</span> <span class="o">+</span><span class="s">&#34;/&#34;</span><span class="o">+</span> <span class="n">file</span><span class="o">.</span><span class="na">getOriginalFilename</span><span class="o">()));</span>
+
+   <span class="k">return</span> <span class="s">&#34;redirect:/index.jsp&#34;</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div><p>2、前端表单提交地址修改</p>
+<p>3、访问提交测试，OK！</p>
+<h4 id="文件下载">文件下载</h4>
+<p><strong>文件下载步骤：</strong></p>
+<p>1、设置 response 响应头</p>
+<p>2、读取文件 &ndash; InputStream</p>
+<p>3、写出文件 &ndash; OutputStream</p>
+<p>4、执行操作</p>
+<p>5、关闭流 （先开后关）</p>
+<p><strong>代码实现：</strong></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="nd">@RequestMapping</span><span class="o">(</span><span class="n">value</span><span class="o">=</span><span class="s">&#34;/download&#34;</span><span class="o">)</span>
+<span class="kd">public</span> <span class="n">String</span> <span class="nf">downloads</span><span class="o">(</span><span class="n">HttpServletResponse</span> <span class="n">response</span> <span class="o">,</span><span class="n">HttpServletRequest</span> <span class="n">request</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span><span class="o">{</span>
+   <span class="c1">//要下载的图片地址
+</span><span class="c1"></span>   <span class="n">String</span>  <span class="n">path</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="na">getServletContext</span><span class="o">().</span><span class="na">getRealPath</span><span class="o">(</span><span class="s">&#34;/upload&#34;</span><span class="o">);</span>
+   <span class="n">String</span>  <span class="n">fileName</span> <span class="o">=</span> <span class="s">&#34;基础语法.jpg&#34;</span><span class="o">;</span>
+
+   <span class="c1">//1、设置response 响应头
+</span><span class="c1"></span>   <span class="n">response</span><span class="o">.</span><span class="na">reset</span><span class="o">();</span> <span class="c1">//设置页面不缓存,清空buffer
+</span><span class="c1"></span>   <span class="n">response</span><span class="o">.</span><span class="na">setCharacterEncoding</span><span class="o">(</span><span class="s">&#34;UTF-8&#34;</span><span class="o">);</span> <span class="c1">//字符编码
+</span><span class="c1"></span>   <span class="n">response</span><span class="o">.</span><span class="na">setContentType</span><span class="o">(</span><span class="s">&#34;multipart/form-data&#34;</span><span class="o">);</span> <span class="c1">//二进制传输数据
+</span><span class="c1"></span>   <span class="c1">//设置响应头
+</span><span class="c1"></span>   <span class="n">response</span><span class="o">.</span><span class="na">setHeader</span><span class="o">(</span><span class="s">&#34;Content-Disposition&#34;</span><span class="o">,</span>
+           <span class="s">&#34;attachment;fileName=&#34;</span><span class="o">+</span><span class="n">URLEncoder</span><span class="o">.</span><span class="na">encode</span><span class="o">(</span><span class="n">fileName</span><span class="o">,</span> <span class="s">&#34;UTF-8&#34;</span><span class="o">));</span>
+
+   <span class="n">File</span> <span class="n">file</span> <span class="o">=</span> <span class="k">new</span> <span class="n">File</span><span class="o">(</span><span class="n">path</span><span class="o">,</span><span class="n">fileName</span><span class="o">);</span>
+   <span class="c1">//2、 读取文件--输入流
+</span><span class="c1"></span>   <span class="n">InputStream</span> <span class="n">input</span><span class="o">=</span><span class="k">new</span> <span class="n">FileInputStream</span><span class="o">(</span><span class="n">file</span><span class="o">);</span>
+   <span class="c1">//3、 写出文件--输出流
+</span><span class="c1"></span>   <span class="n">OutputStream</span> <span class="n">out</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="na">getOutputStream</span><span class="o">();</span>
+
+   <span class="kt">byte</span><span class="o">[]</span> <span class="n">buff</span> <span class="o">=</span><span class="k">new</span> <span class="kt">byte</span><span class="o">[</span><span class="n">1024</span><span class="o">];</span>
+   <span class="kt">int</span> <span class="n">index</span><span class="o">=</span><span class="n">0</span><span class="o">;</span>
+   <span class="c1">//4、执行 写出操作
+</span><span class="c1"></span>   <span class="k">while</span><span class="o">((</span><span class="n">index</span><span class="o">=</span> <span class="n">input</span><span class="o">.</span><span class="na">read</span><span class="o">(</span><span class="n">buff</span><span class="o">))!=</span> <span class="o">-</span><span class="n">1</span><span class="o">){</span>
+       <span class="n">out</span><span class="o">.</span><span class="na">write</span><span class="o">(</span><span class="n">buff</span><span class="o">,</span> <span class="n">0</span><span class="o">,</span> <span class="n">index</span><span class="o">);</span>
+       <span class="n">out</span><span class="o">.</span><span class="na">flush</span><span class="o">();</span>
+  <span class="o">}</span>
+   <span class="n">out</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+   <span class="n">input</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+   <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div><p>前端</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;/download&#34;</span><span class="p">&gt;</span>点击下载<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+</code></pre></div><p>测试，文件下载OK，大家可以和我们之前学习的JavaWeb原生的方式对比一下，就可以知道这个便捷多了!</p>
+<p>拦截器及文件操作在我们开发中十分重要，一定要学会使用！</p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/springmvc/">springMVC</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+    <aside class="related-contents--wrapper">
+    
+    
+        <h2 class="section-title">相关文章</h2>
+        <div class="related-contents">
+            <div class="flex article-list--tile">
+                
+                    
+<article class="">
+    <a href="/p/springmvc07-ajax%E7%A0%94%E7%A9%B6/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">SpringMVC07 Ajax研究</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
+    <a href="/p/springmvc06-json%E4%BA%A4%E4%BA%92%E5%A4%84%E7%90%86/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">SpringMVC06 Json交互处理</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
+    <a href="/p/springmvc05-%E6%95%B4%E5%90%88ssm%E6%A1%86%E6%9E%B6/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">SpringMVC05 整合SSM框架</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
+    <a href="/p/springmvc04-%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E5%8F%8A%E8%B7%B3%E8%BD%AC/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">SpringMVC04 数据处理及跳转</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
+    <a href="/p/springmvc03-restful%E5%92%8C%E6%8E%A7%E5%88%B6%E5%99%A8/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">SpringMVC03 RestFul和控制器</h2>
+        </div>
+    </a>
+</article>
+                
+            </div>
+        </div>
+    
+</aside>
+
+     
+    
+        
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "stack" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (DISQUS) {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2020 - 
+        
+        2021 ybakiame&#39; Blog
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.5.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css"integrity="sha256-c0uckgykQ9v5k&#43;IqViZOZKc47Jn7KQil4/MP3ySA3F8="crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css"integrity="sha256-SBLU4vv6CA6lHsZ1XyTdhyjJxCjPif/TRkjnsyGAGnE="crossorigin="anonymous"
+            >
+
+            </main>
+    
+        <aside class="sidebar right-sidebar sticky">
+            <section class="widget archives">
+                <div class="widget-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+                </div>
+                <h2 class="widget-title section-title">目录</h2>
+                
+                <div class="widget--toc">
+                    <nav id="TableOfContents">
+  <ol>
+    <li><a href="#拦截器以及文件的上传和下载">拦截器以及文件的上传和下载</a>
+      <ol>
+        <li><a href="#拦截器">拦截器</a>
+          <ol>
+            <li><a href="#概述">概述</a></li>
+            <li><a href="#自定义拦截器">自定义拦截器</a></li>
+            <li><a href="#验证用户是否登录-认证用户">验证用户是否登录 (认证用户)</a></li>
+          </ol>
+        </li>
+        <li><a href="#文件上传和下载">文件上传和下载</a>
+          <ol>
+            <li><a href="#准备工作">准备工作</a></li>
+            <li><a href="#文件上传">文件上传</a></li>
+            <li><a href="#采用filetransto-来保存上传的文件">采用file.Transto 来保存上传的文件</a></li>
+            <li><a href="#文件下载">文件下载</a></li>
+          </ol>
+        </li>
+      </ol>
+    </li>
+  </ol>
+</nav>
+                </div>
+            </section>
+        </aside>
+    
+
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js"integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g="crossorigin="anonymous"
+                defer="false"
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

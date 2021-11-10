@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>listener on ybakiame&#39; Blog</title>
+    <link>https://example.com/tags/listener/</link>
+    <description>Recent content in listener on ybakiame&#39; Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 11 May 2021 15:29:19 +0800</lastBuildDate><atom:link href="https://example.com/tags/listener/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Filter和Listener</title>
+      <link>https://example.com/p/filter%E5%92%8Clistener/</link>
+      <pubDate>Tue, 11 May 2021 15:29:19 +0800</pubDate>
+      
+      <guid>https://example.com/p/filter%E5%92%8Clistener/</guid>
+      <description>Filter和Listener FIlter 指过滤器  概念   生活中的过滤器:空气过滤器 净水器 web中的过滤器:当访问服务器的资源时，过滤器可以将请求拦截下来，完成一些特殊的功能 过滤器的一些功能: 一般用于完整通用的操作：  比如登录验证 统一编码设置 敏感字符过滤     快速入门:
+  步骤:
+ 定义一个类 实现Filter接口， 复写方法 配置拦截资源: 注解配置 @WebFilter(&amp;quot;/*&amp;quot;) web.xml配置    @WebFilter(&amp;#34;/*&amp;#34;) public class FilterDemo implements Filter { @Override public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException { System.out.println(&amp;#34;执行了filter&amp;#34;); chain.doFilter(request, response); } }     过滤器细节
+  web.xml
+  &amp;lt;filter&amp;gt; &amp;lt;filter-name&amp;gt;demo1&amp;lt;/filter-name&amp;gt; &amp;lt;filter-class&amp;gt;com.</description>
+    </item>
+    
+  </channel>
+</rss>

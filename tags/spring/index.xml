@@ -1,12 +1,46 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Spring on ybakiame Blog</title>
+    <title>spring on ybakiame&#39; Blog</title>
     <link>https://example.com/tags/spring/</link>
-    <description>Recent content in Spring on ybakiame Blog</description>
+    <description>Recent content in spring on ybakiame&#39; Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 11 Sep 2021 17:48:58 +0800</lastBuildDate><atom:link href="https://example.com/tags/spring/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 09 Nov 2021 09:28:49 +0800</lastBuildDate><atom:link href="https://example.com/tags/spring/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Spring08 整合MyBatis</title>
+      <link>https://example.com/p/spring08-%E6%95%B4%E5%90%88mybatis/</link>
+      <pubDate>Tue, 09 Nov 2021 09:28:49 +0800</pubDate>
+      
+      <guid>https://example.com/p/spring08-%E6%95%B4%E5%90%88mybatis/</guid>
+      <description>整合MyBatis
+ 步骤  1、导入相关jar包
+junit
+&amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;junit&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;junit&amp;lt;/artifactId&amp;gt; &amp;lt;version&amp;gt;4.12&amp;lt;/version&amp;gt; &amp;lt;/dependency&amp;gt; mybatis
+&amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;org.mybatis&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;mybatis&amp;lt;/artifactId&amp;gt; &amp;lt;version&amp;gt;3.5.2&amp;lt;/version&amp;gt; &amp;lt;/dependency&amp;gt; mysql-connector-java
+&amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;mysql&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;mysql-connector-java&amp;lt;/artifactId&amp;gt; &amp;lt;version&amp;gt;5.1.47&amp;lt;/version&amp;gt; &amp;lt;/dependency&amp;gt; spring相关
+&amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;org.springframework&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;spring-webmvc&amp;lt;/artifactId&amp;gt; &amp;lt;version&amp;gt;5.1.10.RELEASE&amp;lt;/version&amp;gt; &amp;lt;/dependency&amp;gt; &amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;org.springframework&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;spring-jdbc&amp;lt;/artifactId&amp;gt; &amp;lt;version&amp;gt;5.1.10.RELEASE&amp;lt;/version&amp;gt; &amp;lt;/dependency&amp;gt; aspectJ AOP 织入器
+&amp;lt;!-- https://mvnrepository.com/artifact/org.aspectj/aspectjweaver --&amp;gt; &amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;org.aspectj&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;aspectjweaver&amp;lt;/artifactId&amp;gt; &amp;lt;version&amp;gt;1.9.4&amp;lt;/version&amp;gt; &amp;lt;/dependency&amp;gt; mybatis-spring整合包 【重点】
+&amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;org.mybatis&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;mybatis-spring&amp;lt;/artifactId&amp;gt; &amp;lt;version&amp;gt;2.0.2&amp;lt;/version&amp;gt; &amp;lt;/dependency&amp;gt; 配置Maven静态资源过滤问题！
+&amp;lt;build&amp;gt; &amp;lt;resources&amp;gt; &amp;lt;resource&amp;gt; &amp;lt;directory&amp;gt;src/main/java&amp;lt;/directory&amp;gt; &amp;lt;includes&amp;gt; &amp;lt;include&amp;gt;**/*.properties&amp;lt;/include&amp;gt; &amp;lt;include&amp;gt;**/*.xml&amp;lt;/include&amp;gt; &amp;lt;/includes&amp;gt; &amp;lt;filtering&amp;gt;true&amp;lt;/filtering&amp;gt; &amp;lt;/resource&amp;gt; &amp;lt;/resources&amp;gt; &amp;lt;/build&amp;gt; 2、编写配置文件
+3、代码实现
+ 回忆MyBatis  编写pojo实体类</description>
+    </item>
+    
+    <item>
+      <title>Spring09 声明式事务</title>
+      <link>https://example.com/p/spring09-%E5%A3%B0%E6%98%8E%E5%BC%8F%E4%BA%8B%E5%8A%A1/</link>
+      <pubDate>Tue, 09 Nov 2021 09:27:01 +0800</pubDate>
+      
+      <guid>https://example.com/p/spring09-%E5%A3%B0%E6%98%8E%E5%BC%8F%E4%BA%8B%E5%8A%A1/</guid>
+      <description>声明式事务 回顾事务  事务在项目开发过程非常重要，涉及到数据的一致性的问题，不容马虎！ 事务管理是企业级应用程序开发中必备技术，用来确保数据的完整性和一致性。  事务就是把一系列的动作当成一个独立的工作单元，这些动作要么全部完成，要么全部不起作用。
+事务四个属性ACID 原子性（atomicity）  事务是原子性操作，由一系列动作组成，事务的原子性确保动作要么全部完成，要么完全不起作用  一致性（consistency）  一旦所有事务动作完成，事务就要被提交。数据和资源处于一种满足业务规则的一致性状态中  隔离性（isolation）  可能多个事务会同时处理相同的数据，因此每个事务都应该与其他事务隔离开来，防止数据损坏  持久性（durability）  事务一旦完成，无论系统发生什么错误，结果都不会受到影响。通常情况下，事务的结果被写到持久化存储器中  测试 将上面的代码拷贝到一个新项目中
+在之前的案例中，我们给userDao接口新增两个方法，删除和增加用户；
+//添加一个用户 int addUser(User user); //根据id删除用户 int deleteUser(int id); mapper文件，我们故意把 deletes 写错，测试！
+&amp;lt;insert id=&amp;#34;addUser&amp;#34; parameterType=&amp;#34;com.kuang.pojo.User&amp;#34;&amp;gt; insert into user (id,name,pwd) values (#{id},#{name},#{pwd}) &amp;lt;/insert&amp;gt; &amp;lt;delete id=&amp;#34;deleteUser&amp;#34; parameterType=&amp;#34;int&amp;#34;&amp;gt; deletes from user where id = #{id} &amp;lt;/delete&amp;gt; 编写接口的实现类，在实现类中，我们去操作一波
+public class UserDaoImpl extends SqlSessionDaoSupport implements UserMapper { //增加一些操作  public List&amp;lt;User&amp;gt; selectUser() { User user = new User(4,&amp;#34;小明&amp;#34;,&amp;#34;123456&amp;#34;); UserMapper mapper = getSqlSession().</description>
+    </item>
+    
     <item>
       <title>Spring07 AOP使用</title>
       <link>https://example.com/p/spring07-aop%E4%BD%BF%E7%94%A8/</link>
@@ -122,23 +156,6 @@ GitHub : https://github.com/spring-projects
   一句话概括：
 Spring是一个轻量级的控制反转(IoC)和面向切面(AOP)的容器（框架）。
  组成  Spring 框架是一个分层架构，由 7 个定义良好的模块组成。Spring 模块构建在核心容器之上，核心容器定义了创建、配置和管理 bean 的方式 .</description>
-    </item>
-    
-    <item>
-      <title>SpringMvc替换传统MVC</title>
-      <link>https://example.com/p/springmvc%E6%9B%BF%E6%8D%A2%E4%BC%A0%E7%BB%9Fmvc/</link>
-      <pubDate>Tue, 11 May 2021 15:29:19 +0800</pubDate>
-      
-      <guid>https://example.com/p/springmvc%E6%9B%BF%E6%8D%A2%E4%BC%A0%E7%BB%9Fmvc/</guid>
-      <description>web开发模式  DAO层 对数据库的增删改查 web层 界面（jsp）加控制器（servlrt） service层 执行多个或一个dao层操作，并将其组合成一个完整的业务逻辑 控制层 使用servlet进行控制 数据访问层 使用DAO、Hibernate、JDBC等技术实现对数据库的增删改查 javaBean 用于封装数据  MVC M模型（model） 模型就是 包括 dao，bean
-V 视图（view） 视图jsp，用于向用户展示模型中的数据
-C 控制（controller） 控制器负责将 模型 中的 数据 显示在不同的 显示层 之中
-早期MVC模式（mode1） 模式一：将显示层、控制层、数据层的操作同意交给jsp或者JavaBean来处理
-前端用户请求 -&amp;gt; jsp -&amp;gt; javaBean -&amp;gt; 数据库jsp和html、java类（javaBean）高度耦合。
-早期MVC模式（mode2） 模式二：以servlet为主展开，由servlet接收客户端的请求，根据请求调用对应的JavaBean或其他程序，最后将要现实的结果交给jsp完成。
-前端用户请求 -&amp;gt; jsp -&amp;gt; servlet -&amp;gt; javaBean -&amp;gt; 数据库SpringMVC 用户请求 -&amp;gt; Spring控制器 -&amp;gt; 夹带事务的模型（业务层，数据访问层）-&amp;gt;数据库传统模型层被拆分为（业务层和数据访问层）
- 需要的jar包 spring-web-*.jar spring-webmvc-*.jar    修改web.xml中的
-&amp;lt;servlet&amp;gt; &amp;lt;servlet-name&amp;gt;dispatcher&amp;lt;/servlet-name&amp;gt; &amp;lt;servlet-class&amp;gt;org.springframework.web.servlet.DispatcherServlet&amp;lt;/servlet-class&amp;gt; &amp;lt;/servlet&amp;gt; &amp;lt;servlet-mapping&amp;gt; &amp;lt;servlet-name&amp;gt;dispatcher&amp;lt;/servlet-name&amp;gt; &amp;lt;url-pattern&amp;gt;/&amp;lt;/url-pattern&amp;gt; &amp;lt;/servlet-mapping&amp;gt;   将拦截地址改为/拦截所有请求，并交给SpringMVC的后台控制器来完成</description>
     </item>
     
   </channel>

@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='一对多和多对一处理 多对一的处理 多对一的理解：
+ 多个学生对应一个老师 如果对于学生这边，就是一个多对一的现象，即从学生这边关联一个老师！  CREATETABLE`teacher`(`id`INT(10)NOTNULL,`name`VARCHAR(30)DEFAULTNULL,PRIMARYKEY(`id`))ENGINE=INNODBDEFAULTCHARSET=utf8INSERTINTOteacher(`id`,`name`)VALUES(1,&amp;#39;张老师&amp;#39;);CREATETABLE`student`(`id`INT(10)NOTNULL,`name`VARCHAR(30)DEFAULTNULL,`tid`INT(10)DEFAULTNULL,PRIMARYKEY(`id`),KEY`fktid`(`tid`),CONSTRAINT`fktid`FOREIGNKEY(`tid`)REFERENCES`teacher`(`id`))ENGINE=INNODBDEFAULTCHARSET=utf8INSERTINTO`student`(`id`,`name`,`tid`)VALUES(&amp;#39;1&amp;#39;,&amp;#39;小明&amp;#39;,&amp;#39;1&amp;#39;);INSERTINTO`student`(`id`,`name`,`tid`)VALUES(&amp;#39;2&amp;#39;,&amp;#39;小红&amp;#39;,&amp;#39;1&amp;#39;);INSERTINTO`student`(`id`,`name`,`tid`)VALUES(&amp;#39;3&amp;#39;,&amp;#39;小张&amp;#39;,&amp;#39;1&amp;#39;);INSERTINTO`student`(`id`,`name`,`tid`)VALUES(&amp;#39;4&amp;#39;,&amp;#39;小李&amp;#39;,&amp;#39;1&amp;#39;);INSERTINTO`student`(`id`,`name`,`tid`)VALUES(&amp;#39;5&amp;#39;,&amp;#39;小王&amp;#39;,&amp;#39;1&amp;#39;);搭建测试环境 1、IDEA安装Lombok插件
+2、引入Maven依赖
+&amp;lt;!-- https://mvnrepository.com/artifact/org.projectlombok/lombok --&amp;gt; &amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;org.projectlombok&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;lombok&amp;lt;/artifactId&amp;gt; &amp;lt;version&amp;gt;1.16.10&amp;lt;/version&amp;gt; &amp;lt;/dependency&amp;gt; 3、在代码中增加注解
+@Data //GET,SET,ToString，有参，无参构造 public class Teacher { private int id; private String name; } @Data public class Student { private int id; private String name; //多个学生可以是同一个老师，即多对一  private Teacher teacher; } 4、编写实体类对应的Mapper接口 【两个】
+ 无论有没有需求，都应该写上，以备后来之需！  public interface StudentMapper { } public interface TeacherMapper { } 5、编写Mapper接口对应的 mapper.xml配置文件 【两个】
+ 无论有没有需求，都应该写上，以备后来之需！  &amp;lt;?'><title>MyBatis05 一对多和多对一处理</title>
+
+<link rel='canonical' href='https://example.com/p/mybatis05-%E4%B8%80%E5%AF%B9%E5%A4%9A%E5%92%8C%E5%A4%9A%E5%AF%B9%E4%B8%80%E5%A4%84%E7%90%86/'>
+
+<link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content='MyBatis05 一对多和多对一处理'>
+<meta property='og:description' content='一对多和多对一处理 多对一的处理 多对一的理解：
+ 多个学生对应一个老师 如果对于学生这边，就是一个多对一的现象，即从学生这边关联一个老师！  CREATETABLE`teacher`(`id`INT(10)NOTNULL,`name`VARCHAR(30)DEFAULTNULL,PRIMARYKEY(`id`))ENGINE=INNODBDEFAULTCHARSET=utf8INSERTINTOteacher(`id`,`name`)VALUES(1,&amp;#39;张老师&amp;#39;);CREATETABLE`student`(`id`INT(10)NOTNULL,`name`VARCHAR(30)DEFAULTNULL,`tid`INT(10)DEFAULTNULL,PRIMARYKEY(`id`),KEY`fktid`(`tid`),CONSTRAINT`fktid`FOREIGNKEY(`tid`)REFERENCES`teacher`(`id`))ENGINE=INNODBDEFAULTCHARSET=utf8INSERTINTO`student`(`id`,`name`,`tid`)VALUES(&amp;#39;1&amp;#39;,&amp;#39;小明&amp;#39;,&amp;#39;1&amp;#39;);INSERTINTO`student`(`id`,`name`,`tid`)VALUES(&amp;#39;2&amp;#39;,&amp;#39;小红&amp;#39;,&amp;#39;1&amp;#39;);INSERTINTO`student`(`id`,`name`,`tid`)VALUES(&amp;#39;3&amp;#39;,&amp;#39;小张&amp;#39;,&amp;#39;1&amp;#39;);INSERTINTO`student`(`id`,`name`,`tid`)VALUES(&amp;#39;4&amp;#39;,&amp;#39;小李&amp;#39;,&amp;#39;1&amp;#39;);INSERTINTO`student`(`id`,`name`,`tid`)VALUES(&amp;#39;5&amp;#39;,&amp;#39;小王&amp;#39;,&amp;#39;1&amp;#39;);搭建测试环境 1、IDEA安装Lombok插件
+2、引入Maven依赖
+&amp;lt;!-- https://mvnrepository.com/artifact/org.projectlombok/lombok --&amp;gt; &amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;org.projectlombok&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;lombok&amp;lt;/artifactId&amp;gt; &amp;lt;version&amp;gt;1.16.10&amp;lt;/version&amp;gt; &amp;lt;/dependency&amp;gt; 3、在代码中增加注解
+@Data //GET,SET,ToString，有参，无参构造 public class Teacher { private int id; private String name; } @Data public class Student { private int id; private String name; //多个学生可以是同一个老师，即多对一  private Teacher teacher; } 4、编写实体类对应的Mapper接口 【两个】
+ 无论有没有需求，都应该写上，以备后来之需！  public interface StudentMapper { } public interface TeacherMapper { } 5、编写Mapper接口对应的 mapper.xml配置文件 【两个】
+ 无论有没有需求，都应该写上，以备后来之需！  &amp;lt;?'>
+<meta property='og:url' content='https://example.com/p/mybatis05-%E4%B8%80%E5%AF%B9%E5%A4%9A%E5%92%8C%E5%A4%9A%E5%AF%B9%E4%B8%80%E5%A4%84%E7%90%86/'>
+<meta property='og:site_name' content='ybakiame&#39; Blog'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='mybatis' /><meta property='article:published_time' content='2021-11-09T09:56:14&#43;08:00'/><meta property='article:modified_time' content='2021-11-09T09:56:14&#43;08:00'/>
+<meta name="twitter:title" content="MyBatis05 一对多和多对一处理">
+<meta name="twitter:description" content="一对多和多对一处理 多对一的处理 多对一的理解：
+ 多个学生对应一个老师 如果对于学生这边，就是一个多对一的现象，即从学生这边关联一个老师！  CREATETABLE`teacher`(`id`INT(10)NOTNULL,`name`VARCHAR(30)DEFAULTNULL,PRIMARYKEY(`id`))ENGINE=INNODBDEFAULTCHARSET=utf8INSERTINTOteacher(`id`,`name`)VALUES(1,&amp;#39;张老师&amp;#39;);CREATETABLE`student`(`id`INT(10)NOTNULL,`name`VARCHAR(30)DEFAULTNULL,`tid`INT(10)DEFAULTNULL,PRIMARYKEY(`id`),KEY`fktid`(`tid`),CONSTRAINT`fktid`FOREIGNKEY(`tid`)REFERENCES`teacher`(`id`))ENGINE=INNODBDEFAULTCHARSET=utf8INSERTINTO`student`(`id`,`name`,`tid`)VALUES(&amp;#39;1&amp;#39;,&amp;#39;小明&amp;#39;,&amp;#39;1&amp;#39;);INSERTINTO`student`(`id`,`name`,`tid`)VALUES(&amp;#39;2&amp;#39;,&amp;#39;小红&amp;#39;,&amp;#39;1&amp;#39;);INSERTINTO`student`(`id`,`name`,`tid`)VALUES(&amp;#39;3&amp;#39;,&amp;#39;小张&amp;#39;,&amp;#39;1&amp;#39;);INSERTINTO`student`(`id`,`name`,`tid`)VALUES(&amp;#39;4&amp;#39;,&amp;#39;小李&amp;#39;,&amp;#39;1&amp;#39;);INSERTINTO`student`(`id`,`name`,`tid`)VALUES(&amp;#39;5&amp;#39;,&amp;#39;小王&amp;#39;,&amp;#39;1&amp;#39;);搭建测试环境 1、IDEA安装Lombok插件
+2、引入Maven依赖
+&amp;lt;!-- https://mvnrepository.com/artifact/org.projectlombok/lombok --&amp;gt; &amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;org.projectlombok&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;lombok&amp;lt;/artifactId&amp;gt; &amp;lt;version&amp;gt;1.16.10&amp;lt;/version&amp;gt; &amp;lt;/dependency&amp;gt; 3、在代码中增加注解
+@Data //GET,SET,ToString，有参，无参构造 public class Teacher { private int id; private String name; } @Data public class Student { private int id; private String name; //多个学生可以是同一个老师，即多对一  private Teacher teacher; } 4、编写实体类对应的Mapper接口 【两个】
+ 无论有没有需求，都应该写上，以备后来之需！  public interface StudentMapper { } public interface TeacherMapper { } 5、编写Mapper接口对应的 mapper.xml配置文件 【两个】
+ 无论有没有需求，都应该写上，以备后来之需！  &amp;lt;?">
+    </head>
+    <body class="
+    article-page has-toc
+">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex 
+    
+        extended
+    
+">
+    
+        <div id="article-toolbar">
+            <a href="/" class="back-home">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="15 6 9 12 15 18" />
+</svg>
+
+
+
+                <span>返回</span>
+            </a>
+        </div>
+    
+<main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/mybatis/" >
+                mybatis
+            </a>
+        
+    </header>
+    
+
+    <h2 class="article-title">
+        <a href="/p/mybatis05-%E4%B8%80%E5%AF%B9%E5%A4%9A%E5%92%8C%E5%A4%9A%E5%AF%B9%E4%B8%80%E5%A4%84%E7%90%86/">MyBatis05 一对多和多对一处理</a>
+    </h2>
+
+    
+
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Nov 09, 2021</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    阅读时长: 3 分钟
+                </time>
+            </div>
+        
+    </footer>
+    
+</div>
+</header>
+
+    <section class="article-content">
+    <h2 id="一对多和多对一处理">一对多和多对一处理</h2>
+<h3 id="多对一的处理">多对一的处理</h3>
+<p>多对一的理解：</p>
+<ul>
+<li>多个学生对应一个老师</li>
+<li>如果对于学生这边，就是一个多对一的现象，即从学生这边关联一个老师！</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="o">`</span><span class="n">teacher</span><span class="o">`</span><span class="w"> </span><span class="p">(</span><span class="w">
+</span><span class="w"></span><span class="o">`</span><span class="n">id</span><span class="o">`</span><span class="w"> </span><span class="nb">INT</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span><span class="w">
+</span><span class="w"></span><span class="o">`</span><span class="n">name</span><span class="o">`</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span><span class="w">
+</span><span class="w"></span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="p">(</span><span class="o">`</span><span class="n">id</span><span class="o">`</span><span class="p">)</span><span class="w">
+</span><span class="w"></span><span class="p">)</span><span class="w"> </span><span class="n">ENGINE</span><span class="o">=</span><span class="n">INNODB</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="n">CHARSET</span><span class="o">=</span><span class="n">utf8</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">teacher</span><span class="p">(</span><span class="o">`</span><span class="n">id</span><span class="o">`</span><span class="p">,</span><span class="w"> </span><span class="o">`</span><span class="n">name</span><span class="o">`</span><span class="p">)</span><span class="w"> </span><span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;张老师&#39;</span><span class="p">);</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="o">`</span><span class="n">student</span><span class="o">`</span><span class="w"> </span><span class="p">(</span><span class="w">
+</span><span class="w"></span><span class="o">`</span><span class="n">id</span><span class="o">`</span><span class="w"> </span><span class="nb">INT</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span><span class="w">
+</span><span class="w"></span><span class="o">`</span><span class="n">name</span><span class="o">`</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span><span class="w">
+</span><span class="w"></span><span class="o">`</span><span class="n">tid</span><span class="o">`</span><span class="w"> </span><span class="nb">INT</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span><span class="w">
+</span><span class="w"></span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="p">(</span><span class="o">`</span><span class="n">id</span><span class="o">`</span><span class="p">),</span><span class="w">
+</span><span class="w"></span><span class="k">KEY</span><span class="w"> </span><span class="o">`</span><span class="n">fktid</span><span class="o">`</span><span class="w"> </span><span class="p">(</span><span class="o">`</span><span class="n">tid</span><span class="o">`</span><span class="p">),</span><span class="w">
+</span><span class="w"></span><span class="k">CONSTRAINT</span><span class="w"> </span><span class="o">`</span><span class="n">fktid</span><span class="o">`</span><span class="w"> </span><span class="k">FOREIGN</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="p">(</span><span class="o">`</span><span class="n">tid</span><span class="o">`</span><span class="p">)</span><span class="w"> </span><span class="k">REFERENCES</span><span class="w"> </span><span class="o">`</span><span class="n">teacher</span><span class="o">`</span><span class="w"> </span><span class="p">(</span><span class="o">`</span><span class="n">id</span><span class="o">`</span><span class="p">)</span><span class="w">
+</span><span class="w"></span><span class="p">)</span><span class="w"> </span><span class="n">ENGINE</span><span class="o">=</span><span class="n">INNODB</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="n">CHARSET</span><span class="o">=</span><span class="n">utf8</span><span class="w">
+</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="o">`</span><span class="n">student</span><span class="o">`</span><span class="w"> </span><span class="p">(</span><span class="o">`</span><span class="n">id</span><span class="o">`</span><span class="p">,</span><span class="w"> </span><span class="o">`</span><span class="n">name</span><span class="o">`</span><span class="p">,</span><span class="w"> </span><span class="o">`</span><span class="n">tid</span><span class="o">`</span><span class="p">)</span><span class="w"> </span><span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="s1">&#39;1&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;小明&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;1&#39;</span><span class="p">);</span><span class="w">
+</span><span class="w"></span><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="o">`</span><span class="n">student</span><span class="o">`</span><span class="w"> </span><span class="p">(</span><span class="o">`</span><span class="n">id</span><span class="o">`</span><span class="p">,</span><span class="w"> </span><span class="o">`</span><span class="n">name</span><span class="o">`</span><span class="p">,</span><span class="w"> </span><span class="o">`</span><span class="n">tid</span><span class="o">`</span><span class="p">)</span><span class="w"> </span><span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="s1">&#39;2&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;小红&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;1&#39;</span><span class="p">);</span><span class="w">
+</span><span class="w"></span><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="o">`</span><span class="n">student</span><span class="o">`</span><span class="w"> </span><span class="p">(</span><span class="o">`</span><span class="n">id</span><span class="o">`</span><span class="p">,</span><span class="w"> </span><span class="o">`</span><span class="n">name</span><span class="o">`</span><span class="p">,</span><span class="w"> </span><span class="o">`</span><span class="n">tid</span><span class="o">`</span><span class="p">)</span><span class="w"> </span><span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="s1">&#39;3&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;小张&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;1&#39;</span><span class="p">);</span><span class="w">
+</span><span class="w"></span><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="o">`</span><span class="n">student</span><span class="o">`</span><span class="w"> </span><span class="p">(</span><span class="o">`</span><span class="n">id</span><span class="o">`</span><span class="p">,</span><span class="w"> </span><span class="o">`</span><span class="n">name</span><span class="o">`</span><span class="p">,</span><span class="w"> </span><span class="o">`</span><span class="n">tid</span><span class="o">`</span><span class="p">)</span><span class="w"> </span><span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="s1">&#39;4&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;小李&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;1&#39;</span><span class="p">);</span><span class="w">
+</span><span class="w"></span><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="o">`</span><span class="n">student</span><span class="o">`</span><span class="w"> </span><span class="p">(</span><span class="o">`</span><span class="n">id</span><span class="o">`</span><span class="p">,</span><span class="w"> </span><span class="o">`</span><span class="n">name</span><span class="o">`</span><span class="p">,</span><span class="w"> </span><span class="o">`</span><span class="n">tid</span><span class="o">`</span><span class="p">)</span><span class="w"> </span><span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="s1">&#39;5&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;小王&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;1&#39;</span><span class="p">);</span><span class="w">
+</span></code></pre></div><h4 id="搭建测试环境">搭建测试环境</h4>
+<p>1、IDEA安装Lombok插件</p>
+<p>2、引入Maven依赖</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="c">&lt;!-- https://mvnrepository.com/artifact/org.projectlombok/lombok --&gt;</span>
+<span class="nt">&lt;dependency&gt;</span>
+ <span class="nt">&lt;groupId&gt;</span>org.projectlombok<span class="nt">&lt;/groupId&gt;</span>
+ <span class="nt">&lt;artifactId&gt;</span>lombok<span class="nt">&lt;/artifactId&gt;</span>
+ <span class="nt">&lt;version&gt;</span>1.16.10<span class="nt">&lt;/version&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+</code></pre></div><p>3、在代码中增加注解</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="nd">@Data</span> <span class="c1">//GET,SET,ToString，有参，无参构造
+</span><span class="c1"></span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Teacher</span> <span class="o">{</span>
+   <span class="kd">private</span> <span class="kt">int</span> <span class="n">id</span><span class="o">;</span>
+   <span class="kd">private</span> <span class="n">String</span> <span class="n">name</span><span class="o">;</span>
+<span class="o">}</span>
+<span class="nd">@Data</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Student</span> <span class="o">{</span>
+   <span class="kd">private</span> <span class="kt">int</span> <span class="n">id</span><span class="o">;</span>
+   <span class="kd">private</span> <span class="n">String</span> <span class="n">name</span><span class="o">;</span>
+   <span class="c1">//多个学生可以是同一个老师，即多对一
+</span><span class="c1"></span>   <span class="kd">private</span> <span class="n">Teacher</span> <span class="n">teacher</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div><p>4、编写实体类对应的Mapper接口 【两个】</p>
+<ul>
+<li><strong>无论有没有需求，都应该写上，以备后来之需！</strong></li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">StudentMapper</span> <span class="o">{</span>
+<span class="o">}</span>
+<span class="kd">public</span> <span class="kd">interface</span> <span class="nc">TeacherMapper</span> <span class="o">{</span>
+<span class="o">}</span>
+</code></pre></div><p>5、编写Mapper接口对应的 mapper.xml配置文件 【两个】</p>
+<ul>
+<li><strong>无论有没有需求，都应该写上，以备后来之需！</strong></li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="cp">&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34; ?&gt;</span>
+<span class="cp">&lt;!DOCTYPE mapper
+</span><span class="cp">       PUBLIC &#34;-//mybatis.org//DTD Mapper 3.0//EN&#34;
+</span><span class="cp">       &#34;http://mybatis.org/dtd/mybatis-3-mapper.dtd&#34;&gt;</span>
+<span class="nt">&lt;mapper</span> <span class="na">namespace=</span><span class="s">&#34;com.xxgc.mapper.StudentMapper&#34;</span><span class="nt">&gt;</span>
+
+<span class="nt">&lt;/mapper&gt;</span>
+<span class="cp">&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34; ?&gt;</span>
+<span class="cp">&lt;!DOCTYPE mapper
+</span><span class="cp">       PUBLIC &#34;-//mybatis.org//DTD Mapper 3.0//EN&#34;
+</span><span class="cp">       &#34;http://mybatis.org/dtd/mybatis-3-mapper.dtd&#34;&gt;</span>
+<span class="nt">&lt;mapper</span> <span class="na">namespace=</span><span class="s">&#34;com.xxgc.mapper.TeacherMapper&#34;</span><span class="nt">&gt;</span>
+
+<span class="nt">&lt;/mapper&gt;</span>
+</code></pre></div><h4 id="按查询嵌套处理">按查询嵌套处理</h4>
+<p>1、给StudentMapper接口增加方法</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="c1">//获取所有学生及对应老师的信息
+</span><span class="c1"></span><span class="kd">public</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">Student</span><span class="o">&gt;</span> <span class="nf">getStudents</span><span class="o">();</span>
+</code></pre></div><p>2、编写对应的Mapper文件</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="cp">&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34; ?&gt;</span>
+<span class="cp">&lt;!DOCTYPE mapper
+</span><span class="cp">       PUBLIC &#34;-//mybatis.org//DTD Mapper 3.0//EN&#34;
+</span><span class="cp">       &#34;http://mybatis.org/dtd/mybatis-3-mapper.dtd&#34;&gt;</span>
+<span class="nt">&lt;mapper</span> <span class="na">namespace=</span><span class="s">&#34;com.xxgc.mapper.StudentMapper&#34;</span><span class="nt">&gt;</span>
+
+   <span class="c">&lt;!--
+</span><span class="c">   需求：获取所有学生及对应老师的信息
+</span><span class="c">   思路：
+</span><span class="c">       1. 获取所有学生的信息
+</span><span class="c">       2. 根据获取的学生信息的老师ID-&gt;获取该老师的信息
+</span><span class="c">       3. 思考问题，这样学生的结果集中应该包含老师，该如何处理呢，数据库中我们一般使用关联查询？
+</span><span class="c">           1. 做一个结果集映射：StudentTeacher
+</span><span class="c">           2. StudentTeacher结果集的类型为 Student
+</span><span class="c">           3. 学生中老师的属性为teacher，对应数据库中为tid。
+</span><span class="c">              多个 [1,...）学生关联一个老师=&gt; 一对一，一对多
+</span><span class="c">           4. 查看官网找到：association – 一个复杂类型的关联；使用它来处理关联查询
+</span><span class="c">   --&gt;</span>
+   <span class="nt">&lt;select</span> <span class="na">id=</span><span class="s">&#34;getStudents&#34;</span> <span class="na">resultMap=</span><span class="s">&#34;StudentTeacher&#34;</span><span class="nt">&gt;</span>
+    select * from student
+   <span class="nt">&lt;/select&gt;</span>
+   <span class="nt">&lt;resultMap</span> <span class="na">id=</span><span class="s">&#34;StudentTeacher&#34;</span> <span class="na">type=</span><span class="s">&#34;Student&#34;</span><span class="nt">&gt;</span>
+       <span class="c">&lt;!--association关联属性 property属性名 javaType属性类型 column在多的一方的表中的列名--&gt;</span>
+       <span class="nt">&lt;association</span> <span class="na">property=</span><span class="s">&#34;teacher&#34;</span>  <span class="na">column=</span><span class="s">&#34;tid&#34;</span> <span class="na">javaType=</span><span class="s">&#34;Teacher&#34;</span> <span class="na">select=</span><span class="s">&#34;getTeacher&#34;</span><span class="nt">/&gt;</span>
+   <span class="nt">&lt;/resultMap&gt;</span>
+   <span class="c">&lt;!--
+</span><span class="c">   这里传递过来的id，只有一个属性的时候，下面可以写任何值
+</span><span class="c">   association中column多参数配置：
+</span><span class="c">       column=&#34;{key=value,key=value}&#34;
+</span><span class="c">       其实就是键值对的形式，key是传给下个sql的取值名称，value是片段一中sql查询的字段名。
+</span><span class="c">   --&gt;</span>
+   <span class="nt">&lt;select</span> <span class="na">id=</span><span class="s">&#34;getTeacher&#34;</span> <span class="na">resultType=</span><span class="s">&#34;teacher&#34;</span><span class="nt">&gt;</span>
+      select * from teacher where id = #{id}
+   <span class="nt">&lt;/select&gt;</span>
+
+<span class="nt">&lt;/mapper&gt;</span>
+</code></pre></div><p>3、编写完毕去Mybatis配置文件中，注册Mapper！</p>
+<p>4、注意点说明：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="nt">&lt;resultMap</span> <span class="na">id=</span><span class="s">&#34;StudentTeacher&#34;</span> <span class="na">type=</span><span class="s">&#34;Student&#34;</span><span class="nt">&gt;</span>
+   <span class="c">&lt;!--association关联属性 property属性名 javaType属性类型 column在多的一方的表中的列名--&gt;</span>
+   <span class="nt">&lt;association</span> <span class="na">property=</span><span class="s">&#34;teacher&#34;</span>  <span class="na">column=</span><span class="s">&#34;{id=tid,name=tid}&#34;</span> <span class="na">javaType=</span><span class="s">&#34;Teacher&#34;</span> <span class="na">select=</span><span class="s">&#34;getTeacher&#34;</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;/resultMap&gt;</span>
+<span class="c">&lt;!--
+</span><span class="c">这里传递过来的id，只有一个属性的时候，下面可以写任何值
+</span><span class="c">association中column多参数配置：
+</span><span class="c">   column=&#34;{key=value,key=value}&#34;
+</span><span class="c">   其实就是键值对的形式，key是传给下个sql的取值名称，value是片段一中sql查询的字段名。
+</span><span class="c">--&gt;</span>
+<span class="nt">&lt;select</span> <span class="na">id=</span><span class="s">&#34;getTeacher&#34;</span> <span class="na">resultType=</span><span class="s">&#34;teacher&#34;</span><span class="nt">&gt;</span>
+  select * from teacher where id = #{id} and name = #{name}
+<span class="nt">&lt;/select&gt;</span>
+</code></pre></div><p>5、测试</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="nd">@Test</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">testGetStudents</span><span class="o">(){</span>
+   <span class="n">SqlSession</span> <span class="n">session</span> <span class="o">=</span> <span class="n">MybatisUtils</span><span class="o">.</span><span class="na">getSession</span><span class="o">();</span>
+   <span class="n">StudentMapper</span> <span class="n">mapper</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="na">getMapper</span><span class="o">(</span><span class="n">StudentMapper</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+
+   <span class="n">List</span><span class="o">&lt;</span><span class="n">Student</span><span class="o">&gt;</span> <span class="n">students</span> <span class="o">=</span> <span class="n">mapper</span><span class="o">.</span><span class="na">getStudents</span><span class="o">();</span>
+
+   <span class="k">for</span> <span class="o">(</span><span class="n">Student</span> <span class="n">student</span> <span class="o">:</span> <span class="n">students</span><span class="o">){</span>
+       <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span>
+               <span class="s">&#34;学生名:&#34;</span><span class="o">+</span> <span class="n">student</span><span class="o">.</span><span class="na">getName</span><span class="o">()</span>
+                       <span class="o">+</span><span class="s">&#34;\t老师:&#34;</span><span class="o">+</span><span class="n">student</span><span class="o">.</span><span class="na">getTeacher</span><span class="o">().</span><span class="na">getName</span><span class="o">());</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><h4 id="按结果嵌套处理">按结果嵌套处理</h4>
+<p>除了上面这种方式，还有其他思路吗？</p>
+<p>我们还可以按照结果进行嵌套处理；</p>
+<p>1、接口方法编写</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">Student</span><span class="o">&gt;</span> <span class="nf">getStudents2</span><span class="o">();</span>
+</code></pre></div><p>2、编写对应的mapper文件</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="c">&lt;!--
+</span><span class="c">按查询结果嵌套处理
+</span><span class="c">思路：
+</span><span class="c">   1. 直接查询出结果，进行结果集的映射
+</span><span class="c">--&gt;</span>
+<span class="nt">&lt;select</span> <span class="na">id=</span><span class="s">&#34;getStudents2&#34;</span> <span class="na">resultMap=</span><span class="s">&#34;StudentTeacher2&#34;</span> <span class="nt">&gt;</span>
+  select s.id sid, s.name sname , t.name tname
+  from student s,teacher t
+  where s.tid = t.id
+<span class="nt">&lt;/select&gt;</span>
+
+<span class="nt">&lt;resultMap</span> <span class="na">id=</span><span class="s">&#34;StudentTeacher2&#34;</span> <span class="na">type=</span><span class="s">&#34;Student&#34;</span><span class="nt">&gt;</span>
+   <span class="nt">&lt;id</span> <span class="na">property=</span><span class="s">&#34;id&#34;</span> <span class="na">column=</span><span class="s">&#34;sid&#34;</span><span class="nt">/&gt;</span>
+   <span class="nt">&lt;result</span> <span class="na">property=</span><span class="s">&#34;name&#34;</span> <span class="na">column=</span><span class="s">&#34;sname&#34;</span><span class="nt">/&gt;</span>
+   <span class="c">&lt;!--关联对象property 关联对象在Student实体类中的属性--&gt;</span>
+   <span class="nt">&lt;association</span> <span class="na">property=</span><span class="s">&#34;teacher&#34;</span> <span class="na">javaType=</span><span class="s">&#34;Teacher&#34;</span><span class="nt">&gt;</span>
+       <span class="nt">&lt;result</span> <span class="na">property=</span><span class="s">&#34;name&#34;</span> <span class="na">column=</span><span class="s">&#34;tname&#34;</span><span class="nt">/&gt;</span>
+   <span class="nt">&lt;/association&gt;</span>
+<span class="nt">&lt;/resultMap&gt;</span>
+</code></pre></div><p>3、去mybatis-config文件中注入【此处应该处理过了】</p>
+<p>4、测试</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="nd">@Test</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">testGetStudents2</span><span class="o">(){</span>
+   <span class="n">SqlSession</span> <span class="n">session</span> <span class="o">=</span> <span class="n">MybatisUtils</span><span class="o">.</span><span class="na">getSession</span><span class="o">();</span>
+   <span class="n">StudentMapper</span> <span class="n">mapper</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="na">getMapper</span><span class="o">(</span><span class="n">StudentMapper</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+
+   <span class="n">List</span><span class="o">&lt;</span><span class="n">Student</span><span class="o">&gt;</span> <span class="n">students</span> <span class="o">=</span> <span class="n">mapper</span><span class="o">.</span><span class="na">getStudents2</span><span class="o">();</span>
+
+   <span class="k">for</span> <span class="o">(</span><span class="n">Student</span> <span class="n">student</span> <span class="o">:</span> <span class="n">students</span><span class="o">){</span>
+       <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span>
+               <span class="s">&#34;学生名:&#34;</span><span class="o">+</span> <span class="n">student</span><span class="o">.</span><span class="na">getName</span><span class="o">()</span>
+                       <span class="o">+</span><span class="s">&#34;\t老师:&#34;</span><span class="o">+</span><span class="n">student</span><span class="o">.</span><span class="na">getTeacher</span><span class="o">().</span><span class="na">getName</span><span class="o">());</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><h4 id="小结">小结</h4>
+<p>按照查询进行嵌套处理就像SQL中的子查询</p>
+<p>按照结果进行嵌套处理就像SQL中的联表查询</p>
+<h3 id="一对多的处理">一对多的处理</h3>
+<p>一对多的理解：</p>
+<ul>
+<li>一个老师拥有多个学生</li>
+<li>如果对于老师这边，就是一个一对多的现象，即从一个老师下面拥有一群学生（集合）！</li>
+</ul>
+<h4 id="实体类编写">实体类编写</h4>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="nd">@Data</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Student</span> <span class="o">{</span>
+   <span class="kd">private</span> <span class="kt">int</span> <span class="n">id</span><span class="o">;</span>
+   <span class="kd">private</span> <span class="n">String</span> <span class="n">name</span><span class="o">;</span>
+   <span class="kd">private</span> <span class="kt">int</span> <span class="n">tid</span><span class="o">;</span>
+<span class="o">}</span>
+<span class="nd">@Data</span> 
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Teacher</span> <span class="o">{</span>
+   <span class="kd">private</span> <span class="kt">int</span> <span class="n">id</span><span class="o">;</span>
+   <span class="kd">private</span> <span class="n">String</span> <span class="n">name</span><span class="o">;</span>
+   <span class="c1">//一个老师多个学生
+</span><span class="c1"></span>   <span class="kd">private</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">Student</span><span class="o">&gt;</span> <span class="n">students</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div><p>和之前一样，搭建测试的环境！</p>
+<h4 id="按结果嵌套处理-1">按结果嵌套处理</h4>
+<p>1、TeacherMapper接口编写方法</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="c1">//获取指定老师，及老师下的所有学生
+</span><span class="c1"></span><span class="kd">public</span> <span class="n">Teacher</span> <span class="nf">getTeacher</span><span class="o">(</span><span class="kt">int</span> <span class="n">id</span><span class="o">);</span>
+</code></pre></div><p>2、编写接口对应的Mapper配置文件</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="nt">&lt;mapper</span> <span class="na">namespace=</span><span class="s">&#34;com.kuang.mapper.TeacherMapper&#34;</span><span class="nt">&gt;</span>
+
+   <span class="c">&lt;!--
+</span><span class="c">   思路:
+</span><span class="c">       1. 从学生表和老师表中查出学生id，学生姓名，老师姓名
+</span><span class="c">       2. 对查询出来的操作做结果集映射
+</span><span class="c">           1. 集合的话，使用collection！
+</span><span class="c">               JavaType和ofType都是用来指定对象类型的
+</span><span class="c">               JavaType是用来指定pojo中属性的类型
+</span><span class="c">               ofType指定的是映射到list集合属性中pojo的类型。
+</span><span class="c">   --&gt;</span>
+   <span class="nt">&lt;select</span> <span class="na">id=</span><span class="s">&#34;getTeacher&#34;</span> <span class="na">resultMap=</span><span class="s">&#34;TeacherStudent&#34;</span><span class="nt">&gt;</span>
+      select s.id sid, s.name sname , t.name tname, t.id tid
+      from student s,teacher t
+      where s.tid = t.id and t.id=#{id}
+   <span class="nt">&lt;/select&gt;</span>
+
+   <span class="nt">&lt;resultMap</span> <span class="na">id=</span><span class="s">&#34;TeacherStudent&#34;</span> <span class="na">type=</span><span class="s">&#34;Teacher&#34;</span><span class="nt">&gt;</span>
+       <span class="nt">&lt;result</span>  <span class="na">property=</span><span class="s">&#34;name&#34;</span> <span class="na">column=</span><span class="s">&#34;tname&#34;</span><span class="nt">/&gt;</span>
+       <span class="nt">&lt;collection</span> <span class="na">property=</span><span class="s">&#34;students&#34;</span> <span class="na">ofType=</span><span class="s">&#34;Student&#34;</span><span class="nt">&gt;</span>
+           <span class="nt">&lt;result</span> <span class="na">property=</span><span class="s">&#34;id&#34;</span> <span class="na">column=</span><span class="s">&#34;sid&#34;</span> <span class="nt">/&gt;</span>
+           <span class="nt">&lt;result</span> <span class="na">property=</span><span class="s">&#34;name&#34;</span> <span class="na">column=</span><span class="s">&#34;sname&#34;</span> <span class="nt">/&gt;</span>
+           <span class="nt">&lt;result</span> <span class="na">property=</span><span class="s">&#34;tid&#34;</span> <span class="na">column=</span><span class="s">&#34;tid&#34;</span> <span class="nt">/&gt;</span>
+       <span class="nt">&lt;/collection&gt;</span>
+   <span class="nt">&lt;/resultMap&gt;</span>
+<span class="nt">&lt;/mapper&gt;</span>
+</code></pre></div><p>3、将Mapper文件注册到MyBatis-config文件中</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="nt">&lt;mappers&gt;</span>
+   <span class="nt">&lt;mapper</span> <span class="na">resource=</span><span class="s">&#34;mapper/TeacherMapper.xml&#34;</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;/mappers&gt;</span>
+</code></pre></div><p>4、测试</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="nd">@Test</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">testGetTeacher</span><span class="o">(){</span>
+   <span class="n">SqlSession</span> <span class="n">session</span> <span class="o">=</span> <span class="n">MybatisUtils</span><span class="o">.</span><span class="na">getSession</span><span class="o">();</span>
+   <span class="n">TeacherMapper</span> <span class="n">mapper</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="na">getMapper</span><span class="o">(</span><span class="n">TeacherMapper</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+   <span class="n">Teacher</span> <span class="n">teacher</span> <span class="o">=</span> <span class="n">mapper</span><span class="o">.</span><span class="na">getTeacher</span><span class="o">(</span><span class="n">1</span><span class="o">);</span>
+   <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">teacher</span><span class="o">.</span><span class="na">getName</span><span class="o">());</span>
+   <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">teacher</span><span class="o">.</span><span class="na">getStudents</span><span class="o">());</span>
+<span class="o">}</span>
+</code></pre></div><h4 id="按查询嵌套处理-1">按查询嵌套处理</h4>
+<p>1、TeacherMapper接口编写方法</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="n">Teacher</span> <span class="nf">getTeacher2</span><span class="o">(</span><span class="kt">int</span> <span class="n">id</span><span class="o">);</span>
+</code></pre></div><p>2、编写接口对应的Mapper配置文件</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="nt">&lt;select</span> <span class="na">id=</span><span class="s">&#34;getTeacher2&#34;</span> <span class="na">resultMap=</span><span class="s">&#34;TeacherStudent2&#34;</span><span class="nt">&gt;</span>
+select * from teacher where id = #{id}
+<span class="nt">&lt;/select&gt;</span>
+<span class="nt">&lt;resultMap</span> <span class="na">id=</span><span class="s">&#34;TeacherStudent2&#34;</span> <span class="na">type=</span><span class="s">&#34;Teacher&#34;</span><span class="nt">&gt;</span>
+   <span class="c">&lt;!--column是一对多的外键 , 写的是一的主键的列名--&gt;</span>
+   <span class="nt">&lt;collection</span> <span class="na">property=</span><span class="s">&#34;students&#34;</span> <span class="na">javaType=</span><span class="s">&#34;ArrayList&#34;</span> <span class="na">ofType=</span><span class="s">&#34;Student&#34;</span> <span class="na">column=</span><span class="s">&#34;id&#34;</span><span class="na">select=</span><span class="s">&#34;getStudentByTeacherId&#34;</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;/resultMap&gt;</span>
+<span class="nt">&lt;select</span> <span class="na">id=</span><span class="s">&#34;getStudentByTeacherId&#34;</span> <span class="na">resultType=</span><span class="s">&#34;Student&#34;</span><span class="nt">&gt;</span>
+  select * from student where tid = #{id}
+<span class="nt">&lt;/select&gt;</span>
+</code></pre></div><p>3、将Mapper文件注册到MyBatis-config文件中</p>
+<p>4、测试</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="nd">@Test</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">testGetTeacher2</span><span class="o">(){</span>
+   <span class="n">SqlSession</span> <span class="n">session</span> <span class="o">=</span> <span class="n">MybatisUtils</span><span class="o">.</span><span class="na">getSession</span><span class="o">();</span>
+   <span class="n">TeacherMapper</span> <span class="n">mapper</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="na">getMapper</span><span class="o">(</span><span class="n">TeacherMapper</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+   <span class="n">Teacher</span> <span class="n">teacher</span> <span class="o">=</span> <span class="n">mapper</span><span class="o">.</span><span class="na">getTeacher2</span><span class="o">(</span><span class="n">1</span><span class="o">);</span>
+   <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">teacher</span><span class="o">.</span><span class="na">getName</span><span class="o">());</span>
+   <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">teacher</span><span class="o">.</span><span class="na">getStudents</span><span class="o">());</span>
+<span class="o">}</span>
+</code></pre></div><h4 id="小结-1">小结</h4>
+<p>1、关联-association</p>
+<p>2、集合-collection</p>
+<p>3、所以association是用于一对一和多对一，而collection是用于一对多的关系</p>
+<p>4、JavaType和ofType都是用来指定对象类型的</p>
+<ul>
+<li>JavaType是用来指定pojo中属性的类型</li>
+<li>ofType指定的是映射到list集合属性中pojo的类型。</li>
+</ul>
+<p><strong>注意说明：</strong></p>
+<p>1、保证SQL的可读性，尽量通俗易懂</p>
+<p>2、根据实际要求，尽量编写性能更高的SQL语句</p>
+<p>3、注意属性名和字段不一致的问题</p>
+<p>4、注意一对多和多对一 中：字段和属性对应的问题</p>
+<p>5、尽量使用Log4j，通过日志来查看自己的错误</p>
+<p>一对多和多对一对于很多人来说是难点，一定要大量的做练习理解！</p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/mybatis/">mybatis</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+    <aside class="related-contents--wrapper">
+    
+    
+        <h2 class="section-title">相关文章</h2>
+        <div class="related-contents">
+            <div class="flex article-list--tile">
+                
+                    
+<article class="">
+    <a href="/p/mybatis07-%E7%BC%93%E5%AD%98/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">MyBatis07 缓存</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
+    <a href="/p/mybatis06-%E5%8A%A8%E6%80%81sql/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">MyBatis06 动态SQL</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
+    <a href="/p/mybatis04-%E4%BD%BF%E7%94%A8%E6%B3%A8%E8%A7%A3%E5%BC%80%E5%8F%91/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">MyBatis04 使用注解开发</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
+    <a href="/p/mybatis03-resultmap%E5%8F%8A%E5%88%86%E9%A1%B5/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">MyBatis03 ResultMap及分页</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
+    <a href="/p/mybatis02-%E5%A2%9E%E5%88%A0%E6%94%B9%E6%9F%A5/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">MyBatis02 增删改查</h2>
+        </div>
+    </a>
+</article>
+                
+            </div>
+        </div>
+    
+</aside>
+
+     
+    
+        
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "stack" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (DISQUS) {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2020 - 
+        
+        2021 ybakiame&#39; Blog
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.5.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css"integrity="sha256-c0uckgykQ9v5k&#43;IqViZOZKc47Jn7KQil4/MP3ySA3F8="crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css"integrity="sha256-SBLU4vv6CA6lHsZ1XyTdhyjJxCjPif/TRkjnsyGAGnE="crossorigin="anonymous"
+            >
+
+            </main>
+    
+        <aside class="sidebar right-sidebar sticky">
+            <section class="widget archives">
+                <div class="widget-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+                </div>
+                <h2 class="widget-title section-title">目录</h2>
+                
+                <div class="widget--toc">
+                    <nav id="TableOfContents">
+  <ol>
+    <li><a href="#一对多和多对一处理">一对多和多对一处理</a>
+      <ol>
+        <li><a href="#多对一的处理">多对一的处理</a>
+          <ol>
+            <li><a href="#搭建测试环境">搭建测试环境</a></li>
+            <li><a href="#按查询嵌套处理">按查询嵌套处理</a></li>
+            <li><a href="#按结果嵌套处理">按结果嵌套处理</a></li>
+            <li><a href="#小结">小结</a></li>
+          </ol>
+        </li>
+        <li><a href="#一对多的处理">一对多的处理</a>
+          <ol>
+            <li><a href="#实体类编写">实体类编写</a></li>
+            <li><a href="#按结果嵌套处理-1">按结果嵌套处理</a></li>
+            <li><a href="#按查询嵌套处理-1">按查询嵌套处理</a></li>
+            <li><a href="#小结-1">小结</a></li>
+          </ol>
+        </li>
+      </ol>
+    </li>
+  </ol>
+</nav>
+                </div>
+            </section>
+        </aside>
+    
+
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js"integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g="crossorigin="anonymous"
+                defer="false"
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

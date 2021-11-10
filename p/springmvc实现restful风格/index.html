@@ -20,8 +20,8 @@
 具体说，就是 HTTP 协议里面，四个表示操作方式的动词：GET、POST、PUT、DELETE。它们分别对应四种基本操作：
  GET 用来获取资源 POST 用来新建资源 PUT 用来更新资源 DELETE 用来删除资源       HTTP方法名 使用场景 资源操作 是否幂等 是否安全     GET 从服务器取出资源（一项或多项） SELECT 是 是   POST 在服务器新建一个资源 INSERT 否 否   PUT 在服务器更新资源（客户端提供完整资源数据） UPDATE 是 否   DELETE 从服务器删除资源 DELETE 是 否     幂等性：对同一REST接口的多次访问，得到的资源状态是相同的。 安全性：对该REST接口访问，不会使服务器端资源的状态发生改变。   RESTful：就是符合REST原则的架构方式即可称为RESTful。'>
 <meta property='og:url' content='https://example.com/p/springmvc%E5%AE%9E%E7%8E%B0restful%E9%A3%8E%E6%A0%BC/'>
-<meta property='og:site_name' content='ybakiame Blog'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='restful' /><meta property='article:published_time' content='2021-10-21T21:51:22&#43;08:00'/><meta property='article:modified_time' content='2021-10-21T21:51:22&#43;08:00'/>
+<meta property='og:site_name' content='ybakiame&#39; Blog'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='springMVC' /><meta property='article:tag' content='restful' /><meta property='article:published_time' content='2021-10-21T21:51:22&#43;08:00'/><meta property='article:modified_time' content='2021-10-21T21:51:22&#43;08:00'/>
 <meta name="twitter:title" content="springMVC实现restful风格">
 <meta name="twitter:description" content="1、REST的概念 REST为“Representational State Transfer”的缩写，中文释义为“表现层状态转换”，REST不是一种标准，而是一种设计风格。是目前最流行的一种互联网软件架构风格。它倡导结构清晰、符合标准、易于理解、扩展方便的Web架构体系，主张严格按照HTTP协议中定义的规范设计结构严谨的Web应用架构体系。由于REST所倡导的理念让Web应用更易于开发和维护，更加优雅简洁，所以正得到越来越多网站的采用。
   资源（Resources）：网络上的一个实体，或者说是网络上的一个具体信息。它可以是一段文本、一张图片、一首歌曲、一种服务，总之就是一个具体的存在。可以用一个URI（统一资源定位符）指向它，每种资源对应一个特定的 URI 。要获取这个资源，访问它的URI就可以，因此 URI 即为每一个资源的独一无二的识别符。
@@ -83,8 +83,8 @@
     
     <header class="article-category">
         
-            <a href="/categories/springmvc/" >
-                springMvc
+            <a href="/categories/spring/" >
+                spring
             </a>
         
     </header>
@@ -395,6 +395,8 @@ public String sendMessage(@PathVariable(&#34;foo&#34;) String foo,
     
     <section class="article-tags">
         
+            <a href="/tags/springmvc/">springMVC</a>
+        
             <a href="/tags/restful/">restful</a>
         
     </section>
@@ -427,12 +429,60 @@ public String sendMessage(@PathVariable(&#34;foo&#34;) String foo,
                 
                     
 <article class="">
-    <a href="/p/springmvc%E9%9D%99%E6%80%81%E8%B5%84%E6%BA%90%E8%BF%87%E6%BB%A4/">
+    <a href="/p/springmvc08-%E6%8B%A6%E6%88%AA%E5%99%A8%E4%B8%8E%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E4%B8%8B%E8%BD%BD/">
         
         
 
         <div class="article-details">
-            <h2 class="article-title">SpringMvc静态资源过滤</h2>
+            <h2 class="article-title">SpringMVC08 拦截器与文件上传下载</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
+    <a href="/p/springmvc07-ajax%E7%A0%94%E7%A9%B6/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">SpringMVC07 Ajax研究</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
+    <a href="/p/springmvc06-json%E4%BA%A4%E4%BA%92%E5%A4%84%E7%90%86/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">SpringMVC06 Json交互处理</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
+    <a href="/p/springmvc05-%E6%95%B4%E5%90%88ssm%E6%A1%86%E6%9E%B6/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">SpringMVC05 整合SSM框架</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
+    <a href="/p/springmvc04-%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E5%8F%8A%E8%B7%B3%E8%BD%AC/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">SpringMVC04 数据处理及跳转</h2>
         </div>
     </a>
 </article>
@@ -459,7 +509,7 @@ public String sendMessage(@PathVariable(&#34;foo&#34;) String foo,
             return;
         }
         var d = document, s = d.createElement('script'); s.async = true;
-        s.src = '//' + "hugo-theme-stack" + '.disqus.com/embed.js';
+        s.src = '//' + "stack" + '.disqus.com/embed.js';
         s.setAttribute('data-timestamp', +new Date());
         (d.head || d.body).appendChild(s);
     })();
@@ -495,7 +545,7 @@ public String sendMessage(@PathVariable(&#34;foo&#34;) String foo,
         
             2020 - 
         
-        2021 ybakiame Blog
+        2021 ybakiame&#39; Blog
     </section>
     
     <section class="powerby">

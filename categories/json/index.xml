@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>json on ybakiame&#39; Blog</title>
+    <link>https://example.com/categories/json/</link>
+    <description>Recent content in json on ybakiame&#39; Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 19 Oct 2021 14:48:39 +0800</lastBuildDate><atom:link href="https://example.com/categories/json/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>jackson</title>
+      <link>https://example.com/p/jackson/</link>
+      <pubDate>Tue, 19 Oct 2021 14:48:39 +0800</pubDate>
+      
+      <guid>https://example.com/p/jackson/</guid>
+      <description>jackson maven引入依赖 &amp;lt;!-- object to json Gson是Google所维护，功能全。 JackSon是Spring的御用工具，和Spring无缝集成，提供灵活的定制化开发的注解。 --&amp;gt; &amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;com.fasterxml.jackson.core&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;jackson-databind&amp;lt;/artifactId&amp;gt; &amp;lt;version&amp;gt;2.13.0&amp;lt;/version&amp;gt; &amp;lt;/dependency&amp;gt; jackson-databind 依赖 jackson-core 和 jackson-annotations，可以只显示地添加jackson-databind依赖，jackson-core 和 jackson-annotations 也随之添加到 Java 项目工程中。
+创建 ObjectMapper Jackson 最常用的 API 就是基于&amp;quot;对象绑定&amp;quot; 的 ObjectMapper：
+ ObjectMapper可以从字符串，流或文件中解析JSON，并创建表示已解析的JSON的Java对象。 将JSON解析为Java对象也称为从JSON反序列化Java对象。 ObjectMapper也可以从Java对象创建JSON。 从Java对象生成JSON也称为将Java对象序列化为JSON。 Object映射器可以将JSON解析为自定义的类的对象，也可以解析置JSON树模型的对象。  之所以称为ObjectMapper是因为它将JSON映射到Java对象（反序列化），或者将Java对象映射到JSON（序列化）。
+将 java Object转化为 json 字符串 ObjectMapper objectMapper = new ObjectMapper(); String json = objectMapper.writeValueAsString(要转化为json的对象); System.out.println(json);//打印转化后的json对象 参考</description>
+    </item>
+    
+  </channel>
+</rss>

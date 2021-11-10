@@ -1,12 +1,30 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Mysql on ybakiame Blog</title>
+    <title>mysql on ybakiame&#39; Blog</title>
     <link>https://example.com/categories/mysql/</link>
-    <description>Recent content in Mysql on ybakiame Blog</description>
+    <description>Recent content in mysql on ybakiame&#39; Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 29 Sep 2021 17:06:44 +0800</lastBuildDate><atom:link href="https://example.com/categories/mysql/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 02 Oct 2021 11:39:05 +0800</lastBuildDate><atom:link href="https://example.com/categories/mysql/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Mysql索引</title>
+      <link>https://example.com/p/mysql%E7%B4%A2%E5%BC%95/</link>
+      <pubDate>Sat, 02 Oct 2021 11:39:05 +0800</pubDate>
+      
+      <guid>https://example.com/p/mysql%E7%B4%A2%E5%BC%95/</guid>
+      <description>优点   索引大大减小了服务器需要扫描的数据量
+  索引可以帮助服务器避免排序和临时表
+  索引可以将随机IO变成顺序IO
+  索引对于InnoDB（对索引支持行级锁）非常重要，因为它可以让查询锁更少的元组。在MySQL5.1和更新的版本中，InnoDB可以在服务器端过滤掉行后就释放锁，但在早期的MySQL版本中，InnoDB直到事务提交时才会解锁。对不需要的元组的加锁，会增加锁的开销，降低并发性。 InnoDB仅对需要访问的元组加锁，而索引能够减少InnoDB访问的元组数。但是只有在存储引擎层过滤掉那些不需要的数据才能达到这种目的。一旦索引不允许InnoDB那样做（即索引达不到过滤的目的），MySQL服务器只能对InnoDB返回的数据进行WHERE操作，此时，已经无法避免对那些元组加锁了。如果查询不能使用索引，MySQL会进行全表扫描，并锁住每一个元组，不管是否真正需要。
+关于InnoDB、索引和锁：InnoDB在二级索引上使用共享锁（读锁），但访问主键索引需要排他锁（写锁）
+  缺点  虽然索引大大提高了查询速度，同时却会降低更新表的速度，如对表进行INSERT、UPDATE和DELETE。因为更新表时，MySQL不仅要保存数据，还要保存索引文件。 建立索引会占用磁盘空间的索引文件。一般情况这个问题不太严重，但如果你在一个大表上创建了多种组合索引，索引文件的会膨胀很快。 如果某个数据列包含许多重复的内容，为它建立索引就没有太大的实际效果。 对于非常小的表，大部分情况下简单的全表扫描更高效；  索引只是提高效率的一个因素，如果你的MySQL有大数据量的表，就需要花时间研究建立最优秀的索引，或优化查询语句。因此应该只为最经常查询和最经常排序的数据列建立索引。
+MySQL里同一个数据表里的索引总数限制为16个。
+索引的分类 在一个表中，主键索引只能有一个，唯一索引可以有多个。
+ 主键索引（PRIMARY KEY）  唯一的标识，主键不可重复，只能有一个列作为主键   唯一索引（UNIQUE KEY）  避免重读的列出现，唯一索引可以重复，多个列都可以标识为唯一索引   常规索引（KEY / INDEX）  默认的，通过index或key关键字来设置   全文索引（FULLTEXT）  在特定的数据库引擎下采用，之前只有MYISAM有 快速定位数据    基础语法
+-- 索引的使用 -- 方式1：在创建表的时候给字段增加索引 -- 方式2：表创建完毕后，增加索引 -- 显示所有的索引信息 SHOWINDEXFROM`student`-- 增加一个全文索引：格式：索引类型 索引名（列名），主键索引只要有索引名就行了 ALTERTABLE`school`.`student`ADDFULLTEXTINDEX`StudentName`(`StudentName`)-- 删除索引 DROPINDEX索引名ON表名-- EXPLAIN分析sql执行的情况 EXPLAINSELECT*FROM`student`;-- 非全文索引 EXPLAINSELECT*FROM`student`WHEREMATCH(`StudentName`)AGAINST(&amp;#39;郭&amp;#39;)-- 通过全文索引进行查找 创建表结构 CREATETABLE`demo`.</description>
+    </item>
+    
     <item>
       <title>Mysql存储过程</title>
       <link>https://example.com/p/mysql%E5%AD%98%E5%82%A8%E8%BF%87%E7%A8%8B/</link>
@@ -137,6 +155,25 @@ C：一致性
       <description>触发器的概念：
 ​	触发器是一种特殊的存储过程，不同于存储过程，触发器是通过事件触发执行，而不是手动调用执行的。 什么事触发事件？ 触发器（trigger），是指表中内容发生改变（增、删、改）时，系统会自动触发并执行的事件。 作用： 1、可以在触发时，校验或转换数据，保证数据安全。 2、触发器发生错误时，前面用户执行成功的操作会被回滚。 &amp;hellip;
 表结构 CREATEDATABASEdemo;USE`demo`;CREATETABLE`user`(`u_id`BIGINT(18)NOTNULLAUTO_INCREMENTCOMMENT&amp;#39;用户id&amp;#39;,`u_name`VARCHAR(15)NOTNULLCOMMENT&amp;#39;用户名&amp;#39;,`u_sex`CHAR(1)NOTNULLDEFAULT&amp;#39;男&amp;#39;COMMENT&amp;#39;性别&amp;#39;,`u_createtime`DATETIMENOTNULLCOMMENT&amp;#39;创建时间&amp;#39;,`u_eff`INT(1)NOTNULLDEFAULT&amp;#39;1&amp;#39;COMMENT&amp;#39;有效&amp;#39;,PRIMARYKEY(`u_id`))CREATETABLE`flowers`(`f_id`BIGINT(18)NOTNULLAUTO_INCREMENTCOMMENT&amp;#39;花呗表id&amp;#39;,`f_credit_points`INT(4)NOTNULLCOMMENT&amp;#39;信用积分&amp;#39;,`f_quota`INT(5)NOTNULLCOMMENT&amp;#39;花呗额度&amp;#39;,`f_mapping_user`BIGINT(18)NOTNULLCOMMENT&amp;#39;用户id&amp;#39;,PRIMARYKEY(`f_id`))创建触发器 DELIMITER$$/*自定义结束符号*//*创建*/CREATE/*TRIGGER 触发器*//*库名+触发器名*//*BEFORE/AFTER 在sql之前执行还是之后执行*//*INSERT/UPDATE/DELETE触发条件*/TRIGGER`demo`.`userflowers`AFTERINSERT/*作用于哪个表*/ON`demo`.`user`/*每行都受影响，都执行，行级触发器*/FOREACHROWBEGIN/*触发执行的语句*/INSERTINTO`flowers`(`f_credit_points`,`f_quota`,`f_mapping_user`)VALUE(100,1000,new.u_id);END$$DELIMITER;执行语句 INSERTINTO`user`(`u_name`,`u_sex`,`u_createtime`)VALUE(&amp;#34;张三&amp;#34;,&amp;#34;女&amp;#34;,&amp;#34;2021-09-23 09:34:00&amp;#34;);1.   new和old的使用       INSERT 没有old只有new new表示将要插入或者已经插入的数据   UPDATE 既有old也有new old表示更新之前的数据 new表示更新之后的数据   DELETE 没有new只有old old表示删除前或已经被删除的数据    触发器条件使用if elseif else DELIMITER$$CREATETRIGGER`demo`.`userupdate`AFTERUPDATEON`demo`.`user`FOREACHROWBEGIN/*判断是否有效字段变为0*/IFnew.`u_eff`=0THEN/*删除花呗*/DELETEFROM`flowers`WHERE`f_mapping_user`=new.u_id;ELSEIFnew.`u_eff`=1THEN/*添加花呗*/INSERTINTO`flowers`(`f_credit_points`,`f_quota`,`f_mapping_user`)VALUE(100,1000,new.u_id);ELSE/*其它情况*/ENDIF;END$$DELIMITER;变量的使用 DELIMITER$$USE`demo`$$DROPTRIGGER/*!50032 IF EXISTS */`userflowers`$$CREATE/*!50017 DEFINER = &amp;#39;root&amp;#39;@&amp;#39;localhost&amp;#39; */TRIGGER`userflowers`AFTERINSERTON`user`FOREACHROWBEGIN/*触发执行的语句*/INSERTINTO`flowers`(`f_credit_points`,`f_quota`,`f_mapping_user`)VALUE(100,1000,new.u_id);/* 用户变量：以@开始，形式为 @变量名 用户变量只针对当前客户端生效 全局变量：定义方式 set GLOBAL 变量名，或者 set @@global.变量名 对所有客户端生效，但是具有super权限才可以设置全局变量 */SELECTCOUNT(*)FROMUSERINTO@num;UPDATE`statistics`SET`users`=@numWHEREs_id=1;END;$$DELIMITER;</description>
+    </item>
+    
+    <item>
+      <title>MySQL中的数据类型</title>
+      <link>https://example.com/p/mysql%E4%B8%AD%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/</link>
+      <pubDate>Tue, 11 May 2021 15:29:19 +0800</pubDate>
+      
+      <guid>https://example.com/p/mysql%E4%B8%AD%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/</guid>
+      <description>MySQL中的数据类型 MySQL支持多种数据类型，主要有数值类型、日期/时间类型和字符串类型。
+数值类型 数值类型包括：
+  整数类型：TINYINT、SMALLINT、MEDIUMINT、INT、BIGINT
+  浮点数类型有FLOAT和DOUBLE
+  定点小数类型DECIMAL
+  日期/时间类型：包括YEAR、TIME、DATE、DATATIME和TIMESTAMP。
+  字符串类型：CHAR、VARCHAR、BINARY、VARBINARY、BLOB、TEXT、ENUM和SET等。字符串类型又分为文本字符串和二进制字符串。
+  整数类型 数值型数据类型主要用来存储数字，不同的数据类型提供不同的取值范围，可以存储的值的范围越大，其所需要的存储空间也会越大。整数类型的字段可以添加AUTO_INCREMENT自增约束条件。
+   类型名称 存储需求（B）     TINYINT tinyint 1   SMALLINT smallint 2   MEDIUMINT mediumint 3   INT 4   BIGINT 8    需要注意的是，在设计数据库的时候，在实体类中long型的变量对应BIGINT,INT对应int类型的成员变量。
+例：
+CREATE TABLE tb_emp1( id INT(11), name VARCHAR(25). deptId INT(11), salary FLOAT ); id字段的数据类型为INT（11），“11”表示该数据类型指定的显示宽度，指定能显示的数值中数字的个数。</description>
     </item>
     
   </channel>

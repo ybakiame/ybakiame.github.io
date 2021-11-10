@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>api on ybakiame&#39; Blog</title>
+    <link>https://example.com/tags/api/</link>
+    <description>Recent content in api on ybakiame&#39; Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 06 Nov 2021 18:40:41 +0800</lastBuildDate><atom:link href="https://example.com/tags/api/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>API返回值去除为NULL的字段</title>
+      <link>https://example.com/p/api%E8%BF%94%E5%9B%9E%E5%80%BC%E5%8E%BB%E9%99%A4%E4%B8%BAnull%E7%9A%84%E5%AD%97%E6%AE%B5/</link>
+      <pubDate>Sat, 06 Nov 2021 18:40:41 +0800</pubDate>
+      
+      <guid>https://example.com/p/api%E8%BF%94%E5%9B%9E%E5%80%BC%E5%8E%BB%E9%99%A4%E4%B8%BAnull%E7%9A%84%E5%AD%97%E6%AE%B5/</guid>
+      <description>API返回值去除为NULL的字段 简介 在前后端分离的微服务时代，后端API需要良好的规范。本篇主要将一个数据返回时的一个小技巧&amp;ndash; 过滤为空字段 解决痛点：将有效解决数据传输过程中的流量浪费。
+组件简介 Jackson ObjectMapper 通过自定义配置该组件可以选择性序列化返回的JSON。
+官方解释 Spring MVC（客户端和服务器端）用于HttpMessageConverters在HTTP交换中协商内容转换。如果Jackson在类路径上，您已经获得了提供的默认转换器Jackson2ObjectMapperBuilder，其中一个实例是为您自动配置的。 Spring Boot还具有一些功能，可以更轻松地自定义此行为。
+实战代码 创建配置类 首先创建一个配置类，加入定义为：JacksonConfig
+代码清单 import com.fasterxml.jackson.annotation.JsonInclude; import com.fasterxml.jackson.databind.ObjectMapper; import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean; import org.springframework.context.annotation.Bean; import org.springframework.context.annotation.Configuration; import org.springframework.context.annotation.Primary; import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder; /** * @author ybakiame * @description 返回json空值去掉null和&amp;#34;&amp;#34; * * 注解 @Configuration 注入后可自动配置 */ @Configuration public class JacksonConfig { @Bean @Primary @ConditionalOnMissingBean(ObjectMapper.class) public ObjectMapper jacksonObjectMapper(Jackson2ObjectMapperBuilder builder) { ObjectMapper objectMapper = builder.createXmlMapper(false).build(); objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL); return objectMapper; } } 关键点：objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL); 通过该方法对mapper对象进行设置，所有序列化的对象都将按改规则进行系列化。 其中枚举属性：JsonInclude.Include.NON_NULL有以下选择：</description>
+    </item>
+    
+  </channel>
+</rss>

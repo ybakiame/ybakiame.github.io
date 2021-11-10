@@ -1,12 +1,298 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Posts on ybakiame Blog</title>
+    <title>Posts on ybakiame&#39; Blog</title>
     <link>https://example.com/post/</link>
-    <description>Recent content in Posts on ybakiame Blog</description>
+    <description>Recent content in Posts on ybakiame&#39; Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 26 Oct 2021 22:14:13 +0800</lastBuildDate><atom:link href="https://example.com/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 09 Nov 2021 09:58:40 +0800</lastBuildDate><atom:link href="https://example.com/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>MyBatis07 缓存</title>
+      <link>https://example.com/p/mybatis07-%E7%BC%93%E5%AD%98/</link>
+      <pubDate>Tue, 09 Nov 2021 09:58:40 +0800</pubDate>
+      
+      <guid>https://example.com/p/mybatis07-%E7%BC%93%E5%AD%98/</guid>
+      <description>mybatis缓存 简介 1、什么是缓存 [ Cache ]？
+ 存在内存中的临时数据。 将用户经常查询的数据放在缓存（内存）中，用户去查询数据就不用从磁盘上(关系型数据库数据文件)查询，从缓存中查询，从而提高查询效率，解决了高并发系统的性能问题。  2、为什么使用缓存？
+ 减少和数据库的交互次数，减少系统开销，提高系统效率。  3、什么样的数据能使用缓存？
+ 经常查询并且不经常改变的数据。  Mybatis缓存   MyBatis包含一个非常强大的查询缓存特性，它可以非常方便地定制和配置缓存。缓存可以极大的提升查询效率。
+  MyBatis系统中默认定义了两级缓存：一级缓存和二级缓存
+   默认情况下，只有一级缓存开启。（SqlSession级别的缓存，也称为本地缓存） 二级缓存需要手动开启和配置，他是基于namespace级别的缓存。 为了提高扩展性，MyBatis定义了缓存接口Cache。我们可以通过实现Cache接口来自定义二级缓存    一级缓存 一级缓存也叫本地缓存：
+ 与数据库同一次会话期间查询到的数据会放在本地缓存中。 以后如果需要获取相同的数据，直接从缓存中拿，没必须再去查询数据库；  注意：
+必须保证多次查询中间，不能有任何的增删改操作，否则缓存数据会清空。
+1、在mybatis中加入日志，方便测试结果
+2、编写接口方法
+//根据id查询用户 User queryUserById(@Param(&amp;#34;id&amp;#34;) int id); 3、接口对应的Mapper文件
+&amp;lt;select id=&amp;#34;queryUserById&amp;#34; resultType=&amp;#34;user&amp;#34;&amp;gt; select * from user where id = #{id} &amp;lt;/select&amp;gt; 4、测试
+@Test public void testQueryUserById(){ SqlSession session = MybatisUtils.</description>
+    </item>
+    
+    <item>
+      <title>MyBatis06 动态SQL</title>
+      <link>https://example.com/p/mybatis06-%E5%8A%A8%E6%80%81sql/</link>
+      <pubDate>Tue, 09 Nov 2021 09:57:49 +0800</pubDate>
+      
+      <guid>https://example.com/p/mybatis06-%E5%8A%A8%E6%80%81sql/</guid>
+      <description>动态SQL 介绍 什么是动态SQL：动态SQL指的是根据不同的查询条件 , 生成不同的Sql语句.
+官网描述： MyBatis 的强大特性之一便是它的动态 SQL。如果你有使用 JDBC 或其它类似框架的经验，你就能体会到根据不同条件拼接 SQL 语句的痛苦。例如拼接时要确保不能忘记添加必要的空格，还要注意去掉列表最后一个列名的逗号。利用动态 SQL 这一特性可以彻底摆脱这种痛苦。 虽然在以前使用动态 SQL 并非一件易事，但正是 MyBatis 提供了可以被用在任意 SQL 映射语句中的强大的动态 SQL 语言得以改进这种情形。 动态 SQL 元素和 JSTL 或基于类似 XML 的文本处理器相似。在 MyBatis 之前的版本中，有很多元素需要花时间了解。MyBatis 3 大大精简了元素种类，现在只需学习原来一半的元素便可。MyBatis 采用功能强大的基于 OGNL 的表达式来淘汰其它大部分元素。 ------------------------------- - if - choose (when, otherwise) - trim (where, set) - foreach ------------------------------- 我们之前写的 SQL 语句都比较简单，如果有比较复杂的业务，我们需要写复杂的 SQL 语句，往往需要拼接，而拼接 SQL ，稍微不注意，由于引号，空格等缺失可能都会导致错误。
+那么怎么去解决这个问题呢？这就要使用 mybatis 动态SQL，通过 if, choose, when, otherwise, trim, where, set, foreach等标签，可组合成非常灵活的SQL语句，从而在提高 SQL 语句的准确性的同时，也大大提高了开发人员的效率。</description>
+    </item>
+    
+    <item>
+      <title>MyBatis05 一对多和多对一处理</title>
+      <link>https://example.com/p/mybatis05-%E4%B8%80%E5%AF%B9%E5%A4%9A%E5%92%8C%E5%A4%9A%E5%AF%B9%E4%B8%80%E5%A4%84%E7%90%86/</link>
+      <pubDate>Tue, 09 Nov 2021 09:56:14 +0800</pubDate>
+      
+      <guid>https://example.com/p/mybatis05-%E4%B8%80%E5%AF%B9%E5%A4%9A%E5%92%8C%E5%A4%9A%E5%AF%B9%E4%B8%80%E5%A4%84%E7%90%86/</guid>
+      <description>一对多和多对一处理 多对一的处理 多对一的理解：
+ 多个学生对应一个老师 如果对于学生这边，就是一个多对一的现象，即从学生这边关联一个老师！  CREATETABLE`teacher`(`id`INT(10)NOTNULL,`name`VARCHAR(30)DEFAULTNULL,PRIMARYKEY(`id`))ENGINE=INNODBDEFAULTCHARSET=utf8INSERTINTOteacher(`id`,`name`)VALUES(1,&amp;#39;张老师&amp;#39;);CREATETABLE`student`(`id`INT(10)NOTNULL,`name`VARCHAR(30)DEFAULTNULL,`tid`INT(10)DEFAULTNULL,PRIMARYKEY(`id`),KEY`fktid`(`tid`),CONSTRAINT`fktid`FOREIGNKEY(`tid`)REFERENCES`teacher`(`id`))ENGINE=INNODBDEFAULTCHARSET=utf8INSERTINTO`student`(`id`,`name`,`tid`)VALUES(&amp;#39;1&amp;#39;,&amp;#39;小明&amp;#39;,&amp;#39;1&amp;#39;);INSERTINTO`student`(`id`,`name`,`tid`)VALUES(&amp;#39;2&amp;#39;,&amp;#39;小红&amp;#39;,&amp;#39;1&amp;#39;);INSERTINTO`student`(`id`,`name`,`tid`)VALUES(&amp;#39;3&amp;#39;,&amp;#39;小张&amp;#39;,&amp;#39;1&amp;#39;);INSERTINTO`student`(`id`,`name`,`tid`)VALUES(&amp;#39;4&amp;#39;,&amp;#39;小李&amp;#39;,&amp;#39;1&amp;#39;);INSERTINTO`student`(`id`,`name`,`tid`)VALUES(&amp;#39;5&amp;#39;,&amp;#39;小王&amp;#39;,&amp;#39;1&amp;#39;);搭建测试环境 1、IDEA安装Lombok插件
+2、引入Maven依赖
+&amp;lt;!-- https://mvnrepository.com/artifact/org.projectlombok/lombok --&amp;gt; &amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;org.projectlombok&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;lombok&amp;lt;/artifactId&amp;gt; &amp;lt;version&amp;gt;1.16.10&amp;lt;/version&amp;gt; &amp;lt;/dependency&amp;gt; 3、在代码中增加注解
+@Data //GET,SET,ToString，有参，无参构造 public class Teacher { private int id; private String name; } @Data public class Student { private int id; private String name; //多个学生可以是同一个老师，即多对一  private Teacher teacher; } 4、编写实体类对应的Mapper接口 【两个】
+ 无论有没有需求，都应该写上，以备后来之需！  public interface StudentMapper { } public interface TeacherMapper { } 5、编写Mapper接口对应的 mapper.xml配置文件 【两个】
+ 无论有没有需求，都应该写上，以备后来之需！  &amp;lt;?</description>
+    </item>
+    
+    <item>
+      <title>MyBatis04 使用注解开发</title>
+      <link>https://example.com/p/mybatis04-%E4%BD%BF%E7%94%A8%E6%B3%A8%E8%A7%A3%E5%BC%80%E5%8F%91/</link>
+      <pubDate>Tue, 09 Nov 2021 09:55:20 +0800</pubDate>
+      
+      <guid>https://example.com/p/mybatis04-%E4%BD%BF%E7%94%A8%E6%B3%A8%E8%A7%A3%E5%BC%80%E5%8F%91/</guid>
+      <description>使用注解开发 面向接口编程  大家之前都学过面向对象编程，也学习过接口，但在真正的开发中，很多时候我们会选择面向接口编程 根本原因 : 解耦 , 可拓展 , 提高复用 , 分层开发中 , 上层不用管具体的实现 , 大家都遵守共同的标准 , 使得开发变得容易 , 规范性更好 在一个面向对象的系统中，系统的各种功能是由许许多多的不同对象协作完成的。在这种情况下，各个对象内部是如何实现自己的,对系统设计人员来讲就不那么重要了； 而各个对象之间的协作关系则成为系统设计的关键。小到不同类之间的通信，大到各模块之间的交互，在系统设计之初都是要着重考虑的，这也是系统设计的主要工作内容。面向接口编程就是指按照这种思想来编程。  关于接口的理解   接口从更深层次的理解，应是定义（规范，约束）与实现（名实分离的原则）的分离。
+  接口的本身反映了系统设计人员对系统的抽象理解。
+  接口应有两类：
+   第一类是对一个个体的抽象，它可对应为一个抽象体(abstract class)； 第二类是对一个个体某一方面的抽象，即形成一个抽象面（interface）；    一个体有可能有多个抽象面。抽象体与抽象面是有区别的。
+  三个面向区别   面向对象是指，我们考虑问题时，以对象为单位，考虑它的属性及方法 .
+  面向过程是指，我们考虑问题时，以一个具体的流程（事务过程）为单位，考虑它的实现 .
+  接口设计与非接口设计是针对复用技术而言的，与面向对象（过程）不是一个问题.更多的体现就是对系统整体的架构
+  利用注解开发   mybatis最初配置信息是基于 XML ,映射语句(SQL)也是定义在 XML 中的。而到MyBatis 3提供了新的基于注解的配置。不幸的是，Java 注解的的表达力和灵活性十分有限。最强大的 MyBatis 映射并不能用注解来构建</description>
+    </item>
+    
+    <item>
+      <title>MyBatis03 ResultMap及分页</title>
+      <link>https://example.com/p/mybatis03-resultmap%E5%8F%8A%E5%88%86%E9%A1%B5/</link>
+      <pubDate>Tue, 09 Nov 2021 09:53:47 +0800</pubDate>
+      
+      <guid>https://example.com/p/mybatis03-resultmap%E5%8F%8A%E5%88%86%E9%A1%B5/</guid>
+      <description>ResultMap 查询为null问题 要解决的问题：属性名和字段名不一致
+环境：新建一个项目，将之前的项目拷贝过来
+1、查看之前的数据库的字段名
+id name pwd
+2、Java中的实体类设计
+public class User { private int id; //id  private String name; //姓名  private String password; //密码和数据库不一样！ } 3、接口
+//根据id查询用户 User selectUserById(int id); 4、mapper映射文件
+&amp;lt;select id=&amp;#34;selectUserById&amp;#34; resultType=&amp;#34;user&amp;#34;&amp;gt; select * from user where id = #{id} &amp;lt;/select&amp;gt; 5、测试
+@Test public void testSelectUserById() { SqlSession session = MybatisUtils.getSession(); //获取SqlSession连接  UserMapper mapper = session.getMapper(UserMapper.class); User user = mapper.selectUserById(1); System.out.println(user); session.close(); } 结果:</description>
+    </item>
+    
+    <item>
+      <title>MyBatis02 增删改查</title>
+      <link>https://example.com/p/mybatis02-%E5%A2%9E%E5%88%A0%E6%94%B9%E6%9F%A5/</link>
+      <pubDate>Tue, 09 Nov 2021 09:52:53 +0800</pubDate>
+      
+      <guid>https://example.com/p/mybatis02-%E5%A2%9E%E5%88%A0%E6%94%B9%E6%9F%A5/</guid>
+      <description>CRUD操作  SQL语句返回值类型。【完整的类名或者别名】 传入SQL语句的参数类型 。【万能的Map，可以多尝试使用】 命名空间中唯一的标识符 接口中的方法名与映射文件中的SQL语句ID 一一对应 id parameterType resultType  select 标签  id 相应dao层方法 parameterType 传入参数类型 resultType 返回对象  需求：根据id查询用户
+1、在UserMapper中添加对应方法
+public interface UserMapper { //根据id查询用户  User selectUserById(int id); } 2、在UserMapper.xml中添加Select语句
+&amp;lt;select id=&amp;#34;selectUserById&amp;#34; resultType=&amp;#34;com.xxgc.pojo.User&amp;#34;&amp;gt; select * from user where id = #{id} &amp;lt;/select&amp;gt; 3、测试类中测试
+@Test public void tsetSelectUserById() { SqlSession session = MybatisUtils.getSession(); //获取SqlSession连接  UserMapper mapper = session.getMapper(UserMapper.class); User user = mapper.selectUserById(1); System.out.println(user); session.close(); } insert 标签 需求：给数据库增加一个用户</description>
+    </item>
+    
+    <item>
+      <title>MyBatis01 环境配置</title>
+      <link>https://example.com/p/mybatis01-%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/</link>
+      <pubDate>Tue, 09 Nov 2021 09:50:26 +0800</pubDate>
+      
+      <guid>https://example.com/p/mybatis01-%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/</guid>
+      <description>MyBatis简介 什么是MyBatis   MyBatis 是一款优秀的持久层框架，它支持自定义 SQL、存储过程以及高级映射。
+  MyBatis 避免了几乎所有的 JDBC 代码和手动设置参数以及获取结果集的过程
+  MyBatis 可以使用简单的 XML 或注解来配置和映射原生信息，将接口和 Java 的 实体类 【Plain Old Java Objects,普通的 Java对象】映射成数据库中的记录。
+  Mybatis的历史   MyBatis 本是apache的一个开源项目ibatis, 2010年这个项目由apache 迁移到了google code，并且改名为MyBatis 。
+  2013年11月迁移到Github .
+  Mybatis官方文档 : http://www.mybatis.org/mybatis-3/zh/index.html
+  GitHub : https://github.com/mybatis/mybatis-3
+  持久化 持久化是将程序数据在持久状态和瞬时状态间转换的机制。
+ 即把数据（如内存中的对象）保存到可永久保存的存储设备中（如磁盘）。 JDBC就是一种持久化机制。文件IO也是一种持久化机制。  为什么需要持久化服务呢？那是由于内存本身的缺陷引起的
+ 内存断电后数据会丢失，但有一些对象是无论如何都不能丢失的，比如银行账号等，遗憾的是，人们还无法保证内存永不掉电。 内存过于昂贵，与硬盘、光盘等外存相比。所以即使对象不需要永久保存，也会因为内存的容量限制不能一直呆在内存中，需要持久化来缓存到外存。  持久层 什么是持久层？
+ 完成持久化工作的代码块 . &amp;mdash;-&amp;gt; dao层 【DAO (Data Access Object) 数据访问对象】 大多数情况下特别是企业级应用，数据持久化往往也就意味着将内存中的数据保存到磁盘上加以固化，而持久化的实现过程则大多通过各种关系数据库来完成。 不过这里有一个字需要特别强调，也就是所谓的“层”。对于应用系统而言，数据持久功能大多是必不可少的组成部分。也就是说，我们的系统中，已经天然的具备了“持久层”概念？也许是，但也许实际情况并非如此。之所以要独立出一个“持久层”的概念,而不是“持久模块”，“持久单元”，也就意味着，我们的系统架构中，应该有一个相对独立的逻辑层面，专注于数据持久化逻辑的实现.</description>
+    </item>
+    
+    <item>
+      <title>SpringMVC08 拦截器与文件上传下载</title>
+      <link>https://example.com/p/springmvc08-%E6%8B%A6%E6%88%AA%E5%99%A8%E4%B8%8E%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E4%B8%8B%E8%BD%BD/</link>
+      <pubDate>Tue, 09 Nov 2021 09:43:55 +0800</pubDate>
+      
+      <guid>https://example.com/p/springmvc08-%E6%8B%A6%E6%88%AA%E5%99%A8%E4%B8%8E%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E4%B8%8B%E8%BD%BD/</guid>
+      <description>拦截器以及文件的上传和下载 拦截器 概述 SpringMVC的处理器拦截器类似于Servlet开发中的过滤器Filter,用于对处理器进行预处理和后处理。开发者可以自己定义一些拦截器来实现特定的功能。
+**过滤器与拦截器的区别：**拦截器是AOP思想的具体应用。
+过滤器
+ servlet规范中的一部分，任何java web工程都可以使用 在url-pattern中配置了/*之后，可以对所有要访问的资源进行拦截  拦截器
+ 拦截器是SpringMVC框架自己的，只有使用了SpringMVC框架的工程才能使用 拦截器只会拦截访问的控制器方法， 如果访问的是jsp/html/css/image/js是不会进行拦截的  自定义拦截器 那如何实现拦截器呢？
+想要自定义拦截器，必须实现 HandlerInterceptor 接口。
+1、新建一个Moudule ， springmvc-07-Interceptor ， 添加web支持
+2、配置web.xml 和 springmvc-servlet.xml 文件
+3、编写一个拦截器
+package com.kuang.interceptor; import org.springframework.web.servlet.HandlerInterceptor; import org.springframework.web.servlet.ModelAndView; import javax.servlet.http.HttpServletRequest; import javax.servlet.http.HttpServletResponse; public class MyInterceptor implements HandlerInterceptor { //在请求处理的方法之前执行  //如果返回true执行下一个拦截器  //如果返回false就不执行下一个拦截器  public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o) throws Exception { System.out.println(&amp;#34;------------处理前------------&amp;#34;); return true; } //在请求处理方法执行之后执行  public void postHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o, ModelAndView modelAndView) throws Exception { System.</description>
+    </item>
+    
+    <item>
+      <title>SpringMVC07 Ajax研究</title>
+      <link>https://example.com/p/springmvc07-ajax%E7%A0%94%E7%A9%B6/</link>
+      <pubDate>Tue, 09 Nov 2021 09:43:00 +0800</pubDate>
+      
+      <guid>https://example.com/p/springmvc07-ajax%E7%A0%94%E7%A9%B6/</guid>
+      <description>Ajax研究 简介   AJAX = Asynchronous JavaScript and XML（异步的 JavaScript 和 XML）。
+  AJAX 是一种在无需重新加载整个网页的情况下，能够更新部分网页的技术。
+  Ajax 不是一种新的编程语言，而是一种用于创建更好更快以及交互性更强的Web应用程序的技术。
+  在 2005 年，Google 通过其 Google Suggest 使 AJAX 变得流行起来。Google Suggest能够自动帮你完成搜索单词。
+  Google Suggest 使用 AJAX 创造出动态性极强的 web 界面：当您在谷歌的搜索框输入关键字时，JavaScript 会把这些字符发送到服务器，然后服务器会返回一个搜索建议的列表。
+  就和国内百度的搜索框一样!
+  传统的网页(即不用ajax技术的网页)，想要更新内容或者提交一个表单，都需要重新加载整个网页。
+  使用ajax技术的网页，通过在后台服务器进行少量的数据交换，就可以实现异步局部更新。
+  使用Ajax，用户可以创建接近本地桌面应用的直接、高可用、更丰富、更动态的Web用户界面。
+  伪造Ajax 我们可以使用前端的一个标签来伪造一个ajax的样子。iframe标签
+1、新建一个module ：sspringmvc-06-ajax ， 导入web支持！
+2、编写一个 ajax-frame.html 使用 iframe 测试，感受下效果
+&amp;lt;!DOCTYPE html&amp;gt; &amp;lt;html&amp;gt; &amp;lt;head lang=&amp;#34;en&amp;#34;&amp;gt; &amp;lt;meta charset=&amp;#34;UTF-8&amp;#34;&amp;gt; &amp;lt;title&amp;gt;kuangshen&amp;lt;/title&amp;gt; &amp;lt;/head&amp;gt; &amp;lt;body&amp;gt; &amp;lt;script type=&amp;#34;text/javascript&amp;#34;&amp;gt; window.</description>
+    </item>
+    
+    <item>
+      <title>SpringMVC06 Json交互处理</title>
+      <link>https://example.com/p/springmvc06-json%E4%BA%A4%E4%BA%92%E5%A4%84%E7%90%86/</link>
+      <pubDate>Tue, 09 Nov 2021 09:42:10 +0800</pubDate>
+      
+      <guid>https://example.com/p/springmvc06-json%E4%BA%A4%E4%BA%92%E5%A4%84%E7%90%86/</guid>
+      <description>Json 什么是JSON？  JSON(JavaScript Object Notation, JS 对象标记) 是一种轻量级的数据交换格式，目前使用特别广泛。 采用完全独立于编程语言的文本格式来存储和表示数据。 简洁和清晰的层次结构使得 JSON 成为理想的数据交换语言。 易于人阅读和编写，同时也易于机器解析和生成，并有效地提升网络传输效率。  在 JavaScript 语言中，一切都是对象。因此，任何JavaScript 支持的类型都可以通过 JSON 来表示，例如字符串、数字、对象、数组等。看看他的要求和语法格式：
+ 对象表示为键值对，数据由逗号分隔 花括号保存对象 方括号保存数组  JSON 键值对是用来保存 JavaScript 对象的一种方式，和 JavaScript 对象的写法也大同小异，键/值对组合中的键名写在前面并用双引号 &amp;quot;&amp;quot; 包裹，使用冒号 : 分隔，然后紧接着值：
+{&amp;#34;name&amp;#34;: &amp;#34;QinJiang&amp;#34;} {&amp;#34;age&amp;#34;: &amp;#34;3&amp;#34;} {&amp;#34;sex&amp;#34;: &amp;#34;男&amp;#34;} 很多人搞不清楚 JSON 和 JavaScript 对象的关系，甚至连谁是谁都不清楚。其实，可以这么理解：
+JSON 是 JavaScript 对象的字符串表示法，它使用文本表示一个 JS 对象的信息，本质是一个字符串。
+var obj = {a: &amp;#39;Hello&amp;#39;, b: &amp;#39;World&amp;#39;}; //这是一个对象，注意键名也是可以使用引号包裹的 var json = &amp;#39;{&amp;#34;a&amp;#34;: &amp;#34;Hello&amp;#34;, &amp;#34;b&amp;#34;: &amp;#34;World&amp;#34;}&amp;#39;; //这是一个 JSON 字符串，本质是一个字符串 JSON 和 JavaScript 对象互转</description>
+    </item>
+    
+    <item>
+      <title>SpringMVC05 整合SSM框架</title>
+      <link>https://example.com/p/springmvc05-%E6%95%B4%E5%90%88ssm%E6%A1%86%E6%9E%B6/</link>
+      <pubDate>Tue, 09 Nov 2021 09:40:59 +0800</pubDate>
+      
+      <guid>https://example.com/p/springmvc05-%E6%95%B4%E5%90%88ssm%E6%A1%86%E6%9E%B6/</guid>
+      <description>整合SSM框架 数据库环境 创建一个存放书籍数据的数据库表
+CREATEDATABASE`ssmbuild`;USE`ssmbuild`;DROPTABLEIFEXISTS`books`;CREATETABLE`books`(`bookID`INT(10)NOTNULLAUTO_INCREMENTCOMMENT&amp;#39;书id&amp;#39;,`bookName`VARCHAR(100)NOTNULLCOMMENT&amp;#39;书名&amp;#39;,`bookCounts`INT(11)NOTNULLCOMMENT&amp;#39;数量&amp;#39;,`detail`VARCHAR(200)NOTNULLCOMMENT&amp;#39;描述&amp;#39;,KEY`bookID`(`bookID`))ENGINE=INNODBDEFAULTCHARSET=utf8INSERTINTO`books`(`bookID`,`bookName`,`bookCounts`,`detail`)VALUES(1,&amp;#39;Java&amp;#39;,1,&amp;#39;从入门到放弃&amp;#39;),(2,&amp;#39;MySQL&amp;#39;,10,&amp;#39;从删库到跑路&amp;#39;),(3,&amp;#39;Linux&amp;#39;,5,&amp;#39;从进门到进牢&amp;#39;);基本环境搭建 1、新建一Maven项目！ssmbuild ， 添加web的支持
+2、导入相关的pom依赖！
+&amp;lt;dependencies&amp;gt; &amp;lt;!--Junit--&amp;gt; &amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;junit&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;junit&amp;lt;/artifactId&amp;gt; &amp;lt;version&amp;gt;4.12&amp;lt;/version&amp;gt; &amp;lt;/dependency&amp;gt; &amp;lt;!--数据库驱动--&amp;gt; &amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;mysql&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;mysql-connector-java&amp;lt;/artifactId&amp;gt; &amp;lt;version&amp;gt;5.1.47&amp;lt;/version&amp;gt; &amp;lt;/dependency&amp;gt; &amp;lt;!-- 数据库连接池 --&amp;gt; &amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;com.mchange&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;c3p0&amp;lt;/artifactId&amp;gt; &amp;lt;version&amp;gt;0.9.5.2&amp;lt;/version&amp;gt; &amp;lt;/dependency&amp;gt; &amp;lt;!--Servlet - JSP --&amp;gt; &amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;javax.servlet&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;servlet-api&amp;lt;/artifactId&amp;gt; &amp;lt;version&amp;gt;2.5&amp;lt;/version&amp;gt; &amp;lt;/dependency&amp;gt; &amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;javax.servlet.jsp&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;jsp-api&amp;lt;/artifactId&amp;gt; &amp;lt;version&amp;gt;2.2&amp;lt;/version&amp;gt; &amp;lt;/dependency&amp;gt; &amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;javax.servlet&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;jstl&amp;lt;/artifactId&amp;gt; &amp;lt;version&amp;gt;1.2&amp;lt;/version&amp;gt; &amp;lt;/dependency&amp;gt; &amp;lt;!--Mybatis--&amp;gt; &amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;org.mybatis&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;mybatis&amp;lt;/artifactId&amp;gt; &amp;lt;version&amp;gt;3.5.2&amp;lt;/version&amp;gt; &amp;lt;/dependency&amp;gt; &amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;org.mybatis&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;mybatis-spring&amp;lt;/artifactId&amp;gt; &amp;lt;version&amp;gt;2.0.2&amp;lt;/version&amp;gt; &amp;lt;/dependency&amp;gt; &amp;lt;!--Spring--&amp;gt; &amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;org.springframework&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;spring-webmvc&amp;lt;/artifactId&amp;gt; &amp;lt;version&amp;gt;5.1.9.RELEASE&amp;lt;/version&amp;gt; &amp;lt;/dependency&amp;gt; &amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;org.springframework&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;spring-jdbc&amp;lt;/artifactId&amp;gt; &amp;lt;version&amp;gt;5.1.9.RELEASE&amp;lt;/version&amp;gt; &amp;lt;/dependency&amp;gt; &amp;lt;/dependencies&amp;gt; 3、Maven资源过滤设置</description>
+    </item>
+    
+    <item>
+      <title>SpringMVC04 数据处理及跳转</title>
+      <link>https://example.com/p/springmvc04-%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E5%8F%8A%E8%B7%B3%E8%BD%AC/</link>
+      <pubDate>Tue, 09 Nov 2021 09:40:04 +0800</pubDate>
+      
+      <guid>https://example.com/p/springmvc04-%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E5%8F%8A%E8%B7%B3%E8%BD%AC/</guid>
+      <description>数据处理及跳转 跳转 ModelAndView 设置ModelAndView对象 , 根据view的名称 , 和视图解析器跳到指定的页面 .
+页面 : {视图解析器前缀} + viewName +{视图解析器后缀}
+&amp;lt;!-- 视图解析器 --&amp;gt; &amp;lt;bean class=&amp;#34;org.springframework.web.servlet.view.InternalResourceViewResolver&amp;#34; id=&amp;#34;internalResourceViewResolver&amp;#34;&amp;gt; &amp;lt;!-- 前缀 --&amp;gt; &amp;lt;property name=&amp;#34;prefix&amp;#34; value=&amp;#34;/WEB-INF/jsp/&amp;#34; /&amp;gt; &amp;lt;!-- 后缀 --&amp;gt; &amp;lt;property name=&amp;#34;suffix&amp;#34; value=&amp;#34;.jsp&amp;#34; /&amp;gt; &amp;lt;/bean&amp;gt; 对应的controller类
+public class ControllerTest1 implements Controller { public ModelAndView handleRequest(HttpServletRequest httpServletRequest, HttpServletResponsehttpServletResponse) throws Exception { //返回一个模型视图对象  ModelAndView mv = new ModelAndView(); mv.addObject(&amp;#34;msg&amp;#34;,&amp;#34;ControllerTest1&amp;#34;); mv.setViewName(&amp;#34;test&amp;#34;); return mv; } } ServletAPI 通过设置ServletAPI , 不需要视图解析器 .
+1、通过HttpServletResponse进行输出</description>
+    </item>
+    
+    <item>
+      <title>SpringMVC03 RestFul和控制器</title>
+      <link>https://example.com/p/springmvc03-restful%E5%92%8C%E6%8E%A7%E5%88%B6%E5%99%A8/</link>
+      <pubDate>Tue, 09 Nov 2021 09:39:07 +0800</pubDate>
+      
+      <guid>https://example.com/p/springmvc03-restful%E5%92%8C%E6%8E%A7%E5%88%B6%E5%99%A8/</guid>
+      <description>RestFul和控制器 控制器Controller   控制器复杂提供访问应用程序的行为，通常通过接口定义或注解定义两种方法实现。
+  控制器负责解析用户的请求并将其转换为一个模型。
+  在Spring MVC中一个控制器类可以包含多个方法
+  在Spring MVC中，对于Controller的配置方式有很多种
+  实现Controller接口 Controller是一个接口，在org.springframework.web.servlet.mvc包下，接口中只有一个方法；
+  编写一个Controller类，ControllerTest1
+//定义控制器 //注意点：不要导错包，实现Controller接口，重写方法； public class ControllerTest1 implements Controller { //处理请求且返回一个模型与视图对象  public ModelAndView handleRequest(HttpServletRequest httpServletRequest, HttpServletResponsehttpServletResponse) throws Exception { //返回一个模型视图对象  ModelAndView mv = new ModelAndView(); mv.addObject(&amp;#34;msg&amp;#34;,&amp;#34;Test1Controller&amp;#34;); mv.setViewName(&amp;#34;test&amp;#34;); return mv; } }   编写完毕后，去Spring配置文件中注册请求的bean；name对应请求路径，class对应处理请求的类
+&amp;lt;bean name=&amp;#34;/t1&amp;#34; class=&amp;#34;com.xxgc.controller.ControllerTest1&amp;#34;/&amp;gt;   编写前端test.jsp，注意在WEB-INF/jsp目录下编写，对应我们的视图解析器
+&amp;lt;%@ page contentType=&amp;quot;text/html;charset=UTF-8&amp;quot; language=&amp;quot;java&amp;quot; %&amp;gt; &amp;lt;html&amp;gt; &amp;lt;head&amp;gt; &amp;lt;title&amp;gt;jsp&amp;lt;/title&amp;gt; &amp;lt;/head&amp;gt; &amp;lt;body&amp;gt; ${msg} &amp;lt;/body&amp;gt; &amp;lt;/html&amp;gt;   配置Tomcat运行测试，我这里没有项目发布名配置的就是一个 / ，所以请求不用加项目名，OK！</description>
+    </item>
+    
+    <item>
+      <title>SpringMVC02 配置springMVC</title>
+      <link>https://example.com/p/springmvc02-%E9%85%8D%E7%BD%AEspringmvc/</link>
+      <pubDate>Tue, 09 Nov 2021 09:38:02 +0800</pubDate>
+      
+      <guid>https://example.com/p/springmvc02-%E9%85%8D%E7%BD%AEspringmvc/</guid>
+      <description>配置springMVC 配置版 新建一个Moudle ， springmvc-02-hello ， 添加web的支持！
+确定导入了SpringMVC 的依赖！
+配置web.xml，注册DispatcherServlet &amp;lt;!DOCTYPE web-app PUBLIC &amp;#34;-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN&amp;#34; &amp;#34;http://java.sun.com/dtd/web-app_2_3.dtd&amp;#34; &amp;gt; &amp;lt;web-app&amp;gt; &amp;lt;display-name&amp;gt;Archetype Created Web Application&amp;lt;/display-name&amp;gt; &amp;lt;!--1.注册DispatcherServlet--&amp;gt; &amp;lt;servlet&amp;gt; &amp;lt;servlet-name&amp;gt;springmvc&amp;lt;/servlet-name&amp;gt; &amp;lt;servlet-class&amp;gt;org.springframework.web.servlet.DispatcherServlet&amp;lt;/servlet-class&amp;gt; &amp;lt;!--关联一个springmvc的配置文件:【servlet-name】-servlet.xml--&amp;gt; &amp;lt;init-param&amp;gt; &amp;lt;param-name&amp;gt;contextConfigLocation&amp;lt;/param-name&amp;gt; &amp;lt;param-value&amp;gt;classpath:springmvc-servlet.xml&amp;lt;/param-value&amp;gt; &amp;lt;/init-param&amp;gt; &amp;lt;!--启动级别-1--&amp;gt; &amp;lt;load-on-startup&amp;gt;1&amp;lt;/load-on-startup&amp;gt; &amp;lt;/servlet&amp;gt; &amp;lt;!--/ 匹配所有的请求；（不包括.jsp）--&amp;gt; &amp;lt;!--/* 匹配所有的请求；（包括.jsp）--&amp;gt; &amp;lt;servlet-mapping&amp;gt; &amp;lt;servlet-name&amp;gt;springmvc&amp;lt;/servlet-name&amp;gt; &amp;lt;url-pattern&amp;gt;/&amp;lt;/url-pattern&amp;gt; &amp;lt;/servlet-mapping&amp;gt; &amp;lt;/web-app&amp;gt; 编写SpringMVC 的 配置文件 名称：springmvc-servlet.xml : [servletname]-servlet.xml
+&amp;lt;?xml version=&amp;#34;1.0&amp;#34; encoding=&amp;#34;UTF-8&amp;#34;?&amp;gt;&amp;lt;beans xmlns=&amp;#34;http://www.springframework.org/schema/beans&amp;#34; xmlns:xsi=&amp;#34;http://www.w3.org/2001/XMLSchema-instance&amp;#34; xsi:schemaLocation=&amp;#34;http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd&amp;#34;&amp;gt; &amp;lt;/beans&amp;gt; 添加 处理映射器 &amp;lt;bean class=&amp;#34;org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping&amp;#34;/&amp;gt; 添加 处理器适配器 &amp;lt;bean class=&amp;#34;org.springframework.web.servlet.mvc.SimpleControllerHandlerAdapter&amp;#34;/&amp;gt; 添加 视图解析器 &amp;lt;!</description>
+    </item>
+    
+    <item>
+      <title>SpringMVC01 什么是SpringMVC</title>
+      <link>https://example.com/p/springmvc01-%E4%BB%80%E4%B9%88%E6%98%AFspringmvc/</link>
+      <pubDate>Tue, 09 Nov 2021 09:36:36 +0800</pubDate>
+      
+      <guid>https://example.com/p/springmvc01-%E4%BB%80%E4%B9%88%E6%98%AFspringmvc/</guid>
+      <description>什么是SpringMVC 回顾MVC 什么是MVC  MVC是模型(Model)、视图(View)、控制器(Controller)的简写，是一种软件设计规范。 是将业务逻辑、数据、显示分离的方法来组织代码。 MVC主要作用是降低了视图与业务逻辑间的双向偶合。 MVC不是一种设计模式，MVC是一种架构模式。当然不同的MVC存在差异。  **Model（模型）：**数据模型，提供要展示的数据，因此包含数据和行为，可以认为是领域模型或JavaBean组件（包含数据和行为），不过现在一般都分离开来：Value Object（数据Dao） 和 服务层（行为Service）。也就是模型提供了模型数据查询和模型数据的状态更新等功能，包括数据和业务。
+**View（视图）：**负责进行模型的展示，一般就是我们见到的用户界面，客户想看到的东西。
+**Controller（控制器）：**接收用户请求，委托给模型进行处理（状态改变），处理完毕后把返回的模型数据返回给视图，由视图负责展示。也就是说控制器做了个调度员的工作。
+最典型的MVC就是JSP + servlet + javabean的模式。
+Model1时代  在web早期的开发中，通常采用的都是Model1。 Model1中，主要分为两层，视图层和模型层。  Model1优点：架构简单，比较适合小型项目开发；
+Model1缺点：JSP职责不单一，职责过重，不便于维护；
+Model2时代 Model2把一个项目分成三部分，包括视图、控制、模型。
+ 用户发请求 Servlet接收请求数据，并调用对应的业务逻辑方法 业务处理完毕，返回更新后的数据给servlet servlet转向到JSP，由JSP来渲染页面 响应给前端更新后的页面  职责分析： Controller：控制器
+ 取得表单数据 调用业务逻辑 转向指定的页面  Model：模型
+ 业务逻辑 保存数据的状态  View：视图
+ 显示页面  Model2这样不仅提高的代码的复用率与项目的扩展性，且大大降低了项目的维护成本。Model 1模式的实现比较简单，适用于快速开发小规模项目，Model1中JSP页面身兼View和Controller两种角色，将控制逻辑和表现逻辑混杂在一起，从而导致代码的重用性非常低，增加了应用的扩展性和维护的难度。Model2消除了Model1的缺点。
+回顾Servlet   新建一个Maven工程当做父工程！pom依赖！
+&amp;lt;dependencies&amp;gt; &amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;junit&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;junit&amp;lt;/artifactId&amp;gt; &amp;lt;version&amp;gt;4.12&amp;lt;/version&amp;gt; &amp;lt;/dependency&amp;gt; &amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;org.springframework&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;spring-webmvc&amp;lt;/artifactId&amp;gt; &amp;lt;version&amp;gt;5.1.9.RELEASE&amp;lt;/version&amp;gt; &amp;lt;/dependency&amp;gt; &amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;javax.</description>
+    </item>
+    
+    <item>
+      <title>Spring08 整合MyBatis</title>
+      <link>https://example.com/p/spring08-%E6%95%B4%E5%90%88mybatis/</link>
+      <pubDate>Tue, 09 Nov 2021 09:28:49 +0800</pubDate>
+      
+      <guid>https://example.com/p/spring08-%E6%95%B4%E5%90%88mybatis/</guid>
+      <description>整合MyBatis
+ 步骤  1、导入相关jar包
+junit
+&amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;junit&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;junit&amp;lt;/artifactId&amp;gt; &amp;lt;version&amp;gt;4.12&amp;lt;/version&amp;gt; &amp;lt;/dependency&amp;gt; mybatis
+&amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;org.mybatis&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;mybatis&amp;lt;/artifactId&amp;gt; &amp;lt;version&amp;gt;3.5.2&amp;lt;/version&amp;gt; &amp;lt;/dependency&amp;gt; mysql-connector-java
+&amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;mysql&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;mysql-connector-java&amp;lt;/artifactId&amp;gt; &amp;lt;version&amp;gt;5.1.47&amp;lt;/version&amp;gt; &amp;lt;/dependency&amp;gt; spring相关
+&amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;org.springframework&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;spring-webmvc&amp;lt;/artifactId&amp;gt; &amp;lt;version&amp;gt;5.1.10.RELEASE&amp;lt;/version&amp;gt; &amp;lt;/dependency&amp;gt; &amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;org.springframework&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;spring-jdbc&amp;lt;/artifactId&amp;gt; &amp;lt;version&amp;gt;5.1.10.RELEASE&amp;lt;/version&amp;gt; &amp;lt;/dependency&amp;gt; aspectJ AOP 织入器
+&amp;lt;!-- https://mvnrepository.com/artifact/org.aspectj/aspectjweaver --&amp;gt; &amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;org.aspectj&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;aspectjweaver&amp;lt;/artifactId&amp;gt; &amp;lt;version&amp;gt;1.9.4&amp;lt;/version&amp;gt; &amp;lt;/dependency&amp;gt; mybatis-spring整合包 【重点】
+&amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;org.mybatis&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;mybatis-spring&amp;lt;/artifactId&amp;gt; &amp;lt;version&amp;gt;2.0.2&amp;lt;/version&amp;gt; &amp;lt;/dependency&amp;gt; 配置Maven静态资源过滤问题！
+&amp;lt;build&amp;gt; &amp;lt;resources&amp;gt; &amp;lt;resource&amp;gt; &amp;lt;directory&amp;gt;src/main/java&amp;lt;/directory&amp;gt; &amp;lt;includes&amp;gt; &amp;lt;include&amp;gt;**/*.properties&amp;lt;/include&amp;gt; &amp;lt;include&amp;gt;**/*.xml&amp;lt;/include&amp;gt; &amp;lt;/includes&amp;gt; &amp;lt;filtering&amp;gt;true&amp;lt;/filtering&amp;gt; &amp;lt;/resource&amp;gt; &amp;lt;/resources&amp;gt; &amp;lt;/build&amp;gt; 2、编写配置文件
+3、代码实现
+ 回忆MyBatis  编写pojo实体类</description>
+    </item>
+    
+    <item>
+      <title>Spring09 声明式事务</title>
+      <link>https://example.com/p/spring09-%E5%A3%B0%E6%98%8E%E5%BC%8F%E4%BA%8B%E5%8A%A1/</link>
+      <pubDate>Tue, 09 Nov 2021 09:27:01 +0800</pubDate>
+      
+      <guid>https://example.com/p/spring09-%E5%A3%B0%E6%98%8E%E5%BC%8F%E4%BA%8B%E5%8A%A1/</guid>
+      <description>声明式事务 回顾事务  事务在项目开发过程非常重要，涉及到数据的一致性的问题，不容马虎！ 事务管理是企业级应用程序开发中必备技术，用来确保数据的完整性和一致性。  事务就是把一系列的动作当成一个独立的工作单元，这些动作要么全部完成，要么全部不起作用。
+事务四个属性ACID 原子性（atomicity）  事务是原子性操作，由一系列动作组成，事务的原子性确保动作要么全部完成，要么完全不起作用  一致性（consistency）  一旦所有事务动作完成，事务就要被提交。数据和资源处于一种满足业务规则的一致性状态中  隔离性（isolation）  可能多个事务会同时处理相同的数据，因此每个事务都应该与其他事务隔离开来，防止数据损坏  持久性（durability）  事务一旦完成，无论系统发生什么错误，结果都不会受到影响。通常情况下，事务的结果被写到持久化存储器中  测试 将上面的代码拷贝到一个新项目中
+在之前的案例中，我们给userDao接口新增两个方法，删除和增加用户；
+//添加一个用户 int addUser(User user); //根据id删除用户 int deleteUser(int id); mapper文件，我们故意把 deletes 写错，测试！
+&amp;lt;insert id=&amp;#34;addUser&amp;#34; parameterType=&amp;#34;com.kuang.pojo.User&amp;#34;&amp;gt; insert into user (id,name,pwd) values (#{id},#{name},#{pwd}) &amp;lt;/insert&amp;gt; &amp;lt;delete id=&amp;#34;deleteUser&amp;#34; parameterType=&amp;#34;int&amp;#34;&amp;gt; deletes from user where id = #{id} &amp;lt;/delete&amp;gt; 编写接口的实现类，在实现类中，我们去操作一波
+public class UserDaoImpl extends SqlSessionDaoSupport implements UserMapper { //增加一些操作  public List&amp;lt;User&amp;gt; selectUser() { User user = new User(4,&amp;#34;小明&amp;#34;,&amp;#34;123456&amp;#34;); UserMapper mapper = getSqlSession().</description>
+    </item>
+    
+    <item>
+      <title>API返回值去除为NULL的字段</title>
+      <link>https://example.com/p/api%E8%BF%94%E5%9B%9E%E5%80%BC%E5%8E%BB%E9%99%A4%E4%B8%BAnull%E7%9A%84%E5%AD%97%E6%AE%B5/</link>
+      <pubDate>Sat, 06 Nov 2021 18:40:41 +0800</pubDate>
+      
+      <guid>https://example.com/p/api%E8%BF%94%E5%9B%9E%E5%80%BC%E5%8E%BB%E9%99%A4%E4%B8%BAnull%E7%9A%84%E5%AD%97%E6%AE%B5/</guid>
+      <description>API返回值去除为NULL的字段 简介 在前后端分离的微服务时代，后端API需要良好的规范。本篇主要将一个数据返回时的一个小技巧&amp;ndash; 过滤为空字段 解决痛点：将有效解决数据传输过程中的流量浪费。
+组件简介 Jackson ObjectMapper 通过自定义配置该组件可以选择性序列化返回的JSON。
+官方解释 Spring MVC（客户端和服务器端）用于HttpMessageConverters在HTTP交换中协商内容转换。如果Jackson在类路径上，您已经获得了提供的默认转换器Jackson2ObjectMapperBuilder，其中一个实例是为您自动配置的。 Spring Boot还具有一些功能，可以更轻松地自定义此行为。
+实战代码 创建配置类 首先创建一个配置类，加入定义为：JacksonConfig
+代码清单 import com.fasterxml.jackson.annotation.JsonInclude; import com.fasterxml.jackson.databind.ObjectMapper; import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean; import org.springframework.context.annotation.Bean; import org.springframework.context.annotation.Configuration; import org.springframework.context.annotation.Primary; import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder; /** * @author ybakiame * @description 返回json空值去掉null和&amp;#34;&amp;#34; * * 注解 @Configuration 注入后可自动配置 */ @Configuration public class JacksonConfig { @Bean @Primary @ConditionalOnMissingBean(ObjectMapper.class) public ObjectMapper jacksonObjectMapper(Jackson2ObjectMapperBuilder builder) { ObjectMapper objectMapper = builder.createXmlMapper(false).build(); objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL); return objectMapper; } } 关键点：objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL); 通过该方法对mapper对象进行设置，所有序列化的对象都将按改规则进行系列化。 其中枚举属性：JsonInclude.Include.NON_NULL有以下选择：</description>
+    </item>
+    
     <item>
       <title>Maven项目xml过滤</title>
       <link>https://example.com/p/maven%E9%A1%B9%E7%9B%AExml%E8%BF%87%E6%BB%A4/</link>
@@ -96,12 +382,12 @@ springMvc过滤静态资源文件 1、使用Tomcat的defaultServlet来处理静�
     </item>
     
     <item>
-      <title>Jackson使用</title>
-      <link>https://example.com/p/jackson%E4%BD%BF%E7%94%A8/</link>
+      <title>jackson</title>
+      <link>https://example.com/p/jackson/</link>
       <pubDate>Tue, 19 Oct 2021 14:48:39 +0800</pubDate>
       
-      <guid>https://example.com/p/jackson%E4%BD%BF%E7%94%A8/</guid>
-      <description>maven引入依赖 &amp;lt;!-- object to json Gson是Google所维护，功能全。 JackSon是Spring的御用工具，和Spring无缝集成，提供灵活的定制化开发的注解。 --&amp;gt; &amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;com.fasterxml.jackson.core&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;jackson-databind&amp;lt;/artifactId&amp;gt; &amp;lt;version&amp;gt;2.13.0&amp;lt;/version&amp;gt; &amp;lt;/dependency&amp;gt; jackson-databind 依赖 jackson-core 和 jackson-annotations，可以只显示地添加jackson-databind依赖，jackson-core 和 jackson-annotations 也随之添加到 Java 项目工程中。
+      <guid>https://example.com/p/jackson/</guid>
+      <description>jackson maven引入依赖 &amp;lt;!-- object to json Gson是Google所维护，功能全。 JackSon是Spring的御用工具，和Spring无缝集成，提供灵活的定制化开发的注解。 --&amp;gt; &amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;com.fasterxml.jackson.core&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;jackson-databind&amp;lt;/artifactId&amp;gt; &amp;lt;version&amp;gt;2.13.0&amp;lt;/version&amp;gt; &amp;lt;/dependency&amp;gt; jackson-databind 依赖 jackson-core 和 jackson-annotations，可以只显示地添加jackson-databind依赖，jackson-core 和 jackson-annotations 也随之添加到 Java 项目工程中。
 创建 ObjectMapper Jackson 最常用的 API 就是基于&amp;quot;对象绑定&amp;quot; 的 ObjectMapper：
  ObjectMapper可以从字符串，流或文件中解析JSON，并创建表示已解析的JSON的Java对象。 将JSON解析为Java对象也称为从JSON反序列化Java对象。 ObjectMapper也可以从Java对象创建JSON。 从Java对象生成JSON也称为将Java对象序列化为JSON。 Object映射器可以将JSON解析为自定义的类的对象，也可以解析置JSON树模型的对象。  之所以称为ObjectMapper是因为它将JSON映射到Java对象（反序列化），或者将Java对象映射到JSON（序列化）。
 将 java Object转化为 json 字符串 ObjectMapper objectMapper = new ObjectMapper(); String json = objectMapper.writeValueAsString(要转化为json的对象); System.out.println(json);//打印转化后的json对象 参考</description>
@@ -424,23 +710,6 @@ Spring是一个轻量级的控制反转(IoC)和面向切面(AOP)的容器（框�
     </item>
     
     <item>
-      <title>SpringMvc替换传统MVC</title>
-      <link>https://example.com/p/springmvc%E6%9B%BF%E6%8D%A2%E4%BC%A0%E7%BB%9Fmvc/</link>
-      <pubDate>Tue, 11 May 2021 15:29:19 +0800</pubDate>
-      
-      <guid>https://example.com/p/springmvc%E6%9B%BF%E6%8D%A2%E4%BC%A0%E7%BB%9Fmvc/</guid>
-      <description>web开发模式  DAO层 对数据库的增删改查 web层 界面（jsp）加控制器（servlrt） service层 执行多个或一个dao层操作，并将其组合成一个完整的业务逻辑 控制层 使用servlet进行控制 数据访问层 使用DAO、Hibernate、JDBC等技术实现对数据库的增删改查 javaBean 用于封装数据  MVC M模型（model） 模型就是 包括 dao，bean
-V 视图（view） 视图jsp，用于向用户展示模型中的数据
-C 控制（controller） 控制器负责将 模型 中的 数据 显示在不同的 显示层 之中
-早期MVC模式（mode1） 模式一：将显示层、控制层、数据层的操作同意交给jsp或者JavaBean来处理
-前端用户请求 -&amp;gt; jsp -&amp;gt; javaBean -&amp;gt; 数据库jsp和html、java类（javaBean）高度耦合。
-早期MVC模式（mode2） 模式二：以servlet为主展开，由servlet接收客户端的请求，根据请求调用对应的JavaBean或其他程序，最后将要现实的结果交给jsp完成。
-前端用户请求 -&amp;gt; jsp -&amp;gt; servlet -&amp;gt; javaBean -&amp;gt; 数据库SpringMVC 用户请求 -&amp;gt; Spring控制器 -&amp;gt; 夹带事务的模型（业务层，数据访问层）-&amp;gt;数据库传统模型层被拆分为（业务层和数据访问层）
- 需要的jar包 spring-web-*.jar spring-webmvc-*.jar    修改web.xml中的
-&amp;lt;servlet&amp;gt; &amp;lt;servlet-name&amp;gt;dispatcher&amp;lt;/servlet-name&amp;gt; &amp;lt;servlet-class&amp;gt;org.springframework.web.servlet.DispatcherServlet&amp;lt;/servlet-class&amp;gt; &amp;lt;/servlet&amp;gt; &amp;lt;servlet-mapping&amp;gt; &amp;lt;servlet-name&amp;gt;dispatcher&amp;lt;/servlet-name&amp;gt; &amp;lt;url-pattern&amp;gt;/&amp;lt;/url-pattern&amp;gt; &amp;lt;/servlet-mapping&amp;gt;   将拦截地址改为/拦截所有请求，并交给SpringMVC的后台控制器来完成</description>
-    </item>
-    
-    <item>
       <title>使用EL表达式</title>
       <link>https://example.com/p/%E4%BD%BF%E7%94%A8el%E8%A1%A8%E8%BE%BE%E5%BC%8F/</link>
       <pubDate>Tue, 11 May 2021 15:29:19 +0800</pubDate>
@@ -456,26 +725,6 @@ C 控制（controller） 控制器负责将 模型 中的 数据 显示在不同
 &amp;lt;%@ page isELIgnored =&amp;quot;true|false&amp;quot; %&amp;gt; 这样，EL表达式就会被忽略。若设为false，则容器将会计算EL表达式。
  EL中的基础操作符 EL表达式支持大部分Java所提供的算术和逻辑操作符：
    操作符 描述     . 访问一个Bean属性或者一个映射条目   [] 访问一个数组或者链表的元素   ( ) 组织一个子表达式以改变优先级   + 加   - 减或负   * 乘   / or div 除   % or mod 取模   == or eq 测试是否相等   !</description>
-    </item>
-    
-    <item>
-      <title>数据库数据分页</title>
-      <link>https://example.com/p/%E6%95%B0%E6%8D%AE%E5%BA%93%E6%95%B0%E6%8D%AE%E5%88%86%E9%A1%B5/</link>
-      <pubDate>Tue, 11 May 2021 15:29:19 +0800</pubDate>
-      
-      <guid>https://example.com/p/%E6%95%B0%E6%8D%AE%E5%BA%93%E6%95%B0%E6%8D%AE%E5%88%86%E9%A1%B5/</guid>
-      <description>数据库分页   在DAO中提供方法
-  public List&amp;lt;Hero&amp;gt; list(int start, int count) start表示开始的个数，count表示取多少条 比如 list(0, 5) ， 即表示第一页，每页有5条数据 比如 list(5, 5) ， 即表示第二页，每页有5条数据   修改HeroListServlet
-  int start = 0; int count = 5; List&amp;lt;Hero&amp;gt; heros = new HeroDAO().list(start, count);   下一页
-HeroListServlet : 通过参数获取start，如果浏览器没有传递参数，就设置为0。 根据start，计算next. next的值就是start+count. 然后把next传递给listHero.jsp
-listHero.jsp 在最后面增加一个超链
-&amp;lt;a href=&amp;quot;?start=${next}&amp;quot;&amp;gt;[下一页]&amp;lt;/a&amp;gt;
-start=${next} 从服务器传递过来的next值
-  上一页
-HeroListServlet: 根据start，计算pre. pre的值就是start-count. 然后把pre传递给listHero.jsp
-listHero.jsp 在下一页前增加一个超链
-&amp;lt;a href=&amp;quot;?start=${pre}&amp;quot;&amp;gt;[上一页]&amp;lt;/a&amp;gt;
-start=${pre} 从服务器传递过来的pre值</description>
     </item>
     
   </channel>

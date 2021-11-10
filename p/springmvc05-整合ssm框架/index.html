@@ -1,0 +1,1105 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='整合SSM框架 数据库环境 创建一个存放书籍数据的数据库表
+CREATEDATABASE`ssmbuild`;USE`ssmbuild`;DROPTABLEIFEXISTS`books`;CREATETABLE`books`(`bookID`INT(10)NOTNULLAUTO_INCREMENTCOMMENT&amp;#39;书id&amp;#39;,`bookName`VARCHAR(100)NOTNULLCOMMENT&amp;#39;书名&amp;#39;,`bookCounts`INT(11)NOTNULLCOMMENT&amp;#39;数量&amp;#39;,`detail`VARCHAR(200)NOTNULLCOMMENT&amp;#39;描述&amp;#39;,KEY`bookID`(`bookID`))ENGINE=INNODBDEFAULTCHARSET=utf8INSERTINTO`books`(`bookID`,`bookName`,`bookCounts`,`detail`)VALUES(1,&amp;#39;Java&amp;#39;,1,&amp;#39;从入门到放弃&amp;#39;),(2,&amp;#39;MySQL&amp;#39;,10,&amp;#39;从删库到跑路&amp;#39;),(3,&amp;#39;Linux&amp;#39;,5,&amp;#39;从进门到进牢&amp;#39;);基本环境搭建 1、新建一Maven项目！ssmbuild ， 添加web的支持
+2、导入相关的pom依赖！
+&amp;lt;dependencies&amp;gt; &amp;lt;!--Junit--&amp;gt; &amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;junit&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;junit&amp;lt;/artifactId&amp;gt; &amp;lt;version&amp;gt;4.12&amp;lt;/version&amp;gt; &amp;lt;/dependency&amp;gt; &amp;lt;!--数据库驱动--&amp;gt; &amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;mysql&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;mysql-connector-java&amp;lt;/artifactId&amp;gt; &amp;lt;version&amp;gt;5.1.47&amp;lt;/version&amp;gt; &amp;lt;/dependency&amp;gt; &amp;lt;!-- 数据库连接池 --&amp;gt; &amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;com.mchange&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;c3p0&amp;lt;/artifactId&amp;gt; &amp;lt;version&amp;gt;0.9.5.2&amp;lt;/version&amp;gt; &amp;lt;/dependency&amp;gt; &amp;lt;!--Servlet - JSP --&amp;gt; &amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;javax.servlet&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;servlet-api&amp;lt;/artifactId&amp;gt; &amp;lt;version&amp;gt;2.5&amp;lt;/version&amp;gt; &amp;lt;/dependency&amp;gt; &amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;javax.servlet.jsp&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;jsp-api&amp;lt;/artifactId&amp;gt; &amp;lt;version&amp;gt;2.2&amp;lt;/version&amp;gt; &amp;lt;/dependency&amp;gt; &amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;javax.servlet&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;jstl&amp;lt;/artifactId&amp;gt; &amp;lt;version&amp;gt;1.2&amp;lt;/version&amp;gt; &amp;lt;/dependency&amp;gt; &amp;lt;!--Mybatis--&amp;gt; &amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;org.mybatis&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;mybatis&amp;lt;/artifactId&amp;gt; &amp;lt;version&amp;gt;3.5.2&amp;lt;/version&amp;gt; &amp;lt;/dependency&amp;gt; &amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;org.mybatis&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;mybatis-spring&amp;lt;/artifactId&amp;gt; &amp;lt;version&amp;gt;2.0.2&amp;lt;/version&amp;gt; &amp;lt;/dependency&amp;gt; &amp;lt;!--Spring--&amp;gt; &amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;org.springframework&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;spring-webmvc&amp;lt;/artifactId&amp;gt; &amp;lt;version&amp;gt;5.1.9.RELEASE&amp;lt;/version&amp;gt; &amp;lt;/dependency&amp;gt; &amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;org.springframework&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;spring-jdbc&amp;lt;/artifactId&amp;gt; &amp;lt;version&amp;gt;5.1.9.RELEASE&amp;lt;/version&amp;gt; &amp;lt;/dependency&amp;gt; &amp;lt;/dependencies&amp;gt; 3、Maven资源过滤设置'><title>SpringMVC05 整合SSM框架</title>
+
+<link rel='canonical' href='https://example.com/p/springmvc05-%E6%95%B4%E5%90%88ssm%E6%A1%86%E6%9E%B6/'>
+
+<link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content='SpringMVC05 整合SSM框架'>
+<meta property='og:description' content='整合SSM框架 数据库环境 创建一个存放书籍数据的数据库表
+CREATEDATABASE`ssmbuild`;USE`ssmbuild`;DROPTABLEIFEXISTS`books`;CREATETABLE`books`(`bookID`INT(10)NOTNULLAUTO_INCREMENTCOMMENT&amp;#39;书id&amp;#39;,`bookName`VARCHAR(100)NOTNULLCOMMENT&amp;#39;书名&amp;#39;,`bookCounts`INT(11)NOTNULLCOMMENT&amp;#39;数量&amp;#39;,`detail`VARCHAR(200)NOTNULLCOMMENT&amp;#39;描述&amp;#39;,KEY`bookID`(`bookID`))ENGINE=INNODBDEFAULTCHARSET=utf8INSERTINTO`books`(`bookID`,`bookName`,`bookCounts`,`detail`)VALUES(1,&amp;#39;Java&amp;#39;,1,&amp;#39;从入门到放弃&amp;#39;),(2,&amp;#39;MySQL&amp;#39;,10,&amp;#39;从删库到跑路&amp;#39;),(3,&amp;#39;Linux&amp;#39;,5,&amp;#39;从进门到进牢&amp;#39;);基本环境搭建 1、新建一Maven项目！ssmbuild ， 添加web的支持
+2、导入相关的pom依赖！
+&amp;lt;dependencies&amp;gt; &amp;lt;!--Junit--&amp;gt; &amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;junit&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;junit&amp;lt;/artifactId&amp;gt; &amp;lt;version&amp;gt;4.12&amp;lt;/version&amp;gt; &amp;lt;/dependency&amp;gt; &amp;lt;!--数据库驱动--&amp;gt; &amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;mysql&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;mysql-connector-java&amp;lt;/artifactId&amp;gt; &amp;lt;version&amp;gt;5.1.47&amp;lt;/version&amp;gt; &amp;lt;/dependency&amp;gt; &amp;lt;!-- 数据库连接池 --&amp;gt; &amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;com.mchange&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;c3p0&amp;lt;/artifactId&amp;gt; &amp;lt;version&amp;gt;0.9.5.2&amp;lt;/version&amp;gt; &amp;lt;/dependency&amp;gt; &amp;lt;!--Servlet - JSP --&amp;gt; &amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;javax.servlet&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;servlet-api&amp;lt;/artifactId&amp;gt; &amp;lt;version&amp;gt;2.5&amp;lt;/version&amp;gt; &amp;lt;/dependency&amp;gt; &amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;javax.servlet.jsp&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;jsp-api&amp;lt;/artifactId&amp;gt; &amp;lt;version&amp;gt;2.2&amp;lt;/version&amp;gt; &amp;lt;/dependency&amp;gt; &amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;javax.servlet&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;jstl&amp;lt;/artifactId&amp;gt; &amp;lt;version&amp;gt;1.2&amp;lt;/version&amp;gt; &amp;lt;/dependency&amp;gt; &amp;lt;!--Mybatis--&amp;gt; &amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;org.mybatis&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;mybatis&amp;lt;/artifactId&amp;gt; &amp;lt;version&amp;gt;3.5.2&amp;lt;/version&amp;gt; &amp;lt;/dependency&amp;gt; &amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;org.mybatis&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;mybatis-spring&amp;lt;/artifactId&amp;gt; &amp;lt;version&amp;gt;2.0.2&amp;lt;/version&amp;gt; &amp;lt;/dependency&amp;gt; &amp;lt;!--Spring--&amp;gt; &amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;org.springframework&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;spring-webmvc&amp;lt;/artifactId&amp;gt; &amp;lt;version&amp;gt;5.1.9.RELEASE&amp;lt;/version&amp;gt; &amp;lt;/dependency&amp;gt; &amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;org.springframework&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;spring-jdbc&amp;lt;/artifactId&amp;gt; &amp;lt;version&amp;gt;5.1.9.RELEASE&amp;lt;/version&amp;gt; &amp;lt;/dependency&amp;gt; &amp;lt;/dependencies&amp;gt; 3、Maven资源过滤设置'>
+<meta property='og:url' content='https://example.com/p/springmvc05-%E6%95%B4%E5%90%88ssm%E6%A1%86%E6%9E%B6/'>
+<meta property='og:site_name' content='ybakiame&#39; Blog'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='springMVC' /><meta property='article:published_time' content='2021-11-09T09:40:59&#43;08:00'/><meta property='article:modified_time' content='2021-11-09T09:40:59&#43;08:00'/>
+<meta name="twitter:title" content="SpringMVC05 整合SSM框架">
+<meta name="twitter:description" content="整合SSM框架 数据库环境 创建一个存放书籍数据的数据库表
+CREATEDATABASE`ssmbuild`;USE`ssmbuild`;DROPTABLEIFEXISTS`books`;CREATETABLE`books`(`bookID`INT(10)NOTNULLAUTO_INCREMENTCOMMENT&amp;#39;书id&amp;#39;,`bookName`VARCHAR(100)NOTNULLCOMMENT&amp;#39;书名&amp;#39;,`bookCounts`INT(11)NOTNULLCOMMENT&amp;#39;数量&amp;#39;,`detail`VARCHAR(200)NOTNULLCOMMENT&amp;#39;描述&amp;#39;,KEY`bookID`(`bookID`))ENGINE=INNODBDEFAULTCHARSET=utf8INSERTINTO`books`(`bookID`,`bookName`,`bookCounts`,`detail`)VALUES(1,&amp;#39;Java&amp;#39;,1,&amp;#39;从入门到放弃&amp;#39;),(2,&amp;#39;MySQL&amp;#39;,10,&amp;#39;从删库到跑路&amp;#39;),(3,&amp;#39;Linux&amp;#39;,5,&amp;#39;从进门到进牢&amp;#39;);基本环境搭建 1、新建一Maven项目！ssmbuild ， 添加web的支持
+2、导入相关的pom依赖！
+&amp;lt;dependencies&amp;gt; &amp;lt;!--Junit--&amp;gt; &amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;junit&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;junit&amp;lt;/artifactId&amp;gt; &amp;lt;version&amp;gt;4.12&amp;lt;/version&amp;gt; &amp;lt;/dependency&amp;gt; &amp;lt;!--数据库驱动--&amp;gt; &amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;mysql&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;mysql-connector-java&amp;lt;/artifactId&amp;gt; &amp;lt;version&amp;gt;5.1.47&amp;lt;/version&amp;gt; &amp;lt;/dependency&amp;gt; &amp;lt;!-- 数据库连接池 --&amp;gt; &amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;com.mchange&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;c3p0&amp;lt;/artifactId&amp;gt; &amp;lt;version&amp;gt;0.9.5.2&amp;lt;/version&amp;gt; &amp;lt;/dependency&amp;gt; &amp;lt;!--Servlet - JSP --&amp;gt; &amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;javax.servlet&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;servlet-api&amp;lt;/artifactId&amp;gt; &amp;lt;version&amp;gt;2.5&amp;lt;/version&amp;gt; &amp;lt;/dependency&amp;gt; &amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;javax.servlet.jsp&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;jsp-api&amp;lt;/artifactId&amp;gt; &amp;lt;version&amp;gt;2.2&amp;lt;/version&amp;gt; &amp;lt;/dependency&amp;gt; &amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;javax.servlet&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;jstl&amp;lt;/artifactId&amp;gt; &amp;lt;version&amp;gt;1.2&amp;lt;/version&amp;gt; &amp;lt;/dependency&amp;gt; &amp;lt;!--Mybatis--&amp;gt; &amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;org.mybatis&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;mybatis&amp;lt;/artifactId&amp;gt; &amp;lt;version&amp;gt;3.5.2&amp;lt;/version&amp;gt; &amp;lt;/dependency&amp;gt; &amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;org.mybatis&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;mybatis-spring&amp;lt;/artifactId&amp;gt; &amp;lt;version&amp;gt;2.0.2&amp;lt;/version&amp;gt; &amp;lt;/dependency&amp;gt; &amp;lt;!--Spring--&amp;gt; &amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;org.springframework&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;spring-webmvc&amp;lt;/artifactId&amp;gt; &amp;lt;version&amp;gt;5.1.9.RELEASE&amp;lt;/version&amp;gt; &amp;lt;/dependency&amp;gt; &amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;org.springframework&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;spring-jdbc&amp;lt;/artifactId&amp;gt; &amp;lt;version&amp;gt;5.1.9.RELEASE&amp;lt;/version&amp;gt; &amp;lt;/dependency&amp;gt; &amp;lt;/dependencies&amp;gt; 3、Maven资源过滤设置">
+    </head>
+    <body class="
+    article-page has-toc
+">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex 
+    
+        extended
+    
+">
+    
+        <div id="article-toolbar">
+            <a href="/" class="back-home">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="15 6 9 12 15 18" />
+</svg>
+
+
+
+                <span>返回</span>
+            </a>
+        </div>
+    
+<main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/spring/" >
+                spring
+            </a>
+        
+    </header>
+    
+
+    <h2 class="article-title">
+        <a href="/p/springmvc05-%E6%95%B4%E5%90%88ssm%E6%A1%86%E6%9E%B6/">SpringMVC05 整合SSM框架</a>
+    </h2>
+
+    
+
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Nov 09, 2021</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    阅读时长: 6 分钟
+                </time>
+            </div>
+        
+    </footer>
+    
+</div>
+</header>
+
+    <section class="article-content">
+    <h2 id="整合ssm框架">整合SSM框架</h2>
+<h3 id="数据库环境">数据库环境</h3>
+<p>创建一个存放书籍数据的数据库表</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="k">CREATE</span><span class="w"> </span><span class="k">DATABASE</span><span class="w"> </span><span class="o">`</span><span class="n">ssmbuild</span><span class="o">`</span><span class="p">;</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="n">USE</span><span class="w"> </span><span class="o">`</span><span class="n">ssmbuild</span><span class="o">`</span><span class="p">;</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="k">DROP</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="k">IF</span><span class="w"> </span><span class="k">EXISTS</span><span class="w"> </span><span class="o">`</span><span class="n">books</span><span class="o">`</span><span class="p">;</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="o">`</span><span class="n">books</span><span class="o">`</span><span class="w"> </span><span class="p">(</span><span class="w">
+</span><span class="w"></span><span class="o">`</span><span class="n">bookID</span><span class="o">`</span><span class="w"> </span><span class="nb">INT</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="n">AUTO_INCREMENT</span><span class="w"> </span><span class="k">COMMENT</span><span class="w"> </span><span class="s1">&#39;书id&#39;</span><span class="p">,</span><span class="w">
+</span><span class="w"></span><span class="o">`</span><span class="n">bookName</span><span class="o">`</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">COMMENT</span><span class="w"> </span><span class="s1">&#39;书名&#39;</span><span class="p">,</span><span class="w">
+</span><span class="w"></span><span class="o">`</span><span class="n">bookCounts</span><span class="o">`</span><span class="w"> </span><span class="nb">INT</span><span class="p">(</span><span class="mi">11</span><span class="p">)</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">COMMENT</span><span class="w"> </span><span class="s1">&#39;数量&#39;</span><span class="p">,</span><span class="w">
+</span><span class="w"></span><span class="o">`</span><span class="n">detail</span><span class="o">`</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">200</span><span class="p">)</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">COMMENT</span><span class="w"> </span><span class="s1">&#39;描述&#39;</span><span class="p">,</span><span class="w">
+</span><span class="w"></span><span class="k">KEY</span><span class="w"> </span><span class="o">`</span><span class="n">bookID</span><span class="o">`</span><span class="w"> </span><span class="p">(</span><span class="o">`</span><span class="n">bookID</span><span class="o">`</span><span class="p">)</span><span class="w">
+</span><span class="w"></span><span class="p">)</span><span class="w"> </span><span class="n">ENGINE</span><span class="o">=</span><span class="n">INNODB</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="n">CHARSET</span><span class="o">=</span><span class="n">utf8</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="k">INSERT</span><span class="w">  </span><span class="k">INTO</span><span class="w"> </span><span class="o">`</span><span class="n">books</span><span class="o">`</span><span class="p">(</span><span class="o">`</span><span class="n">bookID</span><span class="o">`</span><span class="p">,</span><span class="o">`</span><span class="n">bookName</span><span class="o">`</span><span class="p">,</span><span class="o">`</span><span class="n">bookCounts</span><span class="o">`</span><span class="p">,</span><span class="o">`</span><span class="n">detail</span><span class="o">`</span><span class="p">)</span><span class="k">VALUES</span><span class="w"> 
+</span><span class="w"></span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="s1">&#39;Java&#39;</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="s1">&#39;从入门到放弃&#39;</span><span class="p">),</span><span class="w">
+</span><span class="w"></span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="s1">&#39;MySQL&#39;</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="s1">&#39;从删库到跑路&#39;</span><span class="p">),</span><span class="w">
+</span><span class="w"></span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="s1">&#39;Linux&#39;</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="s1">&#39;从进门到进牢&#39;</span><span class="p">);</span><span class="w">
+</span></code></pre></div><h3 id="基本环境搭建">基本环境搭建</h3>
+<p>1、新建一Maven项目！ssmbuild ， 添加web的支持</p>
+<p>2、导入相关的pom依赖！</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="nt">&lt;dependencies&gt;</span>
+   <span class="c">&lt;!--Junit--&gt;</span>
+   <span class="nt">&lt;dependency&gt;</span>
+       <span class="nt">&lt;groupId&gt;</span>junit<span class="nt">&lt;/groupId&gt;</span>
+       <span class="nt">&lt;artifactId&gt;</span>junit<span class="nt">&lt;/artifactId&gt;</span>
+       <span class="nt">&lt;version&gt;</span>4.12<span class="nt">&lt;/version&gt;</span>
+   <span class="nt">&lt;/dependency&gt;</span>
+   <span class="c">&lt;!--数据库驱动--&gt;</span>
+   <span class="nt">&lt;dependency&gt;</span>
+       <span class="nt">&lt;groupId&gt;</span>mysql<span class="nt">&lt;/groupId&gt;</span>
+       <span class="nt">&lt;artifactId&gt;</span>mysql-connector-java<span class="nt">&lt;/artifactId&gt;</span>
+       <span class="nt">&lt;version&gt;</span>5.1.47<span class="nt">&lt;/version&gt;</span>
+   <span class="nt">&lt;/dependency&gt;</span>
+   <span class="c">&lt;!-- 数据库连接池 --&gt;</span>
+   <span class="nt">&lt;dependency&gt;</span>
+       <span class="nt">&lt;groupId&gt;</span>com.mchange<span class="nt">&lt;/groupId&gt;</span>
+       <span class="nt">&lt;artifactId&gt;</span>c3p0<span class="nt">&lt;/artifactId&gt;</span>
+       <span class="nt">&lt;version&gt;</span>0.9.5.2<span class="nt">&lt;/version&gt;</span>
+   <span class="nt">&lt;/dependency&gt;</span>
+
+   <span class="c">&lt;!--Servlet - JSP --&gt;</span>
+   <span class="nt">&lt;dependency&gt;</span>
+       <span class="nt">&lt;groupId&gt;</span>javax.servlet<span class="nt">&lt;/groupId&gt;</span>
+       <span class="nt">&lt;artifactId&gt;</span>servlet-api<span class="nt">&lt;/artifactId&gt;</span>
+       <span class="nt">&lt;version&gt;</span>2.5<span class="nt">&lt;/version&gt;</span>
+   <span class="nt">&lt;/dependency&gt;</span>
+   <span class="nt">&lt;dependency&gt;</span>
+       <span class="nt">&lt;groupId&gt;</span>javax.servlet.jsp<span class="nt">&lt;/groupId&gt;</span>
+       <span class="nt">&lt;artifactId&gt;</span>jsp-api<span class="nt">&lt;/artifactId&gt;</span>
+       <span class="nt">&lt;version&gt;</span>2.2<span class="nt">&lt;/version&gt;</span>
+   <span class="nt">&lt;/dependency&gt;</span>
+   <span class="nt">&lt;dependency&gt;</span>
+       <span class="nt">&lt;groupId&gt;</span>javax.servlet<span class="nt">&lt;/groupId&gt;</span>
+       <span class="nt">&lt;artifactId&gt;</span>jstl<span class="nt">&lt;/artifactId&gt;</span>
+       <span class="nt">&lt;version&gt;</span>1.2<span class="nt">&lt;/version&gt;</span>
+   <span class="nt">&lt;/dependency&gt;</span>
+
+   <span class="c">&lt;!--Mybatis--&gt;</span>
+   <span class="nt">&lt;dependency&gt;</span>
+       <span class="nt">&lt;groupId&gt;</span>org.mybatis<span class="nt">&lt;/groupId&gt;</span>
+       <span class="nt">&lt;artifactId&gt;</span>mybatis<span class="nt">&lt;/artifactId&gt;</span>
+       <span class="nt">&lt;version&gt;</span>3.5.2<span class="nt">&lt;/version&gt;</span>
+   <span class="nt">&lt;/dependency&gt;</span>
+   <span class="nt">&lt;dependency&gt;</span>
+       <span class="nt">&lt;groupId&gt;</span>org.mybatis<span class="nt">&lt;/groupId&gt;</span>
+       <span class="nt">&lt;artifactId&gt;</span>mybatis-spring<span class="nt">&lt;/artifactId&gt;</span>
+       <span class="nt">&lt;version&gt;</span>2.0.2<span class="nt">&lt;/version&gt;</span>
+   <span class="nt">&lt;/dependency&gt;</span>
+
+   <span class="c">&lt;!--Spring--&gt;</span>
+   <span class="nt">&lt;dependency&gt;</span>
+       <span class="nt">&lt;groupId&gt;</span>org.springframework<span class="nt">&lt;/groupId&gt;</span>
+       <span class="nt">&lt;artifactId&gt;</span>spring-webmvc<span class="nt">&lt;/artifactId&gt;</span>
+       <span class="nt">&lt;version&gt;</span>5.1.9.RELEASE<span class="nt">&lt;/version&gt;</span>
+   <span class="nt">&lt;/dependency&gt;</span>
+   <span class="nt">&lt;dependency&gt;</span>
+       <span class="nt">&lt;groupId&gt;</span>org.springframework<span class="nt">&lt;/groupId&gt;</span>
+       <span class="nt">&lt;artifactId&gt;</span>spring-jdbc<span class="nt">&lt;/artifactId&gt;</span>
+       <span class="nt">&lt;version&gt;</span>5.1.9.RELEASE<span class="nt">&lt;/version&gt;</span>
+   <span class="nt">&lt;/dependency&gt;</span>
+<span class="nt">&lt;/dependencies&gt;</span>
+</code></pre></div><p>3、Maven资源过滤设置</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="nt">&lt;build&gt;</span>
+   <span class="nt">&lt;resources&gt;</span>
+       <span class="nt">&lt;resource&gt;</span>
+           <span class="nt">&lt;directory&gt;</span>src/main/java<span class="nt">&lt;/directory&gt;</span>
+           <span class="nt">&lt;includes&gt;</span>
+               <span class="nt">&lt;include&gt;</span>**/*.properties<span class="nt">&lt;/include&gt;</span>
+               <span class="nt">&lt;include&gt;</span>**/*.xml<span class="nt">&lt;/include&gt;</span>
+           <span class="nt">&lt;/includes&gt;</span>
+           <span class="nt">&lt;filtering&gt;</span>false<span class="nt">&lt;/filtering&gt;</span>
+       <span class="nt">&lt;/resource&gt;</span>
+       <span class="nt">&lt;resource&gt;</span>
+           <span class="nt">&lt;directory&gt;</span>src/main/resources<span class="nt">&lt;/directory&gt;</span>
+           <span class="nt">&lt;includes&gt;</span>
+               <span class="nt">&lt;include&gt;</span>**/*.properties<span class="nt">&lt;/include&gt;</span>
+               <span class="nt">&lt;include&gt;</span>**/*.xml<span class="nt">&lt;/include&gt;</span>
+           <span class="nt">&lt;/includes&gt;</span>
+           <span class="nt">&lt;filtering&gt;</span>false<span class="nt">&lt;/filtering&gt;</span>
+       <span class="nt">&lt;/resource&gt;</span>
+   <span class="nt">&lt;/resources&gt;</span>
+<span class="nt">&lt;/build&gt;</span>
+</code></pre></div><p>4、建立基本结构和配置框架！</p>
+<ul>
+<li>
+<p>com.spring.pojo</p>
+</li>
+<li>
+<p>com.spring.dao</p>
+</li>
+<li>
+<p>com.spring.service</p>
+</li>
+<li>
+<p>com.spring.controller</p>
+</li>
+<li>
+<p>mybatis-config.xml</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="cp">&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34; ?&gt;</span>
+<span class="cp">&lt;!DOCTYPE configuration
+</span><span class="cp">       PUBLIC &#34;-//mybatis.org//DTD Config 3.0//EN&#34;
+</span><span class="cp">       &#34;http://mybatis.org/dtd/mybatis-3-config.dtd&#34;&gt;</span>
+<span class="nt">&lt;configuration&gt;</span>
+
+<span class="nt">&lt;/configuration&gt;</span>
+</code></pre></div></li>
+<li>
+<p>applicationContext.xml</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="cp">&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;</span>
+<span class="nt">&lt;beans</span> <span class="na">xmlns=</span><span class="s">&#34;http://www.springframework.org/schema/beans&#34;</span>
+      <span class="na">xmlns:xsi=</span><span class="s">&#34;http://www.w3.org/2001/XMLSchema-instance&#34;</span>
+      <span class="na">xsi:schemaLocation=</span><span class="s">&#34;http://www.springframework.org/schema/beans
+</span><span class="s">       http://www.springframework.org/schema/beans/spring-beans.xsd&#34;</span><span class="nt">&gt;</span>
+
+<span class="nt">&lt;/beans&gt;</span>
+</code></pre></div></li>
+</ul>
+<h3 id="mybatis层">Mybatis层</h3>
+<p>1、数据库配置文件 <strong>database.properties</strong></p>
+<pre tabindex="0"><code class="language-properties" data-lang="properties">jdbc.driver=com.mysql.jdbc.Driver
+jdbc.url=jdbc:mysql://localhost:3306/ssmbuild?useSSL=true&amp;useUnicode=true&amp;characterEncoding=utf8
+jdbc.username=root
+jdbc.password=123456
+</code></pre><p>2、IDEA关联数据库</p>
+<p>3、编写MyBatis的核心配置文件</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="cp">&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34; ?&gt;</span>
+<span class="cp">&lt;!DOCTYPE configuration
+</span><span class="cp">       PUBLIC &#34;-//mybatis.org//DTD Config 3.0//EN&#34;
+</span><span class="cp">       &#34;http://mybatis.org/dtd/mybatis-3-config.dtd&#34;&gt;</span>
+<span class="nt">&lt;configuration&gt;</span>
+    <span class="c">&lt;!--应用配置文件--&gt;</span>
+    <span class="nt">&lt;properties</span> <span class="na">resource=</span><span class="s">&#34;db.properties&#34;</span><span class="nt">/&gt;</span>
+        <span class="c">&lt;!--开启小驼峰命名，将数据库中的 _ 转为下一个字母大写--&gt;</span>
+    <span class="nt">&lt;settings&gt;</span>
+        <span class="nt">&lt;setting</span> <span class="na">name=</span><span class="s">&#34;mapUnderscoreToCamelCase&#34;</span> <span class="na">value=</span><span class="s">&#34;true&#34;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;/settings&gt;</span>
+    
+   <span class="c">&lt;!--environments 环境  --&gt;</span>
+    <span class="nt">&lt;environments</span> <span class="na">default=</span><span class="s">&#34;development&#34;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;environment</span> <span class="na">id=</span><span class="s">&#34;development&#34;</span><span class="nt">&gt;</span>
+            <span class="c">&lt;!--事务 JDBC的事务--&gt;</span>
+            <span class="nt">&lt;transactionManager</span> <span class="na">type=</span><span class="s">&#34;JDBC&#34;</span><span class="nt">/&gt;</span>
+            <span class="nt">&lt;dataSource</span> <span class="na">type=</span><span class="s">&#34;POOLED&#34;</span><span class="nt">&gt;</span>
+                <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&#34;driver&#34;</span> <span class="na">value=</span><span class="s">&#34;${driver}&#34;</span><span class="nt">/&gt;</span>
+                <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&#34;url&#34;</span> <span class="na">value=</span><span class="s">&#34;${url}&#34;</span><span class="nt">/&gt;</span>
+                <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&#34;username&#34;</span> <span class="na">value=</span><span class="s">&#34;${username}&#34;</span><span class="nt">/&gt;</span>
+                <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&#34;password&#34;</span> <span class="na">value=</span><span class="s">&#34;${password}&#34;</span><span class="nt">/&gt;</span>
+            <span class="nt">&lt;/dataSource&gt;</span>
+        <span class="nt">&lt;/environment&gt;</span>
+    <span class="nt">&lt;/environments&gt;</span>
+    
+   <span class="nt">&lt;typeAliases&gt;</span>
+       <span class="nt">&lt;package</span> <span class="na">name=</span><span class="s">&#34;com.spring.pojo&#34;</span><span class="nt">/&gt;</span>
+   <span class="nt">&lt;/typeAliases&gt;</span>
+   <span class="nt">&lt;mappers&gt;</span>
+       <span class="nt">&lt;mapper</span> <span class="na">resource=</span><span class="s">&#34;com/spring/dao/BookMapper.xml&#34;</span><span class="nt">/&gt;</span>
+   <span class="nt">&lt;/mappers&gt;</span>
+
+<span class="nt">&lt;/configuration&gt;</span>
+</code></pre></div><p>4、编写数据库对应的实体类 com.spring.pojo.Books</p>
+<p>使用lombok插件！</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="nd">@Data</span>
+<span class="nd">@AllArgsConstructor</span>
+<span class="nd">@NoArgsConstructor</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Books</span> <span class="o">{</span>
+   
+   <span class="kd">private</span> <span class="kt">int</span> <span class="n">bookID</span><span class="o">;</span>
+   <span class="kd">private</span> <span class="n">String</span> <span class="n">bookName</span><span class="o">;</span>
+   <span class="kd">private</span> <span class="kt">int</span> <span class="n">bookCounts</span><span class="o">;</span>
+   <span class="kd">private</span> <span class="n">String</span> <span class="n">detail</span><span class="o">;</span>
+   
+<span class="o">}</span>
+</code></pre></div><p>5、编写Dao层的 Mapper接口！</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">BookMapper</span> <span class="o">{</span>
+
+   <span class="c1">//增加一个Book
+</span><span class="c1"></span>   <span class="kt">int</span> <span class="nf">addBook</span><span class="o">(</span><span class="n">Books</span> <span class="n">book</span><span class="o">);</span>
+
+   <span class="c1">//根据id删除一个Book
+</span><span class="c1"></span>   <span class="kt">int</span> <span class="nf">deleteBookById</span><span class="o">(</span><span class="kt">int</span> <span class="n">id</span><span class="o">);</span>
+
+   <span class="c1">//更新Book
+</span><span class="c1"></span>   <span class="kt">int</span> <span class="nf">updateBook</span><span class="o">(</span><span class="n">Books</span> <span class="n">books</span><span class="o">);</span>
+
+   <span class="c1">//根据id查询,返回一个Book
+</span><span class="c1"></span>   <span class="n">Books</span> <span class="nf">queryBookById</span><span class="o">(</span><span class="kt">int</span> <span class="n">id</span><span class="o">);</span>
+
+   <span class="c1">//查询全部Book,返回list集合
+</span><span class="c1"></span>   <span class="n">List</span><span class="o">&lt;</span><span class="n">Books</span><span class="o">&gt;</span> <span class="nf">queryAllBook</span><span class="o">();</span>
+
+<span class="o">}</span>
+</code></pre></div><p>6、编写接口对应的 Mapper.xml 文件。需要导入MyBatis的包；</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="cp">&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34; ?&gt;</span>
+<span class="cp">&lt;!DOCTYPE mapper
+</span><span class="cp">       PUBLIC &#34;-//mybatis.org//DTD Mapper 3.0//EN&#34;
+</span><span class="cp">       &#34;http://mybatis.org/dtd/mybatis-3-mapper.dtd&#34;&gt;</span>
+
+<span class="nt">&lt;mapper</span> <span class="na">namespace=</span><span class="s">&#34;com.spring.dao.BookMapper&#34;</span><span class="nt">&gt;</span>
+
+   <span class="c">&lt;!--增加一个Book--&gt;</span>
+   <span class="nt">&lt;insert</span> <span class="na">id=</span><span class="s">&#34;addBook&#34;</span> <span class="na">parameterType=</span><span class="s">&#34;Books&#34;</span><span class="nt">&gt;</span>
+      insert into ssmbuild.books(bookName,bookCounts,detail)
+      values (#{bookName}, #{bookCounts}, #{detail})
+   <span class="nt">&lt;/insert&gt;</span>
+
+   <span class="c">&lt;!--根据id删除一个Book--&gt;</span>
+   <span class="nt">&lt;delete</span> <span class="na">id=</span><span class="s">&#34;deleteBookById&#34;</span> <span class="na">parameterType=</span><span class="s">&#34;int&#34;</span><span class="nt">&gt;</span>
+      delete from ssmbuild.books where bookID=#{bookID}
+   <span class="nt">&lt;/delete&gt;</span>
+
+   <span class="c">&lt;!--更新Book--&gt;</span>
+   <span class="nt">&lt;update</span> <span class="na">id=</span><span class="s">&#34;updateBook&#34;</span> <span class="na">parameterType=</span><span class="s">&#34;Books&#34;</span><span class="nt">&gt;</span>
+      update ssmbuild.books
+      set bookName = #{bookName},bookCounts = #{bookCounts},detail = #{detail}
+      where bookID = #{bookID}
+   <span class="nt">&lt;/update&gt;</span>
+
+   <span class="c">&lt;!--根据id查询,返回一个Book--&gt;</span>
+   <span class="nt">&lt;select</span> <span class="na">id=</span><span class="s">&#34;queryBookById&#34;</span> <span class="na">resultType=</span><span class="s">&#34;Books&#34;</span><span class="nt">&gt;</span>
+      select * from ssmbuild.books
+      where bookID = #{bookID}
+   <span class="nt">&lt;/select&gt;</span>
+
+   <span class="c">&lt;!--查询全部Book--&gt;</span>
+   <span class="nt">&lt;select</span> <span class="na">id=</span><span class="s">&#34;queryAllBook&#34;</span> <span class="na">resultType=</span><span class="s">&#34;Books&#34;</span><span class="nt">&gt;</span>
+      SELECT * from ssmbuild.books
+   <span class="nt">&lt;/select&gt;</span>
+
+<span class="nt">&lt;/mapper&gt;</span>
+</code></pre></div><p>7、编写Service层的接口和实现类</p>
+<p>接口：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="c1">//BookService:底下需要去实现,调用dao层
+</span><span class="c1"></span><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">BookService</span> <span class="o">{</span>
+   <span class="c1">//增加一个Book
+</span><span class="c1"></span>   <span class="kt">int</span> <span class="nf">addBook</span><span class="o">(</span><span class="n">Books</span> <span class="n">book</span><span class="o">);</span>
+   <span class="c1">//根据id删除一个Book
+</span><span class="c1"></span>   <span class="kt">int</span> <span class="nf">deleteBookById</span><span class="o">(</span><span class="kt">int</span> <span class="n">id</span><span class="o">);</span>
+   <span class="c1">//更新Book
+</span><span class="c1"></span>   <span class="kt">int</span> <span class="nf">updateBook</span><span class="o">(</span><span class="n">Books</span> <span class="n">books</span><span class="o">);</span>
+   <span class="c1">//根据id查询,返回一个Book
+</span><span class="c1"></span>   <span class="n">Books</span> <span class="nf">queryBookById</span><span class="o">(</span><span class="kt">int</span> <span class="n">id</span><span class="o">);</span>
+   <span class="c1">//查询全部Book,返回list集合
+</span><span class="c1"></span>   <span class="n">List</span><span class="o">&lt;</span><span class="n">Books</span><span class="o">&gt;</span> <span class="nf">queryAllBook</span><span class="o">();</span>
+<span class="o">}</span>
+</code></pre></div><p>实现类：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">BookServiceImpl</span> <span class="kd">implements</span> <span class="n">BookService</span> <span class="o">{</span>
+
+   <span class="c1">//调用dao层的操作，设置一个set接口，方便Spring管理
+</span><span class="c1"></span>   <span class="kd">private</span> <span class="n">BookMapper</span> <span class="n">bookMapper</span><span class="o">;</span>
+
+   <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setBookMapper</span><span class="o">(</span><span class="n">BookMapper</span> <span class="n">bookMapper</span><span class="o">)</span> <span class="o">{</span>
+       <span class="k">this</span><span class="o">.</span><span class="na">bookMapper</span> <span class="o">=</span> <span class="n">bookMapper</span><span class="o">;</span>
+  <span class="o">}</span>
+   
+   <span class="kd">public</span> <span class="kt">int</span> <span class="nf">addBook</span><span class="o">(</span><span class="n">Books</span> <span class="n">book</span><span class="o">)</span> <span class="o">{</span>
+       <span class="k">return</span> <span class="n">bookMapper</span><span class="o">.</span><span class="na">addBook</span><span class="o">(</span><span class="n">book</span><span class="o">);</span>
+  <span class="o">}</span>
+   
+   <span class="kd">public</span> <span class="kt">int</span> <span class="nf">deleteBookById</span><span class="o">(</span><span class="kt">int</span> <span class="n">id</span><span class="o">)</span> <span class="o">{</span>
+       <span class="k">return</span> <span class="n">bookMapper</span><span class="o">.</span><span class="na">deleteBookById</span><span class="o">(</span><span class="n">id</span><span class="o">);</span>
+  <span class="o">}</span>
+   
+   <span class="kd">public</span> <span class="kt">int</span> <span class="nf">updateBook</span><span class="o">(</span><span class="n">Books</span> <span class="n">books</span><span class="o">)</span> <span class="o">{</span>
+       <span class="k">return</span> <span class="n">bookMapper</span><span class="o">.</span><span class="na">updateBook</span><span class="o">(</span><span class="n">books</span><span class="o">);</span>
+  <span class="o">}</span>
+   
+   <span class="kd">public</span> <span class="n">Books</span> <span class="nf">queryBookById</span><span class="o">(</span><span class="kt">int</span> <span class="n">id</span><span class="o">)</span> <span class="o">{</span>
+       <span class="k">return</span> <span class="n">bookMapper</span><span class="o">.</span><span class="na">queryBookById</span><span class="o">(</span><span class="n">id</span><span class="o">);</span>
+  <span class="o">}</span>
+   
+   <span class="kd">public</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">Books</span><span class="o">&gt;</span> <span class="nf">queryAllBook</span><span class="o">()</span> <span class="o">{</span>
+       <span class="k">return</span> <span class="n">bookMapper</span><span class="o">.</span><span class="na">queryAllBook</span><span class="o">();</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p><strong>OK，到此，底层需求操作编写完毕！</strong></p>
+<h3 id="spring层">Spring层</h3>
+<p>1、配置<strong>Spring整合MyBatis</strong>，我们这里数据源使用c3p0连接池</p>
+<p>2、我们去编写Spring整合Mybatis的相关的配置文件；spring-dao.xml</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="cp">&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;</span>
+<span class="nt">&lt;beans</span> <span class="na">xmlns=</span><span class="s">&#34;http://www.springframework.org/schema/beans&#34;</span>
+      <span class="na">xmlns:xsi=</span><span class="s">&#34;http://www.w3.org/2001/XMLSchema-instance&#34;</span>
+      <span class="na">xmlns:context=</span><span class="s">&#34;http://www.springframework.org/schema/context&#34;</span>
+      <span class="na">xsi:schemaLocation=</span><span class="s">&#34;http://www.springframework.org/schema/beans
+</span><span class="s">       http://www.springframework.org/schema/beans/spring-beans.xsd
+</span><span class="s">       http://www.springframework.org/schema/context
+</span><span class="s">       https://www.springframework.org/schema/context/spring-context.xsd&#34;</span><span class="nt">&gt;</span>
+
+   <span class="c">&lt;!-- 配置整合mybatis --&gt;</span>
+   <span class="c">&lt;!-- 1.关联数据库文件 --&gt;</span>
+   <span class="nt">&lt;context:property-placeholder</span> <span class="na">location=</span><span class="s">&#34;classpath:database.properties&#34;</span><span class="nt">/&gt;</span>
+
+   <span class="c">&lt;!-- 2.数据库连接池 --&gt;</span>
+   <span class="c">&lt;!--数据库连接池
+</span><span class="c">       dbcp 半自动化操作 不能自动连接
+</span><span class="c">       c3p0 自动化操作（自动的加载配置文件 并且设置到对象里面）
+</span><span class="c">   --&gt;</span>
+   <span class="nt">&lt;bean</span> <span class="na">id=</span><span class="s">&#34;dataSource&#34;</span> <span class="na">class=</span><span class="s">&#34;com.mchange.v2.c3p0.ComboPooledDataSource&#34;</span><span class="nt">&gt;</span>
+       <span class="c">&lt;!-- 配置连接池属性 --&gt;</span>
+       <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&#34;driverClass&#34;</span> <span class="na">value=</span><span class="s">&#34;${jdbc.driver}&#34;</span><span class="nt">/&gt;</span>
+       <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&#34;jdbcUrl&#34;</span> <span class="na">value=</span><span class="s">&#34;${jdbc.url}&#34;</span><span class="nt">/&gt;</span>
+       <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&#34;user&#34;</span> <span class="na">value=</span><span class="s">&#34;${jdbc.username}&#34;</span><span class="nt">/&gt;</span>
+       <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&#34;password&#34;</span> <span class="na">value=</span><span class="s">&#34;${jdbc.password}&#34;</span><span class="nt">/&gt;</span>
+
+       <span class="c">&lt;!-- c3p0连接池的私有属性 --&gt;</span>
+       <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&#34;maxPoolSize&#34;</span> <span class="na">value=</span><span class="s">&#34;30&#34;</span><span class="nt">/&gt;</span>
+       <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&#34;minPoolSize&#34;</span> <span class="na">value=</span><span class="s">&#34;10&#34;</span><span class="nt">/&gt;</span>
+       <span class="c">&lt;!-- 关闭连接后不自动commit --&gt;</span>
+       <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&#34;autoCommitOnClose&#34;</span> <span class="na">value=</span><span class="s">&#34;false&#34;</span><span class="nt">/&gt;</span>
+       <span class="c">&lt;!-- 获取连接超时时间 --&gt;</span>
+       <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&#34;checkoutTimeout&#34;</span> <span class="na">value=</span><span class="s">&#34;10000&#34;</span><span class="nt">/&gt;</span>
+       <span class="c">&lt;!-- 当获取连接失败重试次数 --&gt;</span>
+       <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&#34;acquireRetryAttempts&#34;</span> <span class="na">value=</span><span class="s">&#34;2&#34;</span><span class="nt">/&gt;</span>
+   <span class="nt">&lt;/bean&gt;</span>
+
+   <span class="c">&lt;!-- 3.配置SqlSessionFactory对象 --&gt;</span>
+   <span class="nt">&lt;bean</span> <span class="na">id=</span><span class="s">&#34;sqlSessionFactory&#34;</span> <span class="na">class=</span><span class="s">&#34;org.mybatis.spring.SqlSessionFactoryBean&#34;</span><span class="nt">&gt;</span>
+       <span class="c">&lt;!-- 注入数据库连接池 --&gt;</span>
+       <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&#34;dataSource&#34;</span> <span class="na">ref=</span><span class="s">&#34;dataSource&#34;</span><span class="nt">/&gt;</span>
+       <span class="c">&lt;!-- 配置MyBaties全局配置文件:mybatis-config.xml --&gt;</span>
+       <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&#34;configLocation&#34;</span> <span class="na">value=</span><span class="s">&#34;classpath:mybatis-config.xml&#34;</span><span class="nt">/&gt;</span>
+   <span class="nt">&lt;/bean&gt;</span>
+
+   <span class="c">&lt;!-- 4.配置扫描Dao接口包，动态实现Dao接口注入到spring容器中 --&gt;</span>
+   <span class="nt">&lt;bean</span> <span class="na">class=</span><span class="s">&#34;org.mybatis.spring.mapper.MapperScannerConfigurer&#34;</span><span class="nt">&gt;</span>
+       <span class="c">&lt;!-- 注入sqlSessionFactory --&gt;</span>
+       <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&#34;sqlSessionFactoryBeanName&#34;</span> <span class="na">value=</span><span class="s">&#34;sqlSessionFactory&#34;</span><span class="nt">/&gt;</span>
+       <span class="c">&lt;!-- 给出需要扫描Dao接口包 --&gt;</span>
+       <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&#34;basePackage&#34;</span> <span class="na">value=</span><span class="s">&#34;com.spring.dao&#34;</span><span class="nt">/&gt;</span>
+   <span class="nt">&lt;/bean&gt;</span>
+
+<span class="nt">&lt;/beans&gt;</span>
+</code></pre></div><p>3、<strong>Spring整合service层</strong></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="cp">&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;</span>
+<span class="nt">&lt;beans</span> <span class="na">xmlns=</span><span class="s">&#34;http://www.springframework.org/schema/beans&#34;</span>
+      <span class="na">xmlns:xsi=</span><span class="s">&#34;http://www.w3.org/2001/XMLSchema-instance&#34;</span>
+      <span class="na">xmlns:context=</span><span class="s">&#34;http://www.springframework.org/schema/context&#34;</span>
+      <span class="na">xsi:schemaLocation=</span><span class="s">&#34;http://www.springframework.org/schema/beans
+</span><span class="s">   http://www.springframework.org/schema/beans/spring-beans.xsd
+</span><span class="s">   http://www.springframework.org/schema/context
+</span><span class="s">   http://www.springframework.org/schema/context/spring-context.xsd&#34;</span><span class="nt">&gt;</span>
+
+   <span class="c">&lt;!-- 扫描service相关的bean --&gt;</span>
+   <span class="nt">&lt;context:component-scan</span> <span class="na">base-package=</span><span class="s">&#34;com.kuang.service&#34;</span> <span class="nt">/&gt;</span>
+
+   <span class="c">&lt;!--BookServiceImpl注入到IOC容器中--&gt;</span>
+   <span class="nt">&lt;bean</span> <span class="na">id=</span><span class="s">&#34;BookServiceImpl&#34;</span> <span class="na">class=</span><span class="s">&#34;com.kuang.service.BookServiceImpl&#34;</span><span class="nt">&gt;</span>
+       <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&#34;bookMapper&#34;</span> <span class="na">ref=</span><span class="s">&#34;bookMapper&#34;</span><span class="nt">/&gt;</span>
+   <span class="nt">&lt;/bean&gt;</span>
+
+   <span class="c">&lt;!-- 配置事务管理器 --&gt;</span>
+   <span class="nt">&lt;bean</span> <span class="na">id=</span><span class="s">&#34;transactionManager&#34;</span><span class="na">class=</span><span class="s">&#34;org.springframework.jdbc.datasource.DataSourceTransactionManager&#34;</span><span class="nt">&gt;</span>
+       <span class="c">&lt;!-- 注入数据库连接池 --&gt;</span>
+       <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&#34;dataSource&#34;</span> <span class="na">ref=</span><span class="s">&#34;dataSource&#34;</span> <span class="nt">/&gt;</span>
+   <span class="nt">&lt;/bean&gt;</span>
+
+<span class="nt">&lt;/beans&gt;</span>
+</code></pre></div><p>Spring层搞定！再次理解一下，Spring就是一个大杂烩，一个容器！对吧！</p>
+<h3 id="springmvc层">SpringMVC层</h3>
+<p>1、<strong>web.xml</strong></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="cp">&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;</span>
+<span class="nt">&lt;web-app</span> <span class="na">xmlns=</span><span class="s">&#34;http://xmlns.jcp.org/xml/ns/javaee&#34;</span>
+        <span class="na">xmlns:xsi=</span><span class="s">&#34;http://www.w3.org/2001/XMLSchema-instance&#34;</span>
+        <span class="na">xsi:schemaLocation=</span><span class="s">&#34;http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd&#34;</span>
+        <span class="na">version=</span><span class="s">&#34;4.0&#34;</span><span class="nt">&gt;</span>
+
+   <span class="c">&lt;!--DispatcherServlet--&gt;</span>
+   <span class="nt">&lt;servlet&gt;</span>
+       <span class="nt">&lt;servlet-name&gt;</span>DispatcherServlet<span class="nt">&lt;/servlet-name&gt;</span>
+       <span class="nt">&lt;servlet-class&gt;</span>org.springframework.web.servlet.DispatcherServlet<span class="nt">&lt;/servlet-class&gt;</span>
+       <span class="nt">&lt;init-param&gt;</span>
+           <span class="nt">&lt;param-name&gt;</span>contextConfigLocation<span class="nt">&lt;/param-name&gt;</span>
+           <span class="c">&lt;!--一定要注意:我们这里加载的是总的配置文件，之前被这里坑了！--&gt;</span>  
+           <span class="nt">&lt;param-value&gt;</span>classpath:applicationContext.xml<span class="nt">&lt;/param-value&gt;</span>
+       <span class="nt">&lt;/init-param&gt;</span>
+       <span class="nt">&lt;load-on-startup&gt;</span>1<span class="nt">&lt;/load-on-startup&gt;</span>
+   <span class="nt">&lt;/servlet&gt;</span>
+   <span class="nt">&lt;servlet-mapping&gt;</span>
+       <span class="nt">&lt;servlet-name&gt;</span>DispatcherServlet<span class="nt">&lt;/servlet-name&gt;</span>
+       <span class="nt">&lt;url-pattern&gt;</span>/<span class="nt">&lt;/url-pattern&gt;</span>
+   <span class="nt">&lt;/servlet-mapping&gt;</span>
+
+   <span class="c">&lt;!--encodingFilter--&gt;</span>
+   <span class="nt">&lt;filter&gt;</span>
+       <span class="nt">&lt;filter-name&gt;</span>encodingFilter<span class="nt">&lt;/filter-name&gt;</span>
+       <span class="nt">&lt;filter-class&gt;</span>
+          org.springframework.web.filter.CharacterEncodingFilter
+       <span class="nt">&lt;/filter-class&gt;</span>
+       <span class="nt">&lt;init-param&gt;</span>
+           <span class="nt">&lt;param-name&gt;</span>encoding<span class="nt">&lt;/param-name&gt;</span>
+           <span class="nt">&lt;param-value&gt;</span>utf-8<span class="nt">&lt;/param-value&gt;</span>
+       <span class="nt">&lt;/init-param&gt;</span>
+   <span class="nt">&lt;/filter&gt;</span>
+   <span class="nt">&lt;filter-mapping&gt;</span>
+       <span class="nt">&lt;filter-name&gt;</span>encodingFilter<span class="nt">&lt;/filter-name&gt;</span>
+       <span class="nt">&lt;url-pattern&gt;</span>/*<span class="nt">&lt;/url-pattern&gt;</span>
+   <span class="nt">&lt;/filter-mapping&gt;</span>
+   
+   <span class="c">&lt;!--Session过期时间--&gt;</span>
+   <span class="nt">&lt;session-config&gt;</span>
+       <span class="nt">&lt;session-timeout&gt;</span>15<span class="nt">&lt;/session-timeout&gt;</span>
+   <span class="nt">&lt;/session-config&gt;</span>
+   
+<span class="nt">&lt;/web-app&gt;</span>
+</code></pre></div><p>2、<strong>spring-mvc.xml</strong></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="cp">&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;</span>
+<span class="nt">&lt;beans</span> <span class="na">xmlns=</span><span class="s">&#34;http://www.springframework.org/schema/beans&#34;</span>
+      <span class="na">xmlns:xsi=</span><span class="s">&#34;http://www.w3.org/2001/XMLSchema-instance&#34;</span>
+      <span class="na">xmlns:context=</span><span class="s">&#34;http://www.springframework.org/schema/context&#34;</span>
+      <span class="na">xmlns:mvc=</span><span class="s">&#34;http://www.springframework.org/schema/mvc&#34;</span>
+      <span class="na">xsi:schemaLocation=</span><span class="s">&#34;http://www.springframework.org/schema/beans
+</span><span class="s">   http://www.springframework.org/schema/beans/spring-beans.xsd
+</span><span class="s">   http://www.springframework.org/schema/context
+</span><span class="s">   http://www.springframework.org/schema/context/spring-context.xsd
+</span><span class="s">   http://www.springframework.org/schema/mvc
+</span><span class="s">   https://www.springframework.org/schema/mvc/spring-mvc.xsd&#34;</span><span class="nt">&gt;</span>
+
+   <span class="c">&lt;!-- 配置SpringMVC --&gt;</span>
+   <span class="c">&lt;!-- 1.开启SpringMVC注解驱动 --&gt;</span>
+   <span class="nt">&lt;mvc:annotation-driven</span> <span class="nt">/&gt;</span>
+   <span class="c">&lt;!-- 2.静态资源默认servlet配置--&gt;</span>
+   <span class="nt">&lt;mvc:default-servlet-handler/&gt;</span>
+
+   <span class="c">&lt;!-- 3.配置jsp 显示ViewResolver视图解析器 --&gt;</span>
+   <span class="nt">&lt;bean</span> <span class="na">class=</span><span class="s">&#34;org.springframework.web.servlet.view.InternalResourceViewResolver&#34;</span><span class="nt">&gt;</span>
+       <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&#34;viewClass&#34;</span> <span class="na">value=</span><span class="s">&#34;org.springframework.web.servlet.view.JstlView&#34;</span> <span class="nt">/&gt;</span>
+       <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&#34;prefix&#34;</span> <span class="na">value=</span><span class="s">&#34;/WEB-INF/jsp/&#34;</span> <span class="nt">/&gt;</span>
+       <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&#34;suffix&#34;</span> <span class="na">value=</span><span class="s">&#34;.jsp&#34;</span> <span class="nt">/&gt;</span>
+   <span class="nt">&lt;/bean&gt;</span>
+
+   <span class="c">&lt;!-- 4.扫描web相关的bean --&gt;</span>
+   <span class="nt">&lt;context:component-scan</span> <span class="na">base-package=</span><span class="s">&#34;com.spring.controller&#34;</span> <span class="nt">/&gt;</span>
+
+<span class="nt">&lt;/beans&gt;</span>
+</code></pre></div><p>3、<strong>Spring配置整合文件，applicationContext.xml</strong></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="cp">&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;</span>
+<span class="nt">&lt;beans</span> <span class="na">xmlns=</span><span class="s">&#34;http://www.springframework.org/schema/beans&#34;</span>
+      <span class="na">xmlns:xsi=</span><span class="s">&#34;http://www.w3.org/2001/XMLSchema-instance&#34;</span>
+      <span class="na">xsi:schemaLocation=</span><span class="s">&#34;http://www.springframework.org/schema/beans
+</span><span class="s">       http://www.springframework.org/schema/beans/spring-beans.xsd&#34;</span><span class="nt">&gt;</span>
+	<span class="c">&lt;!-- 加载其他模块配置文件 --&gt;</span>
+   <span class="nt">&lt;import</span> <span class="na">resource=</span><span class="s">&#34;spring-dao.xml&#34;</span><span class="nt">/&gt;</span>
+   <span class="nt">&lt;import</span> <span class="na">resource=</span><span class="s">&#34;spring-service.xml&#34;</span><span class="nt">/&gt;</span>
+   <span class="nt">&lt;import</span> <span class="na">resource=</span><span class="s">&#34;spring-mvc.xml&#34;</span><span class="nt">/&gt;</span>
+   
+<span class="nt">&lt;/beans&gt;</span>
+</code></pre></div><p><strong>配置文件，暂时结束！Controller 和 视图层编写</strong></p>
+<p>1、BookController 类编写 ， 方法一：查询全部书籍</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="nd">@Controller</span>
+<span class="nd">@RequestMapping</span><span class="o">(</span><span class="s">&#34;/book&#34;</span><span class="o">)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">BookController</span> <span class="o">{</span>
+
+   <span class="nd">@Autowired</span>
+   <span class="nd">@Qualifier</span><span class="o">(</span><span class="s">&#34;BookServiceImpl&#34;</span><span class="o">)</span>
+   <span class="kd">private</span> <span class="n">BookService</span> <span class="n">bookService</span><span class="o">;</span>
+
+   <span class="nd">@RequestMapping</span><span class="o">(</span><span class="s">&#34;/allBook&#34;</span><span class="o">)</span>
+   <span class="kd">public</span> <span class="n">String</span> <span class="nf">list</span><span class="o">(</span><span class="n">Model</span> <span class="n">model</span><span class="o">)</span> <span class="o">{</span>
+       <span class="n">List</span><span class="o">&lt;</span><span class="n">Books</span><span class="o">&gt;</span> <span class="n">list</span> <span class="o">=</span> <span class="n">bookService</span><span class="o">.</span><span class="na">queryAllBook</span><span class="o">();</span>
+       <span class="n">model</span><span class="o">.</span><span class="na">addAttribute</span><span class="o">(</span><span class="s">&#34;list&#34;</span><span class="o">,</span> <span class="n">list</span><span class="o">);</span>
+       <span class="k">return</span> <span class="s">&#34;allBook&#34;</span><span class="o">;</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p>2、编写首页 <strong>index.jsp</strong></p>
+<pre tabindex="0"><code class="language-jsp" data-lang="jsp">&lt;%@ page language=&quot;java&quot; contentType=&quot;text/html; charset=UTF-8&quot; pageEncoding=&quot;UTF-8&quot; %&gt;
+&lt;!DOCTYPE HTML&gt;
+&lt;html&gt;
+&lt;head&gt;
+   &lt;title&gt;首页&lt;/title&gt;
+   &lt;style type=&quot;text/css&quot;&gt;
+       a {
+           text-decoration: none;
+           color: black;
+           font-size: 18px;
+      }
+       h3 {
+           width: 180px;
+           height: 38px;
+           margin: 100px auto;
+           text-align: center;
+           line-height: 38px;
+           background: deepskyblue;
+           border-radius: 4px;
+      }
+   &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+&lt;h3&gt;
+   &lt;a href=&quot;${pageContext.request.contextPath}/book/allBook&quot;&gt;点击进入列表页&lt;/a&gt;
+&lt;/h3&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre><p>3、书籍列表页面 <strong>allbook.jsp</strong></p>
+<pre tabindex="0"><code class="language-jsp" data-lang="jsp">&lt;%@ taglib prefix=&quot;c&quot; uri=&quot;http://java.sun.com/jsp/jstl/core&quot; %&gt;
+&lt;%@ page contentType=&quot;text/html;charset=UTF-8&quot; language=&quot;java&quot; %&gt;
+&lt;html&gt;
+&lt;head&gt;
+   &lt;title&gt;书籍列表&lt;/title&gt;
+   &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+   &lt;!-- 引入 Bootstrap --&gt;
+   &lt;link href=&quot;https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css&quot; rel=&quot;stylesheet&quot;&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+&lt;div class=&quot;container&quot;&gt;
+
+   &lt;div class=&quot;row clearfix&quot;&gt;
+       &lt;div class=&quot;col-md-12 column&quot;&gt;
+           &lt;div class=&quot;page-header&quot;&gt;
+               &lt;h1&gt;
+                   &lt;small&gt;书籍列表 —— 显示所有书籍&lt;/small&gt;
+               &lt;/h1&gt;
+           &lt;/div&gt;
+       &lt;/div&gt;
+   &lt;/div&gt;
+
+   &lt;div class=&quot;row&quot;&gt;
+       &lt;div class=&quot;col-md-4 column&quot;&gt;
+           &lt;a class=&quot;btn btn-primary&quot; href=&quot;${pageContext.request.contextPath}/book/toAddBook&quot;&gt;新增&lt;/a&gt;
+       &lt;/div&gt;
+   &lt;/div&gt;
+
+   &lt;div class=&quot;row clearfix&quot;&gt;
+       &lt;div class=&quot;col-md-12 column&quot;&gt;
+           &lt;table class=&quot;table table-hover table-striped&quot;&gt;
+               &lt;thead&gt;
+               &lt;tr&gt;
+                   &lt;th&gt;书籍编号&lt;/th&gt;
+                   &lt;th&gt;书籍名字&lt;/th&gt;
+                   &lt;th&gt;书籍数量&lt;/th&gt;
+                   &lt;th&gt;书籍详情&lt;/th&gt;
+                   &lt;th&gt;操作&lt;/th&gt;
+               &lt;/tr&gt;
+               &lt;/thead&gt;
+
+               &lt;tbody&gt;
+               &lt;c:forEach var=&quot;book&quot; items=&quot;${requestScope.get('list')}&quot;&gt;
+                   &lt;tr&gt;
+                       &lt;td&gt;${book.getBookID()}&lt;/td&gt;
+                       &lt;td&gt;${book.getBookName()}&lt;/td&gt;
+                       &lt;td&gt;${book.getBookCounts()}&lt;/td&gt;
+                       &lt;td&gt;${book.getDetail()}&lt;/td&gt;
+                       &lt;td&gt;
+                           &lt;a href=&quot;${pageContext.request.contextPath}/book/toUpdateBook?id=${book.getBookID()}&quot;&gt;更改&lt;/a&gt; |
+                           &lt;a href=&quot;${pageContext.request.contextPath}/book/del/${book.getBookID()}&quot;&gt;删除&lt;/a&gt;
+                       &lt;/td&gt;
+                   &lt;/tr&gt;
+               &lt;/c:forEach&gt;
+               &lt;/tbody&gt;
+           &lt;/table&gt;
+       &lt;/div&gt;
+   &lt;/div&gt;
+&lt;/div&gt;
+</code></pre><p>4、BookController 类编写 ， 方法二：添加书籍</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="nd">@RequestMapping</span><span class="o">(</span><span class="s">&#34;/toAddBook&#34;</span><span class="o">)</span>
+<span class="kd">public</span> <span class="n">String</span> <span class="nf">toAddPaper</span><span class="o">()</span> <span class="o">{</span>
+   <span class="k">return</span> <span class="s">&#34;addBook&#34;</span><span class="o">;</span>
+<span class="o">}</span>
+
+<span class="nd">@RequestMapping</span><span class="o">(</span><span class="s">&#34;/addBook&#34;</span><span class="o">)</span>
+<span class="kd">public</span> <span class="n">String</span> <span class="nf">addPaper</span><span class="o">(</span><span class="n">Books</span> <span class="n">books</span><span class="o">)</span> <span class="o">{</span>
+   <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">books</span><span class="o">);</span>
+   <span class="n">bookService</span><span class="o">.</span><span class="na">addBook</span><span class="o">(</span><span class="n">books</span><span class="o">);</span>
+   <span class="k">return</span> <span class="s">&#34;redirect:/book/allBook&#34;</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div><p>5、添加书籍页面：<strong>addBook.jsp</strong></p>
+<pre tabindex="0"><code class="language-jsp" data-lang="jsp">&lt;%@ taglib prefix=&quot;c&quot; uri=&quot;http://java.sun.com/jsp/jstl/core&quot; %&gt;
+&lt;%@ page contentType=&quot;text/html;charset=UTF-8&quot; language=&quot;java&quot; %&gt;
+
+&lt;html&gt;
+&lt;head&gt;
+   &lt;title&gt;新增书籍&lt;/title&gt;
+   &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+   &lt;!-- 引入 Bootstrap --&gt;
+   &lt;link href=&quot;https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css&quot; rel=&quot;stylesheet&quot;&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;div class=&quot;container&quot;&gt;
+
+   &lt;div class=&quot;row clearfix&quot;&gt;
+       &lt;div class=&quot;col-md-12 column&quot;&gt;
+           &lt;div class=&quot;page-header&quot;&gt;
+               &lt;h1&gt;
+                   &lt;small&gt;新增书籍&lt;/small&gt;
+               &lt;/h1&gt;
+           &lt;/div&gt;
+       &lt;/div&gt;
+   &lt;/div&gt;
+   &lt;form action=&quot;${pageContext.request.contextPath}/book/addBook&quot; method=&quot;post&quot;&gt;
+      书籍名称：&lt;input type=&quot;text&quot; name=&quot;bookName&quot;&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;
+      书籍数量：&lt;input type=&quot;text&quot; name=&quot;bookCounts&quot;&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;
+      书籍详情：&lt;input type=&quot;text&quot; name=&quot;detail&quot;&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;
+       &lt;input type=&quot;submit&quot; value=&quot;添加&quot;&gt;
+   &lt;/form&gt;
+
+&lt;/div&gt;
+</code></pre><p>6、BookController 类编写 ， 方法三：修改书籍</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="nd">@RequestMapping</span><span class="o">(</span><span class="s">&#34;/toUpdateBook&#34;</span><span class="o">)</span>
+<span class="kd">public</span> <span class="n">String</span> <span class="nf">toUpdateBook</span><span class="o">(</span><span class="n">Model</span> <span class="n">model</span><span class="o">,</span> <span class="kt">int</span> <span class="n">id</span><span class="o">)</span> <span class="o">{</span>
+   <span class="n">Books</span> <span class="n">books</span> <span class="o">=</span> <span class="n">bookService</span><span class="o">.</span><span class="na">queryBookById</span><span class="o">(</span><span class="n">id</span><span class="o">);</span>
+   <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">books</span><span class="o">);</span>
+   <span class="n">model</span><span class="o">.</span><span class="na">addAttribute</span><span class="o">(</span><span class="s">&#34;book&#34;</span><span class="o">,</span><span class="n">books</span> <span class="o">);</span>
+   <span class="k">return</span> <span class="s">&#34;updateBook&#34;</span><span class="o">;</span>
+<span class="o">}</span>
+
+<span class="nd">@RequestMapping</span><span class="o">(</span><span class="s">&#34;/updateBook&#34;</span><span class="o">)</span>
+<span class="kd">public</span> <span class="n">String</span> <span class="nf">updateBook</span><span class="o">(</span><span class="n">Model</span> <span class="n">model</span><span class="o">,</span> <span class="n">Books</span> <span class="n">book</span><span class="o">)</span> <span class="o">{</span>
+   <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">book</span><span class="o">);</span>
+   <span class="n">bookService</span><span class="o">.</span><span class="na">updateBook</span><span class="o">(</span><span class="n">book</span><span class="o">);</span>
+   <span class="n">Books</span> <span class="n">books</span> <span class="o">=</span> <span class="n">bookService</span><span class="o">.</span><span class="na">queryBookById</span><span class="o">(</span><span class="n">book</span><span class="o">.</span><span class="na">getBookID</span><span class="o">());</span>
+   <span class="n">model</span><span class="o">.</span><span class="na">addAttribute</span><span class="o">(</span><span class="s">&#34;books&#34;</span><span class="o">,</span> <span class="n">books</span><span class="o">);</span>
+   <span class="k">return</span> <span class="s">&#34;redirect:/book/allBook&#34;</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div><p>7、修改书籍页面  <strong>updateBook.jsp</strong></p>
+<pre tabindex="0"><code class="language-jsp" data-lang="jsp">&lt;%@ taglib prefix=&quot;c&quot; uri=&quot;http://java.sun.com/jsp/jstl/core&quot; %&gt;
+&lt;%@ page contentType=&quot;text/html;charset=UTF-8&quot; language=&quot;java&quot; %&gt;
+&lt;html&gt;
+&lt;head&gt;
+   &lt;title&gt;修改信息&lt;/title&gt;
+   &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+   &lt;!-- 引入 Bootstrap --&gt;
+   &lt;link href=&quot;https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css&quot; rel=&quot;stylesheet&quot;&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;div class=&quot;container&quot;&gt;
+
+   &lt;div class=&quot;row clearfix&quot;&gt;
+       &lt;div class=&quot;col-md-12 column&quot;&gt;
+           &lt;div class=&quot;page-header&quot;&gt;
+               &lt;h1&gt;
+                   &lt;small&gt;修改信息&lt;/small&gt;
+               &lt;/h1&gt;
+           &lt;/div&gt;
+       &lt;/div&gt;
+   &lt;/div&gt;
+
+   &lt;form action=&quot;${pageContext.request.contextPath}/book/updateBook&quot; method=&quot;post&quot;&gt;
+       &lt;input type=&quot;hidden&quot; name=&quot;bookID&quot; value=&quot;${book.getBookID()}&quot;/&gt;
+      书籍名称：&lt;input type=&quot;text&quot; name=&quot;bookName&quot; value=&quot;${book.getBookName()}&quot;/&gt;
+      书籍数量：&lt;input type=&quot;text&quot; name=&quot;bookCounts&quot; value=&quot;${book.getBookCounts()}&quot;/&gt;
+      书籍详情：&lt;input type=&quot;text&quot; name=&quot;detail&quot; value=&quot;${book.getDetail() }&quot;/&gt;
+       &lt;input type=&quot;submit&quot; value=&quot;提交&quot;/&gt;
+   &lt;/form&gt;
+
+&lt;/div&gt;
+</code></pre><p>8、BookController 类编写 ， 方法四：删除书籍</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="nd">@RequestMapping</span><span class="o">(</span><span class="s">&#34;/del/{bookId}&#34;</span><span class="o">)</span>
+<span class="kd">public</span> <span class="n">String</span> <span class="nf">deleteBook</span><span class="o">(</span><span class="nd">@PathVariable</span><span class="o">(</span><span class="s">&#34;bookId&#34;</span><span class="o">)</span> <span class="kt">int</span> <span class="n">id</span><span class="o">)</span> <span class="o">{</span>
+   <span class="n">bookService</span><span class="o">.</span><span class="na">deleteBookById</span><span class="o">(</span><span class="n">id</span><span class="o">);</span>
+   <span class="k">return</span> <span class="s">&#34;redirect:/book/allBook&#34;</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div><p><strong>配置Tomcat，进行运行！</strong></p>
+<p>到目前为止，这个SSM项目整合已经完全的OK了，可以直接运行进行测试！这个练习十分的重要，大家需要保证，不看任何东西，自己也可以完整的实现出来！</p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/springmvc/">springMVC</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+    <aside class="related-contents--wrapper">
+    
+    
+        <h2 class="section-title">相关文章</h2>
+        <div class="related-contents">
+            <div class="flex article-list--tile">
+                
+                    
+<article class="">
+    <a href="/p/springmvc08-%E6%8B%A6%E6%88%AA%E5%99%A8%E4%B8%8E%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E4%B8%8B%E8%BD%BD/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">SpringMVC08 拦截器与文件上传下载</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
+    <a href="/p/springmvc07-ajax%E7%A0%94%E7%A9%B6/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">SpringMVC07 Ajax研究</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
+    <a href="/p/springmvc06-json%E4%BA%A4%E4%BA%92%E5%A4%84%E7%90%86/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">SpringMVC06 Json交互处理</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
+    <a href="/p/springmvc04-%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E5%8F%8A%E8%B7%B3%E8%BD%AC/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">SpringMVC04 数据处理及跳转</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
+    <a href="/p/springmvc03-restful%E5%92%8C%E6%8E%A7%E5%88%B6%E5%99%A8/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">SpringMVC03 RestFul和控制器</h2>
+        </div>
+    </a>
+</article>
+                
+            </div>
+        </div>
+    
+</aside>
+
+     
+    
+        
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "stack" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (DISQUS) {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2020 - 
+        
+        2021 ybakiame&#39; Blog
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.5.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css"integrity="sha256-c0uckgykQ9v5k&#43;IqViZOZKc47Jn7KQil4/MP3ySA3F8="crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css"integrity="sha256-SBLU4vv6CA6lHsZ1XyTdhyjJxCjPif/TRkjnsyGAGnE="crossorigin="anonymous"
+            >
+
+            </main>
+    
+        <aside class="sidebar right-sidebar sticky">
+            <section class="widget archives">
+                <div class="widget-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+                </div>
+                <h2 class="widget-title section-title">目录</h2>
+                
+                <div class="widget--toc">
+                    <nav id="TableOfContents">
+  <ol>
+    <li><a href="#整合ssm框架">整合SSM框架</a>
+      <ol>
+        <li><a href="#数据库环境">数据库环境</a></li>
+        <li><a href="#基本环境搭建">基本环境搭建</a></li>
+        <li><a href="#mybatis层">Mybatis层</a></li>
+        <li><a href="#spring层">Spring层</a></li>
+        <li><a href="#springmvc层">SpringMVC层</a></li>
+      </ol>
+    </li>
+  </ol>
+</nav>
+                </div>
+            </section>
+        </aside>
+    
+
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js"integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g="crossorigin="anonymous"
+                defer="false"
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

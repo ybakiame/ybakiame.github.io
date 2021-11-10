@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='数据处理及跳转 跳转 ModelAndView 设置ModelAndView对象 , 根据view的名称 , 和视图解析器跳到指定的页面 .
+页面 : {视图解析器前缀} &#43; viewName &#43;{视图解析器后缀}
+&amp;lt;!-- 视图解析器 --&amp;gt; &amp;lt;bean class=&amp;#34;org.springframework.web.servlet.view.InternalResourceViewResolver&amp;#34; id=&amp;#34;internalResourceViewResolver&amp;#34;&amp;gt; &amp;lt;!-- 前缀 --&amp;gt; &amp;lt;property name=&amp;#34;prefix&amp;#34; value=&amp;#34;/WEB-INF/jsp/&amp;#34; /&amp;gt; &amp;lt;!-- 后缀 --&amp;gt; &amp;lt;property name=&amp;#34;suffix&amp;#34; value=&amp;#34;.jsp&amp;#34; /&amp;gt; &amp;lt;/bean&amp;gt; 对应的controller类
+public class ControllerTest1 implements Controller { public ModelAndView handleRequest(HttpServletRequest httpServletRequest, HttpServletResponsehttpServletResponse) throws Exception { //返回一个模型视图对象  ModelAndView mv = new ModelAndView(); mv.addObject(&amp;#34;msg&amp;#34;,&amp;#34;ControllerTest1&amp;#34;); mv.setViewName(&amp;#34;test&amp;#34;); return mv; } } ServletAPI 通过设置ServletAPI , 不需要视图解析器 .
+1、通过HttpServletResponse进行输出'><title>SpringMVC04 数据处理及跳转</title>
+
+<link rel='canonical' href='https://example.com/p/springmvc04-%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E5%8F%8A%E8%B7%B3%E8%BD%AC/'>
+
+<link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content='SpringMVC04 数据处理及跳转'>
+<meta property='og:description' content='数据处理及跳转 跳转 ModelAndView 设置ModelAndView对象 , 根据view的名称 , 和视图解析器跳到指定的页面 .
+页面 : {视图解析器前缀} &#43; viewName &#43;{视图解析器后缀}
+&amp;lt;!-- 视图解析器 --&amp;gt; &amp;lt;bean class=&amp;#34;org.springframework.web.servlet.view.InternalResourceViewResolver&amp;#34; id=&amp;#34;internalResourceViewResolver&amp;#34;&amp;gt; &amp;lt;!-- 前缀 --&amp;gt; &amp;lt;property name=&amp;#34;prefix&amp;#34; value=&amp;#34;/WEB-INF/jsp/&amp;#34; /&amp;gt; &amp;lt;!-- 后缀 --&amp;gt; &amp;lt;property name=&amp;#34;suffix&amp;#34; value=&amp;#34;.jsp&amp;#34; /&amp;gt; &amp;lt;/bean&amp;gt; 对应的controller类
+public class ControllerTest1 implements Controller { public ModelAndView handleRequest(HttpServletRequest httpServletRequest, HttpServletResponsehttpServletResponse) throws Exception { //返回一个模型视图对象  ModelAndView mv = new ModelAndView(); mv.addObject(&amp;#34;msg&amp;#34;,&amp;#34;ControllerTest1&amp;#34;); mv.setViewName(&amp;#34;test&amp;#34;); return mv; } } ServletAPI 通过设置ServletAPI , 不需要视图解析器 .
+1、通过HttpServletResponse进行输出'>
+<meta property='og:url' content='https://example.com/p/springmvc04-%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E5%8F%8A%E8%B7%B3%E8%BD%AC/'>
+<meta property='og:site_name' content='ybakiame&#39; Blog'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='springMVC' /><meta property='article:published_time' content='2021-11-09T09:40:04&#43;08:00'/><meta property='article:modified_time' content='2021-11-09T09:40:04&#43;08:00'/>
+<meta name="twitter:title" content="SpringMVC04 数据处理及跳转">
+<meta name="twitter:description" content="数据处理及跳转 跳转 ModelAndView 设置ModelAndView对象 , 根据view的名称 , 和视图解析器跳到指定的页面 .
+页面 : {视图解析器前缀} &#43; viewName &#43;{视图解析器后缀}
+&amp;lt;!-- 视图解析器 --&amp;gt; &amp;lt;bean class=&amp;#34;org.springframework.web.servlet.view.InternalResourceViewResolver&amp;#34; id=&amp;#34;internalResourceViewResolver&amp;#34;&amp;gt; &amp;lt;!-- 前缀 --&amp;gt; &amp;lt;property name=&amp;#34;prefix&amp;#34; value=&amp;#34;/WEB-INF/jsp/&amp;#34; /&amp;gt; &amp;lt;!-- 后缀 --&amp;gt; &amp;lt;property name=&amp;#34;suffix&amp;#34; value=&amp;#34;.jsp&amp;#34; /&amp;gt; &amp;lt;/bean&amp;gt; 对应的controller类
+public class ControllerTest1 implements Controller { public ModelAndView handleRequest(HttpServletRequest httpServletRequest, HttpServletResponsehttpServletResponse) throws Exception { //返回一个模型视图对象  ModelAndView mv = new ModelAndView(); mv.addObject(&amp;#34;msg&amp;#34;,&amp;#34;ControllerTest1&amp;#34;); mv.setViewName(&amp;#34;test&amp;#34;); return mv; } } ServletAPI 通过设置ServletAPI , 不需要视图解析器 .
+1、通过HttpServletResponse进行输出">
+    </head>
+    <body class="
+    article-page has-toc
+">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex 
+    
+        extended
+    
+">
+    
+        <div id="article-toolbar">
+            <a href="/" class="back-home">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="15 6 9 12 15 18" />
+</svg>
+
+
+
+                <span>返回</span>
+            </a>
+        </div>
+    
+<main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/spring/" >
+                spring
+            </a>
+        
+    </header>
+    
+
+    <h2 class="article-title">
+        <a href="/p/springmvc04-%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E5%8F%8A%E8%B7%B3%E8%BD%AC/">SpringMVC04 数据处理及跳转</a>
+    </h2>
+
+    
+
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Nov 09, 2021</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    阅读时长: 4 分钟
+                </time>
+            </div>
+        
+    </footer>
+    
+</div>
+</header>
+
+    <section class="article-content">
+    <h2 id="数据处理及跳转">数据处理及跳转</h2>
+<h3 id="跳转">跳转</h3>
+<h4 id="modelandview">ModelAndView</h4>
+<p>设置ModelAndView对象 , 根据view的名称 , 和视图解析器跳到指定的页面 .</p>
+<p>页面 : {视图解析器前缀} + viewName +{视图解析器后缀}</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="c">&lt;!-- 视图解析器 --&gt;</span>
+<span class="nt">&lt;bean</span> <span class="na">class=</span><span class="s">&#34;org.springframework.web.servlet.view.InternalResourceViewResolver&#34;</span>
+     <span class="na">id=</span><span class="s">&#34;internalResourceViewResolver&#34;</span><span class="nt">&gt;</span>
+   <span class="c">&lt;!-- 前缀 --&gt;</span>
+   <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&#34;prefix&#34;</span> <span class="na">value=</span><span class="s">&#34;/WEB-INF/jsp/&#34;</span> <span class="nt">/&gt;</span>
+   <span class="c">&lt;!-- 后缀 --&gt;</span>
+   <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&#34;suffix&#34;</span> <span class="na">value=</span><span class="s">&#34;.jsp&#34;</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;/bean&gt;</span>
+</code></pre></div><p>对应的controller类</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">ControllerTest1</span> <span class="kd">implements</span> <span class="n">Controller</span> <span class="o">{</span>
+
+   <span class="kd">public</span> <span class="n">ModelAndView</span> <span class="nf">handleRequest</span><span class="o">(</span><span class="n">HttpServletRequest</span> <span class="n">httpServletRequest</span><span class="o">,</span> <span class="n">HttpServletResponsehttpServletResponse</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+       <span class="c1">//返回一个模型视图对象
+</span><span class="c1"></span>       <span class="n">ModelAndView</span> <span class="n">mv</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ModelAndView</span><span class="o">();</span>
+       <span class="n">mv</span><span class="o">.</span><span class="na">addObject</span><span class="o">(</span><span class="s">&#34;msg&#34;</span><span class="o">,</span><span class="s">&#34;ControllerTest1&#34;</span><span class="o">);</span>
+       <span class="n">mv</span><span class="o">.</span><span class="na">setViewName</span><span class="o">(</span><span class="s">&#34;test&#34;</span><span class="o">);</span>
+       <span class="k">return</span> <span class="n">mv</span><span class="o">;</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><h4 id="servletapi">ServletAPI</h4>
+<p>通过设置ServletAPI , 不需要视图解析器 .</p>
+<p>1、通过HttpServletResponse进行输出</p>
+<p>2、通过HttpServletResponse实现重定向</p>
+<p>3、通过HttpServletResponse实现转发</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="nd">@Controller</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ResultGo</span> <span class="o">{</span>
+
+   <span class="nd">@RequestMapping</span><span class="o">(</span><span class="s">&#34;/result/t1&#34;</span><span class="o">)</span>
+   <span class="kd">public</span> <span class="kt">void</span> <span class="nf">test1</span><span class="o">(</span><span class="n">HttpServletRequest</span> <span class="n">req</span><span class="o">,</span> <span class="n">HttpServletResponse</span> <span class="n">rsp</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">IOException</span> <span class="o">{</span>
+       <span class="n">rsp</span><span class="o">.</span><span class="na">getWriter</span><span class="o">().</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;Hello,Spring BY servlet API&#34;</span><span class="o">);</span>
+  <span class="o">}</span>
+
+   <span class="nd">@RequestMapping</span><span class="o">(</span><span class="s">&#34;/result/t2&#34;</span><span class="o">)</span>
+   <span class="kd">public</span> <span class="kt">void</span> <span class="nf">test2</span><span class="o">(</span><span class="n">HttpServletRequest</span> <span class="n">req</span><span class="o">,</span> <span class="n">HttpServletResponse</span> <span class="n">rsp</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">IOException</span> <span class="o">{</span>
+       <span class="n">rsp</span><span class="o">.</span><span class="na">sendRedirect</span><span class="o">(</span><span class="s">&#34;/index.jsp&#34;</span><span class="o">);</span>
+  <span class="o">}</span>
+
+   <span class="nd">@RequestMapping</span><span class="o">(</span><span class="s">&#34;/result/t3&#34;</span><span class="o">)</span>
+   <span class="kd">public</span> <span class="kt">void</span> <span class="nf">test3</span><span class="o">(</span><span class="n">HttpServletRequest</span> <span class="n">req</span><span class="o">,</span> <span class="n">HttpServletResponse</span> <span class="n">rsp</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+       <span class="c1">//转发
+</span><span class="c1"></span>       <span class="n">req</span><span class="o">.</span><span class="na">setAttribute</span><span class="o">(</span><span class="s">&#34;msg&#34;</span><span class="o">,</span><span class="s">&#34;/result/t3&#34;</span><span class="o">);</span>
+       <span class="n">req</span><span class="o">.</span><span class="na">getRequestDispatcher</span><span class="o">(</span><span class="s">&#34;/WEB-INF/jsp/test.jsp&#34;</span><span class="o">).</span><span class="na">forward</span><span class="o">(</span><span class="n">req</span><span class="o">,</span><span class="n">rsp</span><span class="o">);</span>
+  <span class="o">}</span>
+
+<span class="o">}</span>
+</code></pre></div><h4 id="springmvc">SpringMVC</h4>
+<p><strong>通过SpringMVC来实现转发和重定向 - 无需视图解析器；</strong></p>
+<p>测试前，需要将视图解析器注释掉</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="nd">@Controller</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ResultSpringMVC</span> <span class="o">{</span>
+   <span class="nd">@RequestMapping</span><span class="o">(</span><span class="s">&#34;/rsm/t1&#34;</span><span class="o">)</span>
+   <span class="kd">public</span> <span class="n">String</span> <span class="nf">test1</span><span class="o">(){</span>
+       <span class="c1">//转发
+</span><span class="c1"></span>       <span class="k">return</span> <span class="s">&#34;/index.jsp&#34;</span><span class="o">;</span>
+  <span class="o">}</span>
+
+   <span class="nd">@RequestMapping</span><span class="o">(</span><span class="s">&#34;/rsm/t2&#34;</span><span class="o">)</span>
+   <span class="kd">public</span> <span class="n">String</span> <span class="nf">test2</span><span class="o">(){</span>
+       <span class="c1">//转发二
+</span><span class="c1"></span>       <span class="k">return</span> <span class="s">&#34;forward:/index.jsp&#34;</span><span class="o">;</span>
+  <span class="o">}</span>
+
+   <span class="nd">@RequestMapping</span><span class="o">(</span><span class="s">&#34;/rsm/t3&#34;</span><span class="o">)</span>
+   <span class="kd">public</span> <span class="n">String</span> <span class="nf">test3</span><span class="o">(){</span>
+       <span class="c1">//重定向
+</span><span class="c1"></span>       <span class="k">return</span> <span class="s">&#34;redirect:/index.jsp&#34;</span><span class="o">;</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p><strong>通过SpringMVC来实现转发和重定向 - 有视图解析器；</strong></p>
+<p>重定向 , 不需要视图解析器 , 本质就是重新请求一个新地方嘛 , 所以注意路径问题.</p>
+<p>可以重定向到另外一个请求实现 .</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="nd">@Controller</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ResultSpringMVC2</span> <span class="o">{</span>
+   <span class="nd">@RequestMapping</span><span class="o">(</span><span class="s">&#34;/rsm2/t1&#34;</span><span class="o">)</span>
+   <span class="kd">public</span> <span class="n">String</span> <span class="nf">test1</span><span class="o">(){</span>
+       <span class="c1">//转发
+</span><span class="c1"></span>       <span class="k">return</span> <span class="s">&#34;test&#34;</span><span class="o">;</span>
+  <span class="o">}</span>
+
+   <span class="nd">@RequestMapping</span><span class="o">(</span><span class="s">&#34;/rsm2/t2&#34;</span><span class="o">)</span>
+   <span class="kd">public</span> <span class="n">String</span> <span class="nf">test2</span><span class="o">(){</span>
+       <span class="c1">//重定向
+</span><span class="c1"></span>       <span class="k">return</span> <span class="s">&#34;redirect:/index.jsp&#34;</span><span class="o">;</span>
+       <span class="c1">//return &#34;redirect:hello.do&#34;; //hello.do为另一个请求/
+</span><span class="c1"></span>  <span class="o">}</span>
+
+<span class="o">}</span>
+</code></pre></div><h3 id="数据处理">数据处理</h3>
+<h4 id="处理提交数据">处理提交数据</h4>
+<p><strong>提交的域名称和处理方法的参数名一致</strong></p>
+<p>提交数据 : http://localhost:8080/hello?name=zhangsan</p>
+<p>处理方法 :</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="nd">@RequestMapping</span><span class="o">(</span><span class="s">&#34;/hello&#34;</span><span class="o">)</span>
+<span class="kd">public</span> <span class="n">String</span> <span class="nf">hello</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">){</span>
+   <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">name</span><span class="o">);</span>
+   <span class="k">return</span> <span class="s">&#34;hello&#34;</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div><p>后台输出 : zhangsan</p>
+<p><strong>2、提交的域名称和处理方法的参数名不一致</strong></p>
+<p>提交数据 : http://localhost:8080/hello?username=zhangsan</p>
+<p>处理方法 :</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="c1">//@RequestParam(&#34;username&#34;) : username提交的域的名称 .
+</span><span class="c1"></span><span class="nd">@RequestMapping</span><span class="o">(</span><span class="s">&#34;/hello&#34;</span><span class="o">)</span>
+<span class="kd">public</span> <span class="n">String</span> <span class="nf">hello</span><span class="o">(</span><span class="nd">@RequestParam</span><span class="o">(</span><span class="s">&#34;username&#34;</span><span class="o">)</span> <span class="n">String</span> <span class="n">name</span><span class="o">){</span>
+   <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">name</span><span class="o">);</span>
+   <span class="k">return</span> <span class="s">&#34;hello&#34;</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div><p>后台输出 : zhangsan</p>
+<p><strong>3、提交的是一个对象</strong></p>
+<p>要求提交的表单域和对象的属性名一致  , 参数使用对象即可</p>
+<p>1、实体类</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="nd">@Data</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">User</span> <span class="o">{</span>
+   <span class="kd">private</span> <span class="kt">int</span> <span class="n">id</span><span class="o">;</span>
+   <span class="kd">private</span> <span class="n">String</span> <span class="n">name</span><span class="o">;</span>
+   <span class="kd">private</span> <span class="kt">int</span> <span class="n">age</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div><p>2、提交数据 : http://localhost:8080/mvc04/user?name=zhangsan&amp;id=1&amp;age=15</p>
+<p>3、处理方法 :</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="nd">@RequestMapping</span><span class="o">(</span><span class="s">&#34;/user&#34;</span><span class="o">)</span>
+<span class="kd">public</span> <span class="n">String</span> <span class="nf">user</span><span class="o">(</span><span class="n">User</span> <span class="n">user</span><span class="o">){</span>
+   <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">user</span><span class="o">);</span>
+   <span class="k">return</span> <span class="s">&#34;hello&#34;</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div><p>后台输出 : User { id=1, name=&lsquo;zhangsan&rsquo;, age=15 }</p>
+<p>说明：如果使用对象的话，前端传递的参数名和对象名必须一致，否则就是null。</p>
+<h4 id="数据显示到前端">数据显示到前端</h4>
+<p><strong>第一种 : 通过ModelAndView</strong></p>
+<p>我们前面一直都是如此 . 就不过多解释</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">ControllerTest1</span> <span class="kd">implements</span> <span class="n">Controller</span> <span class="o">{</span>
+
+   <span class="kd">public</span> <span class="n">ModelAndView</span> <span class="nf">handleRequest</span><span class="o">(</span><span class="n">HttpServletRequest</span> <span class="n">httpServletRequest</span><span class="o">,</span> <span class="n">HttpServletResponsehttpServletResponse</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+       <span class="c1">//返回一个模型视图对象
+</span><span class="c1"></span>       <span class="n">ModelAndView</span> <span class="n">mv</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ModelAndView</span><span class="o">();</span>
+       <span class="n">mv</span><span class="o">.</span><span class="na">addObject</span><span class="o">(</span><span class="s">&#34;msg&#34;</span><span class="o">,</span><span class="s">&#34;ControllerTest1&#34;</span><span class="o">);</span>
+       <span class="n">mv</span><span class="o">.</span><span class="na">setViewName</span><span class="o">(</span><span class="s">&#34;test&#34;</span><span class="o">);</span>
+       <span class="k">return</span> <span class="n">mv</span><span class="o">;</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p><strong>第二种 : 通过ModelMap</strong></p>
+<p>ModelMap</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="nd">@RequestMapping</span><span class="o">(</span><span class="s">&#34;/hello&#34;</span><span class="o">)</span>
+<span class="kd">public</span> <span class="n">String</span> <span class="nf">hello</span><span class="o">(</span><span class="nd">@RequestParam</span><span class="o">(</span><span class="s">&#34;username&#34;</span><span class="o">)</span> <span class="n">String</span> <span class="n">name</span><span class="o">,</span> <span class="n">ModelMap</span> <span class="n">model</span><span class="o">){</span>
+   <span class="c1">//封装要显示到视图中的数据
+</span><span class="c1"></span>   <span class="c1">//相当于req.setAttribute(&#34;name&#34;,name);
+</span><span class="c1"></span>   <span class="n">model</span><span class="o">.</span><span class="na">addAttribute</span><span class="o">(</span><span class="s">&#34;name&#34;</span><span class="o">,</span><span class="n">name</span><span class="o">);</span>
+   <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">name</span><span class="o">);</span>
+   <span class="k">return</span> <span class="s">&#34;hello&#34;</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div><p><strong>第三种 : 通过Model</strong></p>
+<p>Model</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="nd">@RequestMapping</span><span class="o">(</span><span class="s">&#34;/ct2/hello&#34;</span><span class="o">)</span>
+<span class="kd">public</span> <span class="n">String</span> <span class="nf">hello</span><span class="o">(</span><span class="nd">@RequestParam</span><span class="o">(</span><span class="s">&#34;username&#34;</span><span class="o">)</span> <span class="n">String</span> <span class="n">name</span><span class="o">,</span> <span class="n">Model</span> <span class="n">model</span><span class="o">){</span>
+   <span class="c1">//封装要显示到视图中的数据
+</span><span class="c1"></span>   <span class="c1">//相当于req.setAttribute(&#34;name&#34;,name);
+</span><span class="c1"></span>   <span class="n">model</span><span class="o">.</span><span class="na">addAttribute</span><span class="o">(</span><span class="s">&#34;msg&#34;</span><span class="o">,</span><span class="n">name</span><span class="o">);</span>
+   <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">name</span><span class="o">);</span>
+   <span class="k">return</span> <span class="s">&#34;test&#34;</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div><h3 id="对比">对比</h3>
+<p>就对于新手而言简单来说使用区别就是：</p>
+<pre tabindex="0"><code>Model 只有寥寥几个方法只适合用于储存数据，简化了新手对于Model对象的操作和理解；
+
+ModelMap 继承了 LinkedMap ，除了实现了自身的一些方法，同样的继承 LinkedMap 的方法和特性；
+
+ModelAndView 可以在储存数据的同时，可以进行设置返回的逻辑视图，进行控制展示层的跳转。
+</code></pre><p>当然更多的以后开发考虑的更多的是性能和优化，就不能单单仅限于此的了解。</p>
+<p><strong>请使用80%的时间打好扎实的基础，剩下18%的时间研究框架，2%的时间去学点英文，框架的官方文档永远是最好的教程。</strong></p>
+<h3 id="乱码问题">乱码问题</h3>
+<p>测试步骤：</p>
+<p>1、我们可以在首页编写一个提交的表单</p>
+<pre tabindex="0"><code class="language-jsp" data-lang="jsp">&lt;form action=&quot;/e/t&quot; method=&quot;post&quot;&gt;
+ &lt;input type=&quot;text&quot; name=&quot;name&quot;&gt;
+ &lt;input type=&quot;submit&quot;&gt;
+&lt;/form&gt;
+</code></pre><p>2、后台编写对应的处理类</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="nd">@Controller</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Encoding</span> <span class="o">{</span>
+   <span class="nd">@RequestMapping</span><span class="o">(</span><span class="s">&#34;/e/t&#34;</span><span class="o">)</span>
+   <span class="kd">public</span> <span class="n">String</span> <span class="nf">test</span><span class="o">(</span><span class="n">Model</span> <span class="n">model</span><span class="o">,</span><span class="n">String</span> <span class="n">name</span><span class="o">){</span>
+       <span class="n">model</span><span class="o">.</span><span class="na">addAttribute</span><span class="o">(</span><span class="s">&#34;msg&#34;</span><span class="o">,</span><span class="n">name</span><span class="o">);</span> <span class="c1">//获取表单提交的值
+</span><span class="c1"></span>       <span class="k">return</span> <span class="s">&#34;test&#34;</span><span class="o">;</span> <span class="c1">//跳转到test页面显示输入的值
+</span><span class="c1"></span>  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p>3、输入中文测试，发现乱码</p>
+<p>不得不说，乱码问题是在我们开发中十分常见的问题，也是让我们程序猿比较头大的问题！</p>
+<p>以前乱码问题通过过滤器解决 , 而SpringMVC给我们提供了一个过滤器 , 可以在web.xml中配置 .</p>
+<p>修改了xml文件需要重启服务器！</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="nt">&lt;filter&gt;</span>
+   <span class="nt">&lt;filter-name&gt;</span>encoding<span class="nt">&lt;/filter-name&gt;</span>
+   <span class="nt">&lt;filter-class&gt;</span>org.springframework.web.filter.CharacterEncodingFilter<span class="nt">&lt;/filter-class&gt;</span>
+   <span class="nt">&lt;init-param&gt;</span>
+       <span class="nt">&lt;param-name&gt;</span>encoding<span class="nt">&lt;/param-name&gt;</span>
+       <span class="nt">&lt;param-value&gt;</span>utf-8<span class="nt">&lt;/param-value&gt;</span>
+   <span class="nt">&lt;/init-param&gt;</span>
+<span class="nt">&lt;/filter&gt;</span>
+<span class="nt">&lt;filter-mapping&gt;</span>
+   <span class="nt">&lt;filter-name&gt;</span>encoding<span class="nt">&lt;/filter-name&gt;</span>
+   <span class="nt">&lt;url-pattern&gt;</span>/*<span class="nt">&lt;/url-pattern&gt;</span>
+<span class="nt">&lt;/filter-mapping&gt;</span>
+</code></pre></div><p>但是我们发现 , 有些极端情况下.这个过滤器对get的支持不好 .</p>
+<p>处理方法 :</p>
+<p>1、修改tomcat配置文件 ：设置编码！</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="nt">&lt;Connector</span> <span class="na">URIEncoding=</span><span class="s">&#34;utf-8&#34;</span> <span class="na">port=</span><span class="s">&#34;8080&#34;</span> <span class="na">protocol=</span><span class="s">&#34;HTTP/1.1&#34;</span>
+          <span class="na">connectionTimeout=</span><span class="s">&#34;20000&#34;</span>
+          <span class="na">redirectPort=</span><span class="s">&#34;8443&#34;</span> <span class="nt">/&gt;</span>
+</code></pre></div><p>2、自定义过滤器</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">com.kuang.filter</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">javax.servlet.*</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">javax.servlet.http.HttpServletRequest</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">javax.servlet.http.HttpServletRequestWrapper</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">javax.servlet.http.HttpServletResponse</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.io.IOException</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.io.UnsupportedEncodingException</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.Map</span><span class="o">;</span>
+
+<span class="cm">/**
+</span><span class="cm">* 解决get和post请求 全部乱码的过滤器
+</span><span class="cm">*/</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">GenericEncodingFilter</span> <span class="kd">implements</span> <span class="n">Filter</span> <span class="o">{</span>
+
+   <span class="nd">@Override</span>
+   <span class="kd">public</span> <span class="kt">void</span> <span class="nf">destroy</span><span class="o">()</span> <span class="o">{</span>
+  <span class="o">}</span>
+
+   <span class="nd">@Override</span>
+   <span class="kd">public</span> <span class="kt">void</span> <span class="nf">doFilter</span><span class="o">(</span><span class="n">ServletRequest</span> <span class="n">request</span><span class="o">,</span> <span class="n">ServletResponse</span> <span class="n">response</span><span class="o">,</span> <span class="n">FilterChain</span> <span class="n">chain</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">IOException</span><span class="o">,</span> <span class="n">ServletException</span> <span class="o">{</span>
+       <span class="c1">//处理response的字符编码
+</span><span class="c1"></span>       <span class="n">HttpServletResponse</span> <span class="n">myResponse</span><span class="o">=(</span><span class="n">HttpServletResponse</span><span class="o">)</span> <span class="n">response</span><span class="o">;</span>
+       <span class="n">myResponse</span><span class="o">.</span><span class="na">setContentType</span><span class="o">(</span><span class="s">&#34;text/html;charset=UTF-8&#34;</span><span class="o">);</span>
+
+       <span class="c1">// 转型为与协议相关对象
+</span><span class="c1"></span>       <span class="n">HttpServletRequest</span> <span class="n">httpServletRequest</span> <span class="o">=</span> <span class="o">(</span><span class="n">HttpServletRequest</span><span class="o">)</span> <span class="n">request</span><span class="o">;</span>
+       <span class="c1">// 对request包装增强
+</span><span class="c1"></span>       <span class="n">HttpServletRequest</span> <span class="n">myrequest</span> <span class="o">=</span> <span class="k">new</span> <span class="n">MyRequest</span><span class="o">(</span><span class="n">httpServletRequest</span><span class="o">);</span>
+       <span class="n">chain</span><span class="o">.</span><span class="na">doFilter</span><span class="o">(</span><span class="n">myrequest</span><span class="o">,</span> <span class="n">response</span><span class="o">);</span>
+  <span class="o">}</span>
+
+   <span class="nd">@Override</span>
+   <span class="kd">public</span> <span class="kt">void</span> <span class="nf">init</span><span class="o">(</span><span class="n">FilterConfig</span> <span class="n">filterConfig</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">ServletException</span> <span class="o">{</span>
+  <span class="o">}</span>
+
+<span class="o">}</span>
+
+<span class="c1">//自定义request对象，HttpServletRequest的包装类
+</span><span class="c1"></span><span class="kd">class</span> <span class="nc">MyRequest</span> <span class="kd">extends</span> <span class="n">HttpServletRequestWrapper</span> <span class="o">{</span>
+
+   <span class="kd">private</span> <span class="n">HttpServletRequest</span> <span class="n">request</span><span class="o">;</span>
+   <span class="c1">//是否编码的标记
+</span><span class="c1"></span>   <span class="kd">private</span> <span class="kt">boolean</span> <span class="n">hasEncode</span><span class="o">;</span>
+   <span class="c1">//定义一个可以传入HttpServletRequest对象的构造函数，以便对其进行装饰
+</span><span class="c1"></span>   <span class="kd">public</span> <span class="nf">MyRequest</span><span class="o">(</span><span class="n">HttpServletRequest</span> <span class="n">request</span><span class="o">)</span> <span class="o">{</span>
+       <span class="kd">super</span><span class="o">(</span><span class="n">request</span><span class="o">);</span><span class="c1">// super必须写
+</span><span class="c1"></span>       <span class="k">this</span><span class="o">.</span><span class="na">request</span> <span class="o">=</span> <span class="n">request</span><span class="o">;</span>
+  <span class="o">}</span>
+
+   <span class="c1">// 对需要增强方法 进行覆盖
+</span><span class="c1"></span>   <span class="nd">@Override</span>
+   <span class="kd">public</span> <span class="n">Map</span> <span class="nf">getParameterMap</span><span class="o">()</span> <span class="o">{</span>
+       <span class="c1">// 先获得请求方式
+</span><span class="c1"></span>       <span class="n">String</span> <span class="n">method</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="na">getMethod</span><span class="o">();</span>
+       <span class="k">if</span> <span class="o">(</span><span class="n">method</span><span class="o">.</span><span class="na">equalsIgnoreCase</span><span class="o">(</span><span class="s">&#34;post&#34;</span><span class="o">))</span> <span class="o">{</span>
+           <span class="c1">// post请求
+</span><span class="c1"></span>           <span class="k">try</span> <span class="o">{</span>
+               <span class="c1">// 处理post乱码
+</span><span class="c1"></span>               <span class="n">request</span><span class="o">.</span><span class="na">setCharacterEncoding</span><span class="o">(</span><span class="s">&#34;utf-8&#34;</span><span class="o">);</span>
+               <span class="k">return</span> <span class="n">request</span><span class="o">.</span><span class="na">getParameterMap</span><span class="o">();</span>
+          <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">UnsupportedEncodingException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+               <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+          <span class="o">}</span>
+      <span class="o">}</span> <span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">method</span><span class="o">.</span><span class="na">equalsIgnoreCase</span><span class="o">(</span><span class="s">&#34;get&#34;</span><span class="o">))</span> <span class="o">{</span>
+           <span class="c1">// get请求
+</span><span class="c1"></span>           <span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">String</span><span class="o">[]&gt;</span> <span class="n">parameterMap</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="na">getParameterMap</span><span class="o">();</span>
+           <span class="k">if</span> <span class="o">(!</span><span class="n">hasEncode</span><span class="o">)</span> <span class="o">{</span> <span class="c1">// 确保get手动编码逻辑只运行一次
+</span><span class="c1"></span>               <span class="k">for</span> <span class="o">(</span><span class="n">String</span> <span class="n">parameterName</span> <span class="o">:</span> <span class="n">parameterMap</span><span class="o">.</span><span class="na">keySet</span><span class="o">())</span> <span class="o">{</span>
+                   <span class="n">String</span><span class="o">[]</span> <span class="n">values</span> <span class="o">=</span> <span class="n">parameterMap</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">parameterName</span><span class="o">);</span>
+                   <span class="k">if</span> <span class="o">(</span><span class="n">values</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+                       <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">values</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+                           <span class="k">try</span> <span class="o">{</span>
+                               <span class="c1">// 处理get乱码
+</span><span class="c1"></span>                               <span class="n">values</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">=</span> <span class="k">new</span> <span class="n">String</span><span class="o">(</span><span class="n">values</span><span class="o">[</span><span class="n">i</span><span class="o">]</span>
+                                      <span class="o">.</span><span class="na">getBytes</span><span class="o">(</span><span class="s">&#34;ISO-8859-1&#34;</span><span class="o">),</span> <span class="s">&#34;utf-8&#34;</span><span class="o">);</span>
+                          <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">UnsupportedEncodingException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+                               <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+                          <span class="o">}</span>
+                      <span class="o">}</span>
+                  <span class="o">}</span>
+              <span class="o">}</span>
+               <span class="n">hasEncode</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
+          <span class="o">}</span>
+           <span class="k">return</span> <span class="n">parameterMap</span><span class="o">;</span>
+      <span class="o">}</span>
+       <span class="k">return</span> <span class="kd">super</span><span class="o">.</span><span class="na">getParameterMap</span><span class="o">();</span>
+  <span class="o">}</span>
+
+   <span class="c1">//取一个值
+</span><span class="c1"></span>   <span class="nd">@Override</span>
+   <span class="kd">public</span> <span class="n">String</span> <span class="nf">getParameter</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">)</span> <span class="o">{</span>
+       <span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">String</span><span class="o">[]&gt;</span> <span class="n">parameterMap</span> <span class="o">=</span> <span class="n">getParameterMap</span><span class="o">();</span>
+       <span class="n">String</span><span class="o">[]</span> <span class="n">values</span> <span class="o">=</span> <span class="n">parameterMap</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">name</span><span class="o">);</span>
+       <span class="k">if</span> <span class="o">(</span><span class="n">values</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+           <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+      <span class="o">}</span>
+       <span class="k">return</span> <span class="n">values</span><span class="o">[</span><span class="n">0</span><span class="o">];</span> <span class="c1">// 取回参数的第一个值
+</span><span class="c1"></span>  <span class="o">}</span>
+
+   <span class="c1">//取所有值
+</span><span class="c1"></span>   <span class="nd">@Override</span>
+   <span class="kd">public</span> <span class="n">String</span><span class="o">[]</span> <span class="nf">getParameterValues</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">)</span> <span class="o">{</span>
+       <span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">String</span><span class="o">[]&gt;</span> <span class="n">parameterMap</span> <span class="o">=</span> <span class="n">getParameterMap</span><span class="o">();</span>
+       <span class="n">String</span><span class="o">[]</span> <span class="n">values</span> <span class="o">=</span> <span class="n">parameterMap</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">name</span><span class="o">);</span>
+       <span class="k">return</span> <span class="n">values</span><span class="o">;</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p>这个也是我在网上找的一些大神写的，一般情况下，SpringMVC默认的乱码处理就已经能够很好的解决了！</p>
+<p><strong>然后在web.xml中配置这个过滤器即可！</strong></p>
+<p>乱码问题，需要平时多注意，在尽可能能设置编码的地方，都设置为统一编码 UTF-8！</p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/springmvc/">springMVC</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+    <aside class="related-contents--wrapper">
+    
+    
+        <h2 class="section-title">相关文章</h2>
+        <div class="related-contents">
+            <div class="flex article-list--tile">
+                
+                    
+<article class="">
+    <a href="/p/springmvc08-%E6%8B%A6%E6%88%AA%E5%99%A8%E4%B8%8E%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E4%B8%8B%E8%BD%BD/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">SpringMVC08 拦截器与文件上传下载</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
+    <a href="/p/springmvc07-ajax%E7%A0%94%E7%A9%B6/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">SpringMVC07 Ajax研究</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
+    <a href="/p/springmvc06-json%E4%BA%A4%E4%BA%92%E5%A4%84%E7%90%86/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">SpringMVC06 Json交互处理</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
+    <a href="/p/springmvc05-%E6%95%B4%E5%90%88ssm%E6%A1%86%E6%9E%B6/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">SpringMVC05 整合SSM框架</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
+    <a href="/p/springmvc03-restful%E5%92%8C%E6%8E%A7%E5%88%B6%E5%99%A8/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">SpringMVC03 RestFul和控制器</h2>
+        </div>
+    </a>
+</article>
+                
+            </div>
+        </div>
+    
+</aside>
+
+     
+    
+        
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "stack" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (DISQUS) {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2020 - 
+        
+        2021 ybakiame&#39; Blog
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.5.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css"integrity="sha256-c0uckgykQ9v5k&#43;IqViZOZKc47Jn7KQil4/MP3ySA3F8="crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css"integrity="sha256-SBLU4vv6CA6lHsZ1XyTdhyjJxCjPif/TRkjnsyGAGnE="crossorigin="anonymous"
+            >
+
+            </main>
+    
+        <aside class="sidebar right-sidebar sticky">
+            <section class="widget archives">
+                <div class="widget-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+                </div>
+                <h2 class="widget-title section-title">目录</h2>
+                
+                <div class="widget--toc">
+                    <nav id="TableOfContents">
+  <ol>
+    <li><a href="#数据处理及跳转">数据处理及跳转</a>
+      <ol>
+        <li><a href="#跳转">跳转</a>
+          <ol>
+            <li><a href="#modelandview">ModelAndView</a></li>
+            <li><a href="#servletapi">ServletAPI</a></li>
+            <li><a href="#springmvc">SpringMVC</a></li>
+          </ol>
+        </li>
+        <li><a href="#数据处理">数据处理</a>
+          <ol>
+            <li><a href="#处理提交数据">处理提交数据</a></li>
+            <li><a href="#数据显示到前端">数据显示到前端</a></li>
+          </ol>
+        </li>
+        <li><a href="#对比">对比</a></li>
+        <li><a href="#乱码问题">乱码问题</a></li>
+      </ol>
+    </li>
+  </ol>
+</nav>
+                </div>
+            </section>
+        </aside>
+    
+
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js"integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g="crossorigin="anonymous"
+                defer="false"
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>
