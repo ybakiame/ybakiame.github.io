@@ -194,12 +194,17 @@ springMvc过滤静态资源文件 1、使用Tomcat的defaultServlet来处理静�
 </ul>
 <p>配置将Web根路径 &ldquo;/&rdquo; 及类路径下 /META-INF/publicResources/ 的目录映射为 /resources 路径。假设Web根路径下拥有 images、js 这两个资源目录,在 images下面有 bg.gif 图片，在 js下面有 test.js 文件，则可以通过 /resources/images/bg.gif 和 /resources/js/test.js 访问这二个静态资源。</p>
 <p><strong>另外需要注意的一点是,不要对 SimpleUrlHandlerMapping 设置 defaultHandler. 因为对 static uri 的 defaultHandler 就是ResourceHttpRequestHandler,否则无法处理static resources request.</strong></p>
+<p>首先，&lt;mvc:resources /&gt;允许静态资源放在任何地方，如WEB-INF目录下、类路径下等，你甚至可以将JavaScript等静态文件打到JAR包中。通过location属性指定静态资源的位置，由于location属性是Resources类型，因此可以使用诸如&quot;classpath:&ldquo;等的资源前缀指定资源位置。传统Web容器的静态资源只能放在Web容器的根路径下，&lt;mvc:resources /&gt;完全打破了这个限制。</p>
+<p>其次，&lt;mvc:resources /&gt;依据当前著名的Page Speed、YSlow等浏览器优化原则对静态资源提供优化。你可以通过cacheSeconds属性指定静态资源在浏览器端的缓存时间，一般可将该时间设置为一年，以充分利用浏览器端的缓存。在输出静态资源时，会根据配置设置好响应报文头的Expires 和 Cache-Control值。</p>
+<p>在接收到静态资源的获取请求时，会检查请求头的Last-Modified值，如果静态资源没有发生变化，则直接返回303相应状态码，提示客户端使用浏览器缓存的数据，而非将静态资源的内容输出到客户端，以充分节省带宽，提高程序性能。</p>
 </blockquote>
 <h3 id="3使用mvcdefault-servlet-handler-标签">3、使用<code>&lt;mvc:default-servlet-handler /&gt;</code>标签</h3>
 <p>在<code>dispatcher-servlet.xml</code>中插入以下配置：</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="nt">&lt;mvc:default-servlet-handler</span> <span class="nt">/&gt;</span>
 </code></pre></div><blockquote>
 <p>在xml文件中配置<a class="link" href="mvc:default-servlet-handler/" >mvc:default-servlet-handler/</a>，Spring MVC上下文中定义一个org.springframework.web.servlet.resource.DefaultServletHttpRequestHandler，对进入 DispatcherServlet 的 URL 进行筛查，静态资源由 Web 服务器默认的Servlet 处理，非静态资源的请求，由 DispatcherServlet 处理</p>
+<p>一般Web应用服务器默认的Servlet名称是&quot;default&rdquo;，因此DefaultServletHttpRequestHandler可以找到它。如果你所有的Web应用服务器的默认Servlet名称不是&quot;default&quot;，则需要通过default-servlet-name属性显示指定：</p>
+<p>&lt;mvc:default-servlet-handler default-servlet-name=&ldquo;所使用的Web服务器默认使用的Servlet名称&rdquo; /&gt;</p>
 </blockquote>
 
 </section>
@@ -238,6 +243,18 @@ springMvc过滤静态资源文件 1、使用Tomcat的defaultServlet来处理静�
         <h2 class="section-title">相关文章</h2>
         <div class="related-contents">
             <div class="flex article-list--tile">
+                
+                    
+<article class="">
+    <a href="/p/springmvc-%E4%B8%AD%E6%96%87%E4%B9%B1%E7%A0%81/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Springmvc 中文乱码</h2>
+        </div>
+    </a>
+</article>
                 
                     
 <article class="">
@@ -283,18 +300,6 @@ springMvc过滤静态资源文件 1、使用Tomcat的defaultServlet来处理静�
 
         <div class="article-details">
             <h2 class="article-title">SpringMVC05 整合SSM框架</h2>
-        </div>
-    </a>
-</article>
-                
-                    
-<article class="">
-    <a href="/p/springmvc04-%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E5%8F%8A%E8%B7%B3%E8%BD%AC/">
-        
-        
-
-        <div class="article-details">
-            <h2 class="article-title">SpringMVC04 数据处理及跳转</h2>
         </div>
     </a>
 </article>

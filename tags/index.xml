@@ -6,22 +6,31 @@
     <description>Recent content in Tags on ybakiame&#39; Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 09 Nov 2021 09:58:40 +0800</lastBuildDate><atom:link href="https://example.com/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 11 Nov 2021 11:18:56 +0800</lastBuildDate><atom:link href="https://example.com/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>mybatis</title>
-      <link>https://example.com/tags/mybatis/</link>
-      <pubDate>Tue, 09 Nov 2021 09:58:40 +0800</pubDate>
+      <title>erro</title>
+      <link>https://example.com/tags/erro/</link>
+      <pubDate>Thu, 11 Nov 2021 11:18:56 +0800</pubDate>
       
-      <guid>https://example.com/tags/mybatis/</guid>
+      <guid>https://example.com/tags/erro/</guid>
       <description></description>
     </item>
     
     <item>
       <title>springMVC</title>
       <link>https://example.com/tags/springmvc/</link>
-      <pubDate>Tue, 09 Nov 2021 09:43:55 +0800</pubDate>
+      <pubDate>Thu, 11 Nov 2021 11:18:56 +0800</pubDate>
       
       <guid>https://example.com/tags/springmvc/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>mybatis</title>
+      <link>https://example.com/tags/mybatis/</link>
+      <pubDate>Tue, 09 Nov 2021 09:58:40 +0800</pubDate>
+      
+      <guid>https://example.com/tags/mybatis/</guid>
       <description></description>
     </item>
     
@@ -40,15 +49,6 @@
       <pubDate>Sat, 06 Nov 2021 18:40:41 +0800</pubDate>
       
       <guid>https://example.com/tags/api/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>erro</title>
-      <link>https://example.com/tags/erro/</link>
-      <pubDate>Tue, 26 Oct 2021 22:14:13 +0800</pubDate>
-      
-      <guid>https://example.com/tags/erro/</guid>
       <description></description>
     </item>
     

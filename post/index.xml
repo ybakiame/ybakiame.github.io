@@ -6,7 +6,18 @@
     <description>Recent content in Posts on ybakiame&#39; Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 09 Nov 2021 09:58:40 +0800</lastBuildDate><atom:link href="https://example.com/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 11 Nov 2021 11:18:56 +0800</lastBuildDate><atom:link href="https://example.com/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Springmvc 中文乱码</title>
+      <link>https://example.com/p/springmvc-%E4%B8%AD%E6%96%87%E4%B9%B1%E7%A0%81/</link>
+      <pubDate>Thu, 11 Nov 2021 11:18:56 +0800</pubDate>
+      
+      <guid>https://example.com/p/springmvc-%E4%B8%AD%E6%96%87%E4%B9%B1%E7%A0%81/</guid>
+      <description>Springmvc 中的中文乱码 解决POST请求中文乱码问题  encoding是设置的request乱码问题，forceEncoding是设置的response乱码问题
+ &amp;lt;filter&amp;gt; &amp;lt;filter-name&amp;gt;CharacterEncodingFilter&amp;lt;/filter-name&amp;gt; &amp;lt;filter-class&amp;gt;org.springframework.web.filter.CharacterEncodingFilter&amp;lt;/filter-class&amp;gt; &amp;lt;init-param&amp;gt; &amp;lt;param-name&amp;gt;encoding&amp;lt;/param-name&amp;gt; &amp;lt;param-value&amp;gt;UTF-8&amp;lt;/param-value&amp;gt; &amp;lt;/init-param&amp;gt; &amp;lt;!--spring5之后就不需要配置forceEncoding了--&amp;gt; &amp;lt;init-param&amp;gt; &amp;lt;param-name&amp;gt;forceEncoding&amp;lt;/param-name&amp;gt; &amp;lt;param-value&amp;gt;true&amp;lt;/param-value&amp;gt; &amp;lt;/init-param&amp;gt; &amp;lt;/filter&amp;gt; &amp;lt;filter-mapping&amp;gt; &amp;lt;filter-name&amp;gt;CharacterEncodingFilter&amp;lt;/filter-name&amp;gt; &amp;lt;url-pattern&amp;gt;/*&amp;lt;/url-pattern&amp;gt; &amp;lt;/filter-mapping&amp;gt; 解决Get乱码 修改tomcat配置文件编码
+&amp;lt;!--ISO8859-1是tomcat默认编码，需要将tomcat编码改为utf-8--&amp;gt; &amp;lt;ConnectorURIEncoding=&amp;#34;utf-8&amp;#34; connectionTimeout=&amp;#34;20000&amp;#34; port=&amp;#34;8080&amp;#34; protocol=&amp;#34;HTTP/1.1&amp;#34; redirectPort=&amp;#34;8443&amp;#34;/&amp;gt; 狂神推荐的大神过滤器 package com.zhang.filter; import javax.servlet.*; import javax.servlet.http.HttpServletRequest; import javax.servlet.http.HttpServletRequestWrapper; import javax.servlet.http.HttpServletResponse; import java.io.IOException; import java.io.UnsupportedEncodingException; import java.util.Map; /** * 解决get和post请求，全部乱码的过滤器 */ public class GenericEncodingFilter implements Filter { @Override public void init(FilterConfig filterConfig) throws ServletException { } @Override public void doFilter(ServletRequest request, ServletResponse response, FilterChain filterChain) throws IOException, ServletException { //处理response的字符编码  HttpServletResponse myResponse = (HttpServletResponse)response; //转型为与协议相关对象  HttpServletRequest httpServletRequest = (HttpServletRequest)request; //对request包装增强  HttpServletRequest myRequest = new MyRequest(httpServletRequest); filterChain.</description>
+    </item>
+    
     <item>
       <title>MyBatis07 缓存</title>
       <link>https://example.com/p/mybatis07-%E7%BC%93%E5%AD%98/</link>
@@ -725,6 +736,24 @@ Spring是一个轻量级的控制反转(IoC)和面向切面(AOP)的容器（框�
 &amp;lt;%@ page isELIgnored =&amp;quot;true|false&amp;quot; %&amp;gt; 这样，EL表达式就会被忽略。若设为false，则容器将会计算EL表达式。
  EL中的基础操作符 EL表达式支持大部分Java所提供的算术和逻辑操作符：
    操作符 描述     . 访问一个Bean属性或者一个映射条目   [] 访问一个数组或者链表的元素   ( ) 组织一个子表达式以改变优先级   + 加   - 减或负   * 乘   / or div 除   % or mod 取模   == or eq 测试是否相等   !</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://example.com/p/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://example.com/p/</guid>
+      <description>还原系统配置步骤： 1、下载Git 2、IDEA和Git关联 3、去仓库拉工程 4、配置Maven 5、修改主题颜色 6、修改字体大小 7、IDEA下载lombok插件 8、数据库 9、自动导包 10、快捷键调为eclipse
+一、Mybatis 3的学习  MyBatis logo 
+ img 
+1.1 什么是Mybatis MyBatis 是一款优秀的持久层框架，它支持自定义 SQL、存储过程以及高级映射。MyBatis 免除了几乎所有的 JDBC 代码以及设置参数和获取结果集的工作。MyBatis 可以通过简单的 XML 或注解来配置和映射原始类型、接口和 Java POJO（Plain Old Java Objects，普通老式 Java 对象）为数据库中的记录。
+官网：https://mybatis.org/mybatis-3/zh/index.html
+用来学习最新的API
+中文网：http://www.mybatis.cn/
+用来查看使用技巧
+1.2 Mybatis的历史 原是apache的一个开源项目iBatis，2010年6月这个项目由apache迁移到了google code，随着开发团队转投Google code旗下，ibatis3.x正式更名为Mybatis，代码于2013年11月迁移到Github。
+1.3 Mybatis的优势  基于sql语句编程，使用灵活，sql与程序代码的解耦 与JDBC相比减少50%代码，减少大量冗余代码，不需要手动开关连接 只要支持jdbc的数据库都支持Mybatis 与spring集成 支持面向对象编程，对象与ORM表映射  二、Mybaits环境搭建 2.1 创建数据库和表 /* SQLyog Ultimate v12.09 (64 bit) MySQL - 5.5.54 : Database - mybatis ********************************************************************* *//*!</description>
     </item>
     
   </channel>

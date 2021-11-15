@@ -6,7 +6,18 @@
     <description>Recent content in spring on ybakiame&#39; Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 09 Nov 2021 09:43:55 +0800</lastBuildDate><atom:link href="https://example.com/categories/spring/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 11 Nov 2021 11:18:56 +0800</lastBuildDate><atom:link href="https://example.com/categories/spring/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Springmvc 中文乱码</title>
+      <link>https://example.com/p/springmvc-%E4%B8%AD%E6%96%87%E4%B9%B1%E7%A0%81/</link>
+      <pubDate>Thu, 11 Nov 2021 11:18:56 +0800</pubDate>
+      
+      <guid>https://example.com/p/springmvc-%E4%B8%AD%E6%96%87%E4%B9%B1%E7%A0%81/</guid>
+      <description>Springmvc 中的中文乱码 解决POST请求中文乱码问题  encoding是设置的request乱码问题，forceEncoding是设置的response乱码问题
+ &amp;lt;filter&amp;gt; &amp;lt;filter-name&amp;gt;CharacterEncodingFilter&amp;lt;/filter-name&amp;gt; &amp;lt;filter-class&amp;gt;org.springframework.web.filter.CharacterEncodingFilter&amp;lt;/filter-class&amp;gt; &amp;lt;init-param&amp;gt; &amp;lt;param-name&amp;gt;encoding&amp;lt;/param-name&amp;gt; &amp;lt;param-value&amp;gt;UTF-8&amp;lt;/param-value&amp;gt; &amp;lt;/init-param&amp;gt; &amp;lt;!--spring5之后就不需要配置forceEncoding了--&amp;gt; &amp;lt;init-param&amp;gt; &amp;lt;param-name&amp;gt;forceEncoding&amp;lt;/param-name&amp;gt; &amp;lt;param-value&amp;gt;true&amp;lt;/param-value&amp;gt; &amp;lt;/init-param&amp;gt; &amp;lt;/filter&amp;gt; &amp;lt;filter-mapping&amp;gt; &amp;lt;filter-name&amp;gt;CharacterEncodingFilter&amp;lt;/filter-name&amp;gt; &amp;lt;url-pattern&amp;gt;/*&amp;lt;/url-pattern&amp;gt; &amp;lt;/filter-mapping&amp;gt; 解决Get乱码 修改tomcat配置文件编码
+&amp;lt;!--ISO8859-1是tomcat默认编码，需要将tomcat编码改为utf-8--&amp;gt; &amp;lt;ConnectorURIEncoding=&amp;#34;utf-8&amp;#34; connectionTimeout=&amp;#34;20000&amp;#34; port=&amp;#34;8080&amp;#34; protocol=&amp;#34;HTTP/1.1&amp;#34; redirectPort=&amp;#34;8443&amp;#34;/&amp;gt; 狂神推荐的大神过滤器 package com.zhang.filter; import javax.servlet.*; import javax.servlet.http.HttpServletRequest; import javax.servlet.http.HttpServletRequestWrapper; import javax.servlet.http.HttpServletResponse; import java.io.IOException; import java.io.UnsupportedEncodingException; import java.util.Map; /** * 解决get和post请求，全部乱码的过滤器 */ public class GenericEncodingFilter implements Filter { @Override public void init(FilterConfig filterConfig) throws ServletException { } @Override public void doFilter(ServletRequest request, ServletResponse response, FilterChain filterChain) throws IOException, ServletException { //处理response的字符编码  HttpServletResponse myResponse = (HttpServletResponse)response; //转型为与协议相关对象  HttpServletRequest httpServletRequest = (HttpServletRequest)request; //对request包装增强  HttpServletRequest myRequest = new MyRequest(httpServletRequest); filterChain.</description>
+    </item>
+    
     <item>
       <title>SpringMVC08 拦截器与文件上传下载</title>
       <link>https://example.com/p/springmvc08-%E6%8B%A6%E6%88%AA%E5%99%A8%E4%B8%8E%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E4%B8%8B%E8%BD%BD/</link>
