@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>AES on ybakiame&#39; Blog</title>
+    <link>https://example.com/tags/aes/</link>
+    <description>Recent content in AES on ybakiame&#39; Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 15 Nov 2021 23:33:18 +0800</lastBuildDate><atom:link href="https://example.com/tags/aes/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>JS前端(CryptoJS)和Java后端的AES加密和解密</title>
+      <link>https://example.com/p/js%E5%89%8D%E7%AB%AFcryptojs%E5%92%8Cjava%E5%90%8E%E7%AB%AF%E7%9A%84aes%E5%8A%A0%E5%AF%86%E5%92%8C%E8%A7%A3%E5%AF%86/</link>
+      <pubDate>Mon, 15 Nov 2021 23:33:18 +0800</pubDate>
+      
+      <guid>https://example.com/p/js%E5%89%8D%E7%AB%AFcryptojs%E5%92%8Cjava%E5%90%8E%E7%AB%AF%E7%9A%84aes%E5%8A%A0%E5%AF%86%E5%92%8C%E8%A7%A3%E5%AF%86/</guid>
+      <description>JS前端(CryptoJS)和Java后端的AES加密和解密 前端 下载、配置和使用 crypto-js 克隆或下载crypto-js 主要使用 crypto-js.js 和 aes.js
+配置 crypto-js 引入 crypto-js.js 和 aes.js &amp;lt;script src=&amp;#34;js/crypto-js/crypto-js.js&amp;#34;&amp;gt;&amp;lt;/script&amp;gt; &amp;lt;script src=&amp;#34;js/crypto-js/aes.js&amp;#34;&amp;gt;&amp;lt;/script&amp;gt; 创建加密js myCrypto.js // AES 加密，AES-128, AES-192, AES-256  // AES-128: key和iv都是16个字节，16*8=128bit  // AES-192: key和iv都是24个字节，24*8=128bit  // AES-256: key和iv都是32个字节，32*8=128bit  // iv 似乎一般都是纯数字  // 例如：AES_encrypt_CBC(&amp;#39;需要加密的内容&amp;#39;, &amp;#39;1234567890123456&amp;#39;, &amp;#39;1234567890654321&amp;#39;);  function AES_CBC_encrypt(message, key, iv) { // utf8字符串—&amp;gt;WordArray对象，WordArray是一个保存32位整数的数组，相当于转成了二进制  let keyHex = CryptoJS.enc.Utf8.parse(key); //  let ivHex = CryptoJS.enc.Utf8.parse(iv); let messageHex = CryptoJS.enc.Utf8.parse(message); let encrypted = CryptoJS.</description>
+    </item>
+    
+  </channel>
+</rss>

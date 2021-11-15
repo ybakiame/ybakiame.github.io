@@ -6,7 +6,25 @@
     <description>Recent content in Tags on ybakiame&#39; Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 15 Nov 2021 13:24:27 +0800</lastBuildDate><atom:link href="https://example.com/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 15 Nov 2021 23:33:18 +0800</lastBuildDate><atom:link href="https://example.com/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>AES</title>
+      <link>https://example.com/tags/aes/</link>
+      <pubDate>Mon, 15 Nov 2021 23:33:18 +0800</pubDate>
+      
+      <guid>https://example.com/tags/aes/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>CryptoJS</title>
+      <link>https://example.com/tags/cryptojs/</link>
+      <pubDate>Mon, 15 Nov 2021 23:33:18 +0800</pubDate>
+      
+      <guid>https://example.com/tags/cryptojs/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>restful</title>
       <link>https://example.com/tags/restful/</link>
