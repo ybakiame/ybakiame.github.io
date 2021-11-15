@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='使用 Stringbuffer 代替 字符串连接 String是在Java中最常用的类。特别是在 Web 应用程序中，它被广泛用于生成和格式化 HTML 内容。
+String被设计为不可变的；为了修改一个 String，您必须创建一个新 String对象。因此，字符串连接可能会导致在构造 String最终对象之前创建许多中间对象 String。
+StringBuffer是 的可变伴生类 String；它允许您修改 String. 因此，StringBuffer通常比 String需要连接时更有效。
+如果在多个语句中重复附加到一个字符串，请使用 StringBuffer 而不是字符串连接 对 String重复使用“&#43;=”操作代价高昂。
+例如：
+String s = new String(); [do some work ...] s &#43;= s1; [do some more work...] s &#43;= s2; 用 StringBuffer 替换上面的字符串连接：
+StringBuffer strbuf = new StringBuffer(); [do some work ...] strbuf.append(s1); [so some more work ...] strbuf.append(s2); String s = strbuf.toString(); 如果连接在一个语句内，则使用 String 或 StringBuffer String并 StringBuffer在某些情况下执行相同的操作；所以你不需要 StringBuffer直接使用。'><title>Stringbuffer</title>
+
+<link rel='canonical' href='https://example.com/p/stringbuffer/'>
+
+<link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content='Stringbuffer'>
+<meta property='og:description' content='使用 Stringbuffer 代替 字符串连接 String是在Java中最常用的类。特别是在 Web 应用程序中，它被广泛用于生成和格式化 HTML 内容。
+String被设计为不可变的；为了修改一个 String，您必须创建一个新 String对象。因此，字符串连接可能会导致在构造 String最终对象之前创建许多中间对象 String。
+StringBuffer是 的可变伴生类 String；它允许您修改 String. 因此，StringBuffer通常比 String需要连接时更有效。
+如果在多个语句中重复附加到一个字符串，请使用 StringBuffer 而不是字符串连接 对 String重复使用“&#43;=”操作代价高昂。
+例如：
+String s = new String(); [do some work ...] s &#43;= s1; [do some more work...] s &#43;= s2; 用 StringBuffer 替换上面的字符串连接：
+StringBuffer strbuf = new StringBuffer(); [do some work ...] strbuf.append(s1); [so some more work ...] strbuf.append(s2); String s = strbuf.toString(); 如果连接在一个语句内，则使用 String 或 StringBuffer String并 StringBuffer在某些情况下执行相同的操作；所以你不需要 StringBuffer直接使用。'>
+<meta property='og:url' content='https://example.com/p/stringbuffer/'>
+<meta property='og:site_name' content='ybakiame&#39; Blog'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='springMVC' /><meta property='article:tag' content='restful' /><meta property='article:published_time' content='2021-11-15T13:24:27&#43;08:00'/><meta property='article:modified_time' content='2021-11-15T13:24:27&#43;08:00'/>
+<meta name="twitter:title" content="Stringbuffer">
+<meta name="twitter:description" content="使用 Stringbuffer 代替 字符串连接 String是在Java中最常用的类。特别是在 Web 应用程序中，它被广泛用于生成和格式化 HTML 内容。
+String被设计为不可变的；为了修改一个 String，您必须创建一个新 String对象。因此，字符串连接可能会导致在构造 String最终对象之前创建许多中间对象 String。
+StringBuffer是 的可变伴生类 String；它允许您修改 String. 因此，StringBuffer通常比 String需要连接时更有效。
+如果在多个语句中重复附加到一个字符串，请使用 StringBuffer 而不是字符串连接 对 String重复使用“&#43;=”操作代价高昂。
+例如：
+String s = new String(); [do some work ...] s &#43;= s1; [do some more work...] s &#43;= s2; 用 StringBuffer 替换上面的字符串连接：
+StringBuffer strbuf = new StringBuffer(); [do some work ...] strbuf.append(s1); [so some more work ...] strbuf.append(s2); String s = strbuf.toString(); 如果连接在一个语句内，则使用 String 或 StringBuffer String并 StringBuffer在某些情况下执行相同的操作；所以你不需要 StringBuffer直接使用。">
+    </head>
+    <body class="
+    article-page has-toc
+">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex 
+    
+        extended
+    
+">
+    
+        <div id="article-toolbar">
+            <a href="/" class="back-home">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="15 6 9 12 15 18" />
+</svg>
+
+
+
+                <span>返回</span>
+            </a>
+        </div>
+    
+<main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/java/" >
+                java
+            </a>
+        
+    </header>
+    
+
+    <h2 class="article-title">
+        <a href="/p/stringbuffer/">Stringbuffer</a>
+    </h2>
+
+    
+
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Nov 15, 2021</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    阅读时长: 1 分钟
+                </time>
+            </div>
+        
+    </footer>
+    
+</div>
+</header>
+
+    <section class="article-content">
+    <h2 id="使用-stringbuffer-代替-字符串连接">使用 Stringbuffer 代替 字符串连接</h2>
+<p><code>String</code>是在Java中最常用的类。特别是在 Web 应用程序中，它被广泛用于生成和格式化 HTML 内容。</p>
+<p><code>String</code>被设计为不可变的；为了修改一个 <code>String</code>，您必须创建一个新 <code>String</code>对象。因此，字符串连接可能会导致在构造 <code>String</code>最终对象之前创建许多中间对象 <code>String</code>。</p>
+<p><code>StringBuffer</code>是 的可变伴生类 <code>String</code>；它允许您修改 <code>String</code>. 因此，<code>StringBuffer</code>通常比 <code>String</code>需要连接时更有效。</p>
+<h3 id="如果在多个语句中重复附加到一个字符串请使用-stringbuffer-而不是字符串连接">如果在多个语句中重复附加到一个字符串，请使用 StringBuffer 而不是字符串连接</h3>
+<p>对 <code>String</code>重复使用“+=”操作代价高昂。</p>
+<p>例如：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="n">String</span> <span class="n">s</span> <span class="o">=</span> <span class="k">new</span> <span class="n">String</span><span class="o">();</span>
+     <span class="o">[</span><span class="k">do</span> <span class="n">some</span> <span class="n">work</span> <span class="o">...]</span>
+<span class="n">s</span> <span class="o">+=</span> <span class="n">s1</span><span class="o">;</span>
+     <span class="o">[</span><span class="k">do</span> <span class="n">some</span> <span class="n">more</span> <span class="n">work</span><span class="o">...]</span>
+<span class="n">s</span> <span class="o">+=</span> <span class="n">s2</span><span class="o">;</span>
+</code></pre></div><p>用 StringBuffer 替换上面的字符串连接：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="n">StringBuffer</span> <span class="n">strbuf</span> <span class="o">=</span> <span class="k">new</span> <span class="n">StringBuffer</span><span class="o">();</span>
+     <span class="o">[</span><span class="k">do</span> <span class="n">some</span> <span class="n">work</span> <span class="o">...]</span>
+<span class="n">strbuf</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="n">s1</span><span class="o">);</span>
+     <span class="o">[</span><span class="n">so</span> <span class="n">some</span> <span class="n">more</span> <span class="n">work</span> <span class="o">...]</span>
+<span class="n">strbuf</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="n">s2</span><span class="o">);</span>
+<span class="n">String</span> <span class="n">s</span> <span class="o">=</span> <span class="n">strbuf</span><span class="o">.</span><span class="na">toString</span><span class="o">();</span>
+
+</code></pre></div><h3 id="如果连接在一个语句内则使用-string-或-stringbuffer">如果连接在一个语句内，则使用 String 或 StringBuffer</h3>
+<p><code>String</code>并 <code>StringBuffer</code>在某些情况下执行相同的操作；所以你不需要 <code>StringBuffer</code>直接使用。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java">	<span class="n">String</span> <span class="n">s</span> <span class="o">=</span> <span class="s">&#34;a&#34;</span> <span class="o">+</span> <span class="s">&#34;b&#34;</span> <span class="o">+</span> <span class="s">&#34;c&#34;</span><span class="o">;</span>
+<span class="n">to</span>
+	<span class="n">String</span> <span class="n">s</span> <span class="o">=</span> <span class="s">&#34;abc&#34;</span><span class="o">;</span>
+</code></pre></div><p>优化是由编译器自动完成的。</p>
+<ul>
+<li>Java2编译器会自动折叠上面的。</li>
+<li>Java2 编译器还会自动转换以下内容：
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java">        <span class="n">String</span> <span class="n">s</span> <span class="o">=</span> <span class="n">s1</span> <span class="o">+</span> <span class="n">s2</span><span class="o">;</span>
+    <span class="n">to</span>
+        <span class="n">String</span> <span class="n">s</span> <span class="o">=</span> <span class="o">(</span><span class="n">newStringBuffer</span><span class="o">()).</span><span class="na">append</span><span class="o">(</span><span class="n">s1</span><span class="o">).</span><span class="na">append</span><span class="o">(</span><span class="n">s2</span><span class="o">).</span><span class="na">toString</span><span class="o">();</span>
+	<span class="err">#</span> <span class="n">在这些情况下</span><span class="err">，</span><span class="n">没有使用</span> <span class="err">`</span><span class="n">StringBuffer</span><span class="err">`</span> <span class="n">的必要</span><span class="err">。</span>
+</code></pre></div></li>
+</ul>
+<h3 id="如果知道字符串的大小则使用-stringbuffer-而不是字符串连接">如果知道字符串的大小，则使用 StringBuffer 而不是字符串连接</h3>
+<p>默认字符缓冲区为 <code>StringBuffer</code>16。当缓冲区已满时，必须重新分配一个新的字符缓冲区（通常是原始缓冲区大小的两倍）。将内容复制到新缓冲区后，旧缓冲区将被释放。如果创建的 StringBuffer 的缓冲区大小足以容纳 <code>String</code>.</p>
+<p>以下将比使用 <code>String</code> 字符串连接更有效。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="n">String</span> <span class="n">s</span> <span class="o">=</span> <span class="o">(</span><span class="k">new</span> <span class="n">StringBuffer</span><span class="o">(</span><span class="n">1024</span><span class="o">)).</span>
+<span class="n">append</span><span class="o">(</span><span class="n">s1</span><span class="o">).</span><span class="na">append</span><span class="o">(</span><span class="n">s2</span><span class="o">).</span> <span class="n">toString</span><span class="o">();</span>
+</code></pre></div><p>将比</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="n">String</span> <span class="n">s</span> <span class="o">=</span> <span class="n">s1</span> <span class="o">+</span> <span class="n">s2</span><span class="o">;</span>
+</code></pre></div>
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/springmvc/">springMVC</a>
+        
+            <a href="/tags/restful/">restful</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+    <aside class="related-contents--wrapper">
+    
+    
+        <h2 class="section-title">相关文章</h2>
+        <div class="related-contents">
+            <div class="flex article-list--tile">
+                
+                    
+<article class="">
+    <a href="/p/java-%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%8B%BC%E6%8E%A5%E5%86%85%E5%AD%98%E8%A7%A3%E6%9E%90/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Java 字符串拼接内存解析</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
+    <a href="/p/java%E5%91%BD%E5%90%8D%E8%A7%84%E8%8C%83%E5%8F%82%E8%80%83/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Java命名规范参考</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
+    <a href="/p/springmvc%E5%AE%9E%E7%8E%B0restful%E9%A3%8E%E6%A0%BC/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">springMVC实现restful风格</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
+    <a href="/p/java%E4%B8%AD%E7%9A%84date%E5%92%8Cmysql%E4%B8%AD%E7%9A%84datetime/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Java中的Date和Mysql中的datetime</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
+    <a href="/p/java-%E5%8F%8D%E5%B0%84/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">java 反射</h2>
+        </div>
+    </a>
+</article>
+                
+            </div>
+        </div>
+    
+</aside>
+
+     
+    
+        
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "stack" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (DISQUS) {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2020 - 
+        
+        2021 ybakiame&#39; Blog
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.5.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css"integrity="sha256-c0uckgykQ9v5k&#43;IqViZOZKc47Jn7KQil4/MP3ySA3F8="crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css"integrity="sha256-SBLU4vv6CA6lHsZ1XyTdhyjJxCjPif/TRkjnsyGAGnE="crossorigin="anonymous"
+            >
+
+            </main>
+    
+        <aside class="sidebar right-sidebar sticky">
+            <section class="widget archives">
+                <div class="widget-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+                </div>
+                <h2 class="widget-title section-title">目录</h2>
+                
+                <div class="widget--toc">
+                    <nav id="TableOfContents">
+  <ol>
+    <li><a href="#使用-stringbuffer-代替-字符串连接">使用 Stringbuffer 代替 字符串连接</a>
+      <ol>
+        <li><a href="#如果在多个语句中重复附加到一个字符串请使用-stringbuffer-而不是字符串连接">如果在多个语句中重复附加到一个字符串，请使用 StringBuffer 而不是字符串连接</a></li>
+        <li><a href="#如果连接在一个语句内则使用-string-或-stringbuffer">如果连接在一个语句内，则使用 String 或 StringBuffer</a></li>
+        <li><a href="#如果知道字符串的大小则使用-stringbuffer-而不是字符串连接">如果知道字符串的大小，则使用 StringBuffer 而不是字符串连接</a></li>
+      </ol>
+    </li>
+  </ol>
+</nav>
+                </div>
+            </section>
+        </aside>
+    
+
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js"integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g="crossorigin="anonymous"
+                defer="false"
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

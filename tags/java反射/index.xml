@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>java反射 on ybakiame&#39; Blog</title>
+    <link>https://example.com/tags/java%E5%8F%8D%E5%B0%84/</link>
+    <description>Recent content in java反射 on ybakiame&#39; Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 19 Oct 2021 14:48:39 +0800</lastBuildDate><atom:link href="https://example.com/tags/java%E5%8F%8D%E5%B0%84/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>java 反射</title>
+      <link>https://example.com/p/java-%E5%8F%8D%E5%B0%84/</link>
+      <pubDate>Tue, 19 Oct 2021 14:48:39 +0800</pubDate>
+      
+      <guid>https://example.com/p/java-%E5%8F%8D%E5%B0%84/</guid>
+      <description>Java反射 什么是反射？ 反射就是Reflection，Java的反射是指程序在运行期可以拿到一个对象的所有信息。通过Class实例获取class信息的方法称为反射（Reflection）。
+如何获取一个class的Class实例？有三个方法： 方法一：直接通过一个class的静态变量class获取：
+Class cls = String.class; 方法二：如果我们有一个实例变量，可以通过该实例变量提供的getClass()方法获取：
+String s = &amp;#34;Hello&amp;#34;; Class cls = s.getClass(); 方法三：如果知道一个class的完整类名，可以通过静态方法Class.forName()获取：
+Class cls = Class.forName(&amp;#34;java.lang.String&amp;#34;); 注意Class实例和instanceof的差别： Integer n = new Integer(123); boolean b1 = n instanceof Integer; // true，因为n是Integer类型 boolean b2 = n instanceof Number; // true，因为n是Number类型的子类  boolean b3 = n.getClass() == Integer.class; // true，因为n.getClass()返回Integer.class boolean b4 = n.getClass() == Number.class; // false，因为Integer.class!=Number.class 用instanceof不但匹配指定类型，还匹配指定类型的子类。而用==判断class实例可以精确地判断数据类型，但不能作子类型比较。
+通常情况下，我们应该用instanceof判断数据类型，因为面向抽象编程的时候，我们不关心具体的子类型。只有在需要精确判断一个类型是不是某个class的时候，我们才使用==判断class实例。
+因为反射的目的是为了获得某个实例的信息。因此，可以通过Object.getClass()方法获取的class`信息：
+动态加载 JVM在执行Java程序的时候，并不是一次性把所有用到的class全部加载到内存，而是第一次需要用到class时才加载。例如：
+// Main.java public class Main { public static void main(String[] args) { if (args.</description>
+    </item>
+    
+  </channel>
+</rss>

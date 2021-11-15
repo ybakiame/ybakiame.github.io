@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>字符串拼接内存解析 on ybakiame&#39; Blog</title>
+    <link>https://example.com/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%8B%BC%E6%8E%A5%E5%86%85%E5%AD%98%E8%A7%A3%E6%9E%90/</link>
+    <description>Recent content in 字符串拼接内存解析 on ybakiame&#39; Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 15 Nov 2021 12:05:08 +0800</lastBuildDate><atom:link href="https://example.com/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%8B%BC%E6%8E%A5%E5%86%85%E5%AD%98%E8%A7%A3%E6%9E%90/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Java 字符串拼接内存解析</title>
+      <link>https://example.com/p/java-%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%8B%BC%E6%8E%A5%E5%86%85%E5%AD%98%E8%A7%A3%E6%9E%90/</link>
+      <pubDate>Mon, 15 Nov 2021 12:05:08 +0800</pubDate>
+      
+      <guid>https://example.com/p/java-%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%8B%BC%E6%8E%A5%E5%86%85%E5%AD%98%E8%A7%A3%E6%9E%90/</guid>
+      <description>Java 字符串(String)拼接内存解析 **String str1 = “Hello”;**字符串常量池中没有&amp;quot;Hello&amp;quot;，则创建一个字符串并把地址值返回给str1
+**String str2 = “Hello”;**字符串常量池中存在&amp;quot;Hello&amp;quot;，则创将该字符串的地址值返回给str2
+String str3 = new string( “Hello”);
+str3指向对象的地址，对象中的值指向字符串常量池中已有的字符串
+ https://img-blog.csdnimg.cn/20200413102918926.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2w4Mjc4OTM2Mjg=,size_16,color_FFFFFF,t_70 
+String str4 = “Hello” + “World”;
+直接拼接成&amp;quot;HelloWorld&amp;quot;,字符串常量池中没有&amp;quot;HelloWorld&amp;quot;，则在字符串常量池中创建一个字符串并把地址值返回给str4
+ https://img-blog.csdnimg.cn/20200413115906695.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2w4Mjc4OTM2Mjg=,size_16,color_FFFFFF,t_70 
+String str5 = “World”;
+字符串常量池中没有&amp;quot;World&amp;quot;，则创建一个字符串并把地址值返回给str5
+**String str6 = str1 + str5;**编译器对字符串加号做了优化，它会用StringBuffer的append方法进行追加。等效于：str6 = new StringBuffer(str1 ).append( str5).toString();拼接好后，字符串常量池中有&amp;quot;HelloWorld&amp;quot;，str6产生的对象的内容指向字符串常量池中&amp;quot;HelloWorld&amp;quot;的地址
+ https://img-blog.csdnimg.cn/20200413121213984.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2w4Mjc4OTM2Mjg=,size_16,color_FFFFFF,t_70 
+String str7 = (str3 + str5).intern（）;
+ https://img-blog.csdnimg.cn/2020041312450961.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2w4Mjc4OTM2Mjg=,size_16,color_FFFFFF,t_70 
+Person p1 = new Person(“张三”,18);
+Person p2 = new Person(“张三”,20);
+ https://img-blog.csdnimg.cn/20200413125737157.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2w4Mjc4OTM2Mjg=,size_16,color_FFFFFF,t_70</description>
+    </item>
+    
+  </channel>
+</rss>

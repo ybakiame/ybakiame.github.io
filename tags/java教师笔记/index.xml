@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>java教师笔记 on ybakiame&#39; Blog</title>
+    <link>https://example.com/tags/java%E6%95%99%E5%B8%88%E7%AC%94%E8%AE%B0/</link>
+    <description>Recent content in java教师笔记 on ybakiame&#39; Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 19 Oct 2021 14:48:39 +0800</lastBuildDate><atom:link href="https://example.com/tags/java%E6%95%99%E5%B8%88%E7%AC%94%E8%AE%B0/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>java 笔记</title>
+      <link>https://example.com/p/java-%E7%AC%94%E8%AE%B0/</link>
+      <pubDate>Tue, 19 Oct 2021 14:48:39 +0800</pubDate>
+      
+      <guid>https://example.com/p/java-%E7%AC%94%E8%AE%B0/</guid>
+      <description>：java语言的概述 计算机语言分为：编译型和解释型 图形化界面（GUI）和命令行方式。  DOS命令 dir,md,rd,cd,cd..,cd /,del,exit,ipconfig,ping   语言的进化：  第一代：机器语言 第二代：汇编语言 第三代：高级语言   Java语言的特征： JDK、PATH环境变量、classpath  JDK: PATH:WINDOWS操作系统在执行命令时所要搜索的路径。 CLASSPATH:JVM虚拟机，查找类的路径。   public class HelloWorld{  	public static void main(String[] args){
+	System.out.println(&amp;ldquo;HelloWorld&amp;rdquo;);
+	}
+}
+6.1.源文件扩展名”java”,编译以后生成文件的扩展名class
+6.2一个源文件里面只能有一个public类，其他类个数不限。如果源文件中包含public类，文件名必须同public类名保持一致。
+6.3java程序的入口是main()方法。不去main（）方法的写法是“较为”固定。
+6.4java语音是严格区分大小写。
+6.5java语音的语句是以“;”(半角状态的分号)
+6.6语句使用｛｝括起，成对出现。
+  Javac 和java
+  注释：
+ //:单行注释 /* */ :多行注释（多行注释不能够嵌套） /** */:文档注释 javadoc -d 文件目录名 源文件名.java    如何查看API.
+  ：基本语法：</description>
+    </item>
+    
+  </channel>
+</rss>

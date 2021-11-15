@@ -1,0 +1,1294 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='：java语言的概述 计算机语言分为：编译型和解释型 图形化界面（GUI）和命令行方式。  DOS命令 dir,md,rd,cd,cd..,cd /,del,exit,ipconfig,ping   语言的进化：  第一代：机器语言 第二代：汇编语言 第三代：高级语言   Java语言的特征： JDK、PATH环境变量、classpath  JDK: PATH:WINDOWS操作系统在执行命令时所要搜索的路径。 CLASSPATH:JVM虚拟机，查找类的路径。   public class HelloWorld{  	public static void main(String[] args){
+	System.out.println(&amp;ldquo;HelloWorld&amp;rdquo;);
+	}
+}
+6.1.源文件扩展名”java”,编译以后生成文件的扩展名class
+6.2一个源文件里面只能有一个public类，其他类个数不限。如果源文件中包含public类，文件名必须同public类名保持一致。
+6.3java程序的入口是main()方法。不去main（）方法的写法是“较为”固定。
+6.4java语音是严格区分大小写。
+6.5java语音的语句是以“;”(半角状态的分号)
+6.6语句使用｛｝括起，成对出现。
+  Javac 和java
+  注释：
+ //:单行注释 /* */ :多行注释（多行注释不能够嵌套） /** */:文档注释 javadoc -d 文件目录名 源文件名.java    如何查看API.
+  ：基本语法：'><title>java 笔记</title>
+
+<link rel='canonical' href='https://example.com/p/java-%E7%AC%94%E8%AE%B0/'>
+
+<link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content='java 笔记'>
+<meta property='og:description' content='：java语言的概述 计算机语言分为：编译型和解释型 图形化界面（GUI）和命令行方式。  DOS命令 dir,md,rd,cd,cd..,cd /,del,exit,ipconfig,ping   语言的进化：  第一代：机器语言 第二代：汇编语言 第三代：高级语言   Java语言的特征： JDK、PATH环境变量、classpath  JDK: PATH:WINDOWS操作系统在执行命令时所要搜索的路径。 CLASSPATH:JVM虚拟机，查找类的路径。   public class HelloWorld{  	public static void main(String[] args){
+	System.out.println(&amp;ldquo;HelloWorld&amp;rdquo;);
+	}
+}
+6.1.源文件扩展名”java”,编译以后生成文件的扩展名class
+6.2一个源文件里面只能有一个public类，其他类个数不限。如果源文件中包含public类，文件名必须同public类名保持一致。
+6.3java程序的入口是main()方法。不去main（）方法的写法是“较为”固定。
+6.4java语音是严格区分大小写。
+6.5java语音的语句是以“;”(半角状态的分号)
+6.6语句使用｛｝括起，成对出现。
+  Javac 和java
+  注释：
+ //:单行注释 /* */ :多行注释（多行注释不能够嵌套） /** */:文档注释 javadoc -d 文件目录名 源文件名.java    如何查看API.
+  ：基本语法：'>
+<meta property='og:url' content='https://example.com/p/java-%E7%AC%94%E8%AE%B0/'>
+<meta property='og:site_name' content='ybakiame&#39; Blog'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='java教师笔记' /><meta property='article:published_time' content='2021-10-19T14:48:39&#43;08:00'/><meta property='article:modified_time' content='2021-10-19T14:48:39&#43;08:00'/>
+<meta name="twitter:title" content="java 笔记">
+<meta name="twitter:description" content="：java语言的概述 计算机语言分为：编译型和解释型 图形化界面（GUI）和命令行方式。  DOS命令 dir,md,rd,cd,cd..,cd /,del,exit,ipconfig,ping   语言的进化：  第一代：机器语言 第二代：汇编语言 第三代：高级语言   Java语言的特征： JDK、PATH环境变量、classpath  JDK: PATH:WINDOWS操作系统在执行命令时所要搜索的路径。 CLASSPATH:JVM虚拟机，查找类的路径。   public class HelloWorld{  	public static void main(String[] args){
+	System.out.println(&amp;ldquo;HelloWorld&amp;rdquo;);
+	}
+}
+6.1.源文件扩展名”java”,编译以后生成文件的扩展名class
+6.2一个源文件里面只能有一个public类，其他类个数不限。如果源文件中包含public类，文件名必须同public类名保持一致。
+6.3java程序的入口是main()方法。不去main（）方法的写法是“较为”固定。
+6.4java语音是严格区分大小写。
+6.5java语音的语句是以“;”(半角状态的分号)
+6.6语句使用｛｝括起，成对出现。
+  Javac 和java
+  注释：
+ //:单行注释 /* */ :多行注释（多行注释不能够嵌套） /** */:文档注释 javadoc -d 文件目录名 源文件名.java    如何查看API.
+  ：基本语法：">
+    </head>
+    <body class="
+    article-page 
+">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex 
+    
+        on-phone--column extended
+    
+">
+    
+        <aside class="sidebar left-sidebar sticky">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header class="site-info">
+        
+            
+            <figure class="site-avatar">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/inory_hucdba656cebe4b1ba982ee9ba6b6db78f_6765_300x0_resize_box_3.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+
+                
+                    <span class="emoji">🍥</span>
+                
+            </figure>
+            
+        
+        
+        <h1 class="site-name"><a href="/">ybakiame&#39; Blog</a></h1>
+        <h2 class="site-description">重度宅，轻微社恐，魂系游戏爱好者</h2><ol class="social-menu">
+                
+                    <li>
+                        <a 
+                            href='https://github.com/ybakiame'
+                            target="_blank"
+                            title="GitHub"
+                        >
+                            
+                            
+                                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a 
+                            href='https://twitter.com'
+                            target="_blank"
+                            title="Twitter"
+                        >
+                            
+                            
+                                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-twitter" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M22 4.01c-1 .49 -1.98 .689 -3 .99c-1.121 -1.265 -2.783 -1.335 -4.38 -.737s-2.643 2.06 -2.62 3.737v1c-3.245 .083 -6.135 -1.395 -8 -4c0 0 -4.182 7.433 4 11c-1.872 1.247 -3.739 2.088 -6 2c3.308 1.803 6.913 2.423 10.034 1.517c3.58 -1.04 6.522 -3.723 7.651 -7.742a13.84 13.84 0 0 0 .497 -3.753c-.002 -.249 1.51 -2.772 1.818 -4.013z" />
+</svg>
+
+
+
+                            
+                        </a>
+                    </li>
+                
+            </ol></header>
+
+    <ol class="menu" id="main-menu">
+        
+        
+        
+
+        <li >
+            <a href='/' target="_blank">
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/about/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>About</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+
+        
+            <li id="dark-mode-toggle">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                <span>暗色模式</span>
+            </li>
+        
+    </ol>
+</aside>
+
+    
+<main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/%E6%95%99%E5%B8%88%E7%AC%94%E8%AE%B0/" >
+                教师笔记
+            </a>
+        
+    </header>
+    
+
+    <h2 class="article-title">
+        <a href="/p/java-%E7%AC%94%E8%AE%B0/">java 笔记</a>
+    </h2>
+
+    
+
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Oct 19, 2021</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    阅读时长: 3 分钟
+                </time>
+            </div>
+        
+    </footer>
+    
+</div>
+</header>
+
+    <section class="article-content">
+    <ol>
+<li>：java语言的概述</li>
+<li>计算机语言分为：编译型和解释型</li>
+<li>图形化界面（GUI）和命令行方式。
+<ol>
+<li>DOS命令 dir,md,rd,cd,cd..,cd /,del,exit,ipconfig,ping</li>
+</ol>
+</li>
+<li>语言的进化：
+<ol>
+<li>第一代：机器语言</li>
+<li>第二代：汇编语言</li>
+<li>第三代：高级语言</li>
+</ol>
+</li>
+<li>Java语言的特征：</li>
+<li>JDK、PATH环境变量、classpath
+<ol>
+<li>JDK:</li>
+<li>PATH:WINDOWS操作系统在执行命令时所要搜索的路径。</li>
+<li>CLASSPATH:JVM虚拟机，查找类的路径。</li>
+</ol>
+</li>
+<li>public class HelloWorld{</li>
+</ol>
+<p><code>	</code>public static void main(String[] args){</p>
+<p><code>		</code>System.out.println(&ldquo;HelloWorld&rdquo;);</p>
+<p><code>	</code>}</p>
+<p>}</p>
+<p>6.1.源文件扩展名”java”,编译以后生成文件的扩展名class</p>
+<p>6.2一个源文件里面只能有一个public类，其他类个数不限。如果源文件中包含public类，文件名必须同public类名保持一致。</p>
+<p>6.3java程序的入口是main()方法。不去main（）方法的写法是“较为”固定。</p>
+<p>6.4java语音是严格区分大小写。</p>
+<p>6.5java语音的语句是以“;”(半角状态的分号)</p>
+<p>6.6语句使用｛｝括起，成对出现。</p>
+<ol>
+<li>
+<p>Javac 和java</p>
+</li>
+<li>
+<p>注释：</p>
+<ol>
+<li>//:单行注释</li>
+<li>/*    */  :多行注释（多行注释不能够嵌套）</li>
+<li>/**   */:文档注释   javadoc -d 文件目录名  源文件名.java</li>
+</ol>
+</li>
+<li>
+<p>如何查看API.</p>
+</li>
+<li>
+<p>：基本语法：</p>
+</li>
+<li>
+<p>关键字：被java语言赋予特殊含义，用做专门用途的单词</p>
+</li>
+<li>
+<p>保留字：goto</p>
+</li>
+<li>
+<p>标识符：凡是自己可以命名起名字的地方都是标识符</p>
+</li>
+</ol>
+<p>规则：</p>
+<p>3.1 26个大小写英文字母，0-9，或_和$组成</p>
+<p>3.2 数字不能开头</p>
+<p>3.3 不可以使用关键字和保留字，但可以包含关键字和保留字</p>
+<p>3.4  java区分大小写</p>
+<p>3.5  标识符不能包含空格。</p>
+<p>规范：</p>
+<p>3.6 包名：所有字母小写</p>
+<p>3.7 类名和接口名：多个单词组成，每个单词首字母大写：class HelloWorld</p>
+<p>3.8变量名和方法名：多个单词组成，第一个单词首字母小写，第二个单词开始首字母大写： String firstNumber；</p>
+<p>3.9常量名：所有字母大写，多个单词间用下划线连接：final String SCHOOL_NAME;</p>
+<ol>
+<li>变量：
+<ol>
+<li>基本数据类型和引用类型
+<ol>
+<li>基本数据类型：
+<ol>
+<li>整数类型：byte，short，int，long，</li>
+<li>浮点数：float，double</li>
+<li>字符型：char</li>
+<li>布尔类型：boolean</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>引用类型
+<ol>
+<li>数组</li>
+<li>类（String）</li>
+<li>接口</li>
+</ol>
+</li>
+<li>变量的运算
+<ol>
+<li>自动类型转换：</li>
+<li>强制类型转换：语法：  数据类型 变量名 = （数据类型）数值</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+<p><code>              </code>备注：引用类型的强制类型转换，需要存在继承关系。</p>
+<ol>
+<li>Byte、short、char之间运算时，结果为int型</li>
+<li>进制转换:
+<ol>
+<li>正整数的补码同源码相同</li>
+<li>负整数的补码运算过程：源码》反码》加1</li>
+<li>2进制》8进制》16进制：先算出2进制，转8进制，每3位为一个8进制，转16进制，每4位为一个16进制</li>
+</ol>
+</li>
+</ol>
+<p>11111011：二进制</p>
+<p>11，111，011：八进制：（11）=1*2^0+1*2^1=3</p>
+<p><code>					   </code>(111)=1*2^2+1*2^1+1*2^0=7</p>
+<p><code>					   </code>(011)=0*2^2+1*2^1+1*2^0=3</p>
+<p>1111,1011:十六进制：（1111）=1*2^3+1*2^2+1*2^1+1*2^0=15(F)</p>
+<p><code>					 </code>(1011) =1*2^3+0*2^2+1*2^1+1*2^0=11 (B)</p>
+<ol>
+<li>
+<p>运算符：</p>
+<ol>
+<li>/ ：int i = 12 ； i/5=?(是一个整数型)</li>
+<li>% ：-38%-3   计算的结果由第一个数决定.</li>
+<li>++,&ndash; :如果运算符在前面：先加1，在运算 ，运算符在后面：先运算，在加1</li>
+<li>赋值运算符：  x+=5;   x=x+5;</li>
+<li>短路&amp;&amp;或者｜｜　同　非短路＆　或　｜　的区别</li>
+<li>三元运算符　　（表达式０）？表达式１：表达式２；如果表达式０为真，取表达式１的值，否则取表达式２的值。</li>
+</ol>
+</li>
+<li>
+<p>分支结构：</p>
+<ol>
+<li>Ｉｆ
+<ol>
+<li>一但满足某个条件表达式，则进入其执行语句块执行，执行完毕，跳出当前的条件判断结构。后面的分支语句不会在执行。</li>
+</ol>
+</li>
+<li>Ｓｗｉｔｃｈ
+<ol>
+<li>Byte,short,int,char,枚举，String</li>
+<li>Case 后面的是一个常量</li>
+<li>Default语句可以省略，如果没有满足的，就默认执行default语句。</li>
+<li>Break：一旦满足了case语句，进入执行其操作，直到遇到break，跳出switch结构。</li>
+<li>建议：若要判断的语句的条件满足switch变量的数据类型，并且值不多的情况，可以使用switch，否则使用if</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>
+<p>循环结构</p>
+<ol>
+<li>格式：</li>
+</ol>
+</li>
+</ol>
+<p>a初始化条件</p>
+<p>b 循环条件</p>
+<p>c迭代部分</p>
+<p>d循环体</p>
+<ol>
+<li>For（a;b;c）{</li>
+</ol>
+<p>D;</p>
+<p>}</p>
+<p>A</p>
+<p>While(b){</p>
+<p>D;</p>
+<p>C;</p>
+<p>}</p>
+<p>A</p>
+<p>do{</p>
+<p><code>    </code>D;</p>
+<p>C;</p>
+<p>}while(b);</p>
+<ol>
+<li>While 和do while ：do while程序至少执行一次。 Do while的循环条件括号后面有一个“；”分号</li>
+<li>嵌套循环：如果外层的循环次数是M,内层的循环次数是N，那么这个程序循环的次数是M*N;</li>
+</ol>
+<p><code>    </code>技巧：一般来说，外层循环控制行数，内层循环控制的是列数</p>
+<ol>
+<li>Break和continue
+<ol>
+<li>Break：是结束循环，跳出循环体</li>
+<li>Continue：是结束本次循环。</li>
+</ol>
+</li>
+<li>数组：
+<ol>
+<li>一维数组：
+<ol>
+<li>数组的初始化
+<ol>
+<li>静态初始化：Int[] array = new int[]{1,2,3,4,5};</li>
+<li>动态初始化：int[] array = new int[3];</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+<p>Array[0]=4;</p>
+<p><code>                        </code>通过下标访问，下标从0开始。数组有一个属性length，用于获   取数组的长度</p>
+<ol>
+<li>多维数组：
+<ol>
+<li>数组的初始化
+<ol>
+<li>静态初始化：int[][] array = new int[][]{{1,2},{4,5,6},{7,8,9,0}};</li>
+<li>动态初始化:int[][] array = new int[4][6];   array[1][2]=5;</li>
+<li>注意二维数组的长度：
+<ol>
+<li>Int[][] array = new int[2][6];
+<ol>
+<li>二维数组行的长度：array.length;</li>
+<li>二维数组列的长度：array[0].length  ://第一行对应数组长度</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>数组常见异常：java.lang.ArrayIndexOutOfBoundsExecption  :数组下标越界异常（下标从0开始，因此使用下标访问时最长长度为x[长度-1]）</li>
+<li>数组工具类：Arrays类，可以使用类中的sort方法为数组排序。</li>
+<li><code> </code>面向对象</li>
+<li>面向对象同面向过程  ：人开门  同 把大象放进冰箱</li>
+<li>面向对象的编程关注于类的设计
+<ol>
+<li>一个项目或者工程，不管多么庞大，一定是一个一个类构成的。</li>
+<li>类是抽象的，好比是制造图纸（制造汽车的图纸），而具体的一辆辆的车，是根据图纸制造，而成的实实在在的一个实例（川O 00001）</li>
+</ol>
+</li>
+<li>完成一个项目（功能）的思路
+<ol>
+<li>所有完成的功能对应的类的对象是否存在</li>
+<li>若存在，则通过对象直接调用对应类中的属性或方法。</li>
+<li>若不存在，需要穿件类的对象，如果类都不存在，就需要设计类。</li>
+</ol>
+</li>
+<li>面向对象的三条主线：
+<ol>
+<li>类及类的构成成分：属性、方法、构造器、代码块、内部类</li>
+<li>面向对象编程的特征：封装、继承、多态（多态之间一定有继承关系）</li>
+<li>关键字：this、super、package、import、static、final&hellip;&hellip;</li>
+</ol>
+</li>
+<li>类的组成：
+<ol>
+<li>属性：（成员变量，Field）
+<ol>
+<li>成员变量同局部变量
+<ol>
+<li>相同点：
+<ol>
+<li>遵循变量声明的格式： 数据类型 变量名 = 初始值;</li>
+<li>都有作用域s</li>
+</ol>
+</li>
+<li>不同点：
+<ol>
+<li>声明的位置不同：成员变量：声明在类的里面，方法的外面。局部变量：声明在方法的内，方法的形参，代码块。</li>
+<li>成员变量的修饰符有4个：public、private、protected、缺省。局部变量没有修饰符</li>
+<li>初始化值：成员变量：如果在声明的时候，不显式的赋值，那么不同数据类型会有不同的默认初始值。（一定会有值）。局部变量：一定要显式的赋值。（局部变量是没有默认初始化值的）。</li>
+<li>两者内存中的位置不同:成员变量在堆控空间中，局部变量在栈空间中。</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>方法：（成员方法，函数，Method）
+<ol>
+<li>提供某种功能的实现。</li>
+<li>格式： 修饰符 返回值类型（void/具体的返回值） 方法名（形参）{}</li>
+<li>关于返回值：void：表明此方法不需要返回值。如果有返回值：在方法的最后一定有return 返回值类型所对应的变量/表达式。因此void和return不能同时存在。</li>
+<li>方法内可以调用本类的其他方法或属性，但不能在方法内再定义方法</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>面向对象编程思想的规则
+<ol>
+<li>设计并创建类的成分。</li>
+<li>实例化类的对象。</li>
+<li>通过“对象.属性”或“对象.方法”的形式完成某种功能。</li>
+</ol>
+</li>
+<li>语法：</li>
+</ol>
+<p>声明类语法格式：</p>
+<p>[&lt; 修饰符&gt;] class &lt; 类名&gt;</p>
+<p>{</p>
+<p><code>	</code>[&lt;属性声明&gt;]</p>
+<p><code>	</code>[&lt;构造器声明&gt;]</p>
+<p><code>	</code>[&lt;方法声明&gt;]</p>
+<p>}</p>
+<p>说明：修饰符public：类可以被任意访问</p>
+<p><code>	</code>类的正文要用{  }括起来</p>
+<p>====================================================</p>
+<p>声明属性的语法：</p>
+<p>语法格式：</p>
+<p>[&lt;修饰符&gt;]  类型  &lt; 属性名&gt; [=初值] ;</p>
+<p>说明：修饰符 private: 该属性只能由该类的方法访问。</p>
+<p><code>	</code>修饰符 public: 该属性可以被该类以外的方法访问。</p>
+<p><code>	</code>类型：任何基本类型，如int、boolean或任何类。</p>
+<p>=====================================================</p>
+<p>声明方法的语法：</p>
+<p>语法格式：</p>
+<p><code> 	</code>&lt;修饰符&gt; &lt;返回类型&gt; &lt;方法名&gt;([&lt; 参数表&gt;]) {</p>
+<p><code>  	        </code>[&lt; 语句&gt;]</p>
+<p>}</p>
+<p>说明： 修饰符：public,private,protected 等。</p>
+<p><code>	</code>返回类型：return语句传递返回值。没有返回值：void。</p>
+<ol>
+<li>封装性
+<ol>
+<li>为什么要使用封装？：当创建了类的对象后，如果直接通过“对象.属性”的方式对相应对象属性进行赋值的话，可能会出现不满足实际需求的情况。我们考虑不让对象来直接操作属性，而是通过“对象.方法”的形式来控制对象属性的方法</li>
+<li>封装的思想：
+<ol>
+<li>将类的属性私有化。</li>
+<li>提供公共的方法来实现赋值或者调用</li>
+</ol>
+</li>
+<li>封装有4个关键字：public,protected,缺省（不显示声明权限修饰符），private</li>
+</ol>
+</li>
+<li>构造器
+<ol>
+<li>构造器类的成员。（成员变量、成员方法、构造器）</li>
+<li>构造器的作用：
+<ol>
+<li>创建类对象实例</li>
+<li>给创建的对象属性进行初始化</li>
+</ol>
+</li>
+<li>注意：
+<ol>
+<li>设计类时，如果不显式声明类的构造器，程序会默认提供一个空参的构造器。</li>
+<li>一旦显式定义了构造器，那么系统将不再提供默认的构造器。</li>
+<li>声明构造器的语法：权限修饰符 类名（参数）｛｝</li>
+<li>类的多个构造器之间的重载。</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>方法的重载
+<ol>
+<li>必须要在同一个类中</li>
+<li>方法名必须相同</li>
+<li>方法的参数列表不同
+<ol>
+<li>参数的个数不同</li>
+<li>参数的类型不同</li>
+<li>参数的排练顺序不同</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>This关键字
+<ol>
+<li>This关键字表示当前对象或者是当前正在创建的对象。</li>
+<li>This表示当前对象的一个引用，是调用当前方法的那个对象的引用。</li>
+<li>在类的构造器中调用重载的构造方法，this必须放在构造方法的第一行。（构造器重复代码的利用）</li>
+</ol>
+</li>
+<li>Java的值传递机制
+<ol>
+<li>方法的参数传递
+<ol>
+<li>形参：方法声明时，方法小括号内的参数</li>
+<li>实参：调用方法时，实际传入的参数的值</li>
+</ol>
+</li>
+<li>规则：java中的参数传递是：值传递
+<ol>
+<li>形参如果是基本数据类型：将实参的值传递给形参的基本数据类型变量.(形参和实参的内存空间是不同的)</li>
+<li>形参如果是引用数据类型：将实参的引用类型变量的值（对应的堆空间对象实例的首地址）传递给形参引用变量。（形参和实参都指向同一个内存空间）</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>Package/import
+<ol>
+<li>Package
+<ol>
+<li>写在程序的第一行</li>
+<li>每“.”一次，表示的一层文件目录</li>
+<li>包名都要小写</li>
+</ol>
+</li>
+<li>Import
+<ol>
+<li>显式导入指定包下的类或接口。</li>
+<li>写在包的声明和类声明之间。</li>
+<li>如果要引入多个类或者接口，就并列写出所有的包。</li>
+<li>如果需要导入某个包下的所有类，那么可以写成：import gxjy.test.*;</li>
+<li>Import static 表示导入指定类的static属性和方法。</li>
+</ol>
+</li>
+</ol>
+</li>
+<li><code> </code>类的设计</li>
+<li>继承
+<ol>
+<li>为什么要继承</li>
+<li>通过“class A extedns B”</li>
+<li>子类继承父类后，父类中声明的属性、方法，在子类中可以获取到，并且子类还可以定义自己特有的部分。</li>
+<li>父类中private修饰的成员，不能够被继承。</li>
+<li>Java的继承是单继承。一个类只能继承一个父类，一个父类可以有多个子类。</li>
+</ol>
+</li>
+<li>权限修饰符</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>修饰符</th>
+<th>同意一个类</th>
+<th>同一个包</th>
+<th>子类</th>
+<th>整体</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Private</td>
+<td>Y</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Default</td>
+<td>Y</td>
+<td>Y</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Protected</td>
+<td>Y</td>
+<td>Y</td>
+<td>Y</td>
+<td></td>
+</tr>
+<tr>
+<td>Public</td>
+<td>Y</td>
+<td>Y</td>
+<td>Y</td>
+<td>Y</td>
+</tr>
+</tbody>
+</table>
+<ol>
+<li>方法的重写和覆盖
+<ol>
+<li>为什么要重写？</li>
+<li>前提：要做继承的基础上。</li>
+<li>重写的方法名、参数列表、返回值类型必须相同。</li>
+<li>权限修饰符，不能严格于被重写的方法。</li>
+</ol>
+</li>
+<li>Super
+<ol>
+<li>Super是在子类方法中对父类对象的引用，使用super能在子类方法中引用父类的成员。</li>
+<li>在子类的构造器中调用父类的构造器。
+<ol>
+<li>在子类的构造方法中可使用super(参数列表)语句调用父类的构造方法</li>
+<li>如果子类的构造方法中没有显示地调用父类构造方法，也没有使用this关键字调用重载的其它构造方法，则系统默认调用父类无参数的构造方法</li>
+<li>如果子类构造方法中既未显式调用父类构造方法，而父类中又没有无参的构造方法，则编译出错</li>
+<li>注意：掌握创建对象时，关于构造器的调用过程和逻辑。</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>多态
+<ol>
+<li>什么叫多态：
+<ol>
+<li>Java引用变量有两种类型：编译时类型和运行时类型。编译时类型由声明该变量时使用的类型决定。运行时类型由实际赋给该变量的对象类型决定。（Person p = new Student();）如果编译时类型和运行时类型不一致，就是多态</li>
+<li>同一个类型的多个变量，在执行同一个方法时，呈现出多种行为的特征。</li>
+<li>子类能够替代父类使用。</li>
+</ol>
+</li>
+<li>多态的表现：
+<ol>
+<li>方法的重载和重写</li>
+<li>子类对象的多态性</li>
+</ol>
+</li>
+<li>多态的前提条件：
+<ol>
+<li>继承关系</li>
+<li>要有方法的重写</li>
+</ol>
+</li>
+<li>在多态的情况下（当父类类型的变量指向一个子类的对象）：不能调用子类中新添加的方法或者属性。（如果要解决这个问题，必须通过强制类型转换）</li>
+</ol>
+</li>
+<li>instanceof
+<ol>
+<li>X instanceof A :X对象是否为A类的子类或者其本身对象。返回true或者是false。</li>
+</ol>
+</li>
+<li>引用类型的转换
+<ol>
+<li>如果要转换成功，必须有继承关系。</li>
+<li>最好使用instanceof进行检查后，在转换，避免出现类型转换异常。</li>
+<li>从父类的对象转换为子类的类型。</li>
+</ol>
+</li>
+<li>Object类：
+<ol>
+<li>Object是所有java类的根父类</li>
+<li>haseCode()</li>
+<li>Equals();</li>
+<li>toString();</li>
+</ol>
+</li>
+<li>包装类
+<ol>
+<li>从基本数据类型转换为String类：调用的是String类重载的valueOf(XXX XX);方法</li>
+<li>从String类转换为基本数据类型：调用的是相应包装类的parseXxx（String str）方法</li>
+</ol>
+</li>
+<li><code> </code>高级类的特性</li>
+<li>Static关键字
+<ol>
+<li>静态的，可以用来修饰属性、方法、代码块、内部类</li>
+<li>Static修饰的属性
+<ol>
+<li>由类创建的所有的对象，都共用这一个属性。</li>
+<li>当其中一个对象对此属性修改后，会导致其他对象对此属性调用是都是一样。（非static的属性，每个对象都各自拥有一份副本）</li>
+<li>Static属性是随着类的加载而加载的，并且只有一份。</li>
+<li>Static属性通过“类.类属性”的形式类访问调用。</li>
+<li>类属性的加载早于对象，所有当有对象以后，可以使用“对象.类属性”来方法static属性。（“类.实例属性”是不能操作的）</li>
+<li>Static属性存在于静态区域中。</li>
+</ol>
+</li>
+<li>Static修饰的方法
+<ol>
+<li>随着类的加载而加载，在内存中也只有一份</li>
+<li>访问方式“类名.类方法”的方法调用</li>
+<li>Static 的类方法可以调用static的属性，但不能调用非static的属性。反之，非static的方法是可以调用static属性或者方法的。</li>
+</ol>
+</li>
+<li>静态代码块
+<ol>
+<li>它相当于一个无参的构造器</li>
+<li>里面是可以输出语句。</li>
+<li>随着类的加载而加载，static的代码块只加载一次</li>
+<li>多个static代码块之间是按照顺序结构执行的。</li>
+<li>主要的作用，初始化类的static属性</li>
+</ol>
+</li>
+<li>单例模式
+<ol>
+<li>私有化构造器</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+<p>Private Bank（）</p>
+<ol>
+<li>创建类的对象，同时设置为private的，通过公共的方法来调用</li>
+<li>要求此对象是static的</li>
+</ol>
+<p>Private static Bank instance = new Bank();</p>
+<ol>
+<li>公共方法也是static的</li>
+</ol>
+<p>Public static Bank getInstance(){</p>
+<p>Return instance;</p>
+<p>}</p>
+<ol>
+<li>Main()方法
+<ol>
+<li>Main（）是一个方法，是主方法，它是程序的入口。</li>
+<li>参数就是一个字符串数组，从命令行输入的。</li>
+</ol>
+</li>
+<li>Final关键字
+<ol>
+<li>Final：表示最终的，可以用来实现类、属性、方法</li>
+<li>Final修饰的类不能被继承</li>
+<li>Final修饰的方法不能被重写</li>
+<li>Final实现的属性，一旦初始化后，就不能在被赋值。（1.定义的时候显式的赋值2.代码块3.构造器）</li>
+</ol>
+</li>
+<li>抽象类（abstract）
+<ol>
+<li>Abstract可以用来修饰类、方法。</li>
+<li>修饰类
+<ol>
+<li>不能被实例化。</li>
+<li>抽象类有构造器</li>
+<li>抽象方法所在的类，一定是抽象类</li>
+<li>抽象类中不一定需要抽象方法。</li>
+</ol>
+</li>
+<li>修饰方法
+<ol>
+<li>没有方法体：public abstract void test（）;</li>
+<li>抽象方法只保留了功能，而具体的执行方式，交给继承抽象类的子类，由子类来重写此方法。</li>
+<li>如果子类继承了抽象类，并且重写了所有的抽象方法。这个了可以实例化。反之，如果子类没有重写所有的抽象方法，代表这个类中还有抽象方法的存在，那么这个类仍然是抽象类。</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>接口
+<ol>
+<li>接口于类是一个并行的概念</li>
+<li>接口可以看做是一个特殊的抽象类。里面只有：常量和抽象方法。</li>
+<li>接口没有构造器</li>
+<li>接口定义的就是一个功能，这个功能被所有实现类来实现（implements）</li>
+<li>实现接口的类的，必须要重写其中所有的抽象方法。如果没有重写所有的重写方法，这个类是一个抽象类。</li>
+<li>类可以实现多个接口。多个接口之间用逗号隔开。</li>
+<li>接口与接口之间也可以继承，也就存在多态的关系。</li>
+<li>如果一个类既要继承又要实现接口，那么extends在implements前面</li>
+</ol>
+</li>
+<li>内部类
+<ol>
+<li>可以在类的内部再定义类。</li>
+<li>内部类可以访问外部类的方法和属性，外部类不能方法内部类的方法和属性</li>
+</ol>
+</li>
+<li>异常
+<ol>
+<li>结构体系：
+<ol>
+<li>java.lang.Object
+<ol>
+<li>java.lang.Throwable
+<ol>
+<li>java.lang.Error:错误，java程序对此无能为力，不能显式的处理</li>
+<li>Java.lang.Excepiton:异常。需要处理的
+<ol>
+<li>RuntimeExcepiton:运行时异常。（java）
+<ol>
+<li>ArrayIndexOutBoundsException</li>
+<li>NullPointerException</li>
+<li>ArithmeticException</li>
+<li>ClassCastException</li>
+</ol>
+</li>
+<li>非RuntimeExcepiton异常：编译时异常（javac）
+<ol>
+<li>IOException</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>运行时异常同编译时异常的特点
+<ol>
+<li>运行时异常，是可以不显式处理的。</li>
+<li>编译时异常，必须显式的处理。编译时异常，不是说有异常才处理，而是存在异常的隐患，必须在编译前，提示程序，万一出现异常，如何处理。</li>
+</ol>
+</li>
+<li>如何处理异常
+<ol>
+<li>Java的异常是“抓抛模型”
+<ol>
+<li>抛：（自动抛出/主动抛出）
+<ol>
+<li>当我们执行代码时，一旦出现异常，就会在异常代码处生成一个对应的异常类型对象，并且将此对象抛出。
+<ol>
+<li>异常抛出后，程序就终止了（try语句块后面的代码不在执行）。</li>
+<li>异常对象抛给了方法的调用者。</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>抓：抓住上一步抛出的异常类对象。抓的意思：如何处理异常。
+<ol>
+<li>Java有两种方式处理异常
+<ol>
+<li>Try&hellip;（可能出现异常的代码）&hellip;catch&hellip;（处理方式）&hellip;finally..（一定要执行的代码）&hellip;
+<ol>
+<li>注意：
+<ol>
+<li>Finally是可选的</li>
+<li>Catch语句内有两个方法：getMessage()，printStackTrace();</li>
+<li>可以有多个catch语句，try中抛出的异常类对象，从上往下去匹配catch中的异常类对象，一旦匹配成功，就执行catch中的代码，然后跳出，其后面的catch不在执行。</li>
+<li>如果异常已经处理成功，异常后面的代码继续执行。</li>
+<li>Catch可以同时捕获多个异常：catch(UserNotExistExecpiton|ArithmeticException e)</li>
+<li>如果多个catch是“包含关系”，必须将子类放在父类的前面，否则将出现错误。</li>
+<li>Try&mdash;catch可以嵌套</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>在声明放的时候，显式的使用throws+异常类型
+<ol>
+<li>可以同时抛出多个异常，用逗号隔开。</li>
+<li>语法：public void test（）throws Excepiton1，Exception2</li>
+</ol>
+</li>
+<li>如何手工的抛出一个异常：
+<ol>
+<li>在方法的内部，使用throw+异常对象，来手工的抛出一个异常。</li>
+<li>谁调用这个方法，谁就去处理这个异常。</li>
+</ol>
+</li>
+<li>自定义异常
+<ol>
+<li>一定要继承一个异常类（RuntimeExcepiton）</li>
+<li>如何自定义一个异常：</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+<p>Public class gxjyException extends RuntimeException{</p>
+<p>Stataic final long serialVersionUID =-90234782309L；</p>
+<p>Public gxjyException (){</p>
+<p>Super();</p>
+<p>}</p>
+<p>Public gxjyException (String msg){</p>
+<p>Super(msg);</p>
+<p>}</p>
+<p>}</p>
+<ol>
+<li>自定义异常一定通过throw抛出。</li>
+</ol>
+<p>由doc转化为markdown</p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/java%E6%95%99%E5%B8%88%E7%AC%94%E8%AE%B0/">java教师笔记</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+    <aside class="related-contents--wrapper">
+    
+    
+        <h2 class="section-title">相关文章</h2>
+        <div class="related-contents">
+            <div class="flex article-list--tile">
+                
+                    
+<article class="">
+    <a href="/p/mybatis3-%E6%95%99%E5%B8%88%E7%AC%94%E8%AE%B0/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">mybatis3 教师笔记</h2>
+        </div>
+    </a>
+</article>
+                
+            </div>
+        </div>
+    
+</aside>
+
+     
+    
+        
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "stack" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (DISQUS) {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2020 - 
+        
+        2021 ybakiame&#39; Blog
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.5.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css"integrity="sha256-c0uckgykQ9v5k&#43;IqViZOZKc47Jn7KQil4/MP3ySA3F8="crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css"integrity="sha256-SBLU4vv6CA6lHsZ1XyTdhyjJxCjPif/TRkjnsyGAGnE="crossorigin="anonymous"
+            >
+
+            </main>
+    
+
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js"integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g="crossorigin="anonymous"
+                defer="false"
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

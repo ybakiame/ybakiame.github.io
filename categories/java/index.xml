@@ -6,7 +6,47 @@
     <description>Recent content in java on ybakiame&#39; Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 23 Oct 2021 22:26:26 +0800</lastBuildDate><atom:link href="https://example.com/categories/java/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 15 Nov 2021 13:24:27 +0800</lastBuildDate><atom:link href="https://example.com/categories/java/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Stringbuffer</title>
+      <link>https://example.com/p/stringbuffer/</link>
+      <pubDate>Mon, 15 Nov 2021 13:24:27 +0800</pubDate>
+      
+      <guid>https://example.com/p/stringbuffer/</guid>
+      <description>使用 Stringbuffer 代替 字符串连接 String是在Java中最常用的类。特别是在 Web 应用程序中，它被广泛用于生成和格式化 HTML 内容。
+String被设计为不可变的；为了修改一个 String，您必须创建一个新 String对象。因此，字符串连接可能会导致在构造 String最终对象之前创建许多中间对象 String。
+StringBuffer是 的可变伴生类 String；它允许您修改 String. 因此，StringBuffer通常比 String需要连接时更有效。
+如果在多个语句中重复附加到一个字符串，请使用 StringBuffer 而不是字符串连接 对 String重复使用“+=”操作代价高昂。
+例如：
+String s = new String(); [do some work ...] s += s1; [do some more work...] s += s2; 用 StringBuffer 替换上面的字符串连接：
+StringBuffer strbuf = new StringBuffer(); [do some work ...] strbuf.append(s1); [so some more work ...] strbuf.append(s2); String s = strbuf.toString(); 如果连接在一个语句内，则使用 String 或 StringBuffer String并 StringBuffer在某些情况下执行相同的操作；所以你不需要 StringBuffer直接使用。</description>
+    </item>
+    
+    <item>
+      <title>Java 字符串拼接内存解析</title>
+      <link>https://example.com/p/java-%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%8B%BC%E6%8E%A5%E5%86%85%E5%AD%98%E8%A7%A3%E6%9E%90/</link>
+      <pubDate>Mon, 15 Nov 2021 12:05:08 +0800</pubDate>
+      
+      <guid>https://example.com/p/java-%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%8B%BC%E6%8E%A5%E5%86%85%E5%AD%98%E8%A7%A3%E6%9E%90/</guid>
+      <description>Java 字符串(String)拼接内存解析 **String str1 = “Hello”;**字符串常量池中没有&amp;quot;Hello&amp;quot;，则创建一个字符串并把地址值返回给str1
+**String str2 = “Hello”;**字符串常量池中存在&amp;quot;Hello&amp;quot;，则创将该字符串的地址值返回给str2
+String str3 = new string( “Hello”);
+str3指向对象的地址，对象中的值指向字符串常量池中已有的字符串
+ https://img-blog.csdnimg.cn/20200413102918926.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2w4Mjc4OTM2Mjg=,size_16,color_FFFFFF,t_70 
+String str4 = “Hello” + “World”;
+直接拼接成&amp;quot;HelloWorld&amp;quot;,字符串常量池中没有&amp;quot;HelloWorld&amp;quot;，则在字符串常量池中创建一个字符串并把地址值返回给str4
+ https://img-blog.csdnimg.cn/20200413115906695.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2w4Mjc4OTM2Mjg=,size_16,color_FFFFFF,t_70 
+String str5 = “World”;
+字符串常量池中没有&amp;quot;World&amp;quot;，则创建一个字符串并把地址值返回给str5
+**String str6 = str1 + str5;**编译器对字符串加号做了优化，它会用StringBuffer的append方法进行追加。等效于：str6 = new StringBuffer(str1 ).append( str5).toString();拼接好后，字符串常量池中有&amp;quot;HelloWorld&amp;quot;，str6产生的对象的内容指向字符串常量池中&amp;quot;HelloWorld&amp;quot;的地址
+ https://img-blog.csdnimg.cn/20200413121213984.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2w4Mjc4OTM2Mjg=,size_16,color_FFFFFF,t_70 
+String str7 = (str3 + str5).intern（）;
+ https://img-blog.csdnimg.cn/2020041312450961.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2w4Mjc4OTM2Mjg=,size_16,color_FFFFFF,t_70 
+Person p1 = new Person(“张三”,18);
+Person p2 = new Person(“张三”,20);
+ https://img-blog.csdnimg.cn/20200413125737157.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2w4Mjc4OTM2Mjg=,size_16,color_FFFFFF,t_70</description>
+    </item>
+    
     <item>
       <title>Java命名规范参考</title>
       <link>https://example.com/p/java%E5%91%BD%E5%90%8D%E8%A7%84%E8%8C%83%E5%8F%82%E8%80%83/</link>
@@ -30,6 +70,46 @@ Java中的命名规范 好的命名能体现出代码的特征，含义或者是
       <guid>https://example.com/p/java%E4%B8%AD%E7%9A%84date%E5%92%8Cmysql%E4%B8%AD%E7%9A%84datetime/</guid>
       <description>java中的date 1、java.sql.date   格式为``2016-02-01` 是针对SQL语句使用的，它只包含日期而没有时间部分 一般是在数据库的时间字段   2、java.util.date   格式为 Wed Oct 20 15:02:35 CST 2021 在除SQL语句外的情况下面使用 一般是日常日期字段   sqlDate和UtilDate 1、java.util.Date 是 java.sql.Date 的父类 2、相互转化 java.sql.Date sqlDate=new Java.sql.Date(); java.util.Date utilDate=new java.util.Date (sqlDate.getTime()); 3、继承关系  java.lang.Object -&amp;gt; java.util.Date -&amp;gt; java.sql.Date
  4、 使用环境   java.sql.Date主要是用于sql中！ java.util.Date一般的环境下都可以使用！    5、转化 SimpleDateFormat bartDateFormat = new SimpleDateFormat(&amp;#34;yyyy-MM-dd&amp;#34;); String dateStringToParse = &amp;#34;2007-7-12&amp;#34;; //utilDate to sqlDate  try { //使用符合格式的字符串构建一个utilDate  java.</description>
+    </item>
+    
+    <item>
+      <title>java 反射</title>
+      <link>https://example.com/p/java-%E5%8F%8D%E5%B0%84/</link>
+      <pubDate>Tue, 19 Oct 2021 14:48:39 +0800</pubDate>
+      
+      <guid>https://example.com/p/java-%E5%8F%8D%E5%B0%84/</guid>
+      <description>Java反射 什么是反射？ 反射就是Reflection，Java的反射是指程序在运行期可以拿到一个对象的所有信息。通过Class实例获取class信息的方法称为反射（Reflection）。
+如何获取一个class的Class实例？有三个方法： 方法一：直接通过一个class的静态变量class获取：
+Class cls = String.class; 方法二：如果我们有一个实例变量，可以通过该实例变量提供的getClass()方法获取：
+String s = &amp;#34;Hello&amp;#34;; Class cls = s.getClass(); 方法三：如果知道一个class的完整类名，可以通过静态方法Class.forName()获取：
+Class cls = Class.forName(&amp;#34;java.lang.String&amp;#34;); 注意Class实例和instanceof的差别： Integer n = new Integer(123); boolean b1 = n instanceof Integer; // true，因为n是Integer类型 boolean b2 = n instanceof Number; // true，因为n是Number类型的子类  boolean b3 = n.getClass() == Integer.class; // true，因为n.getClass()返回Integer.class boolean b4 = n.getClass() == Number.class; // false，因为Integer.class!=Number.class 用instanceof不但匹配指定类型，还匹配指定类型的子类。而用==判断class实例可以精确地判断数据类型，但不能作子类型比较。
+通常情况下，我们应该用instanceof判断数据类型，因为面向抽象编程的时候，我们不关心具体的子类型。只有在需要精确判断一个类型是不是某个class的时候，我们才使用==判断class实例。
+因为反射的目的是为了获得某个实例的信息。因此，可以通过Object.getClass()方法获取的class`信息：
+动态加载 JVM在执行Java程序的时候，并不是一次性把所有用到的class全部加载到内存，而是第一次需要用到class时才加载。例如：
+// Main.java public class Main { public static void main(String[] args) { if (args.</description>
+    </item>
+    
+    <item>
+      <title>java 注解</title>
+      <link>https://example.com/p/java-%E6%B3%A8%E8%A7%A3/</link>
+      <pubDate>Tue, 19 Oct 2021 14:48:39 +0800</pubDate>
+      
+      <guid>https://example.com/p/java-%E6%B3%A8%E8%A7%A3/</guid>
+      <description>Java注解 什么是注解（Annotation）？注解是放在Java源码的类、方法、字段、参数前的一种特殊“注释”：
+使用注解 // this is a component: @Resource(&amp;quot;hello&amp;quot;) public class Hello { @Inject int n; @PostConstruct public void hello(@Param String name) { System.out.println(name); } @Override public String toString() { return &amp;quot;Hello&amp;quot;; } } 注释会被编译器直接忽略，注解则可以被编译器打包进入class文件，因此，注解是一种用作标注的“元数据”。
+注解的作用 从JVM的角度看，注解本身对代码逻辑没有任何影响，如何使用注解完全由工具决定。
+Java的注解可以分为三类：
+第一类是由编译器使用的注解，例如：
+ @Override：让编译器检查该方法是否正确地实现了覆写； @SuppressWarnings：告诉编译器忽略此处代码产生的警告。  这类注解不会被编译进入.class文件，它们在编译后就被编译器扔掉了。
+第二类是由工具处理.class文件使用的注解，比如有些工具会在加载class的时候，对class做动态修改，实现一些特殊的功能。这类注解会被编译进入.class文件，但加载结束后并不会存在于内存中。这类注解只被一些底层库使用，一般我们不必自己处理。
+第三类是在程序运行期能够读取的注解，它们在加载后一直存在于JVM中，这也是最常用的注解。例如，一个配置了@PostConstruct的方法会在调用构造方法后自动被调用（这是Java代码读取该注解实现的功能，JVM并不会识别该注解）。
+定义一个注解时，还可以定义配置参数。配置参数可以包括：
+ 所有基本类型； String； 枚举类型； 基本类型、String、Class以及枚举的数组。  因为配置参数必须是常量，所以，上述限制保证了注解在定义时就已经确定了每个参数的值。
+注解的配置参数可以有默认值，缺少某个配置参数时将使用默认值。
+此外，大部分注解会有一个名为value的配置参数，对此参数赋值，可以只写常量，相当于省略了value参数。
+如果只写注解，相当于全部使用默认值。
+举个栗子，对以下代码：
+public class Hello { @Check(min=0, max=100, value=55) public int n; @Check(value=99) public int p; @Check(99) // @Check(value=99) public int x; @Check public int y; } @Check就是一个注解。第一个@Check(min=0, max=100, value=55)明确定义了三个参数，第二个@Check(value=99)只定义了一个value参数，它实际上和@Check(99)是完全一样的。最后一个@Check表示所有参数都使用默认值。</description>
     </item>
     
   </channel>

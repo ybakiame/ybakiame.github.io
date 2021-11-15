@@ -6,7 +6,85 @@
     <description>Recent content in Posts on ybakiame&#39; Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 11 Nov 2021 11:18:56 +0800</lastBuildDate><atom:link href="https://example.com/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 15 Nov 2021 13:24:27 +0800</lastBuildDate><atom:link href="https://example.com/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Stringbuffer</title>
+      <link>https://example.com/p/stringbuffer/</link>
+      <pubDate>Mon, 15 Nov 2021 13:24:27 +0800</pubDate>
+      
+      <guid>https://example.com/p/stringbuffer/</guid>
+      <description>使用 Stringbuffer 代替 字符串连接 String是在Java中最常用的类。特别是在 Web 应用程序中，它被广泛用于生成和格式化 HTML 内容。
+String被设计为不可变的；为了修改一个 String，您必须创建一个新 String对象。因此，字符串连接可能会导致在构造 String最终对象之前创建许多中间对象 String。
+StringBuffer是 的可变伴生类 String；它允许您修改 String. 因此，StringBuffer通常比 String需要连接时更有效。
+如果在多个语句中重复附加到一个字符串，请使用 StringBuffer 而不是字符串连接 对 String重复使用“+=”操作代价高昂。
+例如：
+String s = new String(); [do some work ...] s += s1; [do some more work...] s += s2; 用 StringBuffer 替换上面的字符串连接：
+StringBuffer strbuf = new StringBuffer(); [do some work ...] strbuf.append(s1); [so some more work ...] strbuf.append(s2); String s = strbuf.toString(); 如果连接在一个语句内，则使用 String 或 StringBuffer String并 StringBuffer在某些情况下执行相同的操作；所以你不需要 StringBuffer直接使用。</description>
+    </item>
+    
+    <item>
+      <title>Druid 连接池的简单配置</title>
+      <link>https://example.com/p/druid-%E8%BF%9E%E6%8E%A5%E6%B1%A0%E7%9A%84%E7%AE%80%E5%8D%95%E9%85%8D%E7%BD%AE/</link>
+      <pubDate>Mon, 15 Nov 2021 12:44:01 +0800</pubDate>
+      
+      <guid>https://example.com/p/druid-%E8%BF%9E%E6%8E%A5%E6%B1%A0%E7%9A%84%E7%AE%80%E5%8D%95%E9%85%8D%E7%BD%AE/</guid>
+      <description>#url=jdbc:mysql://localhost:3306/demo druid.url=jdbc:mysql://localhost:3306/mysql?serverTimezone=UTC #这个可以缺省的，会根据url自动识别 druid.driverClassName=com.mysql.cj.jdbc.Driver druid.username=root druid.password=12345678 ##初始连接数，默认0 druid.initialSize=10 #最大连接数，默认8 druid.maxActive=30 #最小闲置数 druid.minIdle=10 #获取连接的最大等待时间，单位毫秒 druid.maxWait=2000 #缓存PreparedStatement，默认false druid.poolPreparedStatements=true #缓存PreparedStatement的最大数量，默认-1（不缓存）。大于0时会自动开启缓存PreparedStatement，所以可以省略上一句设置 druid.maxOpenPreparedStatements=20 </description>
+    </item>
+    
+    <item>
+      <title>Mybatis 使用druid连接池</title>
+      <link>https://example.com/p/mybatis-%E4%BD%BF%E7%94%A8druid%E8%BF%9E%E6%8E%A5%E6%B1%A0/</link>
+      <pubDate>Mon, 15 Nov 2021 12:39:17 +0800</pubDate>
+      
+      <guid>https://example.com/p/mybatis-%E4%BD%BF%E7%94%A8druid%E8%BF%9E%E6%8E%A5%E6%B1%A0/</guid>
+      <description>mybatis使用Druid连接池 在 util包下新建一个 DruidDataSourceFactory类
+package com.edu.util; import com.alibaba.druid.pool.DruidDataSource; import org.apache.ibatis.datasource.DataSourceFactory; import org.apache.ibatis.datasource.pooled.PooledDataSourceFactory; import javax.sql.DataSource; import java.sql.SQLException; import java.util.Properties; //public class DruidDataSourceFactory extends PooledDataSourceFactory { // public DruidDataSourceFactory() { // this.dataSource = new DruidDataSource(); // } //}  public class DruidDataSourceFactory implements DataSourceFactory { private Properties props; @Override public DataSource getDataSource() { DruidDataSource dds = new DruidDataSource(); dds.setDriverClassName(this.props.getProperty(&amp;#34;driver&amp;#34;)); dds.setUrl(this.props.getProperty(&amp;#34;url&amp;#34;)); dds.setUsername(this.props.getProperty(&amp;#34;username&amp;#34;)); dds.setPassword(this.props.getProperty(&amp;#34;password&amp;#34;)); // 其他配置可以根据MyBatis主配置文件进行配置  try { dds.init(); } catch (SQLException e) { e.</description>
+    </item>
+    
+    <item>
+      <title>Java 字符串拼接内存解析</title>
+      <link>https://example.com/p/java-%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%8B%BC%E6%8E%A5%E5%86%85%E5%AD%98%E8%A7%A3%E6%9E%90/</link>
+      <pubDate>Mon, 15 Nov 2021 12:05:08 +0800</pubDate>
+      
+      <guid>https://example.com/p/java-%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%8B%BC%E6%8E%A5%E5%86%85%E5%AD%98%E8%A7%A3%E6%9E%90/</guid>
+      <description>Java 字符串(String)拼接内存解析 **String str1 = “Hello”;**字符串常量池中没有&amp;quot;Hello&amp;quot;，则创建一个字符串并把地址值返回给str1
+**String str2 = “Hello”;**字符串常量池中存在&amp;quot;Hello&amp;quot;，则创将该字符串的地址值返回给str2
+String str3 = new string( “Hello”);
+str3指向对象的地址，对象中的值指向字符串常量池中已有的字符串
+ https://img-blog.csdnimg.cn/20200413102918926.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2w4Mjc4OTM2Mjg=,size_16,color_FFFFFF,t_70 
+String str4 = “Hello” + “World”;
+直接拼接成&amp;quot;HelloWorld&amp;quot;,字符串常量池中没有&amp;quot;HelloWorld&amp;quot;，则在字符串常量池中创建一个字符串并把地址值返回给str4
+ https://img-blog.csdnimg.cn/20200413115906695.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2w4Mjc4OTM2Mjg=,size_16,color_FFFFFF,t_70 
+String str5 = “World”;
+字符串常量池中没有&amp;quot;World&amp;quot;，则创建一个字符串并把地址值返回给str5
+**String str6 = str1 + str5;**编译器对字符串加号做了优化，它会用StringBuffer的append方法进行追加。等效于：str6 = new StringBuffer(str1 ).append( str5).toString();拼接好后，字符串常量池中有&amp;quot;HelloWorld&amp;quot;，str6产生的对象的内容指向字符串常量池中&amp;quot;HelloWorld&amp;quot;的地址
+ https://img-blog.csdnimg.cn/20200413121213984.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2w4Mjc4OTM2Mjg=,size_16,color_FFFFFF,t_70 
+String str7 = (str3 + str5).intern（）;
+ https://img-blog.csdnimg.cn/2020041312450961.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2w4Mjc4OTM2Mjg=,size_16,color_FFFFFF,t_70 
+Person p1 = new Person(“张三”,18);
+Person p2 = new Person(“张三”,20);
+ https://img-blog.csdnimg.cn/20200413125737157.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2w4Mjc4OTM2Mjg=,size_16,color_FFFFFF,t_70</description>
+    </item>
+    
+    <item>
+      <title>使用notion搭建个人blog</title>
+      <link>https://example.com/p/%E4%BD%BF%E7%94%A8notion%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BAblog/</link>
+      <pubDate>Mon, 15 Nov 2021 11:56:52 +0800</pubDate>
+      
+      <guid>https://example.com/p/%E4%BD%BF%E7%94%A8notion%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BAblog/</guid>
+      <description>使用notion搭建blog 为什么使用notion 现在建博客的工具有很多很多。
+如果想要一个静态博客，你可以选择hugo、jekyll、hexo搭配github page实现。
+如果想要一个动态博客，又没有什么基础，那你可以选择WordPress，网上教程一大把。
+不过我采用的是notion＋github，并托管到vercel。
+使用notion基于以下几点考虑：
+ notion支持全平台(Windows、网页、Mac、ios、安卓)。可以随时随地地码字 页面简洁美观，功能强大。特别是database功能，非常方便管理，同时支持多种views展示 支持Markdown语法  使用到的工具：  notion 账号 github 账号 vercel 账号 git node.js vscode  使用模版 nextjs-notion-starter-kit   fork 或 clone 项目
+  使用命令行克隆
+git clone https://github.com/transitive-bullshit/nextjs-notion-starter-kit.git   使用Github Desktop或者vscode克隆
+    修改 site.config.js
+两个选项
+// 获取你要分享的notion page的id (必须)  rootNotionPageId: &amp;#39;78fc5a4b88d74b0e824e29407e9f1ec1&amp;#39;, // 生成网站的基础信息 (必须)  name: &amp;#39;Transitive Bullshit&amp;#39;,//名称  domain: &amp;#39;transitivebullsh.it&amp;#39;,//域名可不填  author: &amp;#39;Travis Fischer&amp;#39;,//作者   安装node.</description>
+    </item>
+    
     <item>
       <title>Springmvc 中文乱码</title>
       <link>https://example.com/p/springmvc-%E4%B8%AD%E6%96%87%E4%B9%B1%E7%A0%81/</link>
@@ -109,6 +187,23 @@ public class User { private int id; //id  private String name; //姓名  private
 public interface UserMapper { //根据id查询用户  User selectUserById(int id); } 2、在UserMapper.xml中添加Select语句
 &amp;lt;select id=&amp;#34;selectUserById&amp;#34; resultType=&amp;#34;com.xxgc.pojo.User&amp;#34;&amp;gt; select * from user where id = #{id} &amp;lt;/select&amp;gt; 3、测试类中测试
 @Test public void tsetSelectUserById() { SqlSession session = MybatisUtils.getSession(); //获取SqlSession连接  UserMapper mapper = session.getMapper(UserMapper.class); User user = mapper.selectUserById(1); System.out.println(user); session.close(); } insert 标签 需求：给数据库增加一个用户</description>
+    </item>
+    
+    <item>
+      <title>mybatis3 教师笔记</title>
+      <link>https://example.com/p/mybatis3-%E6%95%99%E5%B8%88%E7%AC%94%E8%AE%B0/</link>
+      <pubDate>Tue, 09 Nov 2021 09:52:53 +0800</pubDate>
+      
+      <guid>https://example.com/p/mybatis3-%E6%95%99%E5%B8%88%E7%AC%94%E8%AE%B0/</guid>
+      <description>一、Mybatis 3的学习  MyBatis logo 
+ mybatisplus 
+1.1 什么是Mybatis MyBatis 是一款优秀的持久层框架，它支持自定义 SQL、存储过程以及高级映射。MyBatis 免除了几乎所有的 JDBC 代码以及设置参数和获取结果集的工作。MyBatis 可以通过简单的 XML 或注解来配置和映射原始类型、接口和 Java POJO（Plain Old Java Objects，普通老式 Java 对象）为数据库中的记录。
+官网：https://mybatis.org/mybatis-3/zh/index.html
+用来学习最新的API
+中文网：http://www.mybatis.cn/
+用来查看使用技巧
+1.2 Mybatis的历史 原是apache的一个开源项目iBatis，2010年6月这个项目由apache迁移到了google code，随着开发团队转投Google code旗下，ibatis3.x正式更名为Mybatis，代码于2013年11月迁移到Github。
+1.3 Mybatis的优势  基于sql语句编程，使用灵活，sql与程序代码的解耦 与JDBC相比减少50%代码，减少大量冗余代码，不需要手动开关连接 只要支持jdbc的数据库都支持Mybatis 与spring集成 支持面向对象编程，对象与ORM表映射  二、Mybaits环境搭建 2.1 创建数据库和表 /* SQLyog Ultimate v12.09 (64 bit) MySQL - 5.5.54 : Database - mybatis ********************************************************************* *//*!40101 SET NAMES utf8 */;/*!40101 SET SQL_MODE=&amp;#39;&amp;#39;*/;/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;/*!</description>
     </item>
     
     <item>
@@ -402,6 +497,68 @@ springMvc过滤静态资源文件 1、使用Tomcat的defaultServlet来处理静�
 创建 ObjectMapper Jackson 最常用的 API 就是基于&amp;quot;对象绑定&amp;quot; 的 ObjectMapper：
  ObjectMapper可以从字符串，流或文件中解析JSON，并创建表示已解析的JSON的Java对象。 将JSON解析为Java对象也称为从JSON反序列化Java对象。 ObjectMapper也可以从Java对象创建JSON。 从Java对象生成JSON也称为将Java对象序列化为JSON。 Object映射器可以将JSON解析为自定义的类的对象，也可以解析置JSON树模型的对象。  之所以称为ObjectMapper是因为它将JSON映射到Java对象（反序列化），或者将Java对象映射到JSON（序列化）。
 将 java Object转化为 json 字符串 ObjectMapper objectMapper = new ObjectMapper(); String json = objectMapper.writeValueAsString(要转化为json的对象); System.out.println(json);//打印转化后的json对象 参考</description>
+    </item>
+    
+    <item>
+      <title>java 反射</title>
+      <link>https://example.com/p/java-%E5%8F%8D%E5%B0%84/</link>
+      <pubDate>Tue, 19 Oct 2021 14:48:39 +0800</pubDate>
+      
+      <guid>https://example.com/p/java-%E5%8F%8D%E5%B0%84/</guid>
+      <description>Java反射 什么是反射？ 反射就是Reflection，Java的反射是指程序在运行期可以拿到一个对象的所有信息。通过Class实例获取class信息的方法称为反射（Reflection）。
+如何获取一个class的Class实例？有三个方法： 方法一：直接通过一个class的静态变量class获取：
+Class cls = String.class; 方法二：如果我们有一个实例变量，可以通过该实例变量提供的getClass()方法获取：
+String s = &amp;#34;Hello&amp;#34;; Class cls = s.getClass(); 方法三：如果知道一个class的完整类名，可以通过静态方法Class.forName()获取：
+Class cls = Class.forName(&amp;#34;java.lang.String&amp;#34;); 注意Class实例和instanceof的差别： Integer n = new Integer(123); boolean b1 = n instanceof Integer; // true，因为n是Integer类型 boolean b2 = n instanceof Number; // true，因为n是Number类型的子类  boolean b3 = n.getClass() == Integer.class; // true，因为n.getClass()返回Integer.class boolean b4 = n.getClass() == Number.class; // false，因为Integer.class!=Number.class 用instanceof不但匹配指定类型，还匹配指定类型的子类。而用==判断class实例可以精确地判断数据类型，但不能作子类型比较。
+通常情况下，我们应该用instanceof判断数据类型，因为面向抽象编程的时候，我们不关心具体的子类型。只有在需要精确判断一个类型是不是某个class的时候，我们才使用==判断class实例。
+因为反射的目的是为了获得某个实例的信息。因此，可以通过Object.getClass()方法获取的class`信息：
+动态加载 JVM在执行Java程序的时候，并不是一次性把所有用到的class全部加载到内存，而是第一次需要用到class时才加载。例如：
+// Main.java public class Main { public static void main(String[] args) { if (args.</description>
+    </item>
+    
+    <item>
+      <title>java 注解</title>
+      <link>https://example.com/p/java-%E6%B3%A8%E8%A7%A3/</link>
+      <pubDate>Tue, 19 Oct 2021 14:48:39 +0800</pubDate>
+      
+      <guid>https://example.com/p/java-%E6%B3%A8%E8%A7%A3/</guid>
+      <description>Java注解 什么是注解（Annotation）？注解是放在Java源码的类、方法、字段、参数前的一种特殊“注释”：
+使用注解 // this is a component: @Resource(&amp;quot;hello&amp;quot;) public class Hello { @Inject int n; @PostConstruct public void hello(@Param String name) { System.out.println(name); } @Override public String toString() { return &amp;quot;Hello&amp;quot;; } } 注释会被编译器直接忽略，注解则可以被编译器打包进入class文件，因此，注解是一种用作标注的“元数据”。
+注解的作用 从JVM的角度看，注解本身对代码逻辑没有任何影响，如何使用注解完全由工具决定。
+Java的注解可以分为三类：
+第一类是由编译器使用的注解，例如：
+ @Override：让编译器检查该方法是否正确地实现了覆写； @SuppressWarnings：告诉编译器忽略此处代码产生的警告。  这类注解不会被编译进入.class文件，它们在编译后就被编译器扔掉了。
+第二类是由工具处理.class文件使用的注解，比如有些工具会在加载class的时候，对class做动态修改，实现一些特殊的功能。这类注解会被编译进入.class文件，但加载结束后并不会存在于内存中。这类注解只被一些底层库使用，一般我们不必自己处理。
+第三类是在程序运行期能够读取的注解，它们在加载后一直存在于JVM中，这也是最常用的注解。例如，一个配置了@PostConstruct的方法会在调用构造方法后自动被调用（这是Java代码读取该注解实现的功能，JVM并不会识别该注解）。
+定义一个注解时，还可以定义配置参数。配置参数可以包括：
+ 所有基本类型； String； 枚举类型； 基本类型、String、Class以及枚举的数组。  因为配置参数必须是常量，所以，上述限制保证了注解在定义时就已经确定了每个参数的值。
+注解的配置参数可以有默认值，缺少某个配置参数时将使用默认值。
+此外，大部分注解会有一个名为value的配置参数，对此参数赋值，可以只写常量，相当于省略了value参数。
+如果只写注解，相当于全部使用默认值。
+举个栗子，对以下代码：
+public class Hello { @Check(min=0, max=100, value=55) public int n; @Check(value=99) public int p; @Check(99) // @Check(value=99) public int x; @Check public int y; } @Check就是一个注解。第一个@Check(min=0, max=100, value=55)明确定义了三个参数，第二个@Check(value=99)只定义了一个value参数，它实际上和@Check(99)是完全一样的。最后一个@Check表示所有参数都使用默认值。</description>
+    </item>
+    
+    <item>
+      <title>java 笔记</title>
+      <link>https://example.com/p/java-%E7%AC%94%E8%AE%B0/</link>
+      <pubDate>Tue, 19 Oct 2021 14:48:39 +0800</pubDate>
+      
+      <guid>https://example.com/p/java-%E7%AC%94%E8%AE%B0/</guid>
+      <description>：java语言的概述 计算机语言分为：编译型和解释型 图形化界面（GUI）和命令行方式。  DOS命令 dir,md,rd,cd,cd..,cd /,del,exit,ipconfig,ping   语言的进化：  第一代：机器语言 第二代：汇编语言 第三代：高级语言   Java语言的特征： JDK、PATH环境变量、classpath  JDK: PATH:WINDOWS操作系统在执行命令时所要搜索的路径。 CLASSPATH:JVM虚拟机，查找类的路径。   public class HelloWorld{  	public static void main(String[] args){
+	System.out.println(&amp;ldquo;HelloWorld&amp;rdquo;);
+	}
+}
+6.1.源文件扩展名”java”,编译以后生成文件的扩展名class
+6.2一个源文件里面只能有一个public类，其他类个数不限。如果源文件中包含public类，文件名必须同public类名保持一致。
+6.3java程序的入口是main()方法。不去main（）方法的写法是“较为”固定。
+6.4java语音是严格区分大小写。
+6.5java语音的语句是以“;”(半角状态的分号)
+6.6语句使用｛｝括起，成对出现。
+  Javac 和java
+  注释：
+ //:单行注释 /* */ :多行注释（多行注释不能够嵌套） /** */:文档注释 javadoc -d 文件目录名 源文件名.java    如何查看API.
+  ：基本语法：</description>
     </item>
     
     <item>
@@ -736,24 +893,6 @@ Spring是一个轻量级的控制反转(IoC)和面向切面(AOP)的容器（框�
 &amp;lt;%@ page isELIgnored =&amp;quot;true|false&amp;quot; %&amp;gt; 这样，EL表达式就会被忽略。若设为false，则容器将会计算EL表达式。
  EL中的基础操作符 EL表达式支持大部分Java所提供的算术和逻辑操作符：
    操作符 描述     . 访问一个Bean属性或者一个映射条目   [] 访问一个数组或者链表的元素   ( ) 组织一个子表达式以改变优先级   + 加   - 减或负   * 乘   / or div 除   % or mod 取模   == or eq 测试是否相等   !</description>
-    </item>
-    
-    <item>
-      <title></title>
-      <link>https://example.com/p/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://example.com/p/</guid>
-      <description>还原系统配置步骤： 1、下载Git 2、IDEA和Git关联 3、去仓库拉工程 4、配置Maven 5、修改主题颜色 6、修改字体大小 7、IDEA下载lombok插件 8、数据库 9、自动导包 10、快捷键调为eclipse
-一、Mybatis 3的学习  MyBatis logo 
- img 
-1.1 什么是Mybatis MyBatis 是一款优秀的持久层框架，它支持自定义 SQL、存储过程以及高级映射。MyBatis 免除了几乎所有的 JDBC 代码以及设置参数和获取结果集的工作。MyBatis 可以通过简单的 XML 或注解来配置和映射原始类型、接口和 Java POJO（Plain Old Java Objects，普通老式 Java 对象）为数据库中的记录。
-官网：https://mybatis.org/mybatis-3/zh/index.html
-用来学习最新的API
-中文网：http://www.mybatis.cn/
-用来查看使用技巧
-1.2 Mybatis的历史 原是apache的一个开源项目iBatis，2010年6月这个项目由apache迁移到了google code，随着开发团队转投Google code旗下，ibatis3.x正式更名为Mybatis，代码于2013年11月迁移到Github。
-1.3 Mybatis的优势  基于sql语句编程，使用灵活，sql与程序代码的解耦 与JDBC相比减少50%代码，减少大量冗余代码，不需要手动开关连接 只要支持jdbc的数据库都支持Mybatis 与spring集成 支持面向对象编程，对象与ORM表映射  二、Mybaits环境搭建 2.1 创建数据库和表 /* SQLyog Ultimate v12.09 (64 bit) MySQL - 5.5.54 : Database - mybatis ********************************************************************* *//*!</description>
     </item>
     
   </channel>

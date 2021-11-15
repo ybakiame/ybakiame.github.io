@@ -6,7 +6,17 @@
     <description>Recent content in mybatis on ybakiame&#39; Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 09 Nov 2021 09:58:40 +0800</lastBuildDate><atom:link href="https://example.com/categories/mybatis/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 15 Nov 2021 12:39:17 +0800</lastBuildDate><atom:link href="https://example.com/categories/mybatis/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Mybatis 使用druid连接池</title>
+      <link>https://example.com/p/mybatis-%E4%BD%BF%E7%94%A8druid%E8%BF%9E%E6%8E%A5%E6%B1%A0/</link>
+      <pubDate>Mon, 15 Nov 2021 12:39:17 +0800</pubDate>
+      
+      <guid>https://example.com/p/mybatis-%E4%BD%BF%E7%94%A8druid%E8%BF%9E%E6%8E%A5%E6%B1%A0/</guid>
+      <description>mybatis使用Druid连接池 在 util包下新建一个 DruidDataSourceFactory类
+package com.edu.util; import com.alibaba.druid.pool.DruidDataSource; import org.apache.ibatis.datasource.DataSourceFactory; import org.apache.ibatis.datasource.pooled.PooledDataSourceFactory; import javax.sql.DataSource; import java.sql.SQLException; import java.util.Properties; //public class DruidDataSourceFactory extends PooledDataSourceFactory { // public DruidDataSourceFactory() { // this.dataSource = new DruidDataSource(); // } //}  public class DruidDataSourceFactory implements DataSourceFactory { private Properties props; @Override public DataSource getDataSource() { DruidDataSource dds = new DruidDataSource(); dds.setDriverClassName(this.props.getProperty(&amp;#34;driver&amp;#34;)); dds.setUrl(this.props.getProperty(&amp;#34;url&amp;#34;)); dds.setUsername(this.props.getProperty(&amp;#34;username&amp;#34;)); dds.setPassword(this.props.getProperty(&amp;#34;password&amp;#34;)); // 其他配置可以根据MyBatis主配置文件进行配置  try { dds.init(); } catch (SQLException e) { e.</description>
+    </item>
+    
     <item>
       <title>MyBatis07 缓存</title>
       <link>https://example.com/p/mybatis07-%E7%BC%93%E5%AD%98/</link>

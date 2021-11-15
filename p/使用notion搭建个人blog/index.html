@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='使用notion搭建blog 为什么使用notion 现在建博客的工具有很多很多。
+如果想要一个静态博客，你可以选择hugo、jekyll、hexo搭配github page实现。
+如果想要一个动态博客，又没有什么基础，那你可以选择WordPress，网上教程一大把。
+不过我采用的是notion＋github，并托管到vercel。
+使用notion基于以下几点考虑：
+ notion支持全平台(Windows、网页、Mac、ios、安卓)。可以随时随地地码字 页面简洁美观，功能强大。特别是database功能，非常方便管理，同时支持多种views展示 支持Markdown语法  使用到的工具：  notion 账号 github 账号 vercel 账号 git node.js vscode  使用模版 nextjs-notion-starter-kit   fork 或 clone 项目
+  使用命令行克隆
+git clone https://github.com/transitive-bullshit/nextjs-notion-starter-kit.git   使用Github Desktop或者vscode克隆
+    修改 site.config.js
+两个选项
+// 获取你要分享的notion page的id (必须)  rootNotionPageId: &amp;#39;78fc5a4b88d74b0e824e29407e9f1ec1&amp;#39;, // 生成网站的基础信息 (必须)  name: &amp;#39;Transitive Bullshit&amp;#39;,//名称  domain: &amp;#39;transitivebullsh.it&amp;#39;,//域名可不填  author: &amp;#39;Travis Fischer&amp;#39;,//作者   安装node.'><title>使用notion搭建个人blog</title>
+
+<link rel='canonical' href='https://example.com/p/%E4%BD%BF%E7%94%A8notion%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BAblog/'>
+
+<link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content='使用notion搭建个人blog'>
+<meta property='og:description' content='使用notion搭建blog 为什么使用notion 现在建博客的工具有很多很多。
+如果想要一个静态博客，你可以选择hugo、jekyll、hexo搭配github page实现。
+如果想要一个动态博客，又没有什么基础，那你可以选择WordPress，网上教程一大把。
+不过我采用的是notion＋github，并托管到vercel。
+使用notion基于以下几点考虑：
+ notion支持全平台(Windows、网页、Mac、ios、安卓)。可以随时随地地码字 页面简洁美观，功能强大。特别是database功能，非常方便管理，同时支持多种views展示 支持Markdown语法  使用到的工具：  notion 账号 github 账号 vercel 账号 git node.js vscode  使用模版 nextjs-notion-starter-kit   fork 或 clone 项目
+  使用命令行克隆
+git clone https://github.com/transitive-bullshit/nextjs-notion-starter-kit.git   使用Github Desktop或者vscode克隆
+    修改 site.config.js
+两个选项
+// 获取你要分享的notion page的id (必须)  rootNotionPageId: &amp;#39;78fc5a4b88d74b0e824e29407e9f1ec1&amp;#39;, // 生成网站的基础信息 (必须)  name: &amp;#39;Transitive Bullshit&amp;#39;,//名称  domain: &amp;#39;transitivebullsh.it&amp;#39;,//域名可不填  author: &amp;#39;Travis Fischer&amp;#39;,//作者   安装node.'>
+<meta property='og:url' content='https://example.com/p/%E4%BD%BF%E7%94%A8notion%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BAblog/'>
+<meta property='og:site_name' content='ybakiame&#39; Blog'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='notion' /><meta property='article:tag' content='blog' /><meta property='article:published_time' content='2021-11-15T11:56:52&#43;08:00'/><meta property='article:modified_time' content='2021-11-15T11:56:52&#43;08:00'/>
+<meta name="twitter:title" content="使用notion搭建个人blog">
+<meta name="twitter:description" content="使用notion搭建blog 为什么使用notion 现在建博客的工具有很多很多。
+如果想要一个静态博客，你可以选择hugo、jekyll、hexo搭配github page实现。
+如果想要一个动态博客，又没有什么基础，那你可以选择WordPress，网上教程一大把。
+不过我采用的是notion＋github，并托管到vercel。
+使用notion基于以下几点考虑：
+ notion支持全平台(Windows、网页、Mac、ios、安卓)。可以随时随地地码字 页面简洁美观，功能强大。特别是database功能，非常方便管理，同时支持多种views展示 支持Markdown语法  使用到的工具：  notion 账号 github 账号 vercel 账号 git node.js vscode  使用模版 nextjs-notion-starter-kit   fork 或 clone 项目
+  使用命令行克隆
+git clone https://github.com/transitive-bullshit/nextjs-notion-starter-kit.git   使用Github Desktop或者vscode克隆
+    修改 site.config.js
+两个选项
+// 获取你要分享的notion page的id (必须)  rootNotionPageId: &amp;#39;78fc5a4b88d74b0e824e29407e9f1ec1&amp;#39;, // 生成网站的基础信息 (必须)  name: &amp;#39;Transitive Bullshit&amp;#39;,//名称  domain: &amp;#39;transitivebullsh.it&amp;#39;,//域名可不填  author: &amp;#39;Travis Fischer&amp;#39;,//作者   安装node.">
+    </head>
+    <body class="
+    article-page has-toc
+">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex 
+    
+        extended
+    
+">
+    
+        <div id="article-toolbar">
+            <a href="/" class="back-home">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="15 6 9 12 15 18" />
+</svg>
+
+
+
+                <span>返回</span>
+            </a>
+        </div>
+    
+<main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/static-site-generators/" >
+                static site generators
+            </a>
+        
+    </header>
+    
+
+    <h2 class="article-title">
+        <a href="/p/%E4%BD%BF%E7%94%A8notion%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BAblog/">使用notion搭建个人blog</a>
+    </h2>
+
+    
+
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Nov 15, 2021</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    阅读时长: 1 分钟
+                </time>
+            </div>
+        
+    </footer>
+    
+</div>
+</header>
+
+    <section class="article-content">
+    <h1 id="使用notion搭建blog">使用notion搭建blog</h1>
+<h2 id="为什么使用notion">为什么使用notion</h2>
+<p>现在建博客的工具有很多很多。</p>
+<p>如果想要一个静态博客，你可以选择hugo、jekyll、hexo搭配github page实现。</p>
+<p>如果想要一个动态博客，又没有什么基础，那你可以选择WordPress，网上教程一大把。</p>
+<p><strong>不过我采用的是notion＋github，并托管到vercel。</strong></p>
+<p>使用notion基于以下几点考虑：</p>
+<ol>
+<li>notion支持全平台(Windows、网页、Mac、ios、安卓)。可以随时随地地码字</li>
+<li>页面简洁美观，功能强大。特别是database功能，非常方便管理，同时支持多种views展示</li>
+<li>支持Markdown语法</li>
+</ol>
+<h2 id="使用到的工具">使用到的工具：</h2>
+<ul>
+<li><a class="link" href="https://www.notion.so/"  target="_blank" rel="noopener"
+    >notion</a> 账号</li>
+<li><a class="link" href="https://github.com/"  target="_blank" rel="noopener"
+    >github</a> 账号</li>
+<li><a class="link" href="https://vercel.com/"  target="_blank" rel="noopener"
+    >vercel</a> 账号</li>
+<li>git</li>
+<li>node.js</li>
+<li>vscode</li>
+</ul>
+<h2 id="使用模版">使用模版</h2>
+<h3 id="nextjs-notion-starter-kithttpsgithubcomtransitive-bullshitnextjs-notion-starter-kit"><strong><a class="link" href="https://github.com/transitive-bullshit/nextjs-notion-starter-kit"  target="_blank" rel="noopener"
+    >nextjs-notion-starter-kit</a></strong></h3>
+<ol>
+<li>
+<p>fork 或 clone 项目</p>
+<ul>
+<li>
+<p>使用命令行克隆</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">git clone https://github.com/transitive-bullshit/nextjs-notion-starter-kit.git
+</code></pre></div></li>
+<li>
+<p>使用<code>Github Desktop</code>或者<code>vscode</code>克隆</p>
+</li>
+</ul>
+</li>
+<li>
+<p>修改 <strong><code>site.config.js</code></strong></p>
+<p>两个选项</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-jsx" data-lang="jsx"><span class="c1">// 获取你要分享的notion page的id (必须)
+</span><span class="c1"></span>  <span class="nx">rootNotionPageId</span><span class="o">:</span> <span class="s1">&#39;78fc5a4b88d74b0e824e29407e9f1ec1&#39;</span><span class="p">,</span>
+
+<span class="c1">// 生成网站的基础信息 (必须)
+</span><span class="c1"></span>  <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;Transitive Bullshit&#39;</span><span class="p">,</span><span class="c1">//名称
+</span><span class="c1"></span>  <span class="nx">domain</span><span class="o">:</span> <span class="s1">&#39;transitivebullsh.it&#39;</span><span class="p">,</span><span class="c1">//域名可不填
+</span><span class="c1"></span>  <span class="nx">author</span><span class="o">:</span> <span class="s1">&#39;Travis Fischer&#39;</span><span class="p">,</span><span class="c1">//作者
+</span></code></pre></div></li>
+<li>
+<p>安装<code>node.js</code></p>
+</li>
+<li>
+<p>安装<code>yarn</code></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">npm install -g yarn
+</code></pre></div></li>
+<li>
+<p>修改<code>npm</code> 或<code>yarn</code>软件源</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">npm config get registry  // 查看npm当前镜像源
+
+npm config <span class="nb">set</span> registry https://registry.npm.taobao.org/  // 设置npm镜像源为淘宝镜像
+
+yarn config get registry  // 查看yarn当前镜像源
+
+yarn config <span class="nb">set</span> registry https://registry.npm.taobao.org/  // 设置yarn镜像源为淘宝镜像
+
+<span class="c1"># 部分**镜像源地址部分**</span>
+npm --- https://registry.npmjs.org/
+
+cnpm --- https://r.cnpmjs.org/
+
+taobao --- https://registry.npm.taobao.org/
+
+nj --- https://registry.nodejitsu.com/
+
+rednpm --- https://registry.mirror.cqupt.edu.cn/
+
+npmMirror --- https://skimdb.npmjs.com/registry/
+
+deunpm --- http://registry.enpmjs.org/
+</code></pre></div></li>
+<li>
+<p>yarn安装依赖包</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">yarn install
+</code></pre></div></li>
+<li>
+<p>本地测试</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">yarn run dev
+</code></pre></div></li>
+<li>
+<p>部署到 vercel</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">npm run deploy
+</code></pre></div></li>
+</ol>
+<h3 id="nobeliumhttpsgithubcomcraigarynobelium"><strong><a class="link" href="https://github.com/craigary/nobelium"  target="_blank" rel="noopener"
+    >nobelium</a></strong></h3>
+<ol>
+<li>复制<a class="link" href="https://www.notion.so/adc3552cfc73442ab5048d4b1eb0079a"  target="_blank" rel="noopener"
+    >这个 Notion 模板</a>，开启share to web 选项</li>
+<li><a class="link" href="https://github.com/craigary/nobelium/fork"  target="_blank" rel="noopener"
+    >Fork</a> 或 clone 项目</li>
+<li>修改 <code>blog.config.js</code></li>
+<li><em>（可选）替换</em><code>/public</code>文件夹下的<code>favicon.svg</code> 、<code>favicon.ico</code> </li>
+<li>部署在 <a class="link" href="https://vercel.com/"  target="_blank" rel="noopener"
+    >Vercel</a>  上设置以下环境变量：
+<ul>
+<li><code>NOTION_PAGE_ID</code> notion page id （必填）</li>
+<li><code>NOTION_ACCESS_TOKEN</code>（可选，不推荐）如果不开启share to web 选项，可以使用令牌让 Nobelium 从 Notion 数据库中抓取数据。令牌为 cookie 中为<code>token_v2</code></li>
+</ul>
+</li>
+</ol>
+<p>PS： Notion 令牌的有效期只有 180 天，需要在 vercel 仪表板中手动更新，将来可能会切换到官方 API 来解决此问题。此外，Notion 数据库中的图像将无法正常显示。</p>
+<p><figure 
+	>
+	<a href="https://github.com/craigary/nobelium/blob/main/pageid.png?raw=true" >
+		<img src="https://github.com/craigary/nobelium/blob/main/pageid.png?raw=true"
+			
+			
+			
+			loading="lazy"
+			alt="https://github.com/craigary/nobelium/blob/main/pageid.png?raw=true">
+	</a>
+	
+	<figcaption><a href="https://github.com/craigary/nobelium/blob/main/pageid.png?raw=true">https://github.com/craigary/nobelium/blob/main/pageid.png?raw=true</a></figcaption>
+	
+</figure></p>
+<h2 id="部署到-vercelhttpsvercelcom">部署到 <a class="link" href="https://vercel.com/"  target="_blank" rel="noopener"
+    >vercel</a></h2>
+<ol>
+<li>进入官网</li>
+<li>点击部署</li>
+<li>选择使用github储存库进行部署（如果是clone的项目，请上传到自己的github仓库）</li>
+<li>选择从 GitHub 中导入前面配置好的仓库，点击左侧的下拉框，选择「Add GitHub Org Account」。</li>
+<li>从自己的 GitHub 中选择刚配置好的仓库，仓库的名称应为「nextjs-notion-starter-kit」，接着点击右侧蓝色的导入按钮「Import」。</li>
+<li>按照页面提示，不需要修改配置信息，点击下一步，等待 Vercel 自动运行设定好的程序，直至页面返回「Successful」的提示，说明我们的博客顺利部署好了。</li>
+<li>在返回的 Successful 页面，会有一个「Visit」的按钮，点击按钮就可以前往 Vercel 部署好的页面。</li>
+</ol>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/notion/">notion</a>
+        
+            <a href="/tags/blog/">blog</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+    <aside class="related-contents--wrapper">
+    
+    
+        <h2 class="section-title">相关文章</h2>
+        <div class="related-contents">
+            <div class="flex article-list--tile">
+                
+                    
+<article class="">
+    <a href="/p/%E8%AE%B0%E4%B8%80%E6%AC%A1-hugo-%E5%AE%89%E8%A3%85/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">记一次 Hugo 安装</h2>
+        </div>
+    </a>
+</article>
+                
+            </div>
+        </div>
+    
+</aside>
+
+     
+    
+        
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "stack" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (DISQUS) {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2020 - 
+        
+        2021 ybakiame&#39; Blog
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.5.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css"integrity="sha256-c0uckgykQ9v5k&#43;IqViZOZKc47Jn7KQil4/MP3ySA3F8="crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css"integrity="sha256-SBLU4vv6CA6lHsZ1XyTdhyjJxCjPif/TRkjnsyGAGnE="crossorigin="anonymous"
+            >
+
+            </main>
+    
+        <aside class="sidebar right-sidebar sticky">
+            <section class="widget archives">
+                <div class="widget-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+                </div>
+                <h2 class="widget-title section-title">目录</h2>
+                
+                <div class="widget--toc">
+                    <nav id="TableOfContents">
+  <ol>
+    <li><a href="#为什么使用notion">为什么使用notion</a></li>
+    <li><a href="#使用到的工具">使用到的工具：</a></li>
+    <li><a href="#使用模版">使用模版</a>
+      <ol>
+        <li><a href="#nextjs-notion-starter-kithttpsgithubcomtransitive-bullshitnextjs-notion-starter-kit"><strong><a href="https://github.com/transitive-bullshit/nextjs-notion-starter-kit">nextjs-notion-starter-kit</a></strong></a></li>
+        <li><a href="#nobeliumhttpsgithubcomcraigarynobelium"><strong><a href="https://github.com/craigary/nobelium">nobelium</a></strong></a></li>
+      </ol>
+    </li>
+    <li><a href="#部署到-vercelhttpsvercelcom">部署到 <a href="https://vercel.com/">vercel</a></a></li>
+  </ol>
+</nav>
+                </div>
+            </section>
+        </aside>
+    
+
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js"integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g="crossorigin="anonymous"
+                defer="false"
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

@@ -6,7 +6,52 @@
     <description>Recent content in Categories on ybakiame&#39; Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 11 Nov 2021 11:18:56 +0800</lastBuildDate><atom:link href="https://example.com/categories/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 15 Nov 2021 13:24:27 +0800</lastBuildDate><atom:link href="https://example.com/categories/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>java</title>
+      <link>https://example.com/categories/java/</link>
+      <pubDate>Mon, 15 Nov 2021 13:24:27 +0800</pubDate>
+      
+      <guid>https://example.com/categories/java/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>连接池</title>
+      <link>https://example.com/categories/%E8%BF%9E%E6%8E%A5%E6%B1%A0/</link>
+      <pubDate>Mon, 15 Nov 2021 12:44:01 +0800</pubDate>
+      
+      <guid>https://example.com/categories/%E8%BF%9E%E6%8E%A5%E6%B1%A0/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>配置文件</title>
+      <link>https://example.com/categories/%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/</link>
+      <pubDate>Mon, 15 Nov 2021 12:44:01 +0800</pubDate>
+      
+      <guid>https://example.com/categories/%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>mybatis</title>
+      <link>https://example.com/categories/mybatis/</link>
+      <pubDate>Mon, 15 Nov 2021 12:39:17 +0800</pubDate>
+      
+      <guid>https://example.com/categories/mybatis/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>static site generators</title>
+      <link>https://example.com/categories/static-site-generators/</link>
+      <pubDate>Mon, 15 Nov 2021 11:56:52 +0800</pubDate>
+      
+      <guid>https://example.com/categories/static-site-generators/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>spring</title>
       <link>https://example.com/categories/spring/</link>
@@ -17,11 +62,11 @@
     </item>
     
     <item>
-      <title>mybatis</title>
-      <link>https://example.com/categories/mybatis/</link>
-      <pubDate>Tue, 09 Nov 2021 09:58:40 +0800</pubDate>
+      <title>教师笔记</title>
+      <link>https://example.com/categories/%E6%95%99%E5%B8%88%E7%AC%94%E8%AE%B0/</link>
+      <pubDate>Tue, 09 Nov 2021 09:52:53 +0800</pubDate>
       
-      <guid>https://example.com/categories/mybatis/</guid>
+      <guid>https://example.com/categories/%E6%95%99%E5%B8%88%E7%AC%94%E8%AE%B0/</guid>
       <description></description>
     </item>
     
@@ -44,15 +89,6 @@
     </item>
     
     <item>
-      <title>java</title>
-      <link>https://example.com/categories/java/</link>
-      <pubDate>Sat, 23 Oct 2021 22:26:26 +0800</pubDate>
-      
-      <guid>https://example.com/categories/java/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>json</title>
       <link>https://example.com/categories/json/</link>
       <pubDate>Tue, 19 Oct 2021 14:48:39 +0800</pubDate>
@@ -67,15 +103,6 @@
       <pubDate>Sat, 02 Oct 2021 11:39:05 +0800</pubDate>
       
       <guid>https://example.com/categories/mysql/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>static site generators</title>
-      <link>https://example.com/categories/static-site-generators/</link>
-      <pubDate>Fri, 10 Sep 2021 13:37:10 +0800</pubDate>
-      
-      <guid>https://example.com/categories/static-site-generators/</guid>
       <description></description>
     </item>
     

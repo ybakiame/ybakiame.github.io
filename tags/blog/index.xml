@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>blog on ybakiame&#39; Blog</title>
+    <link>https://example.com/tags/blog/</link>
+    <description>Recent content in blog on ybakiame&#39; Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 15 Nov 2021 11:56:52 +0800</lastBuildDate><atom:link href="https://example.com/tags/blog/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>使用notion搭建个人blog</title>
+      <link>https://example.com/p/%E4%BD%BF%E7%94%A8notion%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BAblog/</link>
+      <pubDate>Mon, 15 Nov 2021 11:56:52 +0800</pubDate>
+      
+      <guid>https://example.com/p/%E4%BD%BF%E7%94%A8notion%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BAblog/</guid>
+      <description>使用notion搭建blog 为什么使用notion 现在建博客的工具有很多很多。
+如果想要一个静态博客，你可以选择hugo、jekyll、hexo搭配github page实现。
+如果想要一个动态博客，又没有什么基础，那你可以选择WordPress，网上教程一大把。
+不过我采用的是notion＋github，并托管到vercel。
+使用notion基于以下几点考虑：
+ notion支持全平台(Windows、网页、Mac、ios、安卓)。可以随时随地地码字 页面简洁美观，功能强大。特别是database功能，非常方便管理，同时支持多种views展示 支持Markdown语法  使用到的工具：  notion 账号 github 账号 vercel 账号 git node.js vscode  使用模版 nextjs-notion-starter-kit   fork 或 clone 项目
+  使用命令行克隆
+git clone https://github.com/transitive-bullshit/nextjs-notion-starter-kit.git   使用Github Desktop或者vscode克隆
+    修改 site.config.js
+两个选项
+// 获取你要分享的notion page的id (必须)  rootNotionPageId: &amp;#39;78fc5a4b88d74b0e824e29407e9f1ec1&amp;#39;, // 生成网站的基础信息 (必须)  name: &amp;#39;Transitive Bullshit&amp;#39;,//名称  domain: &amp;#39;transitivebullsh.it&amp;#39;,//域名可不填  author: &amp;#39;Travis Fischer&amp;#39;,//作者   安装node.</description>
+    </item>
+    
+  </channel>
+</rss>

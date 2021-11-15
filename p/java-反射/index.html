@@ -1,0 +1,851 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='Java反射 什么是反射？ 反射就是Reflection，Java的反射是指程序在运行期可以拿到一个对象的所有信息。通过Class实例获取class信息的方法称为反射（Reflection）。
+如何获取一个class的Class实例？有三个方法： 方法一：直接通过一个class的静态变量class获取：
+Class cls = String.class; 方法二：如果我们有一个实例变量，可以通过该实例变量提供的getClass()方法获取：
+String s = &amp;#34;Hello&amp;#34;; Class cls = s.getClass(); 方法三：如果知道一个class的完整类名，可以通过静态方法Class.forName()获取：
+Class cls = Class.forName(&amp;#34;java.lang.String&amp;#34;); 注意Class实例和instanceof的差别： Integer n = new Integer(123); boolean b1 = n instanceof Integer; // true，因为n是Integer类型 boolean b2 = n instanceof Number; // true，因为n是Number类型的子类  boolean b3 = n.getClass() == Integer.class; // true，因为n.getClass()返回Integer.class boolean b4 = n.getClass() == Number.class; // false，因为Integer.class!=Number.class 用instanceof不但匹配指定类型，还匹配指定类型的子类。而用==判断class实例可以精确地判断数据类型，但不能作子类型比较。
+通常情况下，我们应该用instanceof判断数据类型，因为面向抽象编程的时候，我们不关心具体的子类型。只有在需要精确判断一个类型是不是某个class的时候，我们才使用==判断class实例。
+因为反射的目的是为了获得某个实例的信息。因此，可以通过Object.getClass()方法获取的class`信息：
+动态加载 JVM在执行Java程序的时候，并不是一次性把所有用到的class全部加载到内存，而是第一次需要用到class时才加载。例如：
+// Main.java public class Main { public static void main(String[] args) { if (args.'><title>java 反射</title>
+
+<link rel='canonical' href='https://example.com/p/java-%E5%8F%8D%E5%B0%84/'>
+
+<link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content='java 反射'>
+<meta property='og:description' content='Java反射 什么是反射？ 反射就是Reflection，Java的反射是指程序在运行期可以拿到一个对象的所有信息。通过Class实例获取class信息的方法称为反射（Reflection）。
+如何获取一个class的Class实例？有三个方法： 方法一：直接通过一个class的静态变量class获取：
+Class cls = String.class; 方法二：如果我们有一个实例变量，可以通过该实例变量提供的getClass()方法获取：
+String s = &amp;#34;Hello&amp;#34;; Class cls = s.getClass(); 方法三：如果知道一个class的完整类名，可以通过静态方法Class.forName()获取：
+Class cls = Class.forName(&amp;#34;java.lang.String&amp;#34;); 注意Class实例和instanceof的差别： Integer n = new Integer(123); boolean b1 = n instanceof Integer; // true，因为n是Integer类型 boolean b2 = n instanceof Number; // true，因为n是Number类型的子类  boolean b3 = n.getClass() == Integer.class; // true，因为n.getClass()返回Integer.class boolean b4 = n.getClass() == Number.class; // false，因为Integer.class!=Number.class 用instanceof不但匹配指定类型，还匹配指定类型的子类。而用==判断class实例可以精确地判断数据类型，但不能作子类型比较。
+通常情况下，我们应该用instanceof判断数据类型，因为面向抽象编程的时候，我们不关心具体的子类型。只有在需要精确判断一个类型是不是某个class的时候，我们才使用==判断class实例。
+因为反射的目的是为了获得某个实例的信息。因此，可以通过Object.getClass()方法获取的class`信息：
+动态加载 JVM在执行Java程序的时候，并不是一次性把所有用到的class全部加载到内存，而是第一次需要用到class时才加载。例如：
+// Main.java public class Main { public static void main(String[] args) { if (args.'>
+<meta property='og:url' content='https://example.com/p/java-%E5%8F%8D%E5%B0%84/'>
+<meta property='og:site_name' content='ybakiame&#39; Blog'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='java反射' /><meta property='article:published_time' content='2021-10-19T14:48:39&#43;08:00'/><meta property='article:modified_time' content='2021-10-19T14:48:39&#43;08:00'/>
+<meta name="twitter:title" content="java 反射">
+<meta name="twitter:description" content="Java反射 什么是反射？ 反射就是Reflection，Java的反射是指程序在运行期可以拿到一个对象的所有信息。通过Class实例获取class信息的方法称为反射（Reflection）。
+如何获取一个class的Class实例？有三个方法： 方法一：直接通过一个class的静态变量class获取：
+Class cls = String.class; 方法二：如果我们有一个实例变量，可以通过该实例变量提供的getClass()方法获取：
+String s = &amp;#34;Hello&amp;#34;; Class cls = s.getClass(); 方法三：如果知道一个class的完整类名，可以通过静态方法Class.forName()获取：
+Class cls = Class.forName(&amp;#34;java.lang.String&amp;#34;); 注意Class实例和instanceof的差别： Integer n = new Integer(123); boolean b1 = n instanceof Integer; // true，因为n是Integer类型 boolean b2 = n instanceof Number; // true，因为n是Number类型的子类  boolean b3 = n.getClass() == Integer.class; // true，因为n.getClass()返回Integer.class boolean b4 = n.getClass() == Number.class; // false，因为Integer.class!=Number.class 用instanceof不但匹配指定类型，还匹配指定类型的子类。而用==判断class实例可以精确地判断数据类型，但不能作子类型比较。
+通常情况下，我们应该用instanceof判断数据类型，因为面向抽象编程的时候，我们不关心具体的子类型。只有在需要精确判断一个类型是不是某个class的时候，我们才使用==判断class实例。
+因为反射的目的是为了获得某个实例的信息。因此，可以通过Object.getClass()方法获取的class`信息：
+动态加载 JVM在执行Java程序的时候，并不是一次性把所有用到的class全部加载到内存，而是第一次需要用到class时才加载。例如：
+// Main.java public class Main { public static void main(String[] args) { if (args.">
+    </head>
+    <body class="
+    article-page has-toc
+">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex 
+    
+        extended
+    
+">
+    
+        <div id="article-toolbar">
+            <a href="/" class="back-home">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="15 6 9 12 15 18" />
+</svg>
+
+
+
+                <span>返回</span>
+            </a>
+        </div>
+    
+<main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/java/" >
+                java
+            </a>
+        
+    </header>
+    
+
+    <h2 class="article-title">
+        <a href="/p/java-%E5%8F%8D%E5%B0%84/">java 反射</a>
+    </h2>
+
+    
+
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Oct 19, 2021</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    阅读时长: 4 分钟
+                </time>
+            </div>
+        
+    </footer>
+    
+</div>
+</header>
+
+    <section class="article-content">
+    <h2 id="java反射">Java反射</h2>
+<h3 id="什么是反射">什么是反射？</h3>
+<p>反射就是Reflection，Java的反射是指程序在运行期可以拿到一个对象的所有信息。通过<code>Class</code>实例获取<code>class</code>信息的方法称为反射（Reflection）。</p>
+<h4 id="如何获取一个class的class实例有三个方法">如何获取一个<code>class</code>的<code>Class</code>实例？有三个方法：</h4>
+<p>方法一：直接通过一个<code>class</code>的静态变量<code>class</code>获取：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="n">Class</span> <span class="n">cls</span> <span class="o">=</span> <span class="n">String</span><span class="o">.</span><span class="na">class</span><span class="o">;</span>
+</code></pre></div><p>方法二：如果我们有一个实例变量，可以通过该实例变量提供的<code>getClass()</code>方法获取：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="n">String</span> <span class="n">s</span> <span class="o">=</span> <span class="s">&#34;Hello&#34;</span><span class="o">;</span>
+<span class="n">Class</span> <span class="n">cls</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="na">getClass</span><span class="o">();</span>
+</code></pre></div><p>方法三：如果知道一个<code>class</code>的完整类名，可以通过静态方法<code>Class.forName()</code>获取：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="n">Class</span> <span class="n">cls</span> <span class="o">=</span> <span class="n">Class</span><span class="o">.</span><span class="na">forName</span><span class="o">(</span><span class="s">&#34;java.lang.String&#34;</span><span class="o">);</span>
+</code></pre></div><h4 id="注意class实例和instanceof的差别">注意<code>Class</code>实例和<code>instanceof</code>的差别：</h4>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="n">Integer</span> <span class="n">n</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Integer</span><span class="o">(</span><span class="n">123</span><span class="o">);</span>
+
+<span class="kt">boolean</span> <span class="n">b1</span> <span class="o">=</span> <span class="n">n</span> <span class="k">instanceof</span> <span class="n">Integer</span><span class="o">;</span> <span class="c1">// true，因为n是Integer类型
+</span><span class="c1"></span><span class="kt">boolean</span> <span class="n">b2</span> <span class="o">=</span> <span class="n">n</span> <span class="k">instanceof</span> <span class="n">Number</span><span class="o">;</span> <span class="c1">// true，因为n是Number类型的子类
+</span><span class="c1"></span>
+<span class="kt">boolean</span> <span class="n">b3</span> <span class="o">=</span> <span class="n">n</span><span class="o">.</span><span class="na">getClass</span><span class="o">()</span> <span class="o">==</span> <span class="n">Integer</span><span class="o">.</span><span class="na">class</span><span class="o">;</span> <span class="c1">// true，因为n.getClass()返回Integer.class
+</span><span class="c1"></span><span class="kt">boolean</span> <span class="n">b4</span> <span class="o">=</span> <span class="n">n</span><span class="o">.</span><span class="na">getClass</span><span class="o">()</span> <span class="o">==</span> <span class="n">Number</span><span class="o">.</span><span class="na">class</span><span class="o">;</span> <span class="c1">// false，因为Integer.class!=Number.class
+</span></code></pre></div><p>用<code>instanceof</code>不但匹配指定类型，还匹配指定类型的子类。而用<code>==</code>判断<code>class</code>实例可以精确地判断数据类型，但不能作子类型比较。</p>
+<p>通常情况下，我们应该用<code>instanceof</code>判断数据类型，因为面向抽象编程的时候，我们不关心具体的子类型。只有在需要精确判断一个类型是不是某个<code>class</code>的时候，我们才使用<code>==</code>判断<code>class</code>实例。</p>
+<p>因为反射的目的是为了获得某个实例的信息。因此，可以通过Object.getClass()<code>方法获取的</code>class`信息：</p>
+<h4 id="动态加载">动态加载</h4>
+<p>JVM在执行Java程序的时候，并不是一次性把所有用到的class全部加载到内存，而是第一次需要用到class时才加载。例如：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="c1">// Main.java
+</span><span class="c1"></span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Main</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">args</span><span class="o">.</span><span class="na">length</span> <span class="o">&gt;</span> <span class="n">0</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">create</span><span class="o">(</span><span class="n">args</span><span class="o">[</span><span class="n">0</span><span class="o">]);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+    <span class="kd">static</span> <span class="kt">void</span> <span class="nf">create</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">Person</span> <span class="n">p</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Person</span><span class="o">(</span><span class="n">name</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p>当执行<code>Main.java</code>时，由于用到了<code>Main</code>，因此，JVM首先会把<code>Main.class</code>加载到内存。这时不会加载<code>Person.class</code>，除非程序执行到<code>create()</code>方法，JVM发现需要<code>Person</code>类时，才会首次加载<code>Person.class</code>。这就是JVM动态加载<code>class</code>的特性。</p>
+<p>动态加载<code>class</code>的特性对于Java程序非常重要。利用JVM动态加载<code>class</code>的特性，我们才能在运行期根据条件加载不同的实现类。例如，Commons Logging总是优先使用Log4j，只有当Log4j不存在时，才使用JDK的logging。利用JVM动态加载特性，大致的实现代码如下：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="c1">// Commons Logging优先使用Log4j:
+</span><span class="c1"></span><span class="n">LogFactory</span> <span class="n">factory</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+<span class="k">if</span> <span class="o">(</span><span class="n">isClassPresent</span><span class="o">(</span><span class="s">&#34;org.apache.logging.log4j.Logger&#34;</span><span class="o">))</span> <span class="o">{</span>
+    <span class="n">factory</span> <span class="o">=</span> <span class="n">createLog4j</span><span class="o">();</span>
+<span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+    <span class="n">factory</span> <span class="o">=</span> <span class="n">createJdkLog</span><span class="o">();</span>
+<span class="o">}</span>
+
+<span class="kt">boolean</span> <span class="nf">isClassPresent</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">try</span> <span class="o">{</span>
+        <span class="n">Class</span><span class="o">.</span><span class="na">forName</span><span class="o">(</span><span class="n">name</span><span class="o">);</span>
+        <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+    <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p>这就是为什么我们只需要把Log4j的jar包放到classpath中，Commons Logging就会自动使用Log4j的原因。</p>
+<h4 id="小结">小结</h4>
+<p>JVM为每个加载的<code>class</code>及<code>interface</code>创建了对应的<code>Class</code>实例来保存<code>class</code>及<code>interface</code>的所有信息；</p>
+<p>获取一个<code>class</code>对应的<code>Class</code>实例后，就可以获取该<code>class</code>的所有信息；</p>
+<p>通过Class实例获取<code>class</code>信息的方法称为反射（Reflection）；</p>
+<p>JVM总是动态加载<code>class</code>，可以在运行期根据条件来控制加载class。</p>
+<h3 id="访问字段">访问字段</h3>
+<p>对任意的一个<code>Object</code>实例，只要我们获取了它的<code>Class</code>，就可以获取它的一切信息。</p>
+<p>如何通过<code>Class</code>实例获取字段信息。<code>Class</code>类提供了以下几个方法来获取字段：</p>
+<ul>
+<li>Field getField(name)：根据字段名获取某个public的field（包括父类）</li>
+<li>Field getDeclaredField(name)：根据字段名获取当前类的某个field（不包括父类）</li>
+<li>Field[] getFields()：获取所有public的field（包括父类）</li>
+<li>Field[] getDeclaredFields()：获取当前类的所有field（不包括父类）</li>
+</ul>
+<p>一个<code>Field</code>对象包含了一个字段的所有信息：</p>
+<ul>
+<li><code>getName()</code>：返回字段名称，例如，<code>&quot;name&quot;</code>；</li>
+<li><code>getType()</code>：返回字段类型，也是一个<code>Class</code>实例，例如，<code>String.class</code>；</li>
+<li><code>getModifiers()</code>：返回字段的修饰符，它是一个<code>int</code>，不同的bit表示不同的含义。</li>
+</ul>
+<p>调用<code>Field.setAccessible(true)，不管这个字段是不是</code>public`，一律允许访问。</p>
+<p>获取<code>Field</code>实例，然后，用<code>Field.get(Object)</code>获取指定实例的指定字段的值。</p>
+<h4 id="小结-1">小结</h4>
+<p>Java的反射API提供的<code>Field</code>类封装了字段的所有信息：</p>
+<p>通过<code>Class</code>实例的方法可以获取<code>Field</code>实例：<code>getField()</code>，<code>getFields()</code>，<code>getDeclaredField()</code>，<code>getDeclaredFields()</code>；</p>
+<p>通过Field实例可以获取字段信息：<code>getName()</code>，<code>getType()</code>，<code>getModifiers()</code>；</p>
+<p>通过Field实例可以读取或设置某个对象的字段，如果存在访问限制，要首先调用<code>setAccessible(true)</code>来访问非<code>public</code>字段。</p>
+<p>通过反射读写字段是一种非常规方法，它会破坏对象的封装。</p>
+<h3 id="调用方法">调用方法</h3>
+<p>我们已经能通过<code>Class</code>实例获取所有<code>Field</code>对象，同样的，可以通过<code>Class</code>实例获取所有<code>Method</code>信息。<code>Class</code>类提供了以下几个方法来获取<code>Method</code>：</p>
+<ul>
+<li><code>Method getMethod(name, Class...)</code>：获取某个<code>public</code>的<code>Method</code>（包括父类）</li>
+<li><code>Method getDeclaredMethod(name, Class...)</code>：获取当前类的某个<code>Method</code>（不包括父类）</li>
+<li><code>Method[] getMethods()</code>：获取所有<code>public</code>的<code>Method</code>（包括父类）</li>
+<li><code>Method[] getDeclaredMethods()</code>：获取当前类的所有<code>Method</code>（不包括父类）</li>
+</ul>
+<p>一个<code>Method</code>对象包含一个方法的所有信息：</p>
+<ul>
+<li><code>getName()</code>：返回方法名称，例如：<code>&quot;getScore&quot;</code>；</li>
+<li><code>getReturnType()</code>：返回方法返回值类型，也是一个Class实例，例如：<code>String.class</code>；</li>
+<li><code>getParameterTypes()</code>：返回方法的参数类型，是一个Class数组，例如：<code>{String.class, int.class}</code>；</li>
+<li><code>getModifiers()</code>：返回方法的修饰符，它是一个<code>int</code>，不同的bit表示不同的含义。</li>
+</ul>
+<h4 id="调用方法-1">调用方法</h4>
+<p>当我们获取到一个<code>Method</code>对象时，就可以对它进行调用。我们以下面的代码为例：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="n">String</span> <span class="n">s</span> <span class="o">=</span> <span class="s">&#34;Hello world&#34;</span><span class="o">;</span>
+<span class="n">String</span> <span class="n">r</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="na">substring</span><span class="o">(</span><span class="n">6</span><span class="o">);</span> <span class="c1">// &#34;world&#34;
+</span></code></pre></div><p>如果用反射来调用<code>substring</code>方法，需要以下代码：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="c1">// reflection
+</span><span class="c1"></span><span class="kn">import</span> <span class="nn">java.lang.reflect.Method</span><span class="o">;</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Main</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+        <span class="c1">// String对象:
+</span><span class="c1"></span>        <span class="n">String</span> <span class="n">s</span> <span class="o">=</span> <span class="s">&#34;Hello world&#34;</span><span class="o">;</span>
+        <span class="c1">// 获取String substring(int)方法，参数为int:
+</span><span class="c1"></span>        <span class="n">Method</span> <span class="n">m</span> <span class="o">=</span> <span class="n">String</span><span class="o">.</span><span class="na">class</span><span class="o">.</span><span class="na">getMethod</span><span class="o">(</span><span class="s">&#34;substring&#34;</span><span class="o">,</span> <span class="kt">int</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+        <span class="c1">// 在s对象上调用该方法并获取结果:
+</span><span class="c1"></span>        <span class="n">String</span> <span class="n">r</span> <span class="o">=</span> <span class="o">(</span><span class="n">String</span><span class="o">)</span> <span class="n">m</span><span class="o">.</span><span class="na">invoke</span><span class="o">(</span><span class="n">s</span><span class="o">,</span> <span class="n">6</span><span class="o">);</span>
+        <span class="c1">// 打印调用结果:
+</span><span class="c1"></span>        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">r</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+</code></pre></div><p>注意到<code>substring()</code>有两个重载方法，我们获取的是<code>String substring(int)</code>这个方法。思考一下如何获取<code>String substring(int, int)</code>方法。</p>
+<p>对<code>Method</code>实例调用<code>invoke</code>就相当于调用该方法，<code>invoke</code>的第一个参数是对象实例，即在哪个实例上调用该方法，后面的可变参数要与方法参数一致，否则将报错。</p>
+<h4 id="调用静态方法">调用静态方法</h4>
+<p>如果获取到的Method表示一个静态方法，调用静态方法时，由于无需指定实例对象，所以<code>invoke</code>方法传入的第一个参数永远为<code>null</code>。我们以<code>Integer.parseInt(String)</code>为例：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="c1">// reflection
+</span><span class="c1"></span><span class="kn">import</span> <span class="nn">java.lang.reflect.Method</span><span class="o">;</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Main</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+        <span class="c1">// 获取Integer.parseInt(String)方法，参数为String:
+</span><span class="c1"></span>        <span class="n">Method</span> <span class="n">m</span> <span class="o">=</span> <span class="n">Integer</span><span class="o">.</span><span class="na">class</span><span class="o">.</span><span class="na">getMethod</span><span class="o">(</span><span class="s">&#34;parseInt&#34;</span><span class="o">,</span> <span class="n">String</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+        <span class="c1">// 调用该静态方法并获取结果:
+</span><span class="c1"></span>        <span class="n">Integer</span> <span class="n">n</span> <span class="o">=</span> <span class="o">(</span><span class="n">Integer</span><span class="o">)</span> <span class="n">m</span><span class="o">.</span><span class="na">invoke</span><span class="o">(</span><span class="kc">null</span><span class="o">,</span> <span class="s">&#34;12345&#34;</span><span class="o">);</span>
+        <span class="c1">// 打印调用结果:
+</span><span class="c1"></span>        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">n</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+</code></pre></div><h4 id="调用非public方法">调用非public方法</h4>
+<p>和Field类似，对于非public方法，我们虽然可以通过<code>Class.getDeclaredMethod()</code>获取该方法实例，但直接对其调用将得到一个<code>IllegalAccessException</code>。为了调用非public方法，我们通过<code>Method.setAccessible(true)</code>允许其调用：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="c1">// reflection
+</span><span class="c1"></span><span class="kn">import</span> <span class="nn">java.lang.reflect.Method</span><span class="o">;</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Main</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+        <span class="n">Person</span> <span class="n">p</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Person</span><span class="o">();</span>
+        <span class="n">Method</span> <span class="n">m</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="na">getClass</span><span class="o">().</span><span class="na">getDeclaredMethod</span><span class="o">(</span><span class="s">&#34;setName&#34;</span><span class="o">,</span> <span class="n">String</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+        <span class="n">m</span><span class="o">.</span><span class="na">setAccessible</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>
+        <span class="n">m</span><span class="o">.</span><span class="na">invoke</span><span class="o">(</span><span class="n">p</span><span class="o">,</span> <span class="s">&#34;Bob&#34;</span><span class="o">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">p</span><span class="o">.</span><span class="na">name</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+<span class="kd">class</span> <span class="nc">Person</span> <span class="o">{</span>
+    <span class="n">String</span> <span class="n">name</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kt">void</span> <span class="nf">setName</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">name</span> <span class="o">=</span> <span class="n">name</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p>此外，<code>setAccessible(true)</code>可能会失败。如果JVM运行期存在<code>SecurityManager</code>，那么它会根据规则进行检查，有可能阻止<code>setAccessible(true)</code>。例如，某个<code>SecurityManager</code>可能不允许对<code>java</code>和<code>javax</code>开头的<code>package</code>的类调用<code>setAccessible(true)</code>，这样可以保证JVM核心库的安全。</p>
+<h4 id="多态">多态</h4>
+<p>我们来考察这样一种情况：一个<code>Person</code>类定义了<code>hello()</code>方法，并且它的子类<code>Student</code>也覆写了<code>hello()</code>方法，那么，从<code>Person.class</code>获取的<code>Method</code>，作用于<code>Student</code>实例时，调用的方法到底是哪个？</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="c1">// reflection
+</span><span class="c1"></span><span class="kn">import</span> <span class="nn">java.lang.reflect.Method</span><span class="o">;</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Main</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+        <span class="c1">// 获取Person的hello方法:
+</span><span class="c1"></span>        <span class="n">Method</span> <span class="n">h</span> <span class="o">=</span> <span class="n">Person</span><span class="o">.</span><span class="na">class</span><span class="o">.</span><span class="na">getMethod</span><span class="o">(</span><span class="s">&#34;hello&#34;</span><span class="o">);</span>
+        <span class="c1">// 对Student实例调用hello方法:
+</span><span class="c1"></span>        <span class="n">h</span><span class="o">.</span><span class="na">invoke</span><span class="o">(</span><span class="k">new</span> <span class="n">Student</span><span class="o">());</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="kd">class</span> <span class="nc">Person</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">hello</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;Person:hello&#34;</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="kd">class</span> <span class="nc">Student</span> <span class="kd">extends</span> <span class="n">Person</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">hello</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;Student:hello&#34;</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+</code></pre></div><p>运行上述代码，发现打印出的是<code>Student:hello</code>，因此，使用反射调用方法时，仍然遵循多态原则：即总是调用实际类型的覆写方法（如果存在）。上述的反射代码：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="n">Method</span> <span class="n">m</span> <span class="o">=</span> <span class="n">Person</span><span class="o">.</span><span class="na">class</span><span class="o">.</span><span class="na">getMethod</span><span class="o">(</span><span class="s">&#34;hello&#34;</span><span class="o">);</span>
+<span class="n">m</span><span class="o">.</span><span class="na">invoke</span><span class="o">(</span><span class="k">new</span> <span class="n">Student</span><span class="o">());</span>
+</code></pre></div><p>实际上相当于：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="n">Person</span> <span class="n">p</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Student</span><span class="o">();</span>
+<span class="n">p</span><span class="o">.</span><span class="na">hello</span><span class="o">();</span>
+</code></pre></div><h4 id="小结-2">小结</h4>
+<p>Java的反射API提供的Method对象封装了方法的所有信息：</p>
+<p>通过<code>Class</code>实例的方法可以获取<code>Method</code>实例：<code>getMethod()</code>，<code>getMethods()</code>，<code>getDeclaredMethod()</code>，<code>getDeclaredMethods()</code>；</p>
+<p>通过<code>Method</code>实例可以获取方法信息：<code>getName()</code>，<code>getReturnType()</code>，<code>getParameterTypes()</code>，<code>getModifiers()</code>；</p>
+<p>通过<code>Method</code>实例可以调用某个对象的方法：<code>Object invoke(Object instance, Object... parameters)</code>；</p>
+<p>通过设置<code>setAccessible(true)</code>来访问非<code>public</code>方法；</p>
+<p>通过反射调用方法时，仍然遵循多态原则。</p>
+<h3 id="调用构造方法">调用构造方法</h3>
+<p>通过反射来创建新的实例，可以调用Class提供的newInstance()方法：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="n">Person</span> <span class="n">p</span> <span class="o">=</span> <span class="n">Person</span><span class="o">.</span><span class="na">class</span><span class="o">.</span><span class="na">newInstance</span><span class="o">();</span>
+</code></pre></div><p>调用Class.newInstance()的局限是，它只能调用该类的public无参数构造方法。如果构造方法带有参数，或者不是public，就无法直接通过Class.newInstance()来调用。</p>
+<p>为了调用任意的构造方法，Java的反射API提供了Constructor对象，它包含一个构造方法的所有信息，可以创建一个实例。Constructor对象和Method非常类似，不同之处仅在于它是一个构造方法，并且，调用结果总是返回实例：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kn">import</span> <span class="nn">java.lang.reflect.Constructor</span><span class="o">;</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Main</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+        <span class="c1">// 获取构造方法Integer(int):
+</span><span class="c1"></span>        <span class="n">Constructor</span> <span class="n">cons1</span> <span class="o">=</span> <span class="n">Integer</span><span class="o">.</span><span class="na">class</span><span class="o">.</span><span class="na">getConstructor</span><span class="o">(</span><span class="kt">int</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+        <span class="c1">// 调用构造方法:
+</span><span class="c1"></span>        <span class="n">Integer</span> <span class="n">n1</span> <span class="o">=</span> <span class="o">(</span><span class="n">Integer</span><span class="o">)</span> <span class="n">cons1</span><span class="o">.</span><span class="na">newInstance</span><span class="o">(</span><span class="n">123</span><span class="o">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">n1</span><span class="o">);</span>
+
+        <span class="c1">// 获取构造方法Integer(String)
+</span><span class="c1"></span>        <span class="n">Constructor</span> <span class="n">cons2</span> <span class="o">=</span> <span class="n">Integer</span><span class="o">.</span><span class="na">class</span><span class="o">.</span><span class="na">getConstructor</span><span class="o">(</span><span class="n">String</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+        <span class="n">Integer</span> <span class="n">n2</span> <span class="o">=</span> <span class="o">(</span><span class="n">Integer</span><span class="o">)</span> <span class="n">cons2</span><span class="o">.</span><span class="na">newInstance</span><span class="o">(</span><span class="s">&#34;456&#34;</span><span class="o">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">n2</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p>通过Class实例获取Constructor的方法如下：</p>
+<ul>
+<li><code>getConstructor(Class...)</code>：获取某个<code>public</code>的<code>Constructor</code>；</li>
+<li><code>getDeclaredConstructor(Class...)</code>：获取某个<code>Constructor</code>；</li>
+<li><code>getConstructors()</code>：获取所有<code>public</code>的<code>Constructor</code>；</li>
+<li><code>getDeclaredConstructors()</code>：获取所有<code>Constructor</code>。</li>
+</ul>
+<p>注意<code>Constructor</code>总是当前类定义的构造方法，和父类无关，因此不存在多态的问题。</p>
+<p>调用非<code>public</code>的<code>Constructor</code>时，必须首先通过<code>setAccessible(true)</code>设置允许访问。<code>setAccessible(true)</code>可能会失败。</p>
+<h3 id="小结-3">小结</h3>
+<p><code>Constructor</code>对象封装了构造方法的所有信息；</p>
+<p>通过<code>Class</code>实例的方法可以获取<code>Constructor</code>实例：<code>getConstructor()</code>，<code>getConstructors()</code>，<code>getDeclaredConstructor()</code>，<code>getDeclaredConstructors()</code>；</p>
+<p>通过<code>Constructor</code>实例可以创建一个实例对象：<code>newInstance(Object... parameters)</code>； 通过设置<code>setAccessible(true)</code>来访问非<code>public</code>构造方法。</p>
+<h3 id="获取继承关系">获取继承关系</h3>
+<p>当我们获取到某个<code>Class</code>对象时，实际上就获取到了一个类的类型：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="n">Class</span> <span class="n">cls</span> <span class="o">=</span> <span class="n">String</span><span class="o">.</span><span class="na">class</span><span class="o">;</span> <span class="c1">// 获取到String的Class
+</span></code></pre></div><p>还可以用实例的<code>getClass()</code>方法获取：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="n">String</span> <span class="n">s</span> <span class="o">=</span> <span class="s">&#34;&#34;</span><span class="o">;</span>
+<span class="n">Class</span> <span class="n">cls</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="na">getClass</span><span class="o">();</span> <span class="c1">// s是String，因此获取到String的Class
+</span></code></pre></div><p>最后一种获取<code>Class</code>的方法是通过<code>Class.forName(&quot;&quot;)</code>，传入<code>Class</code>的完整类名获取：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="n">Class</span> <span class="n">s</span> <span class="o">=</span> <span class="n">Class</span><span class="o">.</span><span class="na">forName</span><span class="o">(</span><span class="s">&#34;java.lang.String&#34;</span><span class="o">);</span>
+</code></pre></div><p>这三种方式获取的<code>Class</code>实例都是同一个实例，因为JVM对每个加载的<code>Class</code>只创建一个<code>Class</code>实例来表示它的类型。</p>
+<h4 id="获取父类的class">获取父类的Class</h4>
+<p>有了<code>Class</code>实例，我们还可以获取它的父类的<code>Class</code>：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="c1">// reflection
+</span><span class="c1"></span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Main</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+        <span class="n">Class</span> <span class="n">i</span> <span class="o">=</span> <span class="n">Integer</span><span class="o">.</span><span class="na">class</span><span class="o">;</span>
+        <span class="n">Class</span> <span class="n">n</span> <span class="o">=</span> <span class="n">i</span><span class="o">.</span><span class="na">getSuperclass</span><span class="o">();</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">n</span><span class="o">);</span>
+        <span class="n">Class</span> <span class="n">o</span> <span class="o">=</span> <span class="n">n</span><span class="o">.</span><span class="na">getSuperclass</span><span class="o">();</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">o</span><span class="o">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">o</span><span class="o">.</span><span class="na">getSuperclass</span><span class="o">());</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p>运行上述代码，可以看到，<code>Integer</code>的父类类型是<code>Number</code>，<code>Number</code>的父类是<code>Object</code>，<code>Object</code>的父类是<code>null</code>。除<code>Object</code>外，其他任何非<code>interface</code>的<code>Class</code>都必定存在一个父类类型。</p>
+<h4 id="获取interface">获取interface</h4>
+<p>由于一个类可能实现一个或多个接口，通过<code>Class</code>我们就可以查询到实现的接口类型。例如，查询<code>Integer</code>实现的接口：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="c1">// reflection
+</span><span class="c1"></span><span class="kn">import</span> <span class="nn">java.lang.reflect.Method</span><span class="o">;</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Main</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+        <span class="n">Class</span> <span class="n">s</span> <span class="o">=</span> <span class="n">Integer</span><span class="o">.</span><span class="na">class</span><span class="o">;</span>
+        <span class="n">Class</span><span class="o">[]</span> <span class="n">is</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="na">getInterfaces</span><span class="o">();</span>
+        <span class="k">for</span> <span class="o">(</span><span class="n">Class</span> <span class="n">i</span> <span class="o">:</span> <span class="n">is</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">i</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p>运行上述代码可知，<code>Integer</code>实现的接口有：</p>
+<ul>
+<li>java.lang.Comparable</li>
+<li>java.lang.constant.Constable</li>
+<li>java.lang.constant.ConstantDesc</li>
+</ul>
+<p>要特别注意：<code>getInterfaces()</code>只返回当前类直接实现的接口类型，并不包括其父类实现的接口类型：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="c1">// reflection
+</span><span class="c1"></span><span class="kn">import</span> <span class="nn">java.lang.reflect.Method</span><span class="o">;</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Main</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+        <span class="n">Class</span> <span class="n">s</span> <span class="o">=</span> <span class="n">Integer</span><span class="o">.</span><span class="na">class</span><span class="o">.</span><span class="na">getSuperclass</span><span class="o">();</span>
+        <span class="n">Class</span><span class="o">[]</span> <span class="n">is</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="na">getInterfaces</span><span class="o">();</span>
+        <span class="k">for</span> <span class="o">(</span><span class="n">Class</span> <span class="n">i</span> <span class="o">:</span> <span class="n">is</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">i</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p><code>Integer</code>的父类是<code>Number</code>，<code>Number</code>实现的接口是<code>java.io.Serializable</code>。</p>
+<p>此外，对所有<code>interface</code>的<code>Class</code>调用<code>getSuperclass()</code>返回的是<code>null</code>，获取接口的父接口要用<code>getInterfaces()</code>：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">java</span><span class="o">.</span><span class="na">io</span><span class="o">.</span><span class="na">DataInputStream</span><span class="o">.</span><span class="na">class</span><span class="o">.</span><span class="na">getSuperclass</span><span class="o">());</span> <span class="c1">// java.io.FilterInputStream，因为DataInputStream继承自FilterInputStream
+</span><span class="c1"></span><span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">java</span><span class="o">.</span><span class="na">io</span><span class="o">.</span><span class="na">Closeable</span><span class="o">.</span><span class="na">class</span><span class="o">.</span><span class="na">getSuperclass</span><span class="o">());</span> <span class="c1">// null，对接口调用getSuperclass()总是返回null，获取接口的父接口要用getInterfaces()
+</span></code></pre></div><p>如果一个类没有实现任何<code>interface</code>，那么<code>getInterfaces()</code>返回空数组。</p>
+<h4 id="继承关系">继承关系</h4>
+<p>当我们判断一个实例是否是某个类型时，正常情况下，使用<code>instanceof</code>操作符：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="n">Object</span> <span class="n">n</span> <span class="o">=</span> <span class="n">Integer</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="n">123</span><span class="o">);</span>
+<span class="kt">boolean</span> <span class="n">isDouble</span> <span class="o">=</span> <span class="n">n</span> <span class="k">instanceof</span> <span class="n">Double</span><span class="o">;</span> <span class="c1">// false
+</span><span class="c1"></span><span class="kt">boolean</span> <span class="n">isInteger</span> <span class="o">=</span> <span class="n">n</span> <span class="k">instanceof</span> <span class="n">Integer</span><span class="o">;</span> <span class="c1">// true
+</span><span class="c1"></span><span class="kt">boolean</span> <span class="n">isNumber</span> <span class="o">=</span> <span class="n">n</span> <span class="k">instanceof</span> <span class="n">Number</span><span class="o">;</span> <span class="c1">// true
+</span><span class="c1"></span><span class="kt">boolean</span> <span class="n">isSerializable</span> <span class="o">=</span> <span class="n">n</span> <span class="k">instanceof</span> <span class="n">java</span><span class="o">.</span><span class="na">io</span><span class="o">.</span><span class="na">Serializable</span><span class="o">;</span> <span class="c1">// true
+</span></code></pre></div><p>如果是两个<code>Class</code>实例，要判断一个向上转型是否成立，可以调用<code>isAssignableFrom()</code>：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="c1">// Integer i = ?
+</span><span class="c1"></span><span class="n">Integer</span><span class="o">.</span><span class="na">class</span><span class="o">.</span><span class="na">isAssignableFrom</span><span class="o">(</span><span class="n">Integer</span><span class="o">.</span><span class="na">class</span><span class="o">);</span> <span class="c1">// true，因为Integer可以赋值给Integer
+</span><span class="c1">// Number n = ?
+</span><span class="c1"></span><span class="n">Number</span><span class="o">.</span><span class="na">class</span><span class="o">.</span><span class="na">isAssignableFrom</span><span class="o">(</span><span class="n">Integer</span><span class="o">.</span><span class="na">class</span><span class="o">);</span> <span class="c1">// true，因为Integer可以赋值给Number
+</span><span class="c1">// Object o = ?
+</span><span class="c1"></span><span class="n">Object</span><span class="o">.</span><span class="na">class</span><span class="o">.</span><span class="na">isAssignableFrom</span><span class="o">(</span><span class="n">Integer</span><span class="o">.</span><span class="na">class</span><span class="o">);</span> <span class="c1">// true，因为Integer可以赋值给Object
+</span><span class="c1">// Integer i = ?
+</span><span class="c1"></span><span class="n">Integer</span><span class="o">.</span><span class="na">class</span><span class="o">.</span><span class="na">isAssignableFrom</span><span class="o">(</span><span class="n">Number</span><span class="o">.</span><span class="na">class</span><span class="o">);</span> <span class="c1">// false，因为Number不能赋值给Integer
+</span></code></pre></div><h4 id="小结-4">小结</h4>
+<p>通过<code>Class</code>对象可以获取继承关系：</p>
+<ul>
+<li><code>Class getSuperclass()</code>：获取父类类型；</li>
+<li><code>Class[] getInterfaces()</code>：获取当前类实现的所有接口。</li>
+</ul>
+<p>通过<code>Class</code>对象的<code>isAssignableFrom()</code>方法可以判断一个向上转型是否可以实现。</p>
+<h3 id="动态代理">动态代理</h3>
+<p>我们来比较Java的<code>class</code>和<code>interface</code>的区别：</p>
+<ul>
+<li>可以实例化<code>class</code>（非<code>abstract</code>）；</li>
+<li>不能实例化<code>interface</code>。</li>
+</ul>
+<p>所有<code>interface</code>类型的变量总是通过向上转型并指向某个实例的：</p>
+<pre tabindex="0"><code>CharSequence cs = new StringBuilder();
+</code></pre><p>有没有可能不编写实现类，直接在运行期创建某个<code>interface</code>的实例呢？</p>
+<p>这是可能的，因为Java标准库提供了一种动态代理（Dynamic Proxy）的机制：可以在运行期动态创建某个<code>interface</code>的实例。</p>
+<p>什么叫运行期动态创建？听起来好像很复杂。所谓动态代理，是和静态相对应的。我们来看静态代码怎么写：</p>
+<p>定义接口：</p>
+<pre tabindex="0"><code>public interface Hello {
+    void morning(String name);
+}
+</code></pre><p>编写实现类：</p>
+<pre tabindex="0"><code>public class HelloWorld implements Hello {
+    public void morning(String name) {
+        System.out.println(&quot;Good morning, &quot; + name);
+    }
+}
+</code></pre><p>创建实例，转型为接口并调用：</p>
+<pre tabindex="0"><code>Hello hello = new HelloWorld();
+hello.morning(&quot;Bob&quot;);
+</code></pre><p>这种方式就是我们通常编写代码的方式。</p>
+<p>还有一种方式是动态代码，我们仍然先定义了接口<code>Hello</code>，但是我们并不去编写实现类，而是直接通过JDK提供的一个<code>Proxy.newProxyInstance()</code>创建了一个<code>Hello</code>接口对象。这种没有实现类但是在运行期动态创建了一个接口对象的方式，我们称为动态代码。JDK提供的动态创建接口对象的方式，就叫动态代理。</p>
+<p>一个最简单的动态代理实现如下：</p>
+<pre tabindex="0"><code>import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.Method;
+import java.lang.reflect.Proxy;
+</code></pre><p>Run</p>
+<p>在运行期动态创建一个<code>interface</code>实例的方法如下：</p>
+<ol>
+<li>
+<p>定义一个<code>InvocationHandler</code>实例，它负责实现接口的方法调用；</p>
+</li>
+<li>
+<p>通过</p>
+<pre tabindex="0"><code>Proxy.newProxyInstance()
+</code></pre><p>创建</p>
+<pre tabindex="0"><code>interface
+</code></pre><p>实例，它需要3个参数：</p>
+<ol>
+<li>使用的<code>ClassLoader</code>，通常就是接口类的<code>ClassLoader</code>；</li>
+<li>需要实现的接口数组，至少需要传入一个接口进去；</li>
+<li>用来处理接口方法调用的<code>InvocationHandler</code>实例。</li>
+</ol>
+</li>
+<li>
+<p>将返回的<code>Object</code>强制转型为接口。</p>
+</li>
+</ol>
+<p>动态代理实际上是JVM在运行期动态创建class字节码并加载的过程，它并没有什么黑魔法，把上面的动态代理改写为静态实现类大概长这样：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">HelloDynamicProxy</span> <span class="kd">implements</span> <span class="n">Hello</span> <span class="o">{</span>
+    <span class="n">InvocationHandler</span> <span class="n">handler</span><span class="o">;</span>
+    <span class="kd">public</span> <span class="nf">HelloDynamicProxy</span><span class="o">(</span><span class="n">InvocationHandler</span> <span class="n">handler</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">handler</span> <span class="o">=</span> <span class="n">handler</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">morning</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">handler</span><span class="o">.</span><span class="na">invoke</span><span class="o">(</span>
+           <span class="k">this</span><span class="o">,</span>
+           <span class="n">Hello</span><span class="o">.</span><span class="na">class</span><span class="o">.</span><span class="na">getMethod</span><span class="o">(</span><span class="s">&#34;morning&#34;</span><span class="o">,</span> <span class="n">String</span><span class="o">.</span><span class="na">class</span><span class="o">),</span>
+           <span class="k">new</span> <span class="n">Object</span><span class="o">[]</span> <span class="o">{</span> <span class="n">name</span> <span class="o">});</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p>其实就是JVM帮我们自动编写了一个上述类（不需要源码，可以直接生成字节码），并不存在可以直接实例化接口的黑魔法。</p>
+<h4 id="小结-5">小结</h4>
+<p>Java标准库提供了动态代理功能，允许在运行期动态创建一个接口的实例；</p>
+<p>动态代理是通过<code>Proxy</code>创建代理对象，然后将接口方法“代理”给<code>InvocationHandler</code>完成的。</p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/java%E5%8F%8D%E5%B0%84/">java反射</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+    <aside class="related-contents--wrapper">
+    
+    
+        <h2 class="section-title">相关文章</h2>
+        <div class="related-contents">
+            <div class="flex article-list--tile">
+                
+                    
+<article class="">
+    <a href="/p/stringbuffer/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Stringbuffer</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
+    <a href="/p/java-%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%8B%BC%E6%8E%A5%E5%86%85%E5%AD%98%E8%A7%A3%E6%9E%90/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Java 字符串拼接内存解析</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
+    <a href="/p/java%E5%91%BD%E5%90%8D%E8%A7%84%E8%8C%83%E5%8F%82%E8%80%83/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Java命名规范参考</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
+    <a href="/p/java%E4%B8%AD%E7%9A%84date%E5%92%8Cmysql%E4%B8%AD%E7%9A%84datetime/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Java中的Date和Mysql中的datetime</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
+    <a href="/p/java-%E6%B3%A8%E8%A7%A3/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">java 注解</h2>
+        </div>
+    </a>
+</article>
+                
+            </div>
+        </div>
+    
+</aside>
+
+     
+    
+        
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "stack" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (DISQUS) {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2020 - 
+        
+        2021 ybakiame&#39; Blog
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.5.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css"integrity="sha256-c0uckgykQ9v5k&#43;IqViZOZKc47Jn7KQil4/MP3ySA3F8="crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css"integrity="sha256-SBLU4vv6CA6lHsZ1XyTdhyjJxCjPif/TRkjnsyGAGnE="crossorigin="anonymous"
+            >
+
+            </main>
+    
+        <aside class="sidebar right-sidebar sticky">
+            <section class="widget archives">
+                <div class="widget-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+                </div>
+                <h2 class="widget-title section-title">目录</h2>
+                
+                <div class="widget--toc">
+                    <nav id="TableOfContents">
+  <ol>
+    <li><a href="#java反射">Java反射</a>
+      <ol>
+        <li><a href="#什么是反射">什么是反射？</a>
+          <ol>
+            <li><a href="#如何获取一个class的class实例有三个方法">如何获取一个<code>class</code>的<code>Class</code>实例？有三个方法：</a></li>
+            <li><a href="#注意class实例和instanceof的差别">注意<code>Class</code>实例和<code>instanceof</code>的差别：</a></li>
+            <li><a href="#动态加载">动态加载</a></li>
+            <li><a href="#小结">小结</a></li>
+          </ol>
+        </li>
+        <li><a href="#访问字段">访问字段</a>
+          <ol>
+            <li><a href="#小结-1">小结</a></li>
+          </ol>
+        </li>
+        <li><a href="#调用方法">调用方法</a>
+          <ol>
+            <li><a href="#调用方法-1">调用方法</a></li>
+            <li><a href="#调用静态方法">调用静态方法</a></li>
+            <li><a href="#调用非public方法">调用非public方法</a></li>
+            <li><a href="#多态">多态</a></li>
+            <li><a href="#小结-2">小结</a></li>
+          </ol>
+        </li>
+        <li><a href="#调用构造方法">调用构造方法</a></li>
+        <li><a href="#小结-3">小结</a></li>
+        <li><a href="#获取继承关系">获取继承关系</a>
+          <ol>
+            <li><a href="#获取父类的class">获取父类的Class</a></li>
+            <li><a href="#获取interface">获取interface</a></li>
+            <li><a href="#继承关系">继承关系</a></li>
+            <li><a href="#小结-4">小结</a></li>
+          </ol>
+        </li>
+        <li><a href="#动态代理">动态代理</a>
+          <ol>
+            <li><a href="#小结-5">小结</a></li>
+          </ol>
+        </li>
+      </ol>
+    </li>
+  </ol>
+</nav>
+                </div>
+            </section>
+        </aside>
+    
+
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js"integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g="crossorigin="anonymous"
+                defer="false"
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

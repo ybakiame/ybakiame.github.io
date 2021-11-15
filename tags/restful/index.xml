@@ -6,7 +6,22 @@
     <description>Recent content in restful on ybakiame&#39; Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 21 Oct 2021 21:51:22 +0800</lastBuildDate><atom:link href="https://example.com/tags/restful/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 15 Nov 2021 13:24:27 +0800</lastBuildDate><atom:link href="https://example.com/tags/restful/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Stringbuffer</title>
+      <link>https://example.com/p/stringbuffer/</link>
+      <pubDate>Mon, 15 Nov 2021 13:24:27 +0800</pubDate>
+      
+      <guid>https://example.com/p/stringbuffer/</guid>
+      <description>使用 Stringbuffer 代替 字符串连接 String是在Java中最常用的类。特别是在 Web 应用程序中，它被广泛用于生成和格式化 HTML 内容。
+String被设计为不可变的；为了修改一个 String，您必须创建一个新 String对象。因此，字符串连接可能会导致在构造 String最终对象之前创建许多中间对象 String。
+StringBuffer是 的可变伴生类 String；它允许您修改 String. 因此，StringBuffer通常比 String需要连接时更有效。
+如果在多个语句中重复附加到一个字符串，请使用 StringBuffer 而不是字符串连接 对 String重复使用“+=”操作代价高昂。
+例如：
+String s = new String(); [do some work ...] s += s1; [do some more work...] s += s2; 用 StringBuffer 替换上面的字符串连接：
+StringBuffer strbuf = new StringBuffer(); [do some work ...] strbuf.append(s1); [so some more work ...] strbuf.append(s2); String s = strbuf.toString(); 如果连接在一个语句内，则使用 String 或 StringBuffer String并 StringBuffer在某些情况下执行相同的操作；所以你不需要 StringBuffer直接使用。</description>
+    </item>
+    
     <item>
       <title>springMVC实现restful风格</title>
       <link>https://example.com/p/springmvc%E5%AE%9E%E7%8E%B0restful%E9%A3%8E%E6%A0%BC/</link>

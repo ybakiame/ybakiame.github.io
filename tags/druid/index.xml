@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>druid on ybakiame&#39; Blog</title>
+    <link>https://example.com/tags/druid/</link>
+    <description>Recent content in druid on ybakiame&#39; Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 15 Nov 2021 12:44:01 +0800</lastBuildDate><atom:link href="https://example.com/tags/druid/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Druid 连接池的简单配置</title>
+      <link>https://example.com/p/druid-%E8%BF%9E%E6%8E%A5%E6%B1%A0%E7%9A%84%E7%AE%80%E5%8D%95%E9%85%8D%E7%BD%AE/</link>
+      <pubDate>Mon, 15 Nov 2021 12:44:01 +0800</pubDate>
+      
+      <guid>https://example.com/p/druid-%E8%BF%9E%E6%8E%A5%E6%B1%A0%E7%9A%84%E7%AE%80%E5%8D%95%E9%85%8D%E7%BD%AE/</guid>
+      <description>#url=jdbc:mysql://localhost:3306/demo druid.url=jdbc:mysql://localhost:3306/mysql?serverTimezone=UTC #这个可以缺省的，会根据url自动识别 druid.driverClassName=com.mysql.cj.jdbc.Driver druid.username=root druid.password=12345678 ##初始连接数，默认0 druid.initialSize=10 #最大连接数，默认8 druid.maxActive=30 #最小闲置数 druid.minIdle=10 #获取连接的最大等待时间，单位毫秒 druid.maxWait=2000 #缓存PreparedStatement，默认false druid.poolPreparedStatements=true #缓存PreparedStatement的最大数量，默认-1（不缓存）。大于0时会自动开启缓存PreparedStatement，所以可以省略上一句设置 druid.maxOpenPreparedStatements=20 </description>
+    </item>
+    
+    <item>
+      <title>Mybatis 使用druid连接池</title>
+      <link>https://example.com/p/mybatis-%E4%BD%BF%E7%94%A8druid%E8%BF%9E%E6%8E%A5%E6%B1%A0/</link>
+      <pubDate>Mon, 15 Nov 2021 12:39:17 +0800</pubDate>
+      
+      <guid>https://example.com/p/mybatis-%E4%BD%BF%E7%94%A8druid%E8%BF%9E%E6%8E%A5%E6%B1%A0/</guid>
+      <description>mybatis使用Druid连接池 在 util包下新建一个 DruidDataSourceFactory类
+package com.edu.util; import com.alibaba.druid.pool.DruidDataSource; import org.apache.ibatis.datasource.DataSourceFactory; import org.apache.ibatis.datasource.pooled.PooledDataSourceFactory; import javax.sql.DataSource; import java.sql.SQLException; import java.util.Properties; //public class DruidDataSourceFactory extends PooledDataSourceFactory { // public DruidDataSourceFactory() { // this.dataSource = new DruidDataSource(); // } //}  public class DruidDataSourceFactory implements DataSourceFactory { private Properties props; @Override public DataSource getDataSource() { DruidDataSource dds = new DruidDataSource(); dds.setDriverClassName(this.props.getProperty(&amp;#34;driver&amp;#34;)); dds.setUrl(this.props.getProperty(&amp;#34;url&amp;#34;)); dds.setUsername(this.props.getProperty(&amp;#34;username&amp;#34;)); dds.setPassword(this.props.getProperty(&amp;#34;password&amp;#34;)); // 其他配置可以根据MyBatis主配置文件进行配置  try { dds.init(); } catch (SQLException e) { e.</description>
+    </item>
+    
+  </channel>
+</rss>
